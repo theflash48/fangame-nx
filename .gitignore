@@ -123,6 +123,8 @@
 # HTTPLite por HTTP y HTTPS: que cambio, como se prueba y lo que falta ver en consola.
 !/docs/red-httplite.md
 !/docs/fangame-nx/
+!/docs/fangame-nx/auditoria-001.md
+!/docs/fangame-nx/ADR-004-lanzador.md
 # Un fichero por juego encendido: que se empaqueto, cada vuelta (sintoma ->
 # linea del registro -> causa -> arreglo), tiempos y lo que queda.
 !/docs/pruebas/
