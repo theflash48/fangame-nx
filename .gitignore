@@ -125,6 +125,8 @@
 !/docs/fangame-nx/
 !/docs/fangame-nx/auditoria-001.md
 !/docs/fangame-nx/ADR-004-lanzador.md
+!/docs/fangame-nx/entorno-fnx-003.md
+!/docs/fangame-nx/log-fnx-003.md
 # Un fichero por juego encendido: que se empaqueto, cada vuelta (sintoma ->
 # linea del registro -> causa -> arreglo), tiempos y lo que queda.
 !/docs/pruebas/

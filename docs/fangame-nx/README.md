@@ -5,6 +5,11 @@
 - [`auditoria-001.md`](auditoria-001.md): inventario, arquitectura heredada, compatibilidad, licencias, riesgos y comprobaciones.
 - [`ADR-004-lanzador.md`](ADR-004-lanzador.md): viabilidad multijuego, arquitectura propuesta, alternativas y primer prototipo.
 
+## Misión 002
+
+- [`entorno-fnx-003.md`](entorno-fnx-003.md): guía de entorno, dependencias, procedimiento y bloqueos de compilación.
+- [`log-fnx-003.md`](log-fnx-003.md): comandos, versiones y resultados observados en esta misión.
+
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 
 ## Documentos de referencia
