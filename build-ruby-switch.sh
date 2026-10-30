@@ -22,8 +22,8 @@ export PORTLIBS=$DEVKITPRO/portlibs/switch
 # El PATH si necesita forma POSIX para el shell
 export PATH=/c/devkitPro/devkitA64/bin:/c/devkitPro/portlibs/switch/bin:$PATH
 
-ROOT=/c/anilswitch      # forma POSIX: la usa el shell (cd, test, redirecciones)
-ROOT_W=C:/anilswitch    # forma Windows: la ven GCC y el Ruby anfitrion.
+ROOT=$(cd "$(dirname "$0")" && pwd -P)  # forma POSIX: shell y ficheros
+ROOT_W=$(cygpath -m "$ROOT")              # forma Windows: GCC y Ruby anfitrion.
                         # mkmf.rb lanza sus conftest desde el Ruby de Windows,
                         # SIN la traduccion de rutas de MSYS2, asi que un
                         # -L/c/anilswitch/... se buscaria en C:\cnilswitch\...
@@ -32,6 +32,8 @@ BUILD=$ROOT/build/ruby-switch
 PREFIX=$ROOT/out/ruby-switch
 BASERUBY=$ROOT/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe
 SHIM=$ROOT/patches/include
+[ ! -L "$ROOT/build" ] && [ ! -L "$ROOT/out" ] || { echo "build/ y out/ no pueden ser enlaces simbolicos" >&2; exit 1; }
+mkdir -p "$ROOT/build" "$ROOT/out/nx/lib"
 
 ARCH="-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE"
 

@@ -1,0 +1,79 @@
+
+ORDEN DEDUCIDO (37 de 37 parches):
+   1. mkxpz-alijos-bitmap.patch
+   2. mkxpz-atlas-texto.patch
+   3. mkxpz-audio-track-nil.patch
+   4. mkxpz-binding-mri.cpp.patch
+   5. mkxpz-blt-recien-cargada.patch
+   6. mkxpz-bordes-opacos.patch
+   7. mkxpz-botones-nintendo.patch
+   8. mkxpz-config.cpp.patch
+   9. mkxpz-config.h.patch
+  10. mkxpz-debugwriter.h.patch
+  11. mkxpz-encoding.h.patch
+  12. mkxpz-eventthread-noresize.patch
+  13. mkxpz-filesystem.hpp.patch
+  14. mkxpz-fluid-fun.cpp.patch
+  15. mkxpz-fuente-cronometrada.patch
+  16. mkxpz-gl-util.patch
+  17. mkxpz-httplib.h.patch
+  18. mkxpz-input.cpp.patch
+  19. mkxpz-latido-por-segundo.patch
+  20. mkxpz-lector-contenedor.patch
+  21. mkxpz-lote-sprites.patch
+  22. mkxpz-main.cpp.patch
+  23. mkxpz-me-vuelve-muda.patch
+  24. mkxpz-montaje-ventana.patch
+  25. mkxpz-net-curl.patch
+  26. mkxpz-nucleo-musica.patch
+  27. mkxpz-pathcache-readdir.patch
+  28. mkxpz-fichero-lento.patch
+  29. mkxpz-recolector.patch
+  30. mkxpz-sharedstate-trazas.patch
+  31. mkxpz-contenedor-zip.patch
+  32. mkxpz-system.h.patch
+  33. mkxpz-systemImpl.cpp.patch
+  34. mkxpz-tactil.patch
+  35. mkxpz-textura-sin-memoria.patch
+  36. mkxpz-recolector-texturas.patch
+  37. mkxpz-vorbis-ov-hole.patch
+
+
+39 fichero(s) salen identicos, 0 se desvian, 0 sin parche
+01/37 mkxpz-alijos-bitmap.patch: aplicado (-p0)
+02/37 mkxpz-atlas-texto.patch: aplicado (-p1)
+03/37 mkxpz-audio-track-nil.patch: aplicado (-p0)
+04/37 mkxpz-binding-mri.cpp.patch: aplicado (-p1)
+05/37 mkxpz-blt-recien-cargada.patch: aplicado (-p1)
+06/37 mkxpz-bordes-opacos.patch: aplicado (-p1)
+07/37 mkxpz-botones-nintendo.patch: aplicado (-p0)
+08/37 mkxpz-config.cpp.patch: aplicado (-p1)
+09/37 mkxpz-config.h.patch: aplicado (-p1)
+10/37 mkxpz-debugwriter.h.patch: aplicado (-p0)
+11/37 mkxpz-encoding.h.patch: aplicado (-p0)
+12/37 mkxpz-eventthread-noresize.patch: aplicado (-p1)
+13/37 mkxpz-filesystem.hpp.patch: aplicado (-p0)
+14/37 mkxpz-fluid-fun.cpp.patch: aplicado (-p0)
+15/37 mkxpz-fuente-cronometrada.patch: aplicado (-p1)
+16/37 mkxpz-gl-util.patch: aplicado (-p0)
+17/37 mkxpz-httplib.h.patch: aplicado (-p0)
+18/37 mkxpz-input.cpp.patch: aplicado (-p1)
+19/37 mkxpz-latido-por-segundo.patch: aplicado (-p0)
+20/37 mkxpz-lector-contenedor.patch: aplicado (-p1)
+21/37 mkxpz-lote-sprites.patch: aplicado (-p1)
+22/37 mkxpz-main.cpp.patch: aplicado (-p1)
+23/37 mkxpz-me-vuelve-muda.patch: aplicado (-p0)
+24/37 mkxpz-montaje-ventana.patch: aplicado (-p1)
+25/37 mkxpz-net-curl.patch: aplicado (-p1)
+26/37 mkxpz-nucleo-musica.patch: aplicado (-p0)
+27/37 mkxpz-pathcache-readdir.patch: aplicado (-p1)
+28/37 mkxpz-fichero-lento.patch: aplicado (-p1)
+29/37 mkxpz-recolector.patch: aplicado (-p1)
+30/37 mkxpz-sharedstate-trazas.patch: aplicado (-p1)
+31/37 mkxpz-contenedor-zip.patch: aplicado (-p1)
+32/37 mkxpz-system.h.patch: aplicado (-p0)
+33/37 mkxpz-systemImpl.cpp.patch: aplicado (-p0)
+34/37 mkxpz-tactil.patch: aplicado (-p1)
+35/37 mkxpz-textura-sin-memoria.patch: aplicado (-p1)
+36/37 mkxpz-recolector-texturas.patch: aplicado (-p1)
+37/37 mkxpz-vorbis-ov-hole.patch: aplicado (-p0)

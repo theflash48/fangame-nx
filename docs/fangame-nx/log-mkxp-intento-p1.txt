@@ -1,0 +1,70 @@
+Parches mkxp-z v2.4.2: 37
+=== mkxpz-alijos-bitmap.patch ===
+can't find file to patch at input line 62
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|Los dos alijos de bitmap.cpp, el pegado diferido de set_pixel y los cronometros.
+|
+|Como gl-util.h y texpool.h, este fichero llevaba semanas cambiado y sin parche:
+|existia el .orig al lado, pero src/ esta en .gitignore, asi que veintitres
+|trozos de trabajo -y toda la prosa que explica por que estan- vivian solo en la
+|copia de trabajo de una maquina. Aqui quedan, y se pueden volver a aplicar sobre
+|mkxp-z 2.4.2 limpio.
+|
+|Lleva tres cosas, y las tres nacen de la misma medida: en esta consola lo caro
+|no es dibujar, es preparar lo que se dibuja.
+|
+|1. DOS ALIJOS DE SUPERFICIES YA COCINADAS. El fondo de texturas recicla el HUECO
+|   en la GPU y eso ya funcionaba; lo que no reciclaba nadie era el TRABAJO de
+|   llenarlo. Un cambio de pestana en la mochila reabria los mismos veintiun PNG
+|   del microSD, los descomprimia y los volvia a subir: 179 ms de abrir mas 51 de
+|   descomprimir, cada vez que pulsas izquierda o derecha. Y con el texto era
+|   peor: 312 cadenas por fotograma a un milisegundo cada una, porque Essentials
+|   dibuja con borde y TTF_SetFontOutline tira el cache de glifos de la fuente
+|   cada vez que se toca -dos veces por cadena-. Se guarda la superficie
+|   TERMINADA, con su sombra y su borde ya puestos, indexada por lo que la
+|   determina y no por quien la pidio: dos Bitmap que dibujen "POCION" con la
+|   misma fuente y el mismo color quieren los mismos pixeles.
+|
+|   El contrato de guarda() dice si el alijo se ha quedado con lo que le das, y
+|   eso no es un detalle de estilo. La primera version se quedaba con la
+|   propiedad pasara lo que pasara y liberaba lo que no le cabia; el que dibuja
+|   necesita el objeto DESPUES de ofrecerlo, asi que un alijo lleno le dejaba un
+|   puntero muerto en la mano.
+|
+|2. EL PEGADO DIFERIDO DE set_pixel. Bitmap::setPixel hacia un glTexSubImage2D
+|   de 1x1 por llamada, y cada subida sincroniza con el driver. El plugin Marin
+|   Better Bitmaps dibuja los hexagonos de estadisticas linea a linea con
+|   set_pixel, decenas de miles de veces por pagina. Ahora set_pixel escribe en
+|   la copia en RAM -la misma que lee get_pixel- y agranda un rectangulo sucio;
+|   la subida ocurre una sola vez, en vuelca(), llamada desde los tres unicos
+|   sitios por los que la textura sale hacia la GPU.
+|
+|3. LOS CRONOMETROS. NX_MIDE apunta cada tramo -decodificar, leer pixeles,
+|   texto, pegar, medir- con un destructor, porque drawText y stretchBlt tienen
+|   media docena de salidas tempranas cada una y cronometrarlas a mano seria
+|   olvidarse de alguna. Es lo que hace legible la linea [tiron] del registro.
+|
+|Y guarda tambien las "mega surface" —las imagenes mas grandes de lo que la GPU
+|admite como textura, que se quedan en RAM—. Hasta el 6 de septiembre de 2026 no
+|lo hacia, porque el guardado estaba en la otra rama del if, y eso convertia a
+|las imagenes MAS CARAS del juego en las unicas que no se reaprovechaban nunca.
+|Medido en la consola: en una sesion de cuatro minutos,
+|Graphics/Tilesets/Exterior1 —256 x 23370 pixeles, 22,8 MB en RGBA— se
+|descomprimio VEINTIUNA veces a 225 ms cada una. Son 4,7 segundos de reloj, cada
+|uno de ellos un fotograma parado, y era el tiron mas gordo de la sesion.
+|
+|El duenno de una mega surface es el Bitmap —releaseResources() la libera—, asi
+|que el alijo no puede quedarse con la que se entrega: guarda una copia. Copiar
+|23 MB son unos milisegundos; descomprimirla otra vez son 225.
+|
+|Los tamanos: 192 MB para las imagenes y 32 para el texto. El primero son
+|superficies de SDL, que estan en el monton; el segundo son Bitmap, que si tienen
+|textura detras y cuentan en la GPU. Ver nx/nx_tirones.c y README 5.55.
+|
+|--- src/display/bitmap.cpp.orig
+|+++ src/display/bitmap.cpp
+--------------------------
+No file to patch.  Skipping patch.
+24 out of 24 hunks ignored

@@ -15,9 +15,12 @@
 # La raiz del repositorio, en FORMA WINDOWS (C:/rgss-switch, no /c/rgss-switch):
 # GCC bajo MSYS2 no entiende las rutas de MSYS (mismo problema de forma que
 # §5.15 y §5.18). Sale de la ubicacion de este Makefile, asi que el arbol se
-# puede clonar en cualquier sitio sin tocar nada. Si cygpath no esta -por
-# ejemplo si make se invoca desde otra shell-, se cae a la ruta de siempre.
-RAIZ := $(shell cygpath -m $(abspath $(CURDIR)/..) 2>/dev/null || echo C:/rgss-switch)
+# puede clonar en cualquier sitio sin tocar nada. cygpath es obligatorio para
+# evitar que un fallback compile o escriba en otro proyecto.
+RAIZ := $(shell cygpath -m "$(abspath $(CURDIR)/..)" 2>/dev/null)
+ifeq ($(strip $(RAIZ)),)
+$(error falta cygpath: invoca make desde la shell MSYS2 de devkitPro)
+endif
 
 export TMPDIR := $(RAIZ)/tmp
 export TMP    := $(RAIZ)/tmp

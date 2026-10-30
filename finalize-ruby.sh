@@ -13,7 +13,8 @@
 set -e
 export DEVKITPRO=C:/devkitPro
 export PATH=/c/devkitPro/devkitA64/bin:$PATH
-ROOT=/c/anilswitch
+ROOT=$(cd "$(dirname "$0")" && pwd -P)
+[ ! -L "$ROOT/out" ] || { echo "out/ no puede ser enlace simbolico" >&2; exit 1; }
 AR=aarch64-none-elf-ar
 NM=aarch64-none-elf-nm
 

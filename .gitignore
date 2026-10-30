@@ -28,6 +28,8 @@
 !/gen-xxd.sh
 !/fixup-arm64.py
 !/reconstruir-src.py
+!/aplicar-parches-mkxp.py
+!/aplicar-parches-ruby.py
 !/construir.sh
 !/publicar.sh
 !/PUBLICAR.md
@@ -127,6 +129,11 @@
 !/docs/fangame-nx/ADR-004-lanzador.md
 !/docs/fangame-nx/entorno-fnx-003.md
 !/docs/fangame-nx/log-fnx-003.md
+!/docs/fangame-nx/log-mkxp-intento-p1.txt
+!/docs/fangame-nx/log-reconstruir-sin-patch.txt
+!/docs/fangame-nx/log-reconstruir-preparacion.txt
+!/docs/fangame-nx/log-aplicar-mkxp.txt
+!/docs/fangame-nx/log-aplicar-ruby.txt
 # Un fichero por juego encendido: que se empaqueto, cada vuelta (sintoma ->
 # linea del registro -> causa -> arreglo), tiempos y lo que queda.
 !/docs/pruebas/

@@ -6,7 +6,8 @@ export DEVKITPRO=C:/devkitPro
 export DEVKITA64=$DEVKITPRO/devkitA64
 export PORTLIBS=$DEVKITPRO/portlibs/switch
 export PATH=/c/devkitPro/devkitA64/bin:/c/devkitPro/portlibs/switch/bin:$PATH
-ROOT=/c/anilswitch
+ROOT=$(cd "$(dirname "$0")" && pwd -P)
+[ ! -L "$ROOT/build" ] || { echo "build/ no puede ser enlace simbolico" >&2; exit 1; }
 cd $ROOT/build/ruby-switch
 # -k: seguir pese al fallo del ejecutable 'ruby' (que no necesitamos).
 # Lo que buscamos son los .a de las extensiones, sobre todo zlib.

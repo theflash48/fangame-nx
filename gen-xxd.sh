@@ -8,8 +8,10 @@
 # shader.cpp espera justo esos nombres, asi que hay que invocarlo desde un
 # directorio hermano de shader/ y assets/, con la ruta relativa exacta.
 set -e
-MK=/c/anilswitch/src/mkxp-z
-OUT=/c/anilswitch/mkxp-z-nx/generated
+ROOT=$(cd "$(dirname "$0")" && pwd -P)
+MK=$ROOT/src/mkxp-z
+OUT=$ROOT/mkxp-z-nx/generated
+[ ! -L "$MK" ] && [ ! -L "$OUT" ] || { echo "fuente y salida no pueden ser enlaces simbolicos" >&2; exit 1; }
 mkdir -p "$OUT" "$MK/nxbuild"
 cd "$MK/nxbuild"
 

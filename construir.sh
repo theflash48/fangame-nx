@@ -25,6 +25,9 @@
 set -eu
 RAIZ=$(cd "$(dirname "$0")" && pwd)
 cd "$RAIZ"
+[ ! -L "$RAIZ/release" ] && [ ! -L "$RAIZ/src" ] && [ ! -L "$RAIZ/mkxp-z-nx/build" ] || {
+  echo "release/, src/ y mkxp-z-nx/build/ no pueden ser enlaces simbolicos" >&2; exit 1;
+}
 VERSION=$(cat VERSION)
 export DEVKITPRO=${DEVKITPRO:-C:/devkitPro}
 [ -d "$DEVKITPRO/devkitA64" ] || DEVKITPRO=C:/devkitPro
@@ -55,7 +58,15 @@ paso "2. Shaders"
 [ -d mkxp-z-nx/generated ] && echo "generated/ ya esta" || ./gen-xxd.sh
 
 paso "3. rgss-switch.nro"
-make -C mkxp-z-nx -j"$(nproc 2>/dev/null || echo 4)" 2>&1 | grep -vE "valid for C\+\+" | grep -E "error|NACP|NRO" || true
+mkdir -p "$RAIZ/src/build-logs"
+[ ! -L "$RAIZ/src/build-logs" ] || { echo "src/build-logs/ no puede ser enlace simbolico" >&2; exit 1; }
+MAKE_LOG=$(mktemp "$RAIZ/src/build-logs/make.XXXXXX")
+echo "log completo de make: $MAKE_LOG"
+if ! make -C mkxp-z-nx -j"$(nproc 2>/dev/null || echo 4)" > "$MAKE_LOG" 2>&1; then
+  tail -n 80 "$MAKE_LOG"
+  exit 1
+fi
+grep -vE "valid for C\+\+" "$MAKE_LOG" | grep -E "error|NACP|NRO" || true
 [ -f mkxp-z-nx/rgss-switch.nro ] || { echo "no salio el .nro"; exit 1; }
 [ -f mkxp-z-nx/rgss-switch.elf ] || { echo "no salio el .elf"; exit 1; }
 

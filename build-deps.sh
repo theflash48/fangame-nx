@@ -1,11 +1,14 @@
 #!/bin/bash
 # Dependencias de mkxp-z que devkitPro no empaqueta, portadas a Switch.
+set -e
 export DEVKITPRO=C:/devkitPro
 export DEVKITA64=$DEVKITPRO/devkitA64
 export PORTLIBS=$DEVKITPRO/portlibs/switch
 export PATH=/c/devkitPro/devkitA64/bin:/c/devkitPro/portlibs/switch/bin:$PATH
-ROOT=/c/anilswitch
-ROOT_W=C:/anilswitch
+ROOT=$(cd "$(dirname "$0")" && pwd -P)
+ROOT_W=$(cygpath -m "$ROOT")
+[ ! -L "$ROOT/build" ] && [ ! -L "$ROOT/out" ] || { echo "build/ y out/ no pueden ser enlaces simbolicos" >&2; exit 1; }
+mkdir -p "$ROOT/build" "$ROOT/out/nx"
 PREFIX=$ROOT_W/out/nx
 
 ARCH="-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE"

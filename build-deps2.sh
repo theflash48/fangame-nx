@@ -3,11 +3,15 @@
 # concatena al directorio de build. Para los targets de CMake usamos POSIX.
 # Solo construimos librerias estaticas, asi que no hace falta switch.ld y no
 # aplica el problema de %:getenv(DEVKITPRO) descrito en 5.15.
+set -e
 export DEVKITPRO=/c/devkitPro
 export DEVKITA64=$DEVKITPRO/devkitA64
 export PORTLIBS=$DEVKITPRO/portlibs/switch
 export PATH=/c/devkitPro/devkitA64/bin:/c/devkitPro/portlibs/switch/bin:$PATH
-ROOT=/c/anilswitch; PREFIX=/c/anilswitch/out/nx
+ROOT=$(cd "$(dirname "$0")" && pwd -P)
+[ ! -L "$ROOT/build" ] && [ ! -L "$ROOT/out" ] || { echo "build/ y out/ no pueden ser enlaces simbolicos" >&2; exit 1; }
+mkdir -p "$ROOT/build" "$ROOT/out/nx"
+PREFIX=$ROOT/out/nx
 ARCH="-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE"
 export CFLAGS="-g -O2 -std=gnu11 $ARCH -D__SWITCH__"
 export CXXFLAGS="-g -O2 -std=gnu++17 $ARCH -D__SWITCH__"
