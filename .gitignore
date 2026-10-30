@@ -22,6 +22,7 @@
 #--- Cadena de compilacion ----------------------------------------------------
 !/build-deps.sh
 !/build-deps2.sh
+!/build-nxcompat.sh
 !/build-ruby-switch.sh
 !/make-resume.sh
 !/finalize-ruby.sh
@@ -134,6 +135,46 @@
 !/docs/fangame-nx/log-reconstruir-preparacion.txt
 !/docs/fangame-nx/log-aplicar-mkxp.txt
 !/docs/fangame-nx/log-aplicar-ruby.txt
+!/docs/fangame-nx/log-pacman-plan.txt
+!/docs/fangame-nx/log-pacman-install.txt
+!/docs/fangame-nx/log-nxcompat.txt
+!/docs/fangame-nx/log-build-deps-1.txt
+!/docs/fangame-nx/log-dep-libiconv-1.txt
+!/docs/fangame-nx/log-pacman-Q.txt
+!/docs/fangame-nx/log-libiconv-install-lib-1.txt
+!/docs/fangame-nx/log-build-deps-2.txt
+!/docs/fangame-nx/log-dep-libiconv-2.txt
+!/docs/fangame-nx/log-dep-uchardet-1.txt
+!/docs/fangame-nx/log-build-deps2-1.txt
+!/docs/fangame-nx/log-build-deps2-2.txt
+!/docs/fangame-nx/log-build-deps-3.txt
+!/docs/fangame-nx/log-dep-libiconv-3.txt
+!/docs/fangame-nx/log-dep-pixman-1.txt
+!/docs/fangame-nx/log-dep-uchardet-2.txt
+!/docs/fangame-nx/log-dep-sdlsound-1.txt
+!/docs/fangame-nx/log-uchardet-install-lib-1.txt
+!/docs/fangame-nx/log-uchardet-install-only-1.txt
+!/docs/fangame-nx/log-build-ruby-1.txt
+!/docs/fangame-nx/log-ruby-make-1.txt
+!/docs/fangame-nx/log-build-ruby-2.txt
+!/docs/fangame-nx/log-ruby-configure-2.txt
+!/docs/fangame-nx/log-ruby-make-2.txt
+!/docs/fangame-nx/log-build-ruby-3.txt
+!/docs/fangame-nx/log-ruby-configure-3.txt
+!/docs/fangame-nx/log-ruby-make-3.txt
+!/docs/fangame-nx/log-ruby-stringio-mkmf-3.txt
+!/docs/fangame-nx/log-ruby-strscan-mkmf-3.txt
+!/docs/fangame-nx/log-ruby-zlib-mkmf-3.txt
+!/docs/fangame-nx/log-uchardet-all-repro.txt
+!/docs/fangame-nx/log-ruby-link-verbose-1.txt
+!/docs/fangame-nx/log-ruby-configure-4.txt
+!/docs/fangame-nx/log-ruby-make-4.txt
+!/docs/fangame-nx/log-build-ruby-4.txt
+!/docs/fangame-nx/log-build-nxcompat-1.txt
+!/docs/fangame-nx/log-ruby-stringio-mkmf-4.txt
+!/docs/fangame-nx/log-ruby-strscan-mkmf-4.txt
+!/docs/fangame-nx/log-ruby-zlib-mkmf-4.txt
+!/docs/fangame-nx/log-artefactos-fnx-003.txt
 # Un fichero por juego encendido: que se empaqueto, cada vuelta (sintoma ->
 # linea del registro -> causa -> arreglo), tiempos y lo que queda.
 !/docs/pruebas/

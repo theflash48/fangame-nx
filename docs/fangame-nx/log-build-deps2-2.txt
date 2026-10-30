@@ -1,0 +1,11 @@
+############ uchardet ############
+  >>> libuchardet OK
+
+############ SDL_sound ############
+  >>> libSDL2_sound OK
+
+=================== LIBRERIAS ===================
+  /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libSDL2_sound.a   2489.8 KB
+  /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.a     11.6 KB
+  /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a   1861.9 KB
+  /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libuchardet.a   1027.8 KB

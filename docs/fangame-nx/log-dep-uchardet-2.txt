@@ -1,0 +1,91 @@
+CMake Deprecation Warning at CMakeLists.txt:2 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- The CXX compiler identification is GNU 16.1.0
+-- The C compiler identification is GNU 16.1.0
+-- Detected multilib folder: pic
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /c/devkitPro/devkitA64/bin/aarch64-none-elf-g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /c/devkitPro/devkitA64/bin/aarch64-none-elf-gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Skipping test da:iso-8859-1 (known broken)
+-- Skipping test es:iso-8859-15 (known broken)
+-- Skipping test he:iso-8859-8 (known broken)
+-- Skipping test ja:utf-16be (known broken)
+-- Skipping test ja:utf-16le (known broken)
+-- Configuring done (4.9s)
+-- Generating done (0.2s)
+-- Build files have been written to: /c/Users/USER/Documents/GitHub/FangameNX/build/uchardet
+[  3%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangBulgarianModel.o
+[  3%] Building CXX object src/CMakeFiles/libuchardet.dir/CharDistribution.o
+[  5%] Building CXX object src/CMakeFiles/libuchardet.dir/JpCntx.o
+[  9%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangArabicModel.o
+[  7%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangCroatianModel.o
+[ 11%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangCzechModel.o
+[ 13%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangEsperantoModel.o
+[ 15%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangFrenchModel.o
+[ 17%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangEstonianModel.o
+[ 19%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangFinnishModel.o
+[ 21%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangDanishModel.o
+[ 23%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangGermanModel.o
+[ 25%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangGreekModel.o
+[ 29%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangHebrewModel.o
+[ 27%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangHungarianModel.o
+[ 31%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangIrishModel.o
+[ 33%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangItalianModel.o
+[ 35%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangLithuanianModel.o
+[ 37%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangLatvianModel.o
+[ 39%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangMalteseModel.o
+[ 41%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangPolishModel.o
+[ 45%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangRomanianModel.o
+[ 43%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangPortugueseModel.o
+[ 47%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangRussianModel.o
+[ 49%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSlovakModel.o
+[ 50%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSpanishModel.o
+[ 54%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangThaiModel.o
+[ 52%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSloveneModel.o
+[ 58%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSwedishModel.o
+[ 58%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangTurkishModel.o
+[ 60%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangVietnameseModel.o
+[ 62%] Building CXX object src/CMakeFiles/libuchardet.dir/nsCharSetProber.o
+[ 66%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangNorwegianModel.o
+[ 66%] Building CXX object src/CMakeFiles/libuchardet.dir/nsBig5Prober.o
+[ 70%] Building CXX object src/CMakeFiles/libuchardet.dir/nsHebrewProber.o
+[ 68%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEUCJPProber.o
+[ 72%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEUCKRProber.o
+[ 74%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEUCTWProber.o
+[ 76%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEscCharsetProber.o
+[ 78%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEscSM.o
+[ 80%] Building CXX object src/CMakeFiles/libuchardet.dir/nsGB2312Prober.o
+[ 82%] Building CXX object src/CMakeFiles/libuchardet.dir/nsMBCSGroupProber.o
+[ 84%] Building CXX object src/CMakeFiles/libuchardet.dir/nsMBCSSM.o
+[ 86%] Building CXX object src/CMakeFiles/libuchardet.dir/nsSJISProber.o
+[ 88%] Building CXX object src/CMakeFiles/libuchardet.dir/nsSBCSGroupProber.o
+[ 90%] Building CXX object src/CMakeFiles/libuchardet.dir/nsSBCharSetProber.o
+[ 92%] Building CXX object src/CMakeFiles/libuchardet.dir/nsUTF8Prober.o
+[ 94%] Building CXX object src/CMakeFiles/libuchardet.dir/nsLatin1Prober.o
+[ 96%] Building CXX object src/CMakeFiles/libuchardet.dir/nsUniversalDetector.o
+[ 98%] Building CXX object src/CMakeFiles/libuchardet.dir/uchardet.o
+[100%] Linking CXX static library libuchardet.a
+[100%] Built target libuchardet
+-- Install configuration: "Release"
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/pkgconfig/uchardet.pc
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-targets.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-targets-release.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-config.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-config-version.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libuchardet.a
+-- Up-to-date: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/include/uchardet/uchardet.h
+-- Up-to-date: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/share/man/man1/uchardet.1

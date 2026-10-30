@@ -1,0 +1,54 @@
+-- The C compiler identification is GNU 16.1.0
+-- Detected multilib folder: pic
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /c/devkitPro/devkitA64/bin/aarch64-none-elf-gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Doxygen not found. You won't be able to build documentation.
+-- SDL_sound will build with the following options:
+--   WAV support: enabled
+--   AIFF support: enabled
+--   AU support: enabled
+--   VOC support: enabled
+--   FLAC support: enabled
+--   VORBIS support: enabled
+--   RAW support: enabled
+--   SHN support: enabled
+--   MODPLUG support: disabled
+--   MP3 support: enabled
+--   TiMidity support: disabled
+--   COREAUDIO support: disabled
+--   Build static library: enabled
+--   Build shared library: disabled
+--   Build stdio test program: disabled
+--   Build documentation: enabled
+-- Configuring done (2.9s)
+-- Generating done (0.3s)
+-- Build files have been written to: /c/Users/USER/Documents/GitHub/FangameNX/build/sdlsound
+[ 21%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_aiff.o
+[ 21%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_coreaudio.o
+[ 42%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_au.o
+[ 21%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound.o
+[ 42%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_midi.o
+[ 28%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_flac.o
+[ 50%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_modplug.o
+[ 64%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_mp3.o
+[ 64%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_shn.o
+[ 71%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_raw.o
+[ 78%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_voc.o
+[ 85%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_vorbis.o
+[ 92%] Building C object CMakeFiles/SDL2_sound-static.dir/src/SDL_sound_wav.o
+[100%] Linking C static library libSDL2_sound.a
+[100%] Built target SDL2_sound-static
+[100%] Built target SDL2_sound-static
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libSDL2_sound.a
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/SDL2_sound/SDL2_sound-static-static-targets.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/SDL2_sound/SDL2_sound-static-static-targets-release.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/SDL2_sound/SDL2_soundConfig.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/SDL2_sound/SDL2_soundConfigVersion.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/include/SDL2/SDL_sound.h
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/pkgconfig/SDL2_sound.pc

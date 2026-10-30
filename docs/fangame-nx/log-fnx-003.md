@@ -107,3 +107,33 @@ C:/Users/pablo/Documents/GitHub/FangameNX
 ```
 
 Estas comprobaciones no prueban aún el enlace ni el arranque del motor.
+
+## Continuación tras la autorización de instalación (30/10/2026)
+
+El usuario completó el instalador elevado de devkitPro. `C:/devkitPro/installed.ini` indica Switch y también GBA, GP32, NDS, 3DS, GameCube y Wii habilitados; no se desinstalaron los componentes adicionales. Se instaló por pacman el conjunto autorizado:
+
+```text
+patch bison zip vim switch-sdl2 switch-sdl2_image switch-sdl2_ttf switch-physfs switch-openal-soft switch-libtheora switch-libvorbis switch-libogg switch-mpg123 switch-libmodplug switch-freetype switch-harfbuzz switch-curl switch-libpng switch-libjpeg-turbo switch-libwebp switch-zlib switch-bzip2 switch-mesa switch-libdrm_nouveau
+```
+
+`pacman -S --needed --noconfirm` terminó con código 0. El gancho de documentación de pacman informó `error: command failed to execute correctly`; `pacman -Qk` verificó cero archivos faltantes para los 24 paquetes y se comprobaron los 23 archivos `.a` que requiere el Makefile. Inventario completo de 257 paquetes en [log-pacman-Q.txt](log-pacman-Q.txt); plan y salida de instalación en [log-pacman-plan.txt](log-pacman-plan.txt) y [log-pacman-install.txt](log-pacman-install.txt). Versiones principales: devkitA64 r30-1 / GCC 16.1.0, libnx 4.12.0-1, switch-tools 1.13.1-1, CMake 4.0.2-1 y GNU make 4.4.1-2.
+
+Se comprobó que `build/` y `out/` son directorios ordinarios dentro de FangameNX antes de cada guion que recrea subdirectorios. El shim existente se compiló con `aarch64-none-elf-gcc` y `aarch64-none-elf-ar`; `build-nxcompat.sh` reproduce ese paso, termina con código 0 y deja dos archivos idénticos de 4 500 bytes bajo `out/lib/` y `out/nx/lib/`. `nm` muestra `sysconf`, `getpagesize`, `setmode` y `waitpid`; `readelf -h` identifica el objeto como ELF64 AArch64. [Log de la compilación inicial](log-nxcompat.txt) y [log del guion final](log-build-nxcompat-1.txt).
+
+| Comando / intento | Código | Resultado y log íntegro |
+| --- | ---: | --- |
+| `./build-deps.sh` inicial | 2 | libiconv `make all` falla en auxiliares gnulib/newlib. [Salida](log-build-deps-1.txt), [detalle](log-dep-libiconv-1.txt). |
+| `make -C libcharset install-lib; make -C lib install-lib` en libiconv | 0 | Bibliotecas y cabecera instaladas. [Log](log-libiconv-install-lib-1.txt). |
+| `./build-deps.sh` segundo | 1 | libiconv pasa; CMake interpreta mal `C:/devkitPro/...` en uchardet. [Salida](log-build-deps-2.txt), [libiconv](log-dep-libiconv-2.txt), [uchardet](log-dep-uchardet-1.txt). |
+| `./build-deps2.sh` inicial | 2 | La biblioteca uchardet compila, pero falla el enlace del ejecutable de test. [Salida](log-build-deps2-1.txt), [reproducción completa de `make all` en árbol nuevo](log-uchardet-all-repro.txt). |
+| `./build-deps2.sh` corregido | 0 | `libuchardet.a` y `libSDL2_sound.a` instaladas. [Salida](log-build-deps2-2.txt), [uchardet](log-dep-uchardet-2.txt), [SDL_sound](log-dep-sdlsound-1.txt). |
+| `./build-deps.sh` corregido | 0 | `libiconv.a` y `libpixman-1.a` instaladas. [Salida](log-build-deps-3.txt), [libiconv](log-dep-libiconv-3.txt), [pixman](log-dep-pixman-1.txt). |
+| `./build-ruby-switch.sh` inicial | proceso 0; `make` 2 | Enlace de módulos internos `-test-/*.so` fallido; el guion heredado ocultaba el fallo. [Salida](log-build-ruby-1.txt), [make](log-ruby-make-1.txt). |
+| `./build-ruby-switch.sh` con `-test-` | 2 | El patrón no excluye rutas hijas. [Salida](log-build-ruby-2.txt), [configure](log-ruby-configure-2.txt), [make](log-ruby-make-2.txt). |
+| `./build-ruby-switch.sh` con `-test-/*` y extensiones positivas | 2 | `mkmf` no acepta el ELF sin sufijo como ejecutable en RubyInstaller Windows. [Salida](log-build-ruby-3.txt), [configure](log-ruby-configure-3.txt), [make](log-ruby-make-3.txt), [mkmf de stringio](log-ruby-stringio-mkmf-3.txt). |
+| `./build-ruby-switch.sh` con `ac_cv_exeext=.exe` | 2 | Extensiones estáticas construidas, fallo al enlazar `ruby.exe`: solape `.tls.align`/`.text`. [Salida](log-build-ruby-4.txt), [configure](log-ruby-configure-4.txt), [make](log-ruby-make-4.txt). |
+| `make V=1 ruby.exe` en el árbol del cuarto intento | 2 | La línea de enlace no incluye las tres bibliotecas de extensión; `Init_*` indefinidos. [Log](log-ruby-link-verbose-1.txt). |
+
+Los archivos de `mkmf` de zlib y strscan para los intentos tercero y cuarto también están guardados como `log-ruby-{zlib,strscan}-mkmf-{3,4}.txt`. Los logs nuevos conservan la salida completa salvo la sustitución del nombre de usuario en las rutas locales por `USER`; los originales permanecen en el árbol de trabajo ignorado. `docs/configure-log.txt` y `docs/make-log.txt` son archivos originales versionados que los guiones reescribieron; se restauraron tras copiar los logs de la misión. El primer `configure` terminó con código 0 pero su log fue reemplazado antes de copiarlo; los tres posteriores están íntegros.
+
+Los artefactos locales son bibliotecas estáticas en `out/nx/lib/`, más `build/ruby-switch/libruby-static.a` y tres bibliotecas de extensiones **parciales respecto al `make` completo**. [Inventario de tamaños y SHA-256](log-artefactos-fnx-003.txt). No existen `out/nx/extobj/`, `out/nx/lib/libruby-static.a`, `release/` ni un `.nro` nuevo. `finalize-ruby.sh` y `construir.sh` no se lanzaron después de instalar el SDK porque el paso Ruby falló. FNX-003 permanece abierto y no se afirmó funcionamiento en Switch.

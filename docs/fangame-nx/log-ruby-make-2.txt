@@ -1,0 +1,386 @@
+	BASERUBY = /c/Users/USER/Documents/GitHub/FangameNX/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe --disable=gems
+	CC = aarch64-none-elf-gcc
+	LD = aarch64-none-elf-ld
+	LDSHARED = aarch64-none-elf-ld
+	CFLAGS = -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include 
+	XCFLAGS = -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fno-strict-overflow -fvisibility=hidden -fexcess-precision=standard -DRUBY_EXPORT -I. -I.ext/include/aarch64-elf -I/c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -I/c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7 -I/c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/unicode/13.0.0 
+	CPPFLAGS = -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   
+	DLDFLAGS = -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -Wl,--compress-debug-sections=zlib -fstack-protector-strong  
+	SOLIBS = -lz -lpthread -lm -lnxcompat -lnx
+	LANG = C.UTF-8
+	LC_ALL = C.UTF-8
+	LC_CTYPE = C.UTF-8
+	MFLAGS = -j6 --jobserver-auth=4,5
+generating id.h
+making dummy probes.h
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+generating opt_sc.inc
+generating insns.inc
+generating optinsn.inc
+generating optunifs.inc
+id.h updated
+generating insns_info.inc
+generating vmtc.inc
+generating vm.inc
+generating mjit_compile.inc
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/dln.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/localeinit.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/array.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/bignum.c
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/ifchange "--timestamp=.rbconfig.time" rbconfig.rb rbconfig.tmp
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ast.c
+rbconfig.rb updated
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/class.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/compar.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/compile.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/complex.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/cont.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/debug.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/debug_counter.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/dir.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/dln_find.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/encoding.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enum.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enumerator.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/error.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/eval.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/file.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/gc.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/hash.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/inits.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/io.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/io_buffer.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/iseq.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/load.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/marshal.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/math.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/memory_view.c
+making mjit_config.h
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/mjit_compile.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/node.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/numeric.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/object.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/pack.c
+generating parse.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/proc.c
+parse.tmp.y:1317.33-39: warning: symbol "( arg" used more than once as a literal string [-Wother]
+ 1317 | %token tMKXP_LEGACY_LPAREN_ARG	"( arg"
+      |                                 ^~~~~~~
+parse.tmp.y:1318.33-35: warning: symbol "*" used more than once as a literal string [-Wother]
+ 1318 | %token tMKXP_LEGACY_STAR	"*"
+      |                                 ^~~
+parse.tmp.y:1319.33-35: warning: symbol "{" used more than once as a literal string [-Wother]
+ 1319 | %token tMKXP_LEGACY_LBRACE	"{"
+      |                                 ^~~
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/process.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ractor.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/random.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/range.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/rational.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/re.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/regcomp.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/regenc.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/regerror.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/regexec.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/regparse.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/regsyntax.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ruby.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/scheduler.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/signal.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/sprintf.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/st.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/strftime.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/string.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/struct.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/symbol.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/thread.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/time.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/transcode.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/transient_heap.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/util.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/variable.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_backtrace.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_dump.c
+In file included from C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm.c:384:
+C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:33: warning: 'mkxp_syntax_transform_target_ruby_version_major' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:87: warning: 'mkxp_syntax_transform_target_ruby_version_minor' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:141: warning: 'mkxp_syntax_transform_target_ruby_version_teeny' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                                                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_sync.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_trace.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/yjit.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/memcmp.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/crypt.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/flock.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/setproctitle.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/addr2line.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/main.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/dmyext.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/dmyenc.c
+generating encdb.h
+creating verconf.h
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/mjit.c
+compiling parse.c
+encdb.h updated
+verconf.h updated
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/coroutine/pthread/Context.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/ascii.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/us_ascii.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/unicode.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_8.c
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/newline.c
+/c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/loadpath.c
+generating aarch64-elf-fake.rb
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/version.c
+aarch64-elf-fake.rb updated
+generating enc.mk
+builtin_binary.inc updated
+compiling /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/builtin.c
+making srcs under enc
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'srcs'.
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+generating transdb.h
+transdb.h updated
+linking static-library libruby-static.a
+generating makefiles ext/configure-ext.mk
+making libtrans
+making libenc
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/transdb.c
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/encdb.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/cp949.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/big5.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/cesu_8.c
+ext/configure-ext.mk updated
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/big5.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/emacs_mule.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/cesu_8.c
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/chinese.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_jp.c
+configuring bigdecimal
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_kr.c
+configuring -test-/RUBY_ALIGNOF
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_tw.c
+configuring cgi/escape
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gb2312.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/ebcdic.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gb18030.c
+configuring -test-/arith_seq/extract
+configuring -test-/array/concat
+configuring -test-/array/resize
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji.c
+configuring -test-/bignum
+configuring -test-/bug-14834
+configuring continuation
+configuring -test-/bug-3571
+configuring -test-/bug-5832
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gbk.c
+configuring -test-/bug_reporter
+configuring -test-/class
+configuring -test-/cxxanyargs
+configuring coverage
+configuring date
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_1.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_2.c
+configuring digest
+configuring digest/bubblebabble
+configuring digest/md5
+configuring -test-/debug
+configuring -test-/dln/empty
+configuring -test-/econv
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_3.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_iso2022_kddi.c
+configuring -test-/enumerator_kw
+configuring -test-/exception
+configuring -test-/fatal
+configuring -test-/file
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_docomo.c
+configuring fcntl
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_4.c
+configuring digest/rmd160
+configuring digest/sha1
+configuring -test-/float
+configuring digest/sha2
+configuring -test-/funcall
+configuring -test-/gvl/call_without_gvl
+configuring -test-/hash
+configuring -test-/integer
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_kddi.c
+configuring -test-/iseq_load
+configuring -test-/iter
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_softbank.c
+configuring -test-/load/dot.dot
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_5.c
+configuring -test-/load/protect
+configuring -test-/marshal/compat
+configuring -test-/marshal/internal_ivar
+configuring -test-/marshal/usr
+configuring -test-/memory_status
+configuring -test-/memory_view
+configuring -test-/method
+configuring io/console
+configuring -test-/notimplement
+configuring -test-/num2int
+configuring -test-/path_to_class
+configuring -test-/popen_deadlock
+configuring -test-/postponed_job
+configuring -test-/printf
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_6.c
+configuring -test-/proc
+configuring json
+configuring -test-/random
+configuring json/generator
+configuring -test-/rational
+configuring json/parser
+configuring -test-/rb_call_super_kw
+configuring -test-/recursion
+configuring -test-/regexp
+configuring -test-/scan_args
+configuring -test-/st/foreach
+configuring -test-/st/numhash
+configuring -test-/st/update
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_7.c
+configuring -test-/string
+configuring io/nonblock
+configuring -test-/struct
+configuring io/wait
+configuring -test-/symbol
+configuring -test-/thread_fd
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/escape.c
+configuring -test-/time
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_8.c
+configuring -test-/tracepoint
+configuring -test-/typeddata
+configuring monitor
+configuring -test-/vm
+configuring -test-/wait
+configuring -test-/win32/console
+configuring -test-/win32/dln
+configuring -test-/win32/fd_setsize
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_9.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/gb18030.c
+configuring nkf
+configuring objspace
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_10.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/gbk.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/iso2022.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_11.c
+configuring pathname
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_13.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_14.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_15.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese_euc.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese_sjis.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_16.c
+configuring psych
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/korean.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/koi8_r.c
+configuring racc/cparse
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/single_byte.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/koi8_u.c
+configuring rbconfig/sizeof
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/shift_jis.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_16be.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_16le.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/utf8_mac.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_32be.c
+configuring ripper
+configuring rubyvm
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_32le.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/utf_16_32.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_31j.c
+configuring stringio
+configuring strscan
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1250.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1251.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1252.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1253.c
+configuring zlib
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1254.c
+configuring debug-1.6.3/ext/debug
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1257.c
+linking statically-linked transcoder library enc/libtrans.a
+configuring rbs-2.7.0/ext/rbs_extension
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+linking statically-linked encoding library enc/libenc.a
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+generating makefile exts.mk
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+exts.mk updated
+making libencs
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/RUBY_ALIGNOF'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/arith_seq/extract'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/array/concat'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/array/resize'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/bignum'
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/arith_seq/extract/extract.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/RUBY_ALIGNOF/c.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bignum/big2str.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/array/concat/to_ary_concat.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/array/resize/resize.c
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'libencs'.
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/bug-14834'
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bug-14834/bug-14384.c
+linking shared-object -test-/arith_seq/extract.so
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bignum/bigzero.c
+C:\devkitPro\devkitA64\bin\aarch64-none-elf-ld.exe: unrecognised emulation mode: tp=soft
+Supported emulations: aarch64elf aarch64elf32 aarch64elf32b aarch64elfb armelf armelfb
+linking shared-object -test-/RUBY_ALIGNOF.so
+linking shared-object -test-/array/resize.so
+linking shared-object -test-/array/to_ary_concat.so
+make[2]: *** [Makefile:270: ../../../../.ext/aarch64-elf/-test-/arith_seq/extract.so] Error 1
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/arith_seq/extract'
+make[1]: *** [exts.mk:310: ext/-test-/arith_seq/extract/static] Error 2
+make[1]: *** Waiting for unfinished jobs....
+C:\devkitPro\devkitA64\bin\aarch64-none-elf-ld.exe: unrecognised emulation mode: tp=soft
+Supported emulations: aarch64elf aarch64elf32 aarch64elf32b aarch64elfb armelf armelfb
+C:\devkitPro\devkitA64\bin\aarch64-none-elf-ld.exe: unrecognised emulation mode: tp=soft
+Supported emulations: aarch64elf aarch64elf32 aarch64elf32b aarch64elfb armelf armelfb
+C:\devkitPro\devkitA64\bin\aarch64-none-elf-ld.exe: unrecognised emulation mode: tp=soft
+Supported emulations: aarch64elf aarch64elf32 aarch64elf32b aarch64elfb armelf armelfb
+make[2]: *** [Makefile:270: ../../../.ext/aarch64-elf/-test-/RUBY_ALIGNOF.so] Error 1
+make[2]: *** [Makefile:270: ../../../../.ext/aarch64-elf/-test-/array/resize.so] Error 1
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/array/resize'
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/RUBY_ALIGNOF'
+make[1]: *** [exts.mk:308: ext/-test-/RUBY_ALIGNOF/static] Error 2
+make[1]: *** [exts.mk:314: ext/-test-/array/resize/static] Error 2
+make[2]: *** [Makefile:270: ../../../../.ext/aarch64-elf/-test-/array/to_ary_concat.so] Error 1
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/array/concat'
+make[1]: *** [exts.mk:312: ext/-test-/array/concat/static] Error 2
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bignum/mul.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bignum/div.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bignum/init.c
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bignum/intpack.c
+linking shared-object -test-/bug_14834.so
+compiling C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/-test-/bignum/str2big.c
+C:\devkitPro\devkitA64\bin\aarch64-none-elf-ld.exe: unrecognised emulation mode: tp=soft
+Supported emulations: aarch64elf aarch64elf32 aarch64elf32b aarch64elfb armelf armelfb
+make[2]: *** [Makefile:270: ../../../.ext/aarch64-elf/-test-/bug_14834.so] Error 1
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/bug-14834'
+make[1]: *** [exts.mk:318: ext/-test-/bug-14834/static] Error 2
+linking shared-object -test-/bignum.so
+C:\devkitPro\devkitA64\bin\aarch64-none-elf-ld.exe: unrecognised emulation mode: tp=soft
+Supported emulations: aarch64elf aarch64elf32 aarch64elf32b aarch64elfb armelf armelfb
+make[2]: *** [Makefile:270: ../../../.ext/aarch64-elf/-test-/bignum.so] Error 1
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/ext/-test-/bignum'
+make[1]: *** [exts.mk:316: ext/-test-/bignum/static] Error 2
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch'
+make: *** [uncommon.mk:306: build-ext] Error 2

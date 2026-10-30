@@ -1,0 +1,31 @@
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+cd lib && make all
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+cd lib && make install-lib libdir='C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib' includedir='C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include'
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib
+mkdir -p -- C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib
+/bin/sh ../libtool --mode=install /usr/bin/install -c libcharset.la C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.lai C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.a C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.a
+libtool: install: chmod 644 C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.a
+libtool: install: aarch64-none-elf-ranlib C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.a
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include
+mkdir -p -- C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include
+/usr/bin/install -c -m 644 include/libcharset.h C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include/libcharset.h
+/usr/bin/install -c -m 644 include/localcharset.h.inst C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include/localcharset.h
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+if [ ! -d C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib ] ; then /bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/build-aux/mkinstalldirs C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib ; fi
+/bin/sh ../libtool --mode=install /usr/bin/install -c libiconv.la C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.la
+libtool: install: /usr/bin/install -c .libs/libiconv.lai C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.la
+libtool: install: /usr/bin/install -c .libs/libiconv.a C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a
+libtool: install: chmod 644 C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a
+libtool: install: aarch64-none-elf-ranlib C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+-rw-r--r-- 1 pablo pablo    9249 Oct 30 20:01 out/nx/include/iconv.h
+-rw-r--r-- 1 pablo pablo   11912 Oct 30 20:01 out/nx/lib/libcharset.a
+-rw-r--r-- 1 pablo pablo 1906634 Oct 30 20:01 out/nx/lib/libiconv.a

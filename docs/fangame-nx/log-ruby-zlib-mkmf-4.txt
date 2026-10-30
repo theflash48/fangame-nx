@@ -1,0 +1,150 @@
+have_library: checking for deflateReset() in -lz... -------------------- yes
+
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -o conftest.exe -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include conftest.c  -L. -L../.. -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong     -Wl,-rpath,C:/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch -lruby-static -lz -lpthread -lm -lnxcompat -lnx  -lm -lnxcompat -lnx -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -o conftest.exe -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include conftest.c  -L. -L../.. -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong     -Wl,-rpath,C:/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch -lruby-static -lz -lpthread -lm -lnxcompat -lnx -lz  -lm -lnxcompat -lnx -lc"
+conftest.c: In function 't':
+conftest.c:14:57: error: 'deflateReset' undeclared (first use in this function)
+   14 | int t(void) { void ((*volatile p)()); p = (void ((*)()))deflateReset; return !p; }
+      |                                                         ^~~~~~~~~~~~
+conftest.c:14:57: note: each undeclared identifier is reported only once for each function it appears in
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))deflateReset; return !p; }
+/* end */
+
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -o conftest.exe -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include conftest.c  -L. -L../.. -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong     -Wl,-rpath,C:/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch -lruby-static -lz -lpthread -lm -lnxcompat -lnx -lz  -lm -lnxcompat -lnx -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void deflateReset();
+15: int t(void) { deflateReset(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for zlib.h... -------------------- yes
+
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <zlib.h>
+/* end */
+
+--------------------
+
+checking for kind of operating system... Unix
+have_func: checking for crc32_combine() in zlib.h... -------------------- yes
+
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -o conftest.exe -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include conftest.c  -L. -L../.. -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong    -lz  -Wl,-rpath,C:/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch -lruby-static -lz -lpthread -lm -lnxcompat -lnx -lz  -lm -lnxcompat -lnx -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <zlib.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))crc32_combine; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for adler32_combine() in zlib.h... -------------------- yes
+
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -o conftest.exe -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include conftest.c  -L. -L../.. -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong    -lz  -Wl,-rpath,C:/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch -lruby-static -lz -lpthread -lm -lnxcompat -lnx -lz  -lm -lnxcompat -lnx -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <zlib.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))adler32_combine; return !p; }
+/* end */
+
+--------------------
+
+have_type: checking for z_crc_t in zlib.h... -------------------- yes
+
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <zlib.h>
+4: 
+5: /*top*/
+6: typedef z_crc_t conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+extconf.h is:
+/* begin */
+1: #ifndef EXTCONF_H
+2: #define EXTCONF_H
+3: #define HAVE_ZLIB_H 1
+4: #define HAVE_CRC32_COMBINE 1
+5: #define HAVE_ADLER32_COMBINE 1
+6: #define HAVE_TYPE_Z_CRC_T 1
+7: #define RUBY_EXPORT 1
+8: #endif
+/* end */
+

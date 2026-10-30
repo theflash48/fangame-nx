@@ -1,0 +1,31 @@
+=================== SANITY ===================
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+BASERUBY: ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) [x64-mingw-ucrt]
+libnxcompat.a: presente
+shim sys/mman.h: presente
+
+=================== CONFIGURE ===================
+>>> Configure OK
+
+=================== MAKE ===================
+codigo de salida: 2
+
+--- primeros errores ---
+349:make[2]: *** [Makefile:270: ../../../../.ext/aarch64-elf/-test-/arith_seq/extract.so] Error 1
+351:make[1]: *** [exts.mk:310: ext/-test-/arith_seq/extract/static] Error 2
+359:make[2]: *** [Makefile:270: ../../../.ext/aarch64-elf/-test-/RUBY_ALIGNOF.so] Error 1
+360:make[2]: *** [Makefile:270: ../../../../.ext/aarch64-elf/-test-/array/resize.so] Error 1
+363:make[1]: *** [exts.mk:308: ext/-test-/RUBY_ALIGNOF/static] Error 2
+364:make[1]: *** [exts.mk:314: ext/-test-/array/resize/static] Error 2
+365:make[2]: *** [Makefile:270: ../../../../.ext/aarch64-elf/-test-/array/to_ary_concat.so] Error 1
+367:make[1]: *** [exts.mk:312: ext/-test-/array/concat/static] Error 2
+376:make[2]: *** [Makefile:270: ../../../.ext/aarch64-elf/-test-/bug_14834.so] Error 1
+378:make[1]: *** [exts.mk:318: ext/-test-/bug-14834/static] Error 2
+382:make[2]: *** [Makefile:270: ../../../.ext/aarch64-elf/-test-/bignum.so] Error 1
+384:make[1]: *** [exts.mk:316: ext/-test-/bignum/static] Error 2
+386:make: *** [uncommon.mk:306: build-ext] Error 2
+
+=================== ARTEFACTOS ===================
+objetos .o : 82
+-rw-r--r-- 1 pablo pablo 44648078 Oct 30 20:31 /c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/libruby-static.a
+>>> *** LIBRUBY CONSTRUIDA *** <<<

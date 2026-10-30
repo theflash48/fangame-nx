@@ -27,42 +27,20 @@ $ROOT/src/libiconv-1.16/configure --host=aarch64-none-elf --prefix=$PREFIX \
   --disable-shared --enable-static --disable-nls --enable-relocatable=no \
   > $ROOT/docs/dep-libiconv.log 2>&1
 if [ -f Makefile ]; then
-  make -j6 >> $ROOT/docs/dep-libiconv.log 2>&1
-  make install >> $ROOT/docs/dep-libiconv.log 2>&1
+  # El 'all' general entra en srclib/src/po/man: gnulib de 1.16 no compila
+  # contra los headers de newlib (signal.h y _setmode). El motor solo enlaza
+  # libiconv.a y libcharset.a, que tienen objetivos install-lib propios.
+  make -j6 lib/localcharset.h >> $ROOT/docs/dep-libiconv.log 2>&1
+  make -j6 -C lib >> $ROOT/docs/dep-libiconv.log 2>&1
+  make -C libcharset install-lib >> $ROOT/docs/dep-libiconv.log 2>&1
+  make -C lib install-lib >> $ROOT/docs/dep-libiconv.log 2>&1
+  mkdir -p "$ROOT/out/nx/include"
+  cp include/iconv.h.inst "$ROOT/out/nx/include/iconv.h"
 fi
 [ -f $ROOT/out/nx/lib/libiconv.a ] && echo "  >>> libiconv.a OK" || { echo "  >>> FALLO"; tail -12 $ROOT/docs/dep-libiconv.log; }
 
-# ---------------------------------------------------------------- uchardet
-echo ""
-echo "############ uchardet ############"
-cd $ROOT/build && rm -rf uchardet && mkdir uchardet && cd uchardet
-cmake -G "Unix Makefiles" \
-  -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-  -DCMAKE_INSTALL_PREFIX=$PREFIX \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DBUILD_SHARED_LIBS=OFF -DBUILD_BINARY=OFF \
-  $ROOT/src/uchardet > $ROOT/docs/dep-uchardet.log 2>&1
-if [ -f Makefile ]; then
-  make -j6 >> $ROOT/docs/dep-uchardet.log 2>&1
-  make install >> $ROOT/docs/dep-uchardet.log 2>&1
-fi
-ls $ROOT/out/nx/lib/libuchardet* >/dev/null 2>&1 && echo "  >>> libuchardet OK" || { echo "  >>> FALLO"; tail -12 $ROOT/docs/dep-uchardet.log; }
-
-# ---------------------------------------------------------------- SDL_sound
-echo ""
-echo "############ SDL_sound ############"
-cd $ROOT/build && rm -rf sdlsound && mkdir sdlsound && cd sdlsound
-cmake -G "Unix Makefiles" \
-  -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-  -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release \
-  -DSDLSOUND_BUILD_SHARED=OFF -DSDLSOUND_BUILD_STATIC=ON \
-  -DSDLSOUND_BUILD_TEST=OFF -DSDLSOUND_DECODER_MODPLUG=OFF \
-  $ROOT/src/SDL_sound > $ROOT/docs/dep-sdlsound.log 2>&1
-if [ -f Makefile ]; then
-  make -j6 >> $ROOT/docs/dep-sdlsound.log 2>&1
-  make install >> $ROOT/docs/dep-sdlsound.log 2>&1
-fi
-ls $ROOT/out/nx/lib/libSDL2_sound* >/dev/null 2>&1 && echo "  >>> libSDL2_sound OK" || { echo "  >>> FALLO"; grep -nE "error|Error|CMake Error" $ROOT/docs/dep-sdlsound.log | head -6; }
+# uchardet y SDL_sound se construyen en build-deps2.sh: CMake MSYS2 exige
+# rutas /c/... para el toolchain, mientras configure usa C:/... aqui.
 
 # ---------------------------------------------------------------- pixman
 echo ""

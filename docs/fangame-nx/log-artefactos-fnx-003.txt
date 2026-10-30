@@ -1,0 +1,17 @@
+FangameNX FNX-003; artefactos locales al 2026-10-30
+El make de Ruby termina con codigo 2; sus artefactos son parciales.
+Ruta relativa | Bytes | SHA256
+out\nx\lib\libcharset.a | 11912 | e3ff4abdf47c7625516a41e3fb5143eba65a96e3da884db46a8caa5dc5bffae1
+out\nx\lib\libiconv.a | 1906634 | 3b8a54281740793c6c2f892d624fe7c9accb0fe29ddf3578dc3ac65478704efe
+out\nx\lib\libnxcompat.a | 4500 | 68aa4e0d5c8335d5be2c163e332f341c510fea34600ca785ce822d8481c293b0
+out\nx\lib\libpixman-1.a | 7238390 | ab6372382c2cceafe51f572371adf7ed27b04e2ea0c52e90b1a22ed10e6fcac1
+out\nx\lib\libSDL2_sound.a | 2549568 | 75c250774590f585533820dd1dd3ff17fd3c1f50c18b273aa8e82103c7b3b6c8
+out\nx\lib\libuchardet.a | 1052508 | 934aa79a9402a79d2219dc3ba4295adc193afd32dce4521d4c990927cacd6eea
+build\ruby-switch\libruby-static.a | 44648078 | adf331b6e361310268371fae927baa7ec34ae760078ad5e03ea89bb0925d7b14
+build\ruby-switch\ext\zlib\zlib.a | 747810 | 706b2bd519726aacf522418fdcb194cca7fefdda346c476379e8a2ea931b5ebd
+build\ruby-switch\ext\stringio\stringio.a | 330190 | 57a44a53db0febd7c310132973a11b1cfd9807b883ecab3bcb07809a4f4a2929
+build\ruby-switch\ext\strscan\strscan.a | 255606 | e314f35094f0f335a69554e2e730f25d4159a9fe83f3187c50fad7382440147d
+build\ruby-switch\ext\extinit.o | 5672 | 42624c7a9c9c1b2a270e69e844defd9dc8910db7910d8dc2926d8e38572f338b
+out\nx\extobj existe: False
+out\nx\lib\libruby-static.a existe: False
+release existe: False

@@ -1,0 +1,437 @@
+configure: loading site script /etc/config.site
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for aarch64-none-elf-strip... aarch64-none-elf-strip
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports nested variables... (cached) yes
+checking build system type... x86_64-pc-cygwin
+checking host system type... aarch64-none-elf
+checking for aarch64-none-elf-gcc... aarch64-none-elf-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether aarch64-none-elf-gcc accepts -g... yes
+checking for aarch64-none-elf-gcc option to enable C11 features... none needed
+checking whether aarch64-none-elf-gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of aarch64-none-elf-gcc... gcc3
+checking dependency style of aarch64-none-elf-gcc... gcc3
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by aarch64-none-elf-gcc... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B
+checking the name lister (/c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B) interface... BSD nm
+checking whether ln -s works... no, using cp -pR
+checking the maximum length of command line arguments... 8192
+checking how to convert x86_64-pc-cygwin file names to aarch64-none-elf format... func_convert_file_noop
+checking how to convert x86_64-pc-cygwin file names to toolchain format... func_convert_file_noop
+checking for C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe option to reload object files... -r
+checking for aarch64-none-elf-file... no
+checking for file... file
+configure: WARNING: using cross tools not prefixed with host triplet
+checking for aarch64-none-elf-objdump... aarch64-none-elf-objdump
+checking how to recognize dependent libraries... unknown
+checking for aarch64-none-elf-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-none-elf-ar... aarch64-none-elf-ar
+checking for archiver @FILE support... @
+checking for aarch64-none-elf-strip... (cached) aarch64-none-elf-strip
+checking for aarch64-none-elf-ranlib... aarch64-none-elf-ranlib
+checking command to parse /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B output from aarch64-none-elf-gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for aarch64-none-elf-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... no
+checking for objdir... .libs
+checking if aarch64-none-elf-gcc supports -fno-rtti -fno-exceptions... no
+checking for aarch64-none-elf-gcc option to produce PIC... -fPIC -DPIC
+checking if aarch64-none-elf-gcc PIC flag -fPIC -DPIC works... yes
+checking if aarch64-none-elf-gcc static flag -static works... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... (cached) yes
+checking whether the aarch64-none-elf-gcc linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) supports shared libraries... yes
+checking dynamic linker characteristics... no
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... no
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking for getisax... no
+checking whether byte ordering is bigendian... no
+checking for inline... inline
+checking whether the compiler supports -Werror... yes
+checking size of long... 8
+checking for aarch64-none-elf-gcc options needed to detect all undeclared functions... none needed
+checking whether __SUNPRO_C is declared... no
+checking whether __amd64 is declared... no
+checking whether the compiler supports -Wall... yes
+checking whether the compiler supports -Wdeclaration-after-statement... yes
+checking whether the compiler supports -Wno-unused-local-typedefs... yes
+checking whether the compiler supports -fno-strict-aliasing... yes
+checking whether the compiler supports -fvisibility=hidden... yes
+checking whether the compiler supports -xldscope=hidden... no
+checking whether to use Loongson MMI assembler... no
+checking whether to use MMX intrinsics... no
+checking whether to use SSE2 intrinsics... no
+checking whether to use SSSE3 intrinsics... no
+checking whether to use VMX/Altivec intrinsics... no
+checking whether to use ARM SIMD assembler... disabled
+checking whether to use ARM NEON assembler... no
+checking whether to use ARM A64 NEON assembler... yes
+checking whether to use ARM IWMMXT intrinsics... disabled
+checking whether to use MIPS DSPr2 assembler... no
+checking whether to use GNU-style inline assembler... yes
+checking for aarch64-none-elf-pkg-config... /c/devkitPro/portlibs/switch/bin/aarch64-none-elf-pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for posix_memalign... no
+checking for sigaction... no
+checking for alarm... no
+checking for sys/mman.h... no
+checking for mmap... no
+checking for mprotect... no
+checking for getpagesize... yes
+checking for fenv.h... yes
+checking for feenableexcept in -lm... no
+checking whether FE_DIVBYZERO is declared... yes
+checking for gettimeofday... yes
+checking for sys/time.h... yes
+checking for library containing sqrtf... -lm
+checking for thread local storage (TLS) support... __thread
+checking for pthreads... yes
+checking for __attribute__((constructor))... yes
+checking for __float128... no
+checking for __builtin_clz... yes
+checking for GCC vector extensions... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating pixman-1.pc
+config.status: creating pixman-1-uninstalled.pc
+config.status: creating Makefile
+config.status: creating pixman/Makefile
+config.status: creating pixman/pixman-version.h
+config.status: creating demos/Makefile
+config.status: creating test/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/pixman/pixman'
+Makefile:1311: warning: ignoring prerequisites on suffix rule definition
+  CC       pixman.lo
+  CC       pixman-access-accessors.lo
+  CC       pixman-access.lo
+  CC       pixman-bits-image.lo
+  CC       pixman-combine32.lo
+  CC       pixman-combine-float.lo
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__g1' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:507:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  507 | MAKE_ACCESSORS(g1);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a1' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:506:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  506 | MAKE_ACCESSORS(a1);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a1b1g1r1' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:505:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  505 | MAKE_ACCESSORS(a1b1g1r1);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a1r1g1b1' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:504:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  504 | MAKE_ACCESSORS(a1r1g1b1);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__b1g2r1' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:503:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  503 | MAKE_ACCESSORS(b1g2r1);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__r1g2b1' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:502:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  502 | MAKE_ACCESSORS(r1g2b1);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__c4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:501:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  501 | MAKE_ACCESSORS(c4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__g4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:500:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  500 | MAKE_ACCESSORS(g4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:499:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  499 | MAKE_ACCESSORS(a4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x4a4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:498:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  498 | MAKE_ACCESSORS(x4a4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a2b2g2r2' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:497:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  497 | MAKE_ACCESSORS(a2b2g2r2);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a2r2g2b2' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:496:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  496 | MAKE_ACCESSORS(a2r2g2b2);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__b2g3r3' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:495:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  495 | MAKE_ACCESSORS(b2g3r3);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__r3g3b2' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:494:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  494 | MAKE_ACCESSORS(r3g3b2);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__g8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:493:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  493 | MAKE_ACCESSORS(g8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__c8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:492:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  492 | MAKE_ACCESSORS(c8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:491:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  491 | MAKE_ACCESSORS(a8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x4b4g4r4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:490:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  490 | MAKE_ACCESSORS(x4b4g4r4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a4b4g4r4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:489:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  489 | MAKE_ACCESSORS(a4b4g4r4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x4r4g4b4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:488:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  488 | MAKE_ACCESSORS(x4r4g4b4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a4r4g4b4' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:487:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  487 | MAKE_ACCESSORS(a4r4g4b4);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x1b5g5r5' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:486:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  486 | MAKE_ACCESSORS(x1b5g5r5);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a1b5g5r5' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:485:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  485 | MAKE_ACCESSORS(a1b5g5r5);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x1r5g5b5' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:484:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  484 | MAKE_ACCESSORS(x1r5g5b5);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a1r5g5b5' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:483:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  483 | MAKE_ACCESSORS(a1r5g5b5);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__b5g6r5' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:482:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  482 | MAKE_ACCESSORS(b5g6r5);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__r5g6b5' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:481:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  481 | MAKE_ACCESSORS(r5g6b5);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__b8g8r8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:480:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  480 | MAKE_ACCESSORS(b8g8r8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__r8g8b8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:479:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  479 | MAKE_ACCESSORS(r8g8b8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__r8g8b8a8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:478:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  478 | MAKE_ACCESSORS(r8g8b8a8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__r8g8b8x8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:477:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  477 | MAKE_ACCESSORS(r8g8b8x8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__b8g8r8x8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:476:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  476 | MAKE_ACCESSORS(b8g8r8x8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__b8g8r8a8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:475:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  475 | MAKE_ACCESSORS(b8g8r8a8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x14r6g6b6' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:474:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  474 | MAKE_ACCESSORS(x14r6g6b6);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x8b8g8r8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:473:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  473 | MAKE_ACCESSORS(x8b8g8r8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a8b8g8r8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:472:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  472 | MAKE_ACCESSORS(a8b8g8r8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__x8r8g8b8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:471:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  471 | MAKE_ACCESSORS(x8r8g8b8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:468:30: warning: '__dummy__a8r8g8b8' defined but not used [-Wunused-const-variable=]
+  468 |     static const void *const __dummy__ ## format
+      |                              ^~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-access.c:470:1: note: in expansion of macro 'MAKE_ACCESSORS'
+  470 | MAKE_ACCESSORS(a8r8g8b8);
+      | ^~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman.c: In function 'pixman_image_fill_rectangles':
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman.c:866:14: warning: 'stack_boxes' may be used uninitialized [-Wmaybe-uninitialized]
+  866 |     result = pixman_image_fill_boxes (op, dest, color, n_rects, boxes);
+      |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman.c:875:1: note: by argument 5 of type 'const pixman_box32_t *' {aka 'const struct pixman_box32 *'} to 'pixman_image_fill_boxes' declared here
+  875 | pixman_image_fill_boxes (pixman_op_t           op,
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman.c:842:20: note: 'stack_boxes' declared here
+  842 |     pixman_box32_t stack_boxes[6];
+      |                    ^~~~~~~~~~~
+  CC       pixman-conical-gradient.lo
+  CC       pixman-filter.lo
+  CC       pixman-x86.lo
+  CC       pixman-mips.lo
+  CC       pixman-arm.lo
+  CC       pixman-ppc.lo
+  CC       pixman-edge.lo
+  CC       pixman-edge-accessors.lo
+  CC       pixman-fast-path.lo
+  CC       pixman-glyph.lo
+  CC       pixman-general.lo
+  CC       pixman-gradient-walker.lo
+  CC       pixman-image.lo
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-glyph.c:408:1: warning: 'force_align_arg_pointer' attribute directive ignored [-Wattributes]
+  408 | {
+      | ^
+C:/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman-glyph.c:655:1: warning: 'force_align_arg_pointer' attribute directive ignored [-Wattributes]
+  655 | {
+      | ^
+  CC       pixman-implementation.lo
+  CC       pixman-linear-gradient.lo
+  CC       pixman-matrix.lo
+  CC       pixman-noop.lo
+  CC       pixman-radial-gradient.lo
+  CC       pixman-region16.lo
+  CC       pixman-region32.lo
+  CC       pixman-solid-fill.lo
+  CC       pixman-timer.lo
+  CC       pixman-trap.lo
+  CC       pixman-utils.lo
+  CC       pixman-arm-neon.lo
+  CPPAS    pixman-arma64-neon-asm.lo
+  CPPAS    pixman-arma64-neon-asm-bilinear.lo
+  CCLD     libpixman-arma64-neon.la
+  CCLD     libpixman-1.la
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/pixman/pixman'
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/pixman/pixman'
+Makefile:1311: warning: ignoring prerequisites on suffix rule definition
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/pixman/pixman'
+Makefile:1311: warning: ignoring prerequisites on suffix rule definition
+ /usr/bin/mkdir -p 'C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib'
+ /bin/sh ../libtool   --mode=install /usr/bin/install -c   libpixman-1.la 'C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib'
+libtool: install: /usr/bin/install -c .libs/libpixman-1.lai C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libpixman-1.la
+libtool: install: /usr/bin/install -c .libs/libpixman-1.a C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libpixman-1.a
+libtool: install: chmod 644 C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libpixman-1.a
+libtool: install: aarch64-none-elf-ranlib C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libpixman-1.a
+ /usr/bin/mkdir -p 'C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include/pixman-1'
+ /usr/bin/install -c -m 644 /c/Users/USER/Documents/GitHub/FangameNX/src/pixman/pixman/pixman.h pixman-version.h 'C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include/pixman-1'
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/pixman/pixman'
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/pixman/pixman'
+ /usr/bin/mkdir -p 'C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/pkgconfig'
+ /usr/bin/install -c -m 644 pixman-1.pc 'C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/pkgconfig'

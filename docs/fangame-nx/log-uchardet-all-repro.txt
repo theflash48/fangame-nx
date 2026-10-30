@@ -1,0 +1,227 @@
+CMake Deprecation Warning at CMakeLists.txt:2 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- The CXX compiler identification is GNU 16.1.0
+-- The C compiler identification is GNU 16.1.0
+-- Detected multilib folder: pic
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /c/devkitPro/devkitA64/bin/aarch64-none-elf-g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /c/devkitPro/devkitA64/bin/aarch64-none-elf-gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Skipping test da:iso-8859-1 (known broken)
+-- Skipping test es:iso-8859-15 (known broken)
+-- Skipping test he:iso-8859-8 (known broken)
+-- Skipping test ja:utf-16be (known broken)
+-- Skipping test ja:utf-16le (known broken)
+-- Configuring done (4.9s)
+-- Generating done (0.4s)
+-- Build files have been written to: /c/Users/USER/Documents/GitHub/FangameNX/build/uchardet-all-repro
+[  1%] Building CXX object src/CMakeFiles/libuchardet.dir/CharDistribution.o
+[  3%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangBulgarianModel.o
+[  7%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangCroatianModel.o
+[  5%] Building CXX object src/CMakeFiles/libuchardet.dir/JpCntx.o
+[  9%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangArabicModel.o
+[ 11%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangCzechModel.o
+[ 13%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangEsperantoModel.o
+[ 16%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangDanishModel.o
+[ 16%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangEstonianModel.o
+[ 20%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangFinnishModel.o
+[ 18%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangGermanModel.o
+[ 22%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangFrenchModel.o
+[ 24%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangGreekModel.o
+[ 28%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangHungarianModel.o
+[ 28%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangIrishModel.o
+[ 30%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangItalianModel.o
+[ 33%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangHebrewModel.o
+[ 33%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangLithuanianModel.o
+[ 35%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangLatvianModel.o
+[ 39%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangMalteseModel.o
+[ 37%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangPortugueseModel.o
+[ 41%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangRomanianModel.o
+[ 43%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangPolishModel.o
+[ 45%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangRussianModel.o
+[ 49%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSloveneModel.o
+[ 49%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSlovakModel.o
+[ 50%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSpanishModel.o
+[ 54%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangSwedishModel.o
+[ 52%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangThaiModel.o
+[ 56%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangTurkishModel.o
+[ 58%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangVietnameseModel.o
+[ 62%] Building CXX object src/CMakeFiles/libuchardet.dir/LangModels/LangNorwegianModel.o
+[ 62%] Building CXX object src/CMakeFiles/libuchardet.dir/nsCharSetProber.o
+[ 67%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEUCJPProber.o
+[ 66%] Building CXX object src/CMakeFiles/libuchardet.dir/nsHebrewProber.o
+[ 66%] Building CXX object src/CMakeFiles/libuchardet.dir/nsBig5Prober.o
+[ 69%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEUCKRProber.o
+[ 71%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEUCTWProber.o
+[ 73%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEscCharsetProber.o
+[ 75%] Building CXX object src/CMakeFiles/libuchardet.dir/nsEscSM.o
+[ 77%] Building CXX object src/CMakeFiles/libuchardet.dir/nsGB2312Prober.o
+[ 79%] Building CXX object src/CMakeFiles/libuchardet.dir/nsMBCSGroupProber.o
+[ 81%] Building CXX object src/CMakeFiles/libuchardet.dir/nsMBCSSM.o
+[ 83%] Building CXX object src/CMakeFiles/libuchardet.dir/nsSBCSGroupProber.o
+[ 84%] Building CXX object src/CMakeFiles/libuchardet.dir/nsSBCharSetProber.o
+[ 86%] Building CXX object src/CMakeFiles/libuchardet.dir/nsSJISProber.o
+[ 88%] Building CXX object src/CMakeFiles/libuchardet.dir/nsUTF8Prober.o
+[ 90%] Building CXX object src/CMakeFiles/libuchardet.dir/nsLatin1Prober.o
+[ 92%] Building CXX object src/CMakeFiles/libuchardet.dir/nsUniversalDetector.o
+[ 94%] Building CXX object src/CMakeFiles/libuchardet.dir/uchardet.o
+[ 96%] Linking CXX static library libuchardet.a
+[ 96%] Built target libuchardet
+[ 98%] Building C object test/CMakeFiles/uchardet-tests.dir/uchardet-tests.o
+[100%] Linking C executable uchardet-tests.elf
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(uchardet.o): in function `HandleUniversalDetector::~HandleUniversalDetector()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/uchardet.cpp:59:(.text._ZN23HandleUniversalDetectorD0Ev[_ZN23HandleUniversalDetectorD5Ev]+0x40): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(uchardet.o): in function `uchardet_new':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/uchardet.cpp:84:(.text.uchardet_new+0x10): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/uchardet.cpp:84:(.text.uchardet_new+0x4c): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(uchardet.o): in function `HandleUniversalDetector::~HandleUniversalDetector()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/uchardet.cpp:59:(.text.uchardet_delete+0x60): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(uchardet.o):(.data.rel.ro._ZTI23HandleUniversalDetector[_ZTI23HandleUniversalDetector]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(uchardet.o):(.data.rel.local.DW.ref.__gxx_personality_v0[DW.ref.__gxx_personality_v0]+0x0): undefined reference to `__gxx_personality_v0'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsUniversalDetector.o): in function `nsUniversalDetector::HandleData(char const*, unsigned int)':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUniversalDetector.cpp:203:(.text._ZN19nsUniversalDetector10HandleDataEPKcj+0x1c8): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUniversalDetector.cpp:197:(.text._ZN19nsUniversalDetector10HandleDataEPKcj+0x220): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUniversalDetector.cpp:190:(.text._ZN19nsUniversalDetector10HandleDataEPKcj+0x258): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUniversalDetector.cpp:235:(.text._ZN19nsUniversalDetector10HandleDataEPKcj+0x394): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUniversalDetector.cpp:197:(.text._ZN19nsUniversalDetector10HandleDataEPKcj+0x3e8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUniversalDetector.cpp:235:(.text._ZN19nsUniversalDetector10HandleDataEPKcj+0x404): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsUniversalDetector.o):(.data.rel.ro._ZTI19nsUniversalDetector[_ZTI19nsUniversalDetector]+0x0): undefined reference to `vtable for __cxxabiv1::__class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEscCharsetProber.o): in function `nsEscCharSetProber::~nsEscCharSetProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEscCharsetProber.cpp:63:(.text._ZN18nsEscCharSetProberD2Ev+0x1c): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEscCharsetProber.o): in function `nsEscCharSetProber::~nsEscCharSetProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEscCharsetProber.cpp:64:(.text._ZN18nsEscCharSetProberD0Ev+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEscCharsetProber.o): in function `nsEscCharSetProber::nsEscCharSetProber(unsigned int)':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEscCharsetProber.cpp:52:(.text._ZN18nsEscCharSetProberC2Ej+0x50): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEscCharsetProber.cpp:54:(.text._ZN18nsEscCharSetProberC2Ej+0x70): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEscCharsetProber.cpp:48:(.text._ZN18nsEscCharSetProberC2Ej+0xa0): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEscCharsetProber.cpp:49:(.text._ZN18nsEscCharSetProberC2Ej+0xbc): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEscCharsetProber.o):(.data.rel.ro._ZTI15nsCharSetProber[_ZTI15nsCharSetProber]+0x0): undefined reference to `vtable for __cxxabiv1::__class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEscCharsetProber.o):(.data.rel.ro._ZTI18nsEscCharSetProber[_ZTI18nsEscCharSetProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o): in function `nsMBCSGroupProber::~nsMBCSGroupProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsMBCSGroupProber.cpp:87:(.text._ZN17nsMBCSGroupProberD0Ev+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o): in function `nsMBCSGroupProber::nsMBCSGroupProber(unsigned int)':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsMBCSGroupProber.cpp:63:(.text._ZN17nsMBCSGroupProberC2Ej+0x40): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o): in function `nsUTF8Prober::nsUTF8Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUTF8Prober.h:47:(.text._ZN17nsMBCSGroupProberC2Ej+0x60): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o): in function `nsMBCSGroupProber::nsMBCSGroupProber(unsigned int)':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsMBCSGroupProber.cpp:75:(.text._ZN17nsMBCSGroupProberC2Ej+0x98): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o): in function `nsBig5Prober::nsBig5Prober(bool)':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsBig5Prober.h:49:(.text._ZN17nsMBCSGroupProberC2Ej+0xc4): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o): in function `nsMBCSGroupProber::nsMBCSGroupProber(unsigned int)':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsMBCSGroupProber.cpp:76:(.text._ZN17nsMBCSGroupProberC2Ej+0xec): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o):C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCTWProber.h:49: more undefined references to `operator new(unsigned long)' follow
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o): in function `nsMBCSGroupProber::nsMBCSGroupProber(unsigned int)':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsMBCSGroupProber.cpp:66:(.text._ZN17nsMBCSGroupProberC2Ej+0x300): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o):(.data.rel.ro._ZTI23JapaneseContextAnalysis[_ZTI23JapaneseContextAnalysis]+0x0): undefined reference to `vtable for __cxxabiv1::__class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsMBCSGroupProber.o):(.data.rel.ro._ZTI17nsMBCSGroupProber[_ZTI17nsMBCSGroupProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsHebrewProber::~nsHebrewProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsHebrewProber.h:50:(.text._ZN14nsHebrewProberD0Ev[_ZN14nsHebrewProberD5Ev]+0x0): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsHebrewProber::~nsHebrewProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsHebrewProber.h:50:(.text._ZN17nsSBCSGroupProberD2Ev+0x3c): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsSBCSGroupProber::~nsSBCSGroupProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:209:(.text._ZN17nsSBCSGroupProberD2Ev+0x98): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsSBCSGroupProber::~nsSBCSGroupProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:209:(.text._ZN17nsSBCSGroupProberD0Ev+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsSBCSGroupProber::nsSBCSGroupProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:49:(.text._ZN17nsSBCSGroupProberC2Ev+0x34): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:50:(.text._ZN17nsSBCSGroupProberC2Ev+0x64): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:51:(.text._ZN17nsSBCSGroupProberC2Ev+0x94): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:52:(.text._ZN17nsSBCSGroupProberC2Ev+0xc4): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:53:(.text._ZN17nsSBCSGroupProberC2Ev+0xf4): undefined reference to `operator new(unsigned long)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o):C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:54: more undefined references to `operator new(unsigned long)' follow
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsHebrewProber::~nsHebrewProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsHebrewProber.h:50:(.text._ZN17nsSBCSGroupProberC2Ev+0x1438): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsSBCSGroupProber::~nsSBCSGroupProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:209:(.text._ZN17nsSBCSGroupProberC2Ev+0x146c): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o): in function `nsSBCSGroupProber::nsSBCSGroupProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:82:(.text._ZN17nsSBCSGroupProberC2Ev+0x1488): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:59:(.text._ZN17nsSBCSGroupProberC2Ev+0x149c): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:57:(.text._ZN17nsSBCSGroupProberC2Ev+0x14b0): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o):C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCSGroupProber.cpp:56: more undefined references to `operator delete(void*)' follow
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCSGroupProber.o):(.data.rel.ro._ZTI17nsSBCSGroupProber[_ZTI17nsSBCSGroupProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCharSetProber.o): in function `nsSingleByteCharSetProber::~nsSingleByteCharSetProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSBCharSetProber.h:81:(.text._ZN25nsSingleByteCharSetProberD0Ev[_ZN25nsSingleByteCharSetProberD5Ev]+0x0): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSBCharSetProber.o):(.data.rel.ro._ZTI25nsSingleByteCharSetProber[_ZTI25nsSingleByteCharSetProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSJISProber.o): in function `nsSJISProber::~nsSJISProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSJISProber.h:58:(.text._ZN12nsSJISProberD2Ev[_ZN12nsSJISProberD5Ev]+0x8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSJISProber.o): in function `nsSJISProber::~nsSJISProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSJISProber.h:58:(.text._ZN12nsSJISProberD0Ev[_ZN12nsSJISProberD5Ev]+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSJISProber.o): in function `nsSJISProber::~nsSJISProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSJISProber.h:58:(.text._ZN12nsSJISProberD0Ev[_ZN12nsSJISProberD5Ev]+0x28): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsSJISProber.h:58:(.text._ZN12nsSJISProberD0Ev[_ZN12nsSJISProberD5Ev]+0x30): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsSJISProber.o):(.data.rel.ro._ZTI12nsSJISProber[_ZTI12nsSJISProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsUTF8Prober.o): in function `nsUTF8Prober::~nsUTF8Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUTF8Prober.h:49:(.text._ZN12nsUTF8ProberD2Ev[_ZN12nsUTF8ProberD5Ev]+0x8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsUTF8Prober.o): in function `nsUTF8Prober::~nsUTF8Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUTF8Prober.h:49:(.text._ZN12nsUTF8ProberD0Ev[_ZN12nsUTF8ProberD5Ev]+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsUTF8Prober.o): in function `nsUTF8Prober::~nsUTF8Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUTF8Prober.h:49:(.text._ZN12nsUTF8ProberD0Ev[_ZN12nsUTF8ProberD5Ev]+0x28): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsUTF8Prober.h:49:(.text._ZN12nsUTF8ProberD0Ev[_ZN12nsUTF8ProberD5Ev]+0x30): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsUTF8Prober.o):(.data.rel.ro._ZTI12nsUTF8Prober[_ZTI12nsUTF8Prober]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsLatin1Prober.o): in function `nsLatin1Prober::~nsLatin1Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsLatin1Prober.h:49:(.text._ZN14nsLatin1ProberD0Ev[_ZN14nsLatin1ProberD5Ev]+0x0): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsLatin1Prober.o):(.data.rel.ro._ZTI14nsLatin1Prober[_ZTI14nsLatin1Prober]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(CharDistribution.o):(.data.rel.ro._ZTI24CharDistributionAnalysis[_ZTI24CharDistributionAnalysis]+0x0): undefined reference to `vtable for __cxxabiv1::__class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(CharDistribution.o):(.data.rel.ro._ZTI25EUCTWDistributionAnalysis[_ZTI25EUCTWDistributionAnalysis]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(CharDistribution.o):(.data.rel.ro._ZTI25EUCKRDistributionAnalysis[_ZTI25EUCKRDistributionAnalysis]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(CharDistribution.o):(.data.rel.ro._ZTI26GB2312DistributionAnalysis[_ZTI26GB2312DistributionAnalysis]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(CharDistribution.o):(.data.rel.ro._ZTI24Big5DistributionAnalysis[_ZTI24Big5DistributionAnalysis]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(CharDistribution.o):(.data.rel.ro._ZTI24SJISDistributionAnalysis[_ZTI24SJISDistributionAnalysis]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(CharDistribution.o):(.data.rel.ro._ZTI25EUCJPDistributionAnalysis[_ZTI25EUCJPDistributionAnalysis]+0x0): more undefined references to `vtable for __cxxabiv1::__si_class_type_info' follow
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsBig5Prober.o): in function `nsBig5Prober::~nsBig5Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsBig5Prober.h:51:(.text._ZN12nsBig5ProberD2Ev[_ZN12nsBig5ProberD5Ev]+0x8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsBig5Prober.o): in function `nsBig5Prober::~nsBig5Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsBig5Prober.h:51:(.text._ZN12nsBig5ProberD0Ev[_ZN12nsBig5ProberD5Ev]+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsBig5Prober.o): in function `nsBig5Prober::~nsBig5Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsBig5Prober.h:51:(.text._ZN12nsBig5ProberD0Ev[_ZN12nsBig5ProberD5Ev]+0x28): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsBig5Prober.h:51:(.text._ZN12nsBig5ProberD0Ev[_ZN12nsBig5ProberD5Ev]+0x30): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsBig5Prober.o):(.data.rel.ro._ZTI12nsBig5Prober[_ZTI12nsBig5Prober]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCJPProber.o): in function `nsEUCJPProber::~nsEUCJPProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCJPProber.h:57:(.text._ZN13nsEUCJPProberD2Ev[_ZN13nsEUCJPProberD5Ev]+0x8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCJPProber.o): in function `nsEUCJPProber::~nsEUCJPProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCJPProber.h:57:(.text._ZN13nsEUCJPProberD0Ev[_ZN13nsEUCJPProberD5Ev]+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCJPProber.o): in function `nsEUCJPProber::~nsEUCJPProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCJPProber.h:57:(.text._ZN13nsEUCJPProberD0Ev[_ZN13nsEUCJPProberD5Ev]+0x28): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCJPProber.h:57:(.text._ZN13nsEUCJPProberD0Ev[_ZN13nsEUCJPProberD5Ev]+0x30): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCJPProber.o):(.data.rel.ro._ZTI13nsEUCJPProber[_ZTI13nsEUCJPProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCKRProber.o): in function `nsEUCKRProber::~nsEUCKRProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCKRProber.h:52:(.text._ZN13nsEUCKRProberD2Ev[_ZN13nsEUCKRProberD5Ev]+0x8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCKRProber.o): in function `nsEUCKRProber::~nsEUCKRProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCKRProber.h:52:(.text._ZN13nsEUCKRProberD0Ev[_ZN13nsEUCKRProberD5Ev]+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCKRProber.o): in function `nsEUCKRProber::~nsEUCKRProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCKRProber.h:52:(.text._ZN13nsEUCKRProberD0Ev[_ZN13nsEUCKRProberD5Ev]+0x28): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCKRProber.h:52:(.text._ZN13nsEUCKRProberD0Ev[_ZN13nsEUCKRProberD5Ev]+0x30): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCKRProber.o):(.data.rel.ro._ZTI13nsEUCKRProber[_ZTI13nsEUCKRProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCTWProber.o): in function `nsEUCTWProber::~nsEUCTWProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCTWProber.h:51:(.text._ZN13nsEUCTWProberD2Ev[_ZN13nsEUCTWProberD5Ev]+0x8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCTWProber.o): in function `nsEUCTWProber::~nsEUCTWProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCTWProber.h:51:(.text._ZN13nsEUCTWProberD0Ev[_ZN13nsEUCTWProberD5Ev]+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCTWProber.o): in function `nsEUCTWProber::~nsEUCTWProber()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCTWProber.h:51:(.text._ZN13nsEUCTWProberD0Ev[_ZN13nsEUCTWProberD5Ev]+0x28): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsEUCTWProber.h:51:(.text._ZN13nsEUCTWProberD0Ev[_ZN13nsEUCTWProberD5Ev]+0x30): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsEUCTWProber.o):(.data.rel.ro._ZTI13nsEUCTWProber[_ZTI13nsEUCTWProber]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsGB2312Prober.o): in function `nsGB18030Prober::~nsGB18030Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsGB2312Prober.h:53:(.text._ZN15nsGB18030ProberD2Ev[_ZN15nsGB18030ProberD5Ev]+0x8): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsGB2312Prober.o): in function `nsGB18030Prober::~nsGB18030Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsGB2312Prober.h:53:(.text._ZN15nsGB18030ProberD0Ev[_ZN15nsGB18030ProberD5Ev]+0x18): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsGB2312Prober.o): in function `nsGB18030Prober::~nsGB18030Prober()':
+C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsGB2312Prober.h:53:(.text._ZN15nsGB18030ProberD0Ev[_ZN15nsGB18030ProberD5Ev]+0x28): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:/Users/USER/Documents/GitHub/FangameNX/src/uchardet/src/nsGB2312Prober.h:53:(.text._ZN15nsGB18030ProberD0Ev[_ZN15nsGB18030ProberD5Ev]+0x30): undefined reference to `operator delete(void*)'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ../src/libuchardet.a(nsGB2312Prober.o):(.data.rel.ro._ZTI15nsGB18030Prober[_ZTI15nsGB18030Prober]+0x0): undefined reference to `vtable for __cxxabiv1::__si_class_type_info'
+collect2.exe: error: ld returned 1 exit status
+make[2]: *** [test/CMakeFiles/uchardet-tests.dir/build.make:101: test/uchardet-tests.elf] Error 1
+make[1]: *** [CMakeFiles/Makefile2:184: test/CMakeFiles/uchardet-tests.dir/all] Error 2
+make: *** [Makefile:146: all] Error 2

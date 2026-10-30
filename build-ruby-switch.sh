@@ -73,19 +73,22 @@ rm -rf "$BUILD"; mkdir -p "$BUILD"; cd "$BUILD"
   --disable-shared --disable-install-doc --disable-install-rdoc \
   --disable-dtrace --disable-jit-support --disable-yjit \
   --with-static-linked-ext \
+  --with-ext=zlib,stringio,strscan \
   --with-baseruby="$BASERUBY" \
   --without-gmp \
-  --with-out-ext=openssl,fiddle,pty,syslog,readline,dbm,gdbm,win32,win32ole,socket,etc \
+  --with-out-ext=openssl,fiddle,pty,syslog,readline,dbm,gdbm,win32,win32ole,socket,etc,-test-/* \
   ac_cv_func_fork=no ac_cv_func_vfork=no ac_cv_func_daemon=no ac_cv_func_waitpid=yes \
   ac_cv_func_execv=no ac_cv_func_execve=no \
   ac_cv_func_dlopen=no ac_cv_lib_dl_dlopen=no \
+  ac_cv_exeext=.exe \
   ac_cv_func_mmap_fixed_mapped=no \
   ac_cv_func_getcontext=no ac_cv_func_setcontext=no ac_cv_func_makecontext=no \
   ac_cv_header_ucontext_h=no ac_cv_header_sys_mman_h=no ac_cv_header_dlfcn_h=no \
   rb_cv_binary_elf=yes \
   > "$ROOT/docs/configure-log.txt" 2>&1
 
-if [ ! -f Makefile ]; then
+CONFIG_RC=$?
+if [ "$CONFIG_RC" -ne 0 ] || [ ! -f Makefile ]; then
   echo ">>> CONFIGURE FALLO"; tail -30 "$ROOT/docs/configure-log.txt"; exit 1
 fi
 echo ">>> Configure OK"
@@ -101,4 +104,14 @@ grep -nE "error:|undefined reference|Error [0-9]" "$ROOT/docs/make-log.txt" | he
 echo ""
 echo "=================== ARTEFACTOS ==================="
 echo "objetos .o : $(ls "$BUILD"/*.o 2>/dev/null | wc -l)"
-ls -la "$BUILD"/libruby*.a 2>/dev/null && echo ">>> *** LIBRUBY CONSTRUIDA *** <<<" || echo ">>> aun sin libruby.a"
+if [ "$RC" -eq 0 ] && [ -s "$BUILD/libruby-static.a" ]; then
+  ls -la "$BUILD/libruby-static.a"
+  echo ">>> libruby-static.a: make completo OK"
+elif [ -s "$BUILD/libruby-static.a" ]; then
+  ls -la "$BUILD/libruby-static.a"
+  echo ">>> libruby-static.a parcial: make fallo; no usar como compilacion validada"
+else
+  echo ">>> falta libruby-static.a"
+  [ "$RC" -ne 0 ] || RC=1
+fi
+exit "$RC"

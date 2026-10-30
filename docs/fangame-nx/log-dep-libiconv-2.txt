@@ -1,0 +1,425 @@
+configure: loading site script /etc/config.site
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for aarch64-none-elf-strip... aarch64-none-elf-strip
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make sets $(MAKE)... (cached) yes
+checking for aarch64-none-elf-gcc... aarch64-none-elf-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether aarch64-none-elf-gcc accepts -g... yes
+checking for aarch64-none-elf-gcc option to accept ISO C89... none needed
+checking whether aarch64-none-elf-gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of aarch64-none-elf-gcc... none
+checking how to run the C preprocessor... aarch64-none-elf-gcc -E
+checking for strip... :
+checking for aarch64-none-elf-strip... (cached) aarch64-none-elf-strip
+checking build system type... x86_64-pc-cygwin
+checking host system type... aarch64-none-elf
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+checking for Minix Amsterdam compiler... no
+checking for aarch64-none-elf-ar... aarch64-none-elf-ar
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by aarch64-none-elf-gcc... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B
+checking the name lister (/c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B) interface... BSD nm
+checking whether ln -s works... no, using cp -pR
+checking the maximum length of command line arguments... 8192
+checking how to convert x86_64-pc-cygwin file names to aarch64-none-elf format... func_convert_file_noop
+checking how to convert x86_64-pc-cygwin file names to toolchain format... func_convert_file_noop
+checking for C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe option to reload object files... -r
+checking for aarch64-none-elf-objdump... aarch64-none-elf-objdump
+checking how to recognize dependent libraries... unknown
+checking for aarch64-none-elf-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-none-elf-ar... (cached) aarch64-none-elf-ar
+checking for archiver @FILE support... @
+checking for aarch64-none-elf-strip... (cached) aarch64-none-elf-strip
+checking for aarch64-none-elf-ranlib... aarch64-none-elf-ranlib
+checking command to parse /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B output from aarch64-none-elf-gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for aarch64-none-elf-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... no
+checking for objdir... .libs
+checking if aarch64-none-elf-gcc supports -fno-rtti -fno-exceptions... no
+checking for aarch64-none-elf-gcc option to produce PIC... -fPIC -DPIC
+checking if aarch64-none-elf-gcc PIC flag -fPIC -DPIC works... yes
+checking if aarch64-none-elf-gcc static flag -static works... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... (cached) yes
+checking whether the aarch64-none-elf-gcc linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) supports shared libraries... yes
+checking dynamic linker characteristics... no
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... no
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking for ld... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for shared library path variable... none
+checking whether to activate relocatable installation... no
+checking how to copy files... cp -p
+checking how to make hard links... ln
+checking whether ln -s works... no, using cp -pR
+checking for aarch64-none-elf-windres... no
+checking for windres... no
+checking whether the -Werror option is usable... yes
+checking for simple visibility declarations... yes
+checking for shared library run path origin... done
+checking 32-bit host C ABI... no
+checking for the common suffixes of directories in the library search path... lib,lib
+checking for iconv... yes
+checking for working iconv... guessing yes
+checking how to link with libiconv... C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a
+checking for iconv declaration... 
+         extern size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);
+checking whether NLS is requested... no
+checking for msgfmt... /usr/bin/msgfmt
+checking for gmsgfmt... /usr/bin/msgfmt
+checking for xgettext... /usr/bin/xgettext
+checking for msgmerge... /usr/bin/msgmerge
+checking for CFPreferencesCopyAppValue... no
+checking for CFLocaleCopyCurrent... no
+checking for CFLocaleCopyPreferredLanguages... no
+checking whether to use NLS... no
+checking for mbstate_t... yes
+checking for wchar_t... yes
+checking for getc_unlocked... yes
+checking for mbrtowc... yes
+checking for wcrtomb... yes
+checking for mbsinit... yes
+checking for setlocale... yes
+checking whether <wchar.h> is standalone... yes
+checking for memmove... yes
+checking for nl_langinfo and CODESET... yes
+checking for unistd.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking for sys/param.h... yes
+checking for limits.h... yes
+checking for sys/stat.h... (cached) yes
+checking for sys/time.h... yes
+checking for wchar.h... yes
+checking for stdint.h... (cached) yes
+checking for sys/socket.h... yes
+checking for symlink... yes
+checking for canonicalize_file_name... no
+checking for getcwd... yes
+checking for readlink... yes
+checking for realpath... yes
+checking for readlinkat... no
+checking for getprogname... no
+checking for getexecname... no
+checking for lstat... yes
+checking for _set_invalid_parameter_handler... no
+checking for setenv... yes
+checking for working fcntl.h... cross-compiling
+checking for wchar.h... (cached) yes
+checking for EILSEQ... yes
+checking byte ordering... guessing little endian
+checking for size_t... yes
+checking for working alloca.h... yes
+checking for alloca... yes
+checking whether // is distinct from /... unknown, assuming no
+checking whether realpath works... guessing no
+checking if environ is properly declared... yes
+checking whether the preprocessor supports include_next... yes
+checking whether system header files limit the line length... no
+checking for complete errno.h... yes
+checking whether strerror_r is declared... yes
+checking for strerror_r... yes
+checking whether strerror_r returns char *... yes
+checking for pid_t... yes
+checking for mode_t... yes
+checking whether limits.h has LLONG_MAX, WORD_BIT, ULLONG_WIDTH etc.... no
+checking whether lstat correctly handles trailing slash... guessing no
+checking whether malloc, realloc, calloc are POSIX compliant... yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible malloc... guessing no
+checking for unsigned long long int... yes
+checking for long long int... yes
+checking for sigset_t... yes
+checking for SIGPIPE... yes
+checking whether setenv is declared... yes
+checking for ssize_t... yes
+checking for uid_t in sys/types.h... yes
+checking whether C symbols are prefixed with underscore at the linker level... no
+checking whether stat file-mode macros are broken... no
+checking for nlink_t... yes
+checking for stdbool.h that conforms to C99... yes
+checking for _Bool... yes
+checking for wint_t... yes
+checking whether wint_t is too small... no
+checking whether stdint.h conforms to C99... guessing yes
+checking whether stdint.h predates C++11... no
+checking whether stdint.h has UINTMAX_WIDTH etc.... no
+checking whether strerror(0) succeeds... guessing no
+checking for C/C++ restrict keyword... __restrict
+checking for struct timespec in <time.h>... yes
+checking whether clearerr_unlocked is declared... yes
+checking whether feof_unlocked is declared... yes
+checking whether ferror_unlocked is declared... yes
+checking whether fflush_unlocked is declared... yes
+checking whether fgets_unlocked is declared... yes
+checking whether fputc_unlocked is declared... yes
+checking whether fputs_unlocked is declared... yes
+checking whether fread_unlocked is declared... yes
+checking whether fwrite_unlocked is declared... yes
+checking whether getc_unlocked is declared... yes
+checking whether getchar_unlocked is declared... yes
+checking whether putc_unlocked is declared... yes
+checking whether putchar_unlocked is declared... yes
+checking whether // is distinct from /... (cached) unknown, assuming no
+checking for error_at_line... no
+checking whether program_invocation_name is declared... no
+checking whether program_invocation_short_name is declared... no
+checking whether __argv is declared... no
+checking whether __progname is defined in default libraries... 
+checking for mbstate_t... (cached) yes
+checking whether program_invocation_name is declared... (cached) no
+checking whether program_invocation_short_name is declared... (cached) no
+checking for raise... yes
+checking for sigprocmask... no
+checking whether readlink signature is correct... yes
+checking whether readlink handles trailing slash correctly... ln: failed to create symbolic link 'conftest.link': No such file or directory
+ln: failed to create symbolic link 'conftest.lnk2': No such file or directory
+guessing no
+checking search.h usability... yes
+checking search.h presence... yes
+checking for search.h... yes
+checking for tsearch... yes
+checking for volatile sig_atomic_t... yes
+checking for sighandler_t... yes
+checking for sigprocmask... (cached) no
+checking for ssize_t... (cached) yes
+checking whether stat handles trailing slashes on files... guessing no
+checking for struct stat.st_atim.tv_nsec... yes
+checking whether struct stat.st_atim is of type struct timespec... yes
+checking for struct stat.st_birthtimespec.tv_nsec... no
+checking for struct stat.st_birthtimensec... no
+checking for struct stat.st_birthtim.tv_nsec... no
+checking for good max_align_t... yes
+checking whether NULL can be used in arbitrary expressions... yes
+checking which flavor of printf attribute matches inttypes macros... system
+checking for nlink_t... (cached) yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating lib/Makefile
+config.status: creating srclib/Makefile
+config.status: creating src/Makefile
+config.status: creating po/Makefile.in
+config.status: creating man/Makefile
+config.status: creating tests/Makefile
+config.status: creating include/iconv.h
+config.status: creating include/iconv.h.inst
+config.status: creating config.h
+config.status: creating lib/config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+=== configuring in libcharset (/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset)
+configure: running /bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/configure --disable-option-checking '--prefix=C:/Users/USER/Documents/GitHub/FangameNX/out/nx'  '--host=aarch64-none-elf' '--disable-shared' '--enable-static' '--disable-nls' '--enable-relocatable=no' 'host_alias=aarch64-none-elf' 'CC=aarch64-none-elf-gcc' 'CFLAGS=-g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include' 'LDFLAGS=-specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib' 'LIBS=-lnxcompat -lnx' 'CPPFLAGS=-D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include' --cache-file=/dev/null --srcdir=/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset
+configure: loading site script /etc/config.site
+checking whether make sets $(MAKE)... yes
+checking for aarch64-none-elf-gcc... aarch64-none-elf-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether aarch64-none-elf-gcc accepts -g... yes
+checking for aarch64-none-elf-gcc option to accept ISO C89... none needed
+checking how to run the C preprocessor... aarch64-none-elf-gcc -E
+checking for a BSD-compatible install... /usr/bin/install -c
+checking build system type... x86_64-pc-cygwin
+checking host system type... aarch64-none-elf
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by aarch64-none-elf-gcc... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B
+checking the name lister (/c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B) interface... BSD nm
+checking whether ln -s works... no, using cp -pR
+checking the maximum length of command line arguments... 8192
+checking how to convert x86_64-pc-cygwin file names to aarch64-none-elf format... func_convert_file_noop
+checking how to convert x86_64-pc-cygwin file names to toolchain format... func_convert_file_noop
+checking for C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe option to reload object files... -r
+checking for aarch64-none-elf-objdump... aarch64-none-elf-objdump
+checking how to recognize dependent libraries... unknown
+checking for aarch64-none-elf-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-none-elf-ar... aarch64-none-elf-ar
+checking for archiver @FILE support... @
+checking for aarch64-none-elf-strip... aarch64-none-elf-strip
+checking for aarch64-none-elf-ranlib... aarch64-none-elf-ranlib
+checking for gawk... gawk
+checking command to parse /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B output from aarch64-none-elf-gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for aarch64-none-elf-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... no
+checking for objdir... .libs
+checking if aarch64-none-elf-gcc supports -fno-rtti -fno-exceptions... no
+checking for aarch64-none-elf-gcc option to produce PIC... -fPIC -DPIC
+checking if aarch64-none-elf-gcc PIC flag -fPIC -DPIC works... yes
+checking if aarch64-none-elf-gcc static flag -static works... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... (cached) yes
+checking whether the aarch64-none-elf-gcc linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) supports shared libraries... yes
+checking dynamic linker characteristics... no
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... no
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking for ld... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for shared library path variable... none
+checking whether to activate relocatable installation... no
+checking whether the -Werror option is usable... yes
+checking for simple visibility declarations... yes
+checking for nl_langinfo and CODESET... yes
+checking for unistd.h... (cached) yes
+checking for symlink... yes
+checking for working fcntl.h... cross-compiling
+checking whether we are using the GNU C Library >= 2.1 or uClibc... no
+checking for setlocale... yes
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating lib/Makefile
+config.status: creating include/localcharset.h
+config.status: creating include/localcharset.h.inst
+config.status: creating config.h
+config.status: executing libtool commands
+builddir="`pwd`"; cd libcharset && make all && make install-lib libdir="$builddir/lib" includedir="$builddir/lib"
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+if [ ! -d include ] ; then mkdir include ; fi
+cp /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/include/libcharset.h.in include/libcharset.h
+cd lib && make all
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/localcharset.c
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/relocatable-stub.c
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/relocatable-stub.c -fPIE -o relocatable-stub.o
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/localcharset.c -fPIE -o localcharset.o
+/bin/sh ../libtool --mode=link aarch64-none-elf-gcc -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -o libcharset.la -rpath C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib -version-info 1:0:0 -no-undefined localcharset.lo relocatable-stub.lo
+libtool: link: aarch64-none-elf-ar cru .libs/libcharset.a  localcharset.o relocatable-stub.o
+libtool: link: aarch64-none-elf-ranlib .libs/libcharset.a
+libtool: link: ( cd ".libs" && rm -f "libcharset.la" && cp -pR "../libcharset.la" "libcharset.la" )
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+cd lib && make all
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+cd lib && make install-lib libdir='/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib' includedir='/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib
+/bin/sh ../libtool --mode=install /usr/bin/install -c libcharset.la /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.lai /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.a /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.a
+libtool: install: chmod 644 /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.a
+libtool: install: aarch64-none-elf-ranlib /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.a
+libtool: warning: remember to run 'libtool --finish C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib'
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib
+/usr/bin/install -c -m 644 include/libcharset.h /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.h
+/usr/bin/install -c -m 644 include/localcharset.h.inst /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/localcharset.h
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -IC:/Users/USER/Documents/GitHub/FangameNX/out/nx/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/iconv.c
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -IC:/Users/USER/Documents/GitHub/FangameNX/out/nx/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../libcharset/lib/localcharset.c
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -IC:/Users/USER/Documents/GitHub/FangameNX/out/nx/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/relocatable.c
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -IC:/Users/USER/Documents/GitHub/FangameNX/out/nx/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../libcharset/lib/localcharset.c -fPIE -o localcharset.o
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -IC:/Users/USER/Documents/GitHub/FangameNX/out/nx/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/relocatable.c -fPIE -o relocatable.o
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -IC:/Users/USER/Documents/GitHub/FangameNX/out/nx/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/iconv.c -fPIE -o iconv.o
+/bin/sh ../libtool --mode=link aarch64-none-elf-gcc -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -o libiconv.la -rpath C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib -version-info 8:1:6 -no-undefined iconv.lo localcharset.lo relocatable.lo  
+libtool: link: aarch64-none-elf-ar cru .libs/libiconv.a  iconv.o localcharset.o relocatable.o
+libtool: link: aarch64-none-elf-ranlib .libs/libiconv.a
+libtool: link: ( cd ".libs" && rm -f "libiconv.la" && cp -pR "../libiconv.la" "libiconv.la" )
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+cd lib && make all
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+cd lib && make install-lib libdir='C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib' includedir='C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include'
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib
+/bin/sh ../libtool --mode=install /usr/bin/install -c libcharset.la C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.lai C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.a C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.a
+libtool: install: chmod 644 C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.a
+libtool: install: aarch64-none-elf-ranlib C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libcharset.a
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include
+/usr/bin/install -c -m 644 include/libcharset.h C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include/libcharset.h
+/usr/bin/install -c -m 644 include/localcharset.h.inst C:/Users/USER/Documents/GitHub/FangameNX/out/nx/include/localcharset.h
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+if [ ! -d C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib ] ; then /bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/build-aux/mkinstalldirs C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib ; fi
+/bin/sh ../libtool --mode=install /usr/bin/install -c libiconv.la C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.la
+libtool: install: /usr/bin/install -c .libs/libiconv.lai C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.la
+libtool: install: /usr/bin/install -c .libs/libiconv.a C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a
+libtool: install: chmod 644 C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a
+libtool: install: aarch64-none-elf-ranlib C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libiconv.a
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'

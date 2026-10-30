@@ -1,0 +1,9 @@
+-- Install configuration: "Release"
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/pkgconfig/uchardet.pc
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-targets.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-targets-release.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-config.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/cmake/uchardet/uchardet-config-version.cmake
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/lib/libuchardet.a
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/include/uchardet/uchardet.h
+-- Installing: /c/Users/USER/Documents/GitHub/FangameNX/out/nx/share/man/man1/uchardet.1

@@ -1,0 +1,1215 @@
+configure: loading site script /etc/config.site
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for aarch64-none-elf-strip... aarch64-none-elf-strip
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make sets $(MAKE)... (cached) yes
+checking for aarch64-none-elf-gcc... aarch64-none-elf-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether aarch64-none-elf-gcc accepts -g... yes
+checking for aarch64-none-elf-gcc option to accept ISO C89... none needed
+checking whether aarch64-none-elf-gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of aarch64-none-elf-gcc... none
+checking how to run the C preprocessor... aarch64-none-elf-gcc -E
+checking for strip... :
+checking for aarch64-none-elf-strip... (cached) aarch64-none-elf-strip
+checking build system type... x86_64-pc-cygwin
+checking host system type... aarch64-none-elf
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+checking for Minix Amsterdam compiler... no
+checking for aarch64-none-elf-ar... aarch64-none-elf-ar
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by aarch64-none-elf-gcc... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B
+checking the name lister (/c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B) interface... BSD nm
+checking whether ln -s works... no, using cp -pR
+checking the maximum length of command line arguments... 8192
+checking how to convert x86_64-pc-cygwin file names to aarch64-none-elf format... func_convert_file_noop
+checking how to convert x86_64-pc-cygwin file names to toolchain format... func_convert_file_noop
+checking for C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe option to reload object files... -r
+checking for aarch64-none-elf-objdump... aarch64-none-elf-objdump
+checking how to recognize dependent libraries... unknown
+checking for aarch64-none-elf-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-none-elf-ar... (cached) aarch64-none-elf-ar
+checking for archiver @FILE support... @
+checking for aarch64-none-elf-strip... (cached) aarch64-none-elf-strip
+checking for aarch64-none-elf-ranlib... aarch64-none-elf-ranlib
+checking command to parse /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B output from aarch64-none-elf-gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for aarch64-none-elf-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... no
+checking for objdir... .libs
+checking if aarch64-none-elf-gcc supports -fno-rtti -fno-exceptions... no
+checking for aarch64-none-elf-gcc option to produce PIC... -fPIC -DPIC
+checking if aarch64-none-elf-gcc PIC flag -fPIC -DPIC works... yes
+checking if aarch64-none-elf-gcc static flag -static works... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... (cached) yes
+checking whether the aarch64-none-elf-gcc linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) supports shared libraries... yes
+checking dynamic linker characteristics... no
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... no
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking for ld... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for shared library path variable... none
+checking whether to activate relocatable installation... no
+checking how to copy files... cp -p
+checking how to make hard links... ln
+checking whether ln -s works... no, using cp -pR
+checking for aarch64-none-elf-windres... no
+checking for windres... no
+checking whether the -Werror option is usable... yes
+checking for simple visibility declarations... yes
+checking for shared library run path origin... done
+checking 32-bit host C ABI... no
+checking for the common suffixes of directories in the library search path... lib,lib
+checking for iconv... no, consider installing GNU libiconv
+checking whether NLS is requested... no
+checking for msgfmt... /usr/bin/msgfmt
+checking for gmsgfmt... /usr/bin/msgfmt
+checking for xgettext... /usr/bin/xgettext
+checking for msgmerge... /usr/bin/msgmerge
+checking for CFPreferencesCopyAppValue... no
+checking for CFLocaleCopyCurrent... no
+checking for CFLocaleCopyPreferredLanguages... no
+checking whether to use NLS... no
+checking for mbstate_t... yes
+checking for wchar_t... yes
+checking for getc_unlocked... yes
+checking for mbrtowc... yes
+checking for wcrtomb... yes
+checking for mbsinit... yes
+checking for setlocale... yes
+checking whether <wchar.h> is standalone... yes
+checking for memmove... yes
+checking for nl_langinfo and CODESET... yes
+checking for unistd.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking for sys/param.h... yes
+checking for limits.h... yes
+checking for sys/stat.h... (cached) yes
+checking for sys/time.h... yes
+checking for wchar.h... yes
+checking for stdint.h... (cached) yes
+checking for sys/socket.h... yes
+checking for symlink... yes
+checking for canonicalize_file_name... no
+checking for getcwd... yes
+checking for readlink... yes
+checking for realpath... yes
+checking for readlinkat... no
+checking for getprogname... no
+checking for getexecname... no
+checking for lstat... yes
+checking for _set_invalid_parameter_handler... no
+checking for setenv... yes
+checking for working fcntl.h... cross-compiling
+checking for wchar.h... (cached) yes
+checking for EILSEQ... yes
+checking byte ordering... guessing little endian
+checking for size_t... yes
+checking for working alloca.h... yes
+checking for alloca... yes
+checking whether // is distinct from /... unknown, assuming no
+checking whether realpath works... guessing no
+checking if environ is properly declared... yes
+checking whether the preprocessor supports include_next... yes
+checking whether system header files limit the line length... no
+checking for complete errno.h... yes
+checking whether strerror_r is declared... yes
+checking for strerror_r... yes
+checking whether strerror_r returns char *... yes
+checking for pid_t... yes
+checking for mode_t... yes
+checking whether limits.h has LLONG_MAX, WORD_BIT, ULLONG_WIDTH etc.... no
+checking whether lstat correctly handles trailing slash... guessing no
+checking whether malloc, realloc, calloc are POSIX compliant... yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible malloc... guessing no
+checking for unsigned long long int... yes
+checking for long long int... yes
+checking for sigset_t... yes
+checking for SIGPIPE... yes
+checking whether setenv is declared... yes
+checking for ssize_t... yes
+checking for uid_t in sys/types.h... yes
+checking whether C symbols are prefixed with underscore at the linker level... no
+checking whether stat file-mode macros are broken... no
+checking for nlink_t... yes
+checking for stdbool.h that conforms to C99... yes
+checking for _Bool... yes
+checking for wint_t... yes
+checking whether wint_t is too small... no
+checking whether stdint.h conforms to C99... guessing yes
+checking whether stdint.h predates C++11... no
+checking whether stdint.h has UINTMAX_WIDTH etc.... no
+checking whether strerror(0) succeeds... guessing no
+checking for C/C++ restrict keyword... __restrict
+checking for struct timespec in <time.h>... yes
+checking whether clearerr_unlocked is declared... yes
+checking whether feof_unlocked is declared... yes
+checking whether ferror_unlocked is declared... yes
+checking whether fflush_unlocked is declared... yes
+checking whether fgets_unlocked is declared... yes
+checking whether fputc_unlocked is declared... yes
+checking whether fputs_unlocked is declared... yes
+checking whether fread_unlocked is declared... yes
+checking whether fwrite_unlocked is declared... yes
+checking whether getc_unlocked is declared... yes
+checking whether getchar_unlocked is declared... yes
+checking whether putc_unlocked is declared... yes
+checking whether putchar_unlocked is declared... yes
+checking whether // is distinct from /... (cached) unknown, assuming no
+checking for error_at_line... no
+checking whether program_invocation_name is declared... no
+checking whether program_invocation_short_name is declared... no
+checking whether __argv is declared... no
+checking whether __progname is defined in default libraries... 
+checking for mbstate_t... (cached) yes
+checking whether program_invocation_name is declared... (cached) no
+checking whether program_invocation_short_name is declared... (cached) no
+checking for raise... yes
+checking for sigprocmask... no
+checking whether readlink signature is correct... yes
+checking whether readlink handles trailing slash correctly... ln: failed to create symbolic link 'conftest.link': No such file or directory
+ln: failed to create symbolic link 'conftest.lnk2': No such file or directory
+guessing no
+checking search.h usability... yes
+checking search.h presence... yes
+checking for search.h... yes
+checking for tsearch... yes
+checking for volatile sig_atomic_t... yes
+checking for sighandler_t... yes
+checking for sigprocmask... (cached) no
+checking for ssize_t... (cached) yes
+checking whether stat handles trailing slashes on files... guessing no
+checking for struct stat.st_atim.tv_nsec... yes
+checking whether struct stat.st_atim is of type struct timespec... yes
+checking for struct stat.st_birthtimespec.tv_nsec... no
+checking for struct stat.st_birthtimensec... no
+checking for struct stat.st_birthtim.tv_nsec... no
+checking for good max_align_t... yes
+checking whether NULL can be used in arbitrary expressions... yes
+checking which flavor of printf attribute matches inttypes macros... system
+checking for nlink_t... (cached) yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating lib/Makefile
+config.status: creating srclib/Makefile
+config.status: creating src/Makefile
+config.status: creating po/Makefile.in
+config.status: creating man/Makefile
+config.status: creating tests/Makefile
+config.status: creating include/iconv.h
+config.status: creating include/iconv.h.inst
+config.status: creating config.h
+config.status: creating lib/config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+=== configuring in libcharset (/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset)
+configure: running /bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/configure --disable-option-checking '--prefix=C:/Users/USER/Documents/GitHub/FangameNX/out/nx'  '--host=aarch64-none-elf' '--disable-shared' '--enable-static' '--disable-nls' '--enable-relocatable=no' 'host_alias=aarch64-none-elf' 'CC=aarch64-none-elf-gcc' 'CFLAGS=-g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include' 'LDFLAGS=-specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib' 'LIBS=-lnxcompat -lnx' 'CPPFLAGS=-D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include' --cache-file=/dev/null --srcdir=/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset
+configure: loading site script /etc/config.site
+checking whether make sets $(MAKE)... yes
+checking for aarch64-none-elf-gcc... aarch64-none-elf-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether aarch64-none-elf-gcc accepts -g... yes
+checking for aarch64-none-elf-gcc option to accept ISO C89... none needed
+checking how to run the C preprocessor... aarch64-none-elf-gcc -E
+checking for a BSD-compatible install... /usr/bin/install -c
+checking build system type... x86_64-pc-cygwin
+checking host system type... aarch64-none-elf
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by aarch64-none-elf-gcc... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B
+checking the name lister (/c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B) interface... BSD nm
+checking whether ln -s works... no, using cp -pR
+checking the maximum length of command line arguments... 8192
+checking how to convert x86_64-pc-cygwin file names to aarch64-none-elf format... func_convert_file_noop
+checking how to convert x86_64-pc-cygwin file names to toolchain format... func_convert_file_noop
+checking for C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe option to reload object files... -r
+checking for aarch64-none-elf-objdump... aarch64-none-elf-objdump
+checking how to recognize dependent libraries... unknown
+checking for aarch64-none-elf-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-none-elf-ar... aarch64-none-elf-ar
+checking for archiver @FILE support... @
+checking for aarch64-none-elf-strip... aarch64-none-elf-strip
+checking for aarch64-none-elf-ranlib... aarch64-none-elf-ranlib
+checking for gawk... gawk
+checking command to parse /c/devkitPro/devkitA64/bin/aarch64-none-elf-nm -B output from aarch64-none-elf-gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for aarch64-none-elf-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... no
+checking for objdir... .libs
+checking if aarch64-none-elf-gcc supports -fno-rtti -fno-exceptions... no
+checking for aarch64-none-elf-gcc option to produce PIC... -fPIC -DPIC
+checking if aarch64-none-elf-gcc PIC flag -fPIC -DPIC works... yes
+checking if aarch64-none-elf-gcc static flag -static works... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... yes
+checking if aarch64-none-elf-gcc supports -c -o file.o... (cached) yes
+checking whether the aarch64-none-elf-gcc linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) supports shared libraries... yes
+checking dynamic linker characteristics... no
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... no
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking for ld... C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe
+checking if the linker (C:/devkitPro/devkitA64/aarch64-none-elf/bin/ld.exe) is GNU ld... yes
+checking for shared library path variable... none
+checking whether to activate relocatable installation... no
+checking whether the -Werror option is usable... yes
+checking for simple visibility declarations... yes
+checking for nl_langinfo and CODESET... yes
+checking for unistd.h... (cached) yes
+checking for symlink... yes
+checking for working fcntl.h... cross-compiling
+checking whether we are using the GNU C Library >= 2.1 or uClibc... no
+checking for setlocale... yes
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating lib/Makefile
+config.status: creating include/localcharset.h
+config.status: creating include/localcharset.h.inst
+config.status: creating config.h
+config.status: executing libtool commands
+builddir="`pwd`"; cd libcharset && make all && make install-lib libdir="$builddir/lib" includedir="$builddir/lib"
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+if [ ! -d include ] ; then mkdir include ; fi
+cp /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/include/libcharset.h.in include/libcharset.h
+cd lib && make all
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/localcharset.c
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/relocatable-stub.c
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/relocatable-stub.c -fPIE -o relocatable-stub.o
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/.. -I../include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/lib/localcharset.c -fPIE -o localcharset.o
+/bin/sh ../libtool --mode=link aarch64-none-elf-gcc -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -o libcharset.la -rpath C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib -version-info 1:0:0 -no-undefined localcharset.lo relocatable-stub.lo
+libtool: link: aarch64-none-elf-ar cru .libs/libcharset.a  localcharset.o relocatable-stub.o
+libtool: link: aarch64-none-elf-ranlib .libs/libcharset.a
+libtool: link: ( cd ".libs" && rm -f "libcharset.la" && cp -pR "../libcharset.la" "libcharset.la" )
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+cd lib && make all
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+cd lib && make install-lib libdir='/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib' includedir='/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib
+/bin/sh ../libtool --mode=install /usr/bin/install -c libcharset.la /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.lai /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.la
+libtool: install: /usr/bin/install -c .libs/libcharset.a /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.a
+libtool: install: chmod 644 /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.a
+libtool: install: aarch64-none-elf-ranlib /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.a
+libtool: warning: remember to run 'libtool --finish C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib'
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset/lib'
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/libcharset/build-aux/mkinstalldirs /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib
+/usr/bin/install -c -m 644 include/libcharset.h /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/libcharset.h
+/usr/bin/install -c -m 644 include/localcharset.h.inst /c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib/localcharset.h
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/libcharset'
+cd lib && make all
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/iconv.c
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../libcharset/lib/localcharset.c
+/bin/sh ../libtool --mode=compile aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/relocatable.c
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../libcharset/lib/localcharset.c -fPIE -o localcharset.o
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/iconv.c -fPIE -o iconv.o
+libtool: compile:  aarch64-none-elf-gcc -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib -I../include -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/../include -I.. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/.. -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -DLIBDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DBUILDING_LIBICONV -DBUILDING_DLL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib\" -DNO_XMALLOC -Dset_relocation_prefix=libiconv_set_relocation_prefix -Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 -DHAVE_CONFIG_H -c /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/lib/relocatable.c -fPIE -o relocatable.o
+/bin/sh ../libtool --mode=link aarch64-none-elf-gcc -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -fvisibility=hidden -o libiconv.la -rpath C:/Users/USER/Documents/GitHub/FangameNX/out/nx/lib -version-info 8:1:6 -no-undefined iconv.lo localcharset.lo relocatable.lo  
+libtool: link: aarch64-none-elf-ar cru .libs/libiconv.a  iconv.o localcharset.o relocatable.o
+libtool: link: aarch64-none-elf-ranlib .libs/libiconv.a
+libtool: link: ( cd ".libs" && rm -f "libiconv.la" && cp -pR "../libiconv.la" "libiconv.la" )
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/lib'
+cd srclib && make all
+make[1]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/srclib'
+rm -f alloca.h-t alloca.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  sed -e 's|@''HAVE_ALLOCA_H''@||g' < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/alloca.in.h; \
+} > alloca.h-t && \
+mv -f alloca.h-t alloca.h
+rm -f fcntl.h-t fcntl.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_FCNTL_H''@|<fcntl.h>|g' \
+      -e 's/@''GNULIB_FCNTL''@/0/g' \
+      -e 's/@''GNULIB_NONBLOCKING''@/0/g' \
+      -e 's/@''GNULIB_OPEN''@/0/g' \
+      -e 's/@''GNULIB_OPENAT''@/0/g' \
+      -e 's|@''HAVE_FCNTL''@|1|g' \
+      -e 's|@''HAVE_OPENAT''@|1|g' \
+      -e 's|@''REPLACE_FCNTL''@|0|g' \
+      -e 's|@''REPLACE_OPEN''@|0|g' \
+      -e 's|@''REPLACE_OPENAT''@|0|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/fcntl.in.h; \
+} > fcntl.h-t && \
+mv fcntl.h-t fcntl.h
+rm -f limits.h-t limits.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_LIMITS_H''@|<limits.h>|g' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/limits.in.h; \
+} > limits.h-t && \
+mv limits.h-t limits.h
+rm -f signal.h-t signal.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_SIGNAL_H''@|<signal.h>|g' \
+      -e 's/@''GNULIB_PTHREAD_SIGMASK''@/0/g' \
+      -e 's/@''GNULIB_RAISE''@/1/g' \
+      -e 's/@''GNULIB_SIGNAL_H_SIGPIPE''@/1/g' \
+      -e 's/@''GNULIB_SIGPROCMASK''@/1/g' \
+      -e 's/@''GNULIB_SIGACTION''@/0/g' \
+      -e 's|@''HAVE_POSIX_SIGNALBLOCKING''@|0|g' \
+      -e 's|@''HAVE_PTHREAD_SIGMASK''@|1|g' \
+      -e 's|@''HAVE_RAISE''@|1|g' \
+      -e 's|@''HAVE_SIGSET_T''@|1|g' \
+      -e 's|@''HAVE_SIGINFO_T''@|1|g' \
+      -e 's|@''HAVE_SIGACTION''@|1|g' \
+      -e 's|@''HAVE_STRUCT_SIGACTION_SA_SIGACTION''@|1|g' \
+      -e 's|@''HAVE_TYPE_VOLATILE_SIG_ATOMIC_T''@|1|g' \
+      -e 's|@''HAVE_SIGHANDLER_T''@|1|g' \
+      -e 's|@''REPLACE_PTHREAD_SIGMASK''@|0|g' \
+      -e 's|@''REPLACE_RAISE''@|0|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/signal.in.h; \
+} > signal.h-t && \
+mv signal.h-t signal.h
+rm -f stdint.h-t stdint.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's/@''HAVE_STDINT_H''@/1/g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_STDINT_H''@|<stdint.h>|g' \
+      -e 's/@''HAVE_C99_STDINT_H''@/1/g' \
+      -e 's/@''HAVE_SYS_TYPES_H''@/1/g' \
+      -e 's/@''HAVE_INTTYPES_H''@/1/g' \
+      -e 's/@''HAVE_SYS_INTTYPES_H''@/0/g' \
+      -e 's/@''HAVE_SYS_BITYPES_H''@/0/g' \
+      -e 's/@''HAVE_WCHAR_H''@/1/g' \
+      -e 's/@''HAVE_LONG_LONG_INT''@/1/g' \
+      -e 's/@''HAVE_UNSIGNED_LONG_LONG_INT''@/1/g' \
+      -e 's/@''APPLE_UNIVERSAL_BUILD''@/0/g' \
+      -e 's/@''BITSIZEOF_PTRDIFF_T''@//g' \
+      -e 's/@''PTRDIFF_T_SUFFIX''@//g' \
+      -e 's/@''BITSIZEOF_SIG_ATOMIC_T''@//g' \
+      -e 's/@''HAVE_SIGNED_SIG_ATOMIC_T''@//g' \
+      -e 's/@''SIG_ATOMIC_T_SUFFIX''@//g' \
+      -e 's/@''BITSIZEOF_SIZE_T''@//g' \
+      -e 's/@''SIZE_T_SUFFIX''@//g' \
+      -e 's/@''BITSIZEOF_WCHAR_T''@//g' \
+      -e 's/@''HAVE_SIGNED_WCHAR_T''@//g' \
+      -e 's/@''WCHAR_T_SUFFIX''@//g' \
+      -e 's/@''BITSIZEOF_WINT_T''@//g' \
+      -e 's/@''HAVE_SIGNED_WINT_T''@//g' \
+      -e 's/@''WINT_T_SUFFIX''@//g' \
+      -e 's/@''GNULIB_OVERRIDES_WINT_T''@/0/g' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/stdint.in.h; \
+} > stdint.h-t && \
+mv stdint.h-t stdint.h
+rm -f stdio.h-t stdio.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_STDIO_H''@|<stdio.h>|g' \
+      -e 's/@''GNULIB_DPRINTF''@/0/g' \
+      -e 's/@''GNULIB_FCLOSE''@/0/g' \
+      -e 's/@''GNULIB_FDOPEN''@/0/g' \
+      -e 's/@''GNULIB_FFLUSH''@/0/g' \
+      -e 's/@''GNULIB_FGETC''@/1/g' \
+      -e 's/@''GNULIB_FGETS''@/1/g' \
+      -e 's/@''GNULIB_FOPEN''@/0/g' \
+      -e 's/@''GNULIB_FPRINTF''@/1/g' \
+      -e 's/@''GNULIB_FPRINTF_POSIX''@/0/g' \
+      -e 's/@''GNULIB_FPURGE''@/0/g' \
+      -e 's/@''GNULIB_FPUTC''@/1/g' \
+      -e 's/@''GNULIB_FPUTS''@/1/g' \
+      -e 's/@''GNULIB_FREAD''@/1/g' \
+      -e 's/@''GNULIB_FREOPEN''@/0/g' \
+      -e 's/@''GNULIB_FSCANF''@/1/g' \
+      -e 's/@''GNULIB_FSEEK''@/0/g' \
+      -e 's/@''GNULIB_FSEEKO''@/0/g' \
+      -e 's/@''GNULIB_FTELL''@/0/g' \
+      -e 's/@''GNULIB_FTELLO''@/0/g' \
+      -e 's/@''GNULIB_FWRITE''@/1/g' \
+      -e 's/@''GNULIB_GETC''@/1/g' \
+      -e 's/@''GNULIB_GETCHAR''@/1/g' \
+      -e 's/@''GNULIB_GETDELIM''@/0/g' \
+      -e 's/@''GNULIB_GETLINE''@/0/g' \
+      -e 's/@''GNULIB_OBSTACK_PRINTF''@/0/g' \
+      -e 's/@''GNULIB_OBSTACK_PRINTF_POSIX''@/0/g' \
+      -e 's/@''GNULIB_PCLOSE''@/0/g' \
+      -e 's/@''GNULIB_PERROR''@/0/g' \
+      -e 's/@''GNULIB_POPEN''@/0/g' \
+      -e 's/@''GNULIB_PRINTF''@/1/g' \
+      -e 's/@''GNULIB_PRINTF_POSIX''@/0/g' \
+      -e 's/@''GNULIB_PUTC''@/1/g' \
+      -e 's/@''GNULIB_PUTCHAR''@/1/g' \
+      -e 's/@''GNULIB_PUTS''@/1/g' \
+      -e 's/@''GNULIB_REMOVE''@/0/g' \
+      -e 's/@''GNULIB_RENAME''@/0/g' \
+      -e 's/@''GNULIB_RENAMEAT''@/0/g' \
+      -e 's/@''GNULIB_SCANF''@/1/g' \
+      -e 's/@''GNULIB_SNPRINTF''@/0/g' \
+      -e 's/@''GNULIB_SPRINTF_POSIX''@/0/g' \
+      -e 's/@''GNULIB_STDIO_H_NONBLOCKING''@/0/g' \
+      -e 's/@''GNULIB_STDIO_H_SIGPIPE''@/1/g' \
+      -e 's/@''GNULIB_TMPFILE''@/0/g' \
+      -e 's/@''GNULIB_VASPRINTF''@/0/g' \
+      -e 's/@''GNULIB_VDPRINTF''@/0/g' \
+      -e 's/@''GNULIB_VFPRINTF''@/1/g' \
+      -e 's/@''GNULIB_VFPRINTF_POSIX''@/0/g' \
+      -e 's/@''GNULIB_VFSCANF''@/0/g' \
+      -e 's/@''GNULIB_VSCANF''@/0/g' \
+      -e 's/@''GNULIB_VPRINTF''@/1/g' \
+      -e 's/@''GNULIB_VPRINTF_POSIX''@/0/g' \
+      -e 's/@''GNULIB_VSNPRINTF''@/0/g' \
+      -e 's/@''GNULIB_VSPRINTF_POSIX''@/0/g' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/stdio.in.h | \
+  sed -e 's|@''HAVE_DECL_FPURGE''@|1|g' \
+      -e 's|@''HAVE_DECL_FSEEKO''@|1|g' \
+      -e 's|@''HAVE_DECL_FTELLO''@|1|g' \
+      -e 's|@''HAVE_DECL_GETDELIM''@|1|g' \
+      -e 's|@''HAVE_DECL_GETLINE''@|1|g' \
+      -e 's|@''HAVE_DECL_OBSTACK_PRINTF''@|1|g' \
+      -e 's|@''HAVE_DECL_SNPRINTF''@|1|g' \
+      -e 's|@''HAVE_DECL_VSNPRINTF''@|1|g' \
+      -e 's|@''HAVE_DPRINTF''@|1|g' \
+      -e 's|@''HAVE_FSEEKO''@|1|g' \
+      -e 's|@''HAVE_FTELLO''@|1|g' \
+      -e 's|@''HAVE_PCLOSE''@|1|g' \
+      -e 's|@''HAVE_POPEN''@|1|g' \
+      -e 's|@''HAVE_RENAMEAT''@|1|g' \
+      -e 's|@''HAVE_VASPRINTF''@|1|g' \
+      -e 's|@''HAVE_VDPRINTF''@|1|g' \
+      -e 's|@''REPLACE_DPRINTF''@|0|g' \
+      -e 's|@''REPLACE_FCLOSE''@|0|g' \
+      -e 's|@''REPLACE_FDOPEN''@|0|g' \
+      -e 's|@''REPLACE_FFLUSH''@|0|g' \
+      -e 's|@''REPLACE_FOPEN''@|0|g' \
+      -e 's|@''REPLACE_FPRINTF''@|0|g' \
+      -e 's|@''REPLACE_FPURGE''@|0|g' \
+      -e 's|@''REPLACE_FREOPEN''@|0|g' \
+      -e 's|@''REPLACE_FSEEK''@|0|g' \
+      -e 's|@''REPLACE_FSEEKO''@|0|g' \
+      -e 's|@''REPLACE_FTELL''@|0|g' \
+      -e 's|@''REPLACE_FTELLO''@|0|g' \
+      -e 's|@''REPLACE_GETDELIM''@|0|g' \
+      -e 's|@''REPLACE_GETLINE''@|0|g' \
+      -e 's|@''REPLACE_OBSTACK_PRINTF''@|0|g' \
+      -e 's|@''REPLACE_PERROR''@|0|g' \
+      -e 's|@''REPLACE_POPEN''@|0|g' \
+      -e 's|@''REPLACE_PRINTF''@|0|g' \
+      -e 's|@''REPLACE_REMOVE''@|0|g' \
+      -e 's|@''REPLACE_RENAME''@|0|g' \
+      -e 's|@''REPLACE_RENAMEAT''@|0|g' \
+      -e 's|@''REPLACE_SNPRINTF''@|0|g' \
+      -e 's|@''REPLACE_SPRINTF''@|0|g' \
+      -e 's|@''REPLACE_STDIO_READ_FUNCS''@|0|g' \
+      -e 's|@''REPLACE_STDIO_WRITE_FUNCS''@|0|g' \
+      -e 's|@''REPLACE_TMPFILE''@|0|g' \
+      -e 's|@''REPLACE_VASPRINTF''@|0|g' \
+      -e 's|@''REPLACE_VDPRINTF''@|0|g' \
+      -e 's|@''REPLACE_VFPRINTF''@|0|g' \
+      -e 's|@''REPLACE_VPRINTF''@|0|g' \
+      -e 's|@''REPLACE_VSNPRINTF''@|0|g' \
+      -e 's|@''REPLACE_VSPRINTF''@|0|g' \
+      -e 's|@''ASM_SYMBOL_PREFIX''@|""|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h'; \
+} > stdio.h-t && \
+mv stdio.h-t stdio.h
+rm -f stdlib.h-t stdlib.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_STDLIB_H''@|<stdlib.h>|g' \
+      -e 's/@''GNULIB__EXIT''@/0/g' \
+      -e 's/@''GNULIB_ATOLL''@/0/g' \
+      -e 's/@''GNULIB_CALLOC_POSIX''@/0/g' \
+      -e 's/@''GNULIB_CANONICALIZE_FILE_NAME''@/1/g' \
+      -e 's/@''GNULIB_GETLOADAVG''@/0/g' \
+      -e 's/@''GNULIB_GETSUBOPT''@/0/g' \
+      -e 's/@''GNULIB_GRANTPT''@/0/g' \
+      -e 's/@''GNULIB_MALLOC_POSIX''@/1/g' \
+      -e 's/@''GNULIB_MBTOWC''@/0/g' \
+      -e 's/@''GNULIB_MKDTEMP''@/0/g' \
+      -e 's/@''GNULIB_MKOSTEMP''@/0/g' \
+      -e 's/@''GNULIB_MKOSTEMPS''@/0/g' \
+      -e 's/@''GNULIB_MKSTEMP''@/0/g' \
+      -e 's/@''GNULIB_MKSTEMPS''@/0/g' \
+      -e 's/@''GNULIB_POSIX_OPENPT''@/0/g' \
+      -e 's/@''GNULIB_PTSNAME''@/0/g' \
+      -e 's/@''GNULIB_PTSNAME_R''@/0/g' \
+      -e 's/@''GNULIB_PUTENV''@/0/g' \
+      -e 's/@''GNULIB_QSORT_R''@/0/g' \
+      -e 's/@''GNULIB_RANDOM''@/0/g' \
+      -e 's/@''GNULIB_RANDOM_R''@/0/g' \
+      -e 's/@''GNULIB_REALLOC_POSIX''@/0/g' \
+      -e 's/@''GNULIB_REALLOCARRAY''@/0/g' \
+      -e 's/@''GNULIB_REALPATH''@/1/g' \
+      -e 's/@''GNULIB_RPMATCH''@/0/g' \
+      -e 's/@''GNULIB_SECURE_GETENV''@/0/g' \
+      -e 's/@''GNULIB_SETENV''@/0/g' \
+      -e 's/@''GNULIB_STRTOD''@/0/g' \
+      -e 's/@''GNULIB_STRTOLD''@/0/g' \
+      -e 's/@''GNULIB_STRTOLL''@/0/g' \
+      -e 's/@''GNULIB_STRTOULL''@/0/g' \
+      -e 's/@''GNULIB_SYSTEM_POSIX''@/0/g' \
+      -e 's/@''GNULIB_UNLOCKPT''@/0/g' \
+      -e 's/@''GNULIB_UNSETENV''@/0/g' \
+      -e 's/@''GNULIB_WCTOMB''@/0/g' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/stdlib.in.h | \
+  sed -e 's|@''HAVE__EXIT''@|1|g' \
+      -e 's|@''HAVE_ATOLL''@|1|g' \
+      -e 's|@''HAVE_CANONICALIZE_FILE_NAME''@|0|g' \
+      -e 's|@''HAVE_DECL_GETLOADAVG''@|1|g' \
+      -e 's|@''HAVE_GETSUBOPT''@|1|g' \
+      -e 's|@''HAVE_GRANTPT''@|1|g' \
+      -e 's|@''HAVE_INITSTATE''@|1|g' \
+      -e 's|@''HAVE_DECL_INITSTATE''@|1|g' \
+      -e 's|@''HAVE_MBTOWC''@|1|g' \
+      -e 's|@''HAVE_MKDTEMP''@|1|g' \
+      -e 's|@''HAVE_MKOSTEMP''@|1|g' \
+      -e 's|@''HAVE_MKOSTEMPS''@|1|g' \
+      -e 's|@''HAVE_MKSTEMP''@|1|g' \
+      -e 's|@''HAVE_MKSTEMPS''@|1|g' \
+      -e 's|@''HAVE_POSIX_OPENPT''@|1|g' \
+      -e 's|@''HAVE_PTSNAME''@|1|g' \
+      -e 's|@''HAVE_PTSNAME_R''@|1|g' \
+      -e 's|@''HAVE_QSORT_R''@|1|g' \
+      -e 's|@''HAVE_RANDOM''@|1|g' \
+      -e 's|@''HAVE_RANDOM_H''@|1|g' \
+      -e 's|@''HAVE_RANDOM_R''@|1|g' \
+      -e 's|@''HAVE_REALLOCARRAY''@|1|g' \
+      -e 's|@''HAVE_REALPATH''@|1|g' \
+      -e 's|@''HAVE_RPMATCH''@|1|g' \
+      -e 's|@''HAVE_SECURE_GETENV''@|1|g' \
+      -e 's|@''HAVE_DECL_SETENV''@|1|g' \
+      -e 's|@''HAVE_SETSTATE''@|1|g' \
+      -e 's|@''HAVE_DECL_SETSTATE''@|1|g' \
+      -e 's|@''HAVE_STRTOD''@|1|g' \
+      -e 's|@''HAVE_STRTOLD''@|1|g' \
+      -e 's|@''HAVE_STRTOLL''@|1|g' \
+      -e 's|@''HAVE_STRTOULL''@|1|g' \
+      -e 's|@''HAVE_STRUCT_RANDOM_DATA''@|1|g' \
+      -e 's|@''HAVE_SYS_LOADAVG_H''@|0|g' \
+      -e 's|@''HAVE_UNLOCKPT''@|1|g' \
+      -e 's|@''HAVE_DECL_UNSETENV''@|1|g' \
+      -e 's|@''REPLACE_CALLOC''@|0|g' \
+      -e 's|@''REPLACE_CANONICALIZE_FILE_NAME''@|0|g' \
+      -e 's|@''REPLACE_INITSTATE''@|0|g' \
+      -e 's|@''REPLACE_MALLOC''@|0|g' \
+      -e 's|@''REPLACE_MBTOWC''@|0|g' \
+      -e 's|@''REPLACE_MKSTEMP''@|0|g' \
+      -e 's|@''REPLACE_PTSNAME''@|0|g' \
+      -e 's|@''REPLACE_PTSNAME_R''@|0|g' \
+      -e 's|@''REPLACE_PUTENV''@|0|g' \
+      -e 's|@''REPLACE_QSORT_R''@|0|g' \
+      -e 's|@''REPLACE_RANDOM''@|0|g' \
+      -e 's|@''REPLACE_RANDOM_R''@|0|g' \
+      -e 's|@''REPLACE_REALLOC''@|0|g' \
+      -e 's|@''REPLACE_REALPATH''@|1|g' \
+      -e 's|@''REPLACE_SETENV''@|0|g' \
+      -e 's|@''REPLACE_SETSTATE''@|0|g' \
+      -e 's|@''REPLACE_STRTOD''@|0|g' \
+      -e 's|@''REPLACE_STRTOLD''@|0|g' \
+      -e 's|@''REPLACE_UNSETENV''@|0|g' \
+      -e 's|@''REPLACE_WCTOMB''@|0|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _Noreturn/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/_Noreturn.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h'; \
+} > stdlib.h-t && \
+mv stdlib.h-t stdlib.h
+rm -f string.h-t string.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_STRING_H''@|<string.h>|g' \
+      -e 's/@''GNULIB_EXPLICIT_BZERO''@/0/g' \
+      -e 's/@''GNULIB_FFSL''@/0/g' \
+      -e 's/@''GNULIB_FFSLL''@/0/g' \
+      -e 's/@''GNULIB_MBSLEN''@/0/g' \
+      -e 's/@''GNULIB_MBSNLEN''@/0/g' \
+      -e 's/@''GNULIB_MBSCHR''@/0/g' \
+      -e 's/@''GNULIB_MBSRCHR''@/0/g' \
+      -e 's/@''GNULIB_MBSSTR''@/0/g' \
+      -e 's/@''GNULIB_MBSCASECMP''@/0/g' \
+      -e 's/@''GNULIB_MBSNCASECMP''@/0/g' \
+      -e 's/@''GNULIB_MBSPCASECMP''@/0/g' \
+      -e 's/@''GNULIB_MBSCASESTR''@/0/g' \
+      -e 's/@''GNULIB_MBSCSPN''@/0/g' \
+      -e 's/@''GNULIB_MBSPBRK''@/0/g' \
+      -e 's/@''GNULIB_MBSSPN''@/0/g' \
+      -e 's/@''GNULIB_MBSSEP''@/0/g' \
+      -e 's/@''GNULIB_MBSTOK_R''@/0/g' \
+      -e 's/@''GNULIB_MEMCHR''@/0/g' \
+      -e 's/@''GNULIB_MEMMEM''@/0/g' \
+      -e 's/@''GNULIB_MEMPCPY''@/0/g' \
+      -e 's/@''GNULIB_MEMRCHR''@/0/g' \
+      -e 's/@''GNULIB_RAWMEMCHR''@/0/g' \
+      -e 's/@''GNULIB_STPCPY''@/0/g' \
+      -e 's/@''GNULIB_STPNCPY''@/0/g' \
+      -e 's/@''GNULIB_STRCHRNUL''@/0/g' \
+      -e 's/@''GNULIB_STRDUP''@/0/g' \
+      -e 's/@''GNULIB_STRNCAT''@/0/g' \
+      -e 's/@''GNULIB_STRNDUP''@/0/g' \
+      -e 's/@''GNULIB_STRNLEN''@/0/g' \
+      -e 's/@''GNULIB_STRPBRK''@/0/g' \
+      -e 's/@''GNULIB_STRSEP''@/0/g' \
+      -e 's/@''GNULIB_STRSTR''@/0/g' \
+      -e 's/@''GNULIB_STRCASESTR''@/0/g' \
+      -e 's/@''GNULIB_STRTOK_R''@/0/g' \
+      -e 's/@''GNULIB_STRERROR''@/1/g' \
+      -e 's/@''GNULIB_STRERROR_R''@/0/g' \
+      -e 's/@''GNULIB_STRSIGNAL''@/0/g' \
+      -e 's/@''GNULIB_STRVERSCMP''@/0/g' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/string.in.h | \
+  sed -e 's|@''HAVE_EXPLICIT_BZERO''@|1|g' \
+      -e 's|@''HAVE_FFSL''@|1|g' \
+      -e 's|@''HAVE_FFSLL''@|1|g' \
+      -e 's|@''HAVE_MBSLEN''@|0|g' \
+      -e 's|@''HAVE_MEMCHR''@|1|g' \
+      -e 's|@''HAVE_DECL_MEMMEM''@|1|g' \
+      -e 's|@''HAVE_MEMPCPY''@|1|g' \
+      -e 's|@''HAVE_DECL_MEMRCHR''@|1|g' \
+      -e 's|@''HAVE_RAWMEMCHR''@|1|g' \
+      -e 's|@''HAVE_STPCPY''@|1|g' \
+      -e 's|@''HAVE_STPNCPY''@|1|g' \
+      -e 's|@''HAVE_STRCHRNUL''@|1|g' \
+      -e 's|@''HAVE_DECL_STRDUP''@|1|g' \
+      -e 's|@''HAVE_DECL_STRNDUP''@|1|g' \
+      -e 's|@''HAVE_DECL_STRNLEN''@|1|g' \
+      -e 's|@''HAVE_STRPBRK''@|1|g' \
+      -e 's|@''HAVE_STRSEP''@|1|g' \
+      -e 's|@''HAVE_STRCASESTR''@|1|g' \
+      -e 's|@''HAVE_DECL_STRTOK_R''@|1|g' \
+      -e 's|@''HAVE_DECL_STRERROR_R''@|1|g' \
+      -e 's|@''HAVE_DECL_STRSIGNAL''@|1|g' \
+      -e 's|@''HAVE_STRVERSCMP''@|1|g' \
+      -e 's|@''REPLACE_MEMCHR''@|0|g' \
+      -e 's|@''REPLACE_MEMMEM''@|0|g' \
+      -e 's|@''REPLACE_STPNCPY''@|0|g' \
+      -e 's|@''REPLACE_STRCHRNUL''@|0|g' \
+      -e 's|@''REPLACE_STRDUP''@|0|g' \
+      -e 's|@''REPLACE_STRNCAT''@|0|g' \
+      -e 's|@''REPLACE_STRNDUP''@|0|g' \
+      -e 's|@''REPLACE_STRNLEN''@|0|g' \
+      -e 's|@''REPLACE_STRSTR''@|0|g' \
+      -e 's|@''REPLACE_STRCASESTR''@|0|g' \
+      -e 's|@''REPLACE_STRTOK_R''@|0|g' \
+      -e 's|@''REPLACE_STRERROR''@|1|g' \
+      -e 's|@''REPLACE_STRERROR_R''@|0|g' \
+      -e 's|@''REPLACE_STRSIGNAL''@|0|g' \
+      -e 's|@''UNDEFINE_STRTOK_R''@|0|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h'; \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/string.in.h; \
+} > string.h-t && \
+mv string.h-t string.h
+/usr/bin/mkdir -p sys
+/usr/bin/mkdir -p sys
+rm -f sys/stat.h-t sys/stat.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_SYS_STAT_H''@|<sys/stat.h>|g' \
+      -e 's|@''WINDOWS_64_BIT_ST_SIZE''@|0|g' \
+      -e 's|@''WINDOWS_STAT_TIMESPEC''@|0|g' \
+      -e 's/@''GNULIB_FCHMODAT''@/0/g' \
+      -e 's/@''GNULIB_FSTAT''@/0/g' \
+      -e 's/@''GNULIB_FSTATAT''@/0/g' \
+      -e 's/@''GNULIB_FUTIMENS''@/0/g' \
+      -e 's/@''GNULIB_LCHMOD''@/0/g' \
+      -e 's/@''GNULIB_LSTAT''@/1/g' \
+      -e 's/@''GNULIB_MKDIRAT''@/0/g' \
+      -e 's/@''GNULIB_MKFIFO''@/0/g' \
+      -e 's/@''GNULIB_MKFIFOAT''@/0/g' \
+      -e 's/@''GNULIB_MKNOD''@/0/g' \
+      -e 's/@''GNULIB_MKNODAT''@/0/g' \
+      -e 's/@''GNULIB_STAT''@/1/g' \
+      -e 's/@''GNULIB_UTIMENSAT''@/0/g' \
+      -e 's/@''GNULIB_OVERRIDES_STRUCT_STAT''@/0/g' \
+      -e 's|@''HAVE_FCHMODAT''@|1|g' \
+      -e 's|@''HAVE_FSTATAT''@|1|g' \
+      -e 's|@''HAVE_FUTIMENS''@|1|g' \
+      -e 's|@''HAVE_LCHMOD''@|1|g' \
+      -e 's|@''HAVE_LSTAT''@|1|g' \
+      -e 's|@''HAVE_MKDIRAT''@|1|g' \
+      -e 's|@''HAVE_MKFIFO''@|1|g' \
+      -e 's|@''HAVE_MKFIFOAT''@|1|g' \
+      -e 's|@''HAVE_MKNOD''@|1|g' \
+      -e 's|@''HAVE_MKNODAT''@|1|g' \
+      -e 's|@''HAVE_UTIMENSAT''@|1|g' \
+      -e 's|@''REPLACE_FSTAT''@|0|g' \
+      -e 's|@''REPLACE_FSTATAT''@|0|g' \
+      -e 's|@''REPLACE_FUTIMENS''@|0|g' \
+      -e 's|@''REPLACE_LSTAT''@|1|g' \
+      -e 's|@''REPLACE_MKDIR''@|0|g' \
+      -e 's|@''REPLACE_MKFIFO''@|0|g' \
+      -e 's|@''REPLACE_MKNOD''@|0|g' \
+      -e 's|@''REPLACE_STAT''@|1|g' \
+      -e 's|@''REPLACE_UTIMENSAT''@|0|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/sys_stat.in.h; \
+} > sys/stat.h-t && \
+mv sys/stat.h-t sys/stat.h
+rm -f sys/types.h-t sys/types.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_SYS_TYPES_H''@|<sys/types.h>|g' \
+      -e 's|@''WINDOWS_64_BIT_OFF_T''@|0|g' \
+      -e 's|@''WINDOWS_STAT_INODES''@|0|g' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/sys_types.in.h; \
+} > sys/types.h-t && \
+mv sys/types.h-t sys/types.h
+rm -f time.h-t time.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_TIME_H''@|<time.h>|g' \
+      -e 's/@''GNULIB_CTIME''@/0/g' \
+      -e 's/@''GNULIB_LOCALTIME''@/0/g' \
+      -e 's/@''GNULIB_MKTIME''@/0/g' \
+      -e 's/@''GNULIB_NANOSLEEP''@/0/g' \
+      -e 's/@''GNULIB_STRFTIME''@/0/g' \
+      -e 's/@''GNULIB_STRPTIME''@/0/g' \
+      -e 's/@''GNULIB_TIMEGM''@/0/g' \
+      -e 's/@''GNULIB_TIME_R''@/0/g' \
+      -e 's/@''GNULIB_TIME_RZ''@/0/g' \
+      -e 's/@''GNULIB_TZSET''@/0/g' \
+      -e 's|@''HAVE_DECL_LOCALTIME_R''@|1|g' \
+      -e 's|@''HAVE_NANOSLEEP''@|1|g' \
+      -e 's|@''HAVE_STRPTIME''@|1|g' \
+      -e 's|@''HAVE_TIMEGM''@|1|g' \
+      -e 's|@''HAVE_TIMEZONE_T''@|0|g' \
+      -e 's|@''HAVE_TZSET''@|1|g' \
+      -e 's|@''REPLACE_CTIME''@|GNULIB_PORTCHECK|g' \
+      -e 's|@''REPLACE_GMTIME''@|0|g' \
+      -e 's|@''REPLACE_LOCALTIME''@|0|g' \
+      -e 's|@''REPLACE_LOCALTIME_R''@|GNULIB_PORTCHECK|g' \
+      -e 's|@''REPLACE_MKTIME''@|GNULIB_PORTCHECK|g' \
+      -e 's|@''REPLACE_NANOSLEEP''@|GNULIB_PORTCHECK|g' \
+      -e 's|@''REPLACE_STRFTIME''@|GNULIB_PORTCHECK|g' \
+      -e 's|@''REPLACE_TIMEGM''@|GNULIB_PORTCHECK|g' \
+      -e 's|@''REPLACE_TZSET''@|GNULIB_PORTCHECK|g' \
+      -e 's|@''PTHREAD_H_DEFINES_STRUCT_TIMESPEC''@|0|g' \
+      -e 's|@''SYS_TIME_H_DEFINES_STRUCT_TIMESPEC''@|0|g' \
+      -e 's|@''TIME_H_DEFINES_STRUCT_TIMESPEC''@|1|g' \
+      -e 's|@''UNISTD_H_DEFINES_STRUCT_TIMESPEC''@|0|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/time.in.h; \
+} > time.h-t && \
+mv time.h-t time.h
+rm -f unistd.h-t unistd.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+      -e 's|@''HAVE_UNISTD_H''@|1|g' \
+      -e 's|@''INCLUDE_NEXT''@|include_next|g' \
+      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+      -e 's|@''PRAGMA_COLUMNS''@||g' \
+      -e 's|@''NEXT_UNISTD_H''@|<unistd.h>|g' \
+      -e 's|@''WINDOWS_64_BIT_OFF_T''@|0|g' \
+      -e 's/@''GNULIB_CHDIR''@/0/g' \
+      -e 's/@''GNULIB_CHOWN''@/0/g' \
+      -e 's/@''GNULIB_CLOSE''@/0/g' \
+      -e 's/@''GNULIB_DUP''@/0/g' \
+      -e 's/@''GNULIB_DUP2''@/0/g' \
+      -e 's/@''GNULIB_DUP3''@/0/g' \
+      -e 's/@''GNULIB_ENVIRON''@/1/g' \
+      -e 's/@''GNULIB_EUIDACCESS''@/0/g' \
+      -e 's/@''GNULIB_FACCESSAT''@/0/g' \
+      -e 's/@''GNULIB_FCHDIR''@/0/g' \
+      -e 's/@''GNULIB_FCHOWNAT''@/0/g' \
+      -e 's/@''GNULIB_FDATASYNC''@/0/g' \
+      -e 's/@''GNULIB_FSYNC''@/0/g' \
+      -e 's/@''GNULIB_FTRUNCATE''@/0/g' \
+      -e 's/@''GNULIB_GETCWD''@/0/g' \
+      -e 's/@''GNULIB_GETDOMAINNAME''@/0/g' \
+      -e 's/@''GNULIB_GETDTABLESIZE''@/0/g' \
+      -e 's/@''GNULIB_GETGROUPS''@/0/g' \
+      -e 's/@''GNULIB_GETHOSTNAME''@/0/g' \
+      -e 's/@''GNULIB_GETLOGIN''@/0/g' \
+      -e 's/@''GNULIB_GETLOGIN_R''@/0/g' \
+      -e 's/@''GNULIB_GETPAGESIZE''@/0/g' \
+      -e 's/@''GNULIB_GETPASS''@/0/g' \
+      -e 's/@''GNULIB_GETUSERSHELL''@/0/g' \
+      -e 's/@''GNULIB_GROUP_MEMBER''@/0/g' \
+      -e 's/@''GNULIB_ISATTY''@/0/g' \
+      -e 's/@''GNULIB_LCHOWN''@/0/g' \
+      -e 's/@''GNULIB_LINK''@/0/g' \
+      -e 's/@''GNULIB_LINKAT''@/0/g' \
+      -e 's/@''GNULIB_LSEEK''@/0/g' \
+      -e 's/@''GNULIB_PIPE''@/0/g' \
+      -e 's/@''GNULIB_PIPE2''@/0/g' \
+      -e 's/@''GNULIB_PREAD''@/0/g' \
+      -e 's/@''GNULIB_PWRITE''@/0/g' \
+      -e 's/@''GNULIB_READ''@/1/g' \
+      -e 's/@''GNULIB_READLINK''@/1/g' \
+      -e 's/@''GNULIB_READLINKAT''@/0/g' \
+      -e 's/@''GNULIB_RMDIR''@/0/g' \
+      -e 's/@''GNULIB_SETHOSTNAME''@/0/g' \
+      -e 's/@''GNULIB_SLEEP''@/0/g' \
+      -e 's/@''GNULIB_SYMLINK''@/0/g' \
+      -e 's/@''GNULIB_SYMLINKAT''@/0/g' \
+      -e 's/@''GNULIB_TRUNCATE''@/0/g' \
+      -e 's/@''GNULIB_TTYNAME_R''@/0/g' \
+      -e 's/@''GNULIB_UNISTD_H_GETOPT''@/0/g' \
+      -e 's/@''GNULIB_UNISTD_H_NONBLOCKING''@/0/g' \
+      -e 's/@''GNULIB_UNISTD_H_SIGPIPE''@/1/g' \
+      -e 's/@''GNULIB_UNLINK''@/0/g' \
+      -e 's/@''GNULIB_UNLINKAT''@/0/g' \
+      -e 's/@''GNULIB_USLEEP''@/0/g' \
+      -e 's/@''GNULIB_WRITE''@/0/g' \
+      < /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/unistd.in.h | \
+  sed -e 's|@''HAVE_CHOWN''@|1|g' \
+      -e 's|@''HAVE_DUP2''@|1|g' \
+      -e 's|@''HAVE_DUP3''@|1|g' \
+      -e 's|@''HAVE_EUIDACCESS''@|1|g' \
+      -e 's|@''HAVE_FACCESSAT''@|1|g' \
+      -e 's|@''HAVE_FCHDIR''@|1|g' \
+      -e 's|@''HAVE_FCHOWNAT''@|1|g' \
+      -e 's|@''HAVE_FDATASYNC''@|1|g' \
+      -e 's|@''HAVE_FSYNC''@|1|g' \
+      -e 's|@''HAVE_FTRUNCATE''@|1|g' \
+      -e 's|@''HAVE_GETDTABLESIZE''@|1|g' \
+      -e 's|@''HAVE_GETGROUPS''@|1|g' \
+      -e 's|@''HAVE_GETHOSTNAME''@|1|g' \
+      -e 's|@''HAVE_GETPAGESIZE''@|1|g' \
+      -e 's|@''HAVE_GETPASS''@|1|g' \
+      -e 's|@''HAVE_GROUP_MEMBER''@|1|g' \
+      -e 's|@''HAVE_LCHOWN''@|1|g' \
+      -e 's|@''HAVE_LINK''@|1|g' \
+      -e 's|@''HAVE_LINKAT''@|1|g' \
+      -e 's|@''HAVE_PIPE''@|1|g' \
+      -e 's|@''HAVE_PIPE2''@|1|g' \
+      -e 's|@''HAVE_PREAD''@|1|g' \
+      -e 's|@''HAVE_PWRITE''@|1|g' \
+      -e 's|@''HAVE_READLINK''@|1|g' \
+      -e 's|@''HAVE_READLINKAT''@|1|g' \
+      -e 's|@''HAVE_SETHOSTNAME''@|1|g' \
+      -e 's|@''HAVE_SLEEP''@|1|g' \
+      -e 's|@''HAVE_SYMLINK''@|1|g' \
+      -e 's|@''HAVE_SYMLINKAT''@|1|g' \
+      -e 's|@''HAVE_UNLINKAT''@|1|g' \
+      -e 's|@''HAVE_USLEEP''@|1|g' \
+      -e 's|@''HAVE_DECL_ENVIRON''@|1|g' \
+      -e 's|@''HAVE_DECL_FCHDIR''@|1|g' \
+      -e 's|@''HAVE_DECL_FDATASYNC''@|1|g' \
+      -e 's|@''HAVE_DECL_GETDOMAINNAME''@|1|g' \
+      -e 's|@''HAVE_DECL_GETLOGIN''@|1|g' \
+      -e 's|@''HAVE_DECL_GETLOGIN_R''@|1|g' \
+      -e 's|@''HAVE_DECL_GETPAGESIZE''@|1|g' \
+      -e 's|@''HAVE_DECL_GETUSERSHELL''@|1|g' \
+      -e 's|@''HAVE_DECL_SETHOSTNAME''@|1|g' \
+      -e 's|@''HAVE_DECL_TRUNCATE''@|1|g' \
+      -e 's|@''HAVE_DECL_TTYNAME_R''@|1|g' \
+      -e 's|@''HAVE_OS_H''@|0|g' \
+      -e 's|@''HAVE_SYS_PARAM_H''@|0|g' \
+  | \
+  sed -e 's|@''REPLACE_CHOWN''@|0|g' \
+      -e 's|@''REPLACE_CLOSE''@|0|g' \
+      -e 's|@''REPLACE_DUP''@|0|g' \
+      -e 's|@''REPLACE_DUP2''@|0|g' \
+      -e 's|@''REPLACE_FACCESSAT''@|0|g' \
+      -e 's|@''REPLACE_FCHOWNAT''@|0|g' \
+      -e 's|@''REPLACE_FTRUNCATE''@|0|g' \
+      -e 's|@''REPLACE_GETCWD''@|0|g' \
+      -e 's|@''REPLACE_GETDOMAINNAME''@|0|g' \
+      -e 's|@''REPLACE_GETDTABLESIZE''@|0|g' \
+      -e 's|@''REPLACE_GETLOGIN_R''@|0|g' \
+      -e 's|@''REPLACE_GETGROUPS''@|0|g' \
+      -e 's|@''REPLACE_GETPAGESIZE''@|0|g' \
+      -e 's|@''REPLACE_GETPASS''@|0|g' \
+      -e 's|@''REPLACE_ISATTY''@|0|g' \
+      -e 's|@''REPLACE_LCHOWN''@|0|g' \
+      -e 's|@''REPLACE_LINK''@|0|g' \
+      -e 's|@''REPLACE_LINKAT''@|0|g' \
+      -e 's|@''REPLACE_LSEEK''@|0|g' \
+      -e 's|@''REPLACE_PREAD''@|0|g' \
+      -e 's|@''REPLACE_PWRITE''@|0|g' \
+      -e 's|@''REPLACE_READ''@|0|g' \
+      -e 's|@''REPLACE_READLINK''@|1|g' \
+      -e 's|@''REPLACE_READLINKAT''@|0|g' \
+      -e 's|@''REPLACE_RMDIR''@|0|g' \
+      -e 's|@''REPLACE_SLEEP''@|0|g' \
+      -e 's|@''REPLACE_SYMLINK''@|0|g' \
+      -e 's|@''REPLACE_SYMLINKAT''@|0|g' \
+      -e 's|@''REPLACE_TRUNCATE''@|0|g' \
+      -e 's|@''REPLACE_TTYNAME_R''@|0|g' \
+      -e 's|@''REPLACE_UNLINK''@|0|g' \
+      -e 's|@''REPLACE_UNLINKAT''@|0|g' \
+      -e 's|@''REPLACE_USLEEP''@|0|g' \
+      -e 's|@''REPLACE_WRITE''@|0|g' \
+      -e 's|@''UNISTD_H_HAVE_WINSOCK2_H''@|0|g' \
+      -e 's|@''UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|0|g' \
+      -e '/definitions of _GL_FUNCDECL_RPL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/c++defs.h' \
+      -e '/definition of _GL_ARG_NONNULL/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/arg-nonnull.h' \
+      -e '/definition of _GL_WARN_ON_USE/r /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/warn-on-use.h'; \
+} > unistd.h-t && \
+mv unistd.h-t unistd.h
+rm -f unitypes.h-t unitypes.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  cat /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/unitypes.in.h; \
+} > unitypes.h-t && \
+mv -f unitypes.h-t unitypes.h
+rm -f uniwidth.h-t uniwidth.h && \
+{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+  cat /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/uniwidth.in.h; \
+} > uniwidth.h-t && \
+mv -f uniwidth.h-t uniwidth.h
+make  all-am
+make[2]: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/srclib'
+aarch64-none-elf-gcc -DHAVE_CONFIG_H -DEXEEXT=\"\" -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib -I.. -I../lib  -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1 -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -c -o allocator.o /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/allocator.c
+aarch64-none-elf-gcc -DHAVE_CONFIG_H -DEXEEXT=\"\" -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib -I.. -I../lib  -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1 -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -c -o areadlink.o /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/areadlink.c
+aarch64-none-elf-gcc -DHAVE_CONFIG_H -DEXEEXT=\"\" -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib -I.. -I../lib  -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1 -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -c -o binary-io.o /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/binary-io.c
+aarch64-none-elf-gcc -DHAVE_CONFIG_H -DEXEEXT=\"\" -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib -I.. -I../lib  -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1 -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -c -o careadlinkat.o /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/careadlinkat.c
+aarch64-none-elf-gcc -DHAVE_CONFIG_H -DEXEEXT=\"\" -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib -I.. -I../lib  -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1 -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -c -o dirname-lgpl.o /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/dirname-lgpl.c
+aarch64-none-elf-gcc -DHAVE_CONFIG_H -DEXEEXT=\"\" -I. -I/c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib -I.. -I../lib  -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1 -D__SWITCH__ -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -ffunction-sections -fdata-sections -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include -c -o basename-lgpl.o /c/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/basename-lgpl.c
+In file included from C:/devkitPro/devkitA64/aarch64-none-elf/include/signal.h:6,
+                 from ./signal.h:52,
+                 from C:/devkitPro/devkitA64/aarch64-none-elf/include/time.h:163,
+                 from ./time.h:41,
+                 from ./sys/stat.h:44,
+                 from ./fcntl.h:58,
+                 from C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/binary-io.h:22,
+                 from C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/binary-io.c:20:
+./signal.h:695:1: error: expected identifier or '(' before 'const'
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:695:1: error: expected ')' before '&' token
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:695:1: error: expected ')' before '!=' token
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:708:1: error: expected ')' before '*' token
+  708 | _GL_FUNCDECL_SYS (sigemptyset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:708:1: error: expected ')' before '=' token
+  708 | _GL_FUNCDECL_SYS (sigemptyset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:720:1: error: expected ')' before '*' token
+  720 | _GL_FUNCDECL_SYS (sigaddset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:720:1: error: expected ')' before '|=' token
+  720 | _GL_FUNCDECL_SYS (sigaddset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:733:1: error: expected ')' before '*' token
+  733 | _GL_FUNCDECL_SYS (sigdelset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:733:1: error: expected ')' before '&=' token
+  733 | _GL_FUNCDECL_SYS (sigdelset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:746:1: error: expected ')' before '*' token
+  746 | _GL_FUNCDECL_SYS (sigfillset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:746:1: error: expected ')' before '=' token
+  746 | _GL_FUNCDECL_SYS (sigfillset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+In file included from C:/devkitPro/devkitA64/aarch64-none-elf/include/signal.h:6,
+                 from ./signal.h:52,
+                 from C:/devkitPro/devkitA64/aarch64-none-elf/include/time.h:163,
+                 from ./time.h:41,
+                 from ./sys/stat.h:44,
+                 from ./fcntl.h:58,
+                 from C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/careadlinkat.h:23,
+                 from C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/areadlink.c:27:
+./signal.h:695:1: error: expected identifier or '(' before 'const'
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:695:1: error: expected ')' before '&' token
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:695:1: error: expected ')' before '!=' token
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:708:1: error: expected ')' before '*' token
+  708 | _GL_FUNCDECL_SYS (sigemptyset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:708:1: error: expected ')' before '=' token
+  708 | _GL_FUNCDECL_SYS (sigemptyset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:720:1: error: expected ')' before '*' token
+  720 | _GL_FUNCDECL_SYS (sigaddset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:720:1: error: expected ')' before '|=' token
+  720 | _GL_FUNCDECL_SYS (sigaddset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:733:1: error: expected ')' before '*' token
+  733 | _GL_FUNCDECL_SYS (sigdelset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:733:1: error: expected ')' before '&=' token
+  733 | _GL_FUNCDECL_SYS (sigdelset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:746:1: error: expected ')' before '*' token
+  746 | _GL_FUNCDECL_SYS (sigfillset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:746:1: error: expected ')' before '=' token
+  746 | _GL_FUNCDECL_SYS (sigfillset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/binary-io.h: In function 'set_binary_mode':
+C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/binary-io.h:41:24: error: implicit declaration of function '_setmode' [-Wimplicit-function-declaration]
+   41 | #  define __gl_setmode _setmode
+      |                        ^~~~~~~~
+C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/binary-io.h:73:23: note: in expansion of macro '__gl_setmode'
+   73 |   return r != 0 ? r : __gl_setmode (fd, mode);
+      |                       ^~~~~~~~~~~~
+make[2]: *** [Makefile:1180: binary-io.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[2]: *** [Makefile:1180: areadlink.o] Error 1
+In file included from C:/devkitPro/devkitA64/aarch64-none-elf/include/signal.h:6,
+                 from ./signal.h:52,
+                 from C:/devkitPro/devkitA64/aarch64-none-elf/include/time.h:163,
+                 from ./time.h:41,
+                 from ./sys/stat.h:44,
+                 from ./fcntl.h:58,
+                 from C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/careadlinkat.h:23,
+                 from C:/Users/USER/Documents/GitHub/FangameNX/src/libiconv-1.16/srclib/careadlinkat.c:23:
+./signal.h:695:1: error: expected identifier or '(' before 'const'
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:695:1: error: expected ')' before '&' token
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:695:1: error: expected ')' before '!=' token
+  695 | _GL_FUNCDECL_SYS (sigismember, int, (const sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:708:1: error: expected ')' before '*' token
+  708 | _GL_FUNCDECL_SYS (sigemptyset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:708:1: error: expected ')' before '=' token
+  708 | _GL_FUNCDECL_SYS (sigemptyset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:720:1: error: expected ')' before '*' token
+  720 | _GL_FUNCDECL_SYS (sigaddset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:720:1: error: expected ')' before '|=' token
+  720 | _GL_FUNCDECL_SYS (sigaddset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:733:1: error: expected ')' before '*' token
+  733 | _GL_FUNCDECL_SYS (sigdelset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:733:1: error: expected ')' before '&=' token
+  733 | _GL_FUNCDECL_SYS (sigdelset, int, (sigset_t *set, int sig)
+      | ^~~~~~~~~~~~~~~~
+./signal.h:746:1: error: expected ')' before '*' token
+  746 | _GL_FUNCDECL_SYS (sigfillset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+./signal.h:746:1: error: expected ')' before '=' token
+  746 | _GL_FUNCDECL_SYS (sigfillset, int, (sigset_t *set) _GL_ARG_NONNULL ((1)));
+      | ^~~~~~~~~~~~~~~~
+make[2]: *** [Makefile:1180: careadlinkat.o] Error 1
+make[2]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/srclib'
+make[1]: *** [Makefile:1125: all] Error 2
+make[1]: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/libiconv/srclib'
+make: *** [Makefile:34: all] Error 2

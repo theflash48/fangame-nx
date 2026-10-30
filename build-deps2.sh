@@ -24,7 +24,7 @@ echo "############ uchardet ############"
 cd $ROOT/build && rm -rf uchardet && mkdir uchardet && cd uchardet
 cmake -G "Unix Makefiles" $CM -DBUILD_SHARED_LIBS=OFF -DBUILD_BINARY=OFF \
   $ROOT/src/uchardet > $ROOT/docs/dep-uchardet.log 2>&1
-[ -f Makefile ] && { make -j6 >>$ROOT/docs/dep-uchardet.log 2>&1; make install >>$ROOT/docs/dep-uchardet.log 2>&1; }
+[ -f Makefile ] && { make -j6 libuchardet >>$ROOT/docs/dep-uchardet.log 2>&1; cmake --install . >>$ROOT/docs/dep-uchardet.log 2>&1; }
 ls $ROOT/out/nx/lib/libuchardet* >/dev/null 2>&1 && echo "  >>> libuchardet OK" || { echo "  >>> FALLO"; grep -nE "rror" $ROOT/docs/dep-uchardet.log | head -5; }
 
 echo ""

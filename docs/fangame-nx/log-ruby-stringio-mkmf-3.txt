@@ -1,0 +1,35 @@
+LD_LIBRARY_PATH=.;../.. "aarch64-none-elf-gcc -o conftest -I../../.ext/include/aarch64-elf -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -IC:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/stringio -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include conftest.c  -L. -L../.. -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong     -Wl,-rpath,C:/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch -lruby-static -lz -lpthread -lm -lnxcompat -lnx  -lm -lnxcompat -lnx -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:490: The compiler failed to generate an executable file.
+You have to install development tools first.
+
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:490:in `try_do'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:583:in `try_link0'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:601:in `try_link'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:812:in `try_func'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:1116:in `block in have_func'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:989:in `block in checking_for'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:354:in `block (2 levels) in postpone'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:324:in `open'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:354:in `block in postpone'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:324:in `open'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:350:in `postpone'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:988:in `checking_for'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:1115:in `have_func'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/stringio/extconf.rb:3:in `<top (required)>'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/extmk.rb:231:in `load'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/extmk.rb:231:in `block in extmake'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/lib/mkmf.rb:324:in `open'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/extmk.rb:227:in `extmake'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/extmk.rb:649:in `block in <main>'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/extmk.rb:645:in `each'
+	C:/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/extmk.rb:645:in `<main>'

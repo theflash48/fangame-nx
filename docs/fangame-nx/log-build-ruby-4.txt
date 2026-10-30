@@ -1,0 +1,22 @@
+=================== SANITY ===================
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+BASERUBY: ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) [x64-mingw-ucrt]
+libnxcompat.a: presente
+shim sys/mman.h: presente
+
+=================== CONFIGURE ===================
+>>> Configure OK
+
+=================== MAKE ===================
+codigo de salida: 2
+
+--- primeros errores ---
+267:collect2.exe: error: ld returned 1 exit status
+268:make[2]: *** [Makefile:294: ruby.exe] Error 1
+270:make[1]: *** [exts.mk:61: ruby.exe] Error 2
+272:make: *** [uncommon.mk:306: build-ext] Error 2
+
+=================== ARTEFACTOS ===================
+objetos .o : 82
+-rw-r--r-- 1 pablo pablo 44648078 Oct 30 20:52 /c/Users/USER/Documents/GitHub/FangameNX/build/ruby-switch/libruby-static.a
+>>> *** LIBRUBY CONSTRUIDA *** <<<

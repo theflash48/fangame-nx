@@ -1,0 +1,6 @@
+make: Entering directory '/c/Users/USER/Documents/GitHub/FangameNX/build/uchardet'
+src/CMakeFiles/libuchardet.dir/compiler_depend.make:4: *** multiple target patterns.  Stop.
+make[2]: *** [CMakeFiles/Makefile2:152: src/CMakeFiles/libuchardet.dir/all] Error 2
+make[1]: *** [CMakeFiles/Makefile2:159: src/CMakeFiles/libuchardet.dir/rule] Error 2
+make: *** [Makefile:179: libuchardet] Error 2
+make: Leaving directory '/c/Users/USER/Documents/GitHub/FangameNX/build/uchardet'

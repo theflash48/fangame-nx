@@ -1,0 +1,14 @@
+: > revision.tmp
+/c/Users/USER/Documents/GitHub/FangameNX/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe --disable=gems /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/file2lastrev.rb -q --revision.h --srcdir="/c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7" > revision.tmp
+/bin/sh /c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/ifchange "--timestamp=.revision.time" "/c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h" revision.tmp
+/c/Users/USER/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+aarch64-none-elf-gcc -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/USER/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/USER/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/USER/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong -fstack-protector-strong  main.o ext/extinit.o -Wl,-rpath,/c/Users/USER/Documents/GitHub/FangameNX/out/ruby-switch/lib -lruby-static -lz -lpthread -lm -lnxcompat -lnx -lz -lpthread -lm -lnxcompat -lnx -lm -lnxcompat -lnx   -o ruby.exe
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: ext/extinit.o: in function `Init_ext':
+C:\Users\USER\Documents\GitHub\FangameNX\build\ruby-switch/ext/extinit.c:12:(.text.Init_ext+0x10): undefined reference to `Init_stringio'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:\Users\USER\Documents\GitHub\FangameNX\build\ruby-switch/ext/extinit.c:12:(.text.Init_ext+0x14): undefined reference to `Init_stringio'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:\Users\USER\Documents\GitHub\FangameNX\build\ruby-switch/ext/extinit.c:13:(.text.Init_ext+0x1c): undefined reference to `Init_strscan'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:\Users\USER\Documents\GitHub\FangameNX\build\ruby-switch/ext/extinit.c:13:(.text.Init_ext+0x20): undefined reference to `Init_strscan'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:\Users\USER\Documents\GitHub\FangameNX\build\ruby-switch/ext/extinit.c:14:(.text.Init_ext+0x30): undefined reference to `Init_zlib'
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: C:\Users\USER\Documents\GitHub\FangameNX\build\ruby-switch/ext/extinit.c:14:(.text.Init_ext+0x34): undefined reference to `Init_zlib'
+collect2.exe: error: ld returned 1 exit status
+make: *** [Makefile:294: ruby.exe] Error 1
