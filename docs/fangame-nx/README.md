@@ -16,6 +16,11 @@
 - [`log-m003-compilacion.txt`](log-m003-compilacion.txt): salidas completas de los intentos y de las compilaciones limpias, con la ruta de usuario sustituida.
 - [`log-m003-verificacion.txt`](log-m003-verificacion.txt): herramientas, formatos, símbolos, contenido del NRO y hashes.
 
+## Misión 004
+
+- [`prueba-hardware-fnx-004.md`](prueba-hardware-fnx-004.md): revisión ARMv8-A, fixture sintético, paquete local y puerta de seguridad para la primera prueba en Switch.
+- [`log-m004-auditoria-estatica.txt`](log-m004-auditoria-estatica.txt): comparación exacta del postproceso, instrucciones restantes, formato y comprobaciones del paquete.
+
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 
 ## Documentos de referencia

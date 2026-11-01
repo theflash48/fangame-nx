@@ -1,0 +1,11 @@
+{
+  "windowTitle": "FangameNX FNX-004 sintetico",
+  "customScript": "probe.rb",
+  "rgssVersion": 1,
+  "fullscreen": true,
+  "fixedAspectRatio": true,
+  "enableReset": false,
+  "enableSettings": false,
+  "rubyLoadpath": ["lib"],
+  "preloadScript": []
+}

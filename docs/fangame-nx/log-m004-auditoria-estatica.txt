@@ -1,0 +1,205 @@
+Mision 004 - auditoria estatica local. No hay prueba en Switch.
+Rama test/fnx-004-hardware desde 50bd4d4.
+
+COMANDO: make -C mkxp-z-nx rgss-switch.elf PYTHON=echo (solo auditoria, sin postproceso)
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CC   nx_boot.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+LD   rgss-switch.elf
+ARM  rgss-switch.elf
+C:/Users/<usuario>/Documents/GitHub/FangameNX/fixup-arm64.py rgss-switch.elf
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+
+COMANDO: py -3 fixup-arm64.py mkxp-z-nx/rgss-switch.elf; comparacion byte a byte del ELF previo y posterior
+ELF_header_equal=True program_headers_equal=True section_headers_equal=True size_equal=True
+changed_words= 15
+file=0xb05940 vma=0xaf5940 d503251f->d503201f chkfeat x16
+file=0xb05958 vma=0xaf5958 d53b2521->d2800001 mrs gcspr_el0
+file=0xb05a9c vma=0xaf5a9c d503251f->d503201f chkfeat x16
+file=0xb05ab4 vma=0xaf5ab4 d53b2521->d2800001 mrs gcspr_el0
+file=0xb05df4 vma=0xaf5df4 d503251f->d503201f chkfeat x16
+file=0xb05e08 vma=0xaf5e08 d52b773f->d503201f gcspopm
+file=0xb05ec8 vma=0xaf5ec8 d503251f->d503201f chkfeat x16
+file=0xb05ee0 vma=0xaf5ee0 d52b773f->d503201f gcspopm
+file=0xb06060 vma=0xaf6060 d503251f->d503201f chkfeat x16
+file=0xb06074 vma=0xaf6074 d52b773f->d503201f gcspopm
+file=0xb07a3c vma=0xaf7a3c d53bd0ae->d280000e mrs tpidr2_el0
+file=0xb07a50 vma=0xaf7a50 d51bd0bf->d503201f msr tpidr2_el0
+file=0xb07a54 vma=0xaf7a54 d503447f->d503201f smstart/smstop
+file=0xb07adc vma=0xaf7adc d53bd0ae->d280000e mrs tpidr2_el0
+file=0xb07b68 vma=0xaf7b68 d503467f->d503201f smstart/smstop
+remaining_rule_matches= 0
+
+COMANDO: aarch64-none-elf-readelf -n [pre/post]
+mkxp-z-nx/rgss-switch.m004-pre.elf
+    Build ID: de57cd2ee3ede24755da4a7d5566859102ee798e
+mkxp-z-nx/rgss-switch.m004-post.elf
+    Build ID: de57cd2ee3ede24755da4a7d5566859102ee798e
+COMANDO: aarch64-none-elf-nm -n [ELF] (simbolo de capacidad SME)
+0000000000e34a10 R __aarch64_have_sme
+COMANDO: aarch64-none-elf-objdump -s --start-address=0xe34a10 --stop-address=0xe34a18 [ELF]
+ e34a10 00000000 5e01f2ff                    ....^...
+ e34a10 28003fd2 0bde0a00                    (.?.....
+COMANDO: aarch64-none-elf-objdump -d [ELF final], filtro preciso cntd/addsvl/str za
+remaining_specific_sve_sme=23
+  af3994:	04e0e3e0 	cntd	x0
+  af39a8:	04e0e3e0 	cntd	x0
+  af3e38:	04e0e3e0 	cntd	x0
+  af3e9c:	04e0e3e0 	cntd	x0
+  af3fc0:	04e0e3e0 	cntd	x0
+  af7b04:	e1206200 	str	za[w15, 0], [x16]
+  af7b08:	e1206201 	str	za[w15, 1], [x16, #1, mul vl]
+  af7b0c:	e1206202 	str	za[w15, 2], [x16, #2, mul vl]
+  af7b10:	e1206203 	str	za[w15, 3], [x16, #3, mul vl]
+  af7b14:	e1206204 	str	za[w15, 4], [x16, #4, mul vl]
+  af7b18:	e1206205 	str	za[w15, 5], [x16, #5, mul vl]
+  af7b1c:	e1206206 	str	za[w15, 6], [x16, #6, mul vl]
+  af7b20:	e1206207 	str	za[w15, 7], [x16, #7, mul vl]
+  af7b24:	e1206208 	str	za[w15, 8], [x16, #8, mul vl]
+  af7b28:	e1206209 	str	za[w15, 9], [x16, #9, mul vl]
+  af7b2c:	e120620a 	str	za[w15, 10], [x16, #10, mul vl]
+  af7b30:	e120620b 	str	za[w15, 11], [x16, #11, mul vl]
+  af7b34:	e120620c 	str	za[w15, 12], [x16, #12, mul vl]
+  af7b38:	e120620d 	str	za[w15, 13], [x16, #13, mul vl]
+  af7b3c:	e120620e 	str	za[w15, 14], [x16, #14, mul vl]
+  af7b40:	e120620f 	str	za[w15, 15], [x16, #15, mul vl]
+  af7b48:	04305a10 	addsvl	x16, x16, #16
+  af7b60:	04e0e3f0 	cntd	x16
+COMANDO: aarch64-none-elf-objdump -d --start-address=0xaf7a30 --stop-address=0xaf7b70 [ELF pre]
+
+mkxp-z-nx/rgss-switch.m004-pre.elf:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000af7a30 <__arm_za_disable>:
+  af7a30:	b00019ee 	adrp	x14, e34000 <two_over_pi+0x20>
+  af7a34:	396841ce 	ldrb	w14, [x14, #2576]
+  af7a38:	3400012e 	cbz	w14, af7a5c <__arm_za_disable+0x2c>
+  af7a3c:	d53bd0ae 	mrs	x14, tpidr2_el0
+  af7a40:	b40000ee 	cbz	x14, af7a5c <__arm_za_disable+0x2c>
+  af7a44:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  af7a48:	910003fd 	mov	x29, sp
+  af7a4c:	94000021 	bl	af7ad0 <__arm_tpidr2_save>
+  af7a50:	d51bd0bf 	msr	tpidr2_el0, xzr
+  af7a54:	d503447f 	smstop	za
+  af7a58:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  af7a5c:	d65f03c0 	ret
+
+0000000000af7a60 <__sfp_handle_exceptions>:
+  af7a60:	36000080 	tbz	w0, #0, af7a70 <__sfp_handle_exceptions+0x10>
+  af7a64:	0f00041f 	movi	v31.2s, #0x0
+  af7a68:	1e3f1be0 	fdiv	s0, s31, s31
+  af7a6c:	d53b4421 	mrs	x1, fpsr
+  af7a70:	360800a0 	tbz	w0, #1, af7a84 <__sfp_handle_exceptions+0x24>
+  af7a74:	1e2e101e 	fmov	s30, #1.000000000000000000e+00
+  af7a78:	0f00041d 	movi	v29.2s, #0x0
+  af7a7c:	1e3d1bc0 	fdiv	s0, s30, s29
+  af7a80:	d53b4421 	mrs	x1, fpsr
+  af7a84:	36100100 	tbz	w0, #2, af7aa4 <__sfp_handle_exceptions+0x44>
+  af7a88:	12b01001 	mov	w1, #0x7f7fffff            	// #2139095039
+  af7a8c:	1e27003f 	fmov	s31, w1
+  af7a90:	5298b5c1 	mov	w1, #0xc5ae                	// #50606
+  af7a94:	72ae93a1 	movk	w1, #0x749d, lsl #16
+  af7a98:	1e27003e 	fmov	s30, w1
+  af7a9c:	1e3e2be0 	fadd	s0, s31, s30
+  af7aa0:	d53b4421 	mrs	x1, fpsr
+  af7aa4:	36180080 	tbz	w0, #3, af7ab4 <__sfp_handle_exceptions+0x54>
+  af7aa8:	0f04441c 	movi	v28.2s, #0x80, lsl #16
+  af7aac:	1e3c0b80 	fmul	s0, s28, s28
+  af7ab0:	d53b4421 	mrs	x1, fpsr
+  af7ab4:	362000c0 	tbz	w0, #4, af7acc <__sfp_handle_exceptions+0x6c>
+  af7ab8:	12b01000 	mov	w0, #0x7f7fffff            	// #2139095039
+  af7abc:	1e2e101e 	fmov	s30, #1.000000000000000000e+00
+  af7ac0:	1e27001f 	fmov	s31, w0
+  af7ac4:	1e3e3be0 	fsub	s0, s31, s30
+  af7ac8:	d53b4420 	mrs	x0, fpsr
+  af7acc:	d65f03c0 	ret
+
+0000000000af7ad0 <__arm_tpidr2_save>:
+  af7ad0:	b00019ee 	adrp	x14, e34000 <two_over_pi+0x20>
+  af7ad4:	396841ce 	ldrb	w14, [x14, #2576]
+  af7ad8:	340003ee 	cbz	w14, af7b54 <__arm_tpidr2_save+0x84>
+  af7adc:	d53bd0ae 	mrs	x14, tpidr2_el0
+  af7ae0:	b40003ae 	cbz	x14, af7b54 <__arm_tpidr2_save+0x84>
+  af7ae4:	794015cf 	ldrh	w15, [x14, #10]
+  af7ae8:	b9400dd0 	ldr	w16, [x14, #12]
+  af7aec:	2a1001ef 	orr	w15, w15, w16
+  af7af0:	3500034f 	cbnz	w15, af7b58 <__arm_tpidr2_save+0x88>
+  af7af4:	f94001d0 	ldr	x16, [x14]
+  af7af8:	b40002f0 	cbz	x16, af7b54 <__arm_tpidr2_save+0x84>
+  af7afc:	794011d1 	ldrh	w17, [x14, #8]
+  af7b00:	340002b1 	cbz	w17, af7b54 <__arm_tpidr2_save+0x84>
+  af7b04:	e1206200 	str	za[w15, 0], [x16]
+  af7b08:	e1206201 	str	za[w15, 1], [x16, #1, mul vl]
+  af7b0c:	e1206202 	str	za[w15, 2], [x16, #2, mul vl]
+  af7b10:	e1206203 	str	za[w15, 3], [x16, #3, mul vl]
+  af7b14:	e1206204 	str	za[w15, 4], [x16, #4, mul vl]
+  af7b18:	e1206205 	str	za[w15, 5], [x16, #5, mul vl]
+  af7b1c:	e1206206 	str	za[w15, 6], [x16, #6, mul vl]
+  af7b20:	e1206207 	str	za[w15, 7], [x16, #7, mul vl]
+  af7b24:	e1206208 	str	za[w15, 8], [x16, #8, mul vl]
+  af7b28:	e1206209 	str	za[w15, 9], [x16, #9, mul vl]
+  af7b2c:	e120620a 	str	za[w15, 10], [x16, #10, mul vl]
+  af7b30:	e120620b 	str	za[w15, 11], [x16, #11, mul vl]
+  af7b34:	e120620c 	str	za[w15, 12], [x16, #12, mul vl]
+  af7b38:	e120620d 	str	za[w15, 13], [x16, #13, mul vl]
+  af7b3c:	e120620e 	str	za[w15, 14], [x16, #14, mul vl]
+  af7b40:	e120620f 	str	za[w15, 15], [x16, #15, mul vl]
+  af7b44:	110041ef 	add	w15, w15, #0x10
+  af7b48:	04305a10 	addsvl	x16, x16, #16
+  af7b4c:	6b0f023f 	cmp	w17, w15
+  af7b50:	54fffda8 	b.hi	af7b04 <__arm_tpidr2_save+0x34>  // b.pmore
+  af7b54:	d65f03c0 	ret
+  af7b58:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  af7b5c:	910003fd 	mov	x29, sp
+  af7b60:	04e0e3f0 	cntd	x16
+  af7b64:	f9000bf0 	str	x16, [sp, #16]
+  af7b68:	d503467f 	smstop
+  af7b6c:	94004b95 	bl	b0a9c0 <abort>
+COMANDO: aarch64-none-elf-readelf -h [ELF final]
+  Class:                             ELF64
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           AArch64
+COMANDO: Get-FileHash -Algorithm SHA256 [ELF/NRO]
+mkxp-z-nx/rgss-switch.elf bytes=88867944 sha256=430BE0C747F31C909537CF910A1DCDEE334C7C9463894926B35EB13211C19A0C
+mkxp-z-nx/rgss-switch.nro bytes=17750457 sha256=9BEC33460205B3989BF405740C596C1B370311938BD7DF586FB42E2E0AD7B496
+COMANDO: py -3 comprobar-nro.py [NRO del paquete]
+NRO      local/fnx004-hardware-probe/switch/fnx004-sintetico/fnx004-sintetico.nro
+  cuerpo 17719296 bytes, fichero 17750457 bytes
+  ASET v0  icono 12993 bytes (+56)  nacp 16384 bytes (+13049)  romfs 1728 bytes (+29433)
+  romfs 1728 bytes: meta de ficheros en +1684 (44 bytes), datos en +512
+    /LEEME.txt  1121 bytes
+  AmericanEnglish        'rgss-switch' / 'rgss-switch'
+  LatinAmericanSpanish   'rgss-switch' / 'rgss-switch'
+  Spanish                'rgss-switch' / 'rgss-switch'
+  entradas de idioma con nombre: 12 de 16
+  title id            0000000000000000   (0x3038 presence group)
+  save data owner     0000000000000000   (0x3078)
+  local communication 0000000000000000   (0x30B0)
+  add-on content base 0000000000000000   (0x3070, = title id + 0x1000)
+  (los cuatro a cero: es lo que lleva un .nro homebrew; el title id va en el NSP)
+  version             '0.2.4 b6 01/11 '
+COMANDO: ruby -c probe.rb; ConvertFrom-Json mkxp.json; Test-Path piezas requeridas
+Syntax OK
+customScript=probe.rb rgssVersion=1
+mkxp.json=True
+lib/nx-compat.rb=True
+lib/socket.rb=True
+Data/Scripts.rxdata=True
+Graphics=True
+Audio=True
+probe.rb=True
+entrada.txt=True
+MANIFEST DEL PAQUETE LOCAL
+Paquete local FNX-004. BLOQUEADO para hardware por auditoria ARMv8-A.
+SHA-256; rutas relativas al paquete:
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  switch/fnx004-sintetico/Data/Scripts.rxdata  (0 bytes)
+dc8c883dd3884925ab5b566edc10c7e80309f1240f0ce2610fc2318c2dda0364  switch/fnx004-sintetico/entrada.txt  (18 bytes)
+9bec33460205b3989bf405740c596c1b370311938bd7df586fb42e2e0ad7b496  switch/fnx004-sintetico/fnx004-sintetico.nro  (17750457 bytes)
+e0ecc9428801674c88b950cf7467e9741a13402410a38606f684b6c460f1751a  switch/fnx004-sintetico/Game.ini  (69 bytes)
+ed6c8e2cb0b50929de40de5343f73ed2c3f47409afefe2767ceea065a34cdd61  switch/fnx004-sintetico/lib/nx-compat.rb  (17068 bytes)
+0554868f1d1f4211c63492e6436cdac8407ce856a33a3355dc9f326657bc6fc7  switch/fnx004-sintetico/lib/socket.rb  (1911 bytes)
+12c04116640619d5114211d6da4ecc5de4233268fb42b0746b1acf8a21fffe18  switch/fnx004-sintetico/mkxp.json  (252 bytes)
+0fe0736d897111a1b09a6096cc46deef7f9001380620c2cf24c8b55db2315c61  switch/fnx004-sintetico/probe.rb  (1384 bytes)

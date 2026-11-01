@@ -132,6 +132,16 @@
 !/docs/fangame-nx/diagnostico-cruby-fnx-003.md
 !/docs/fangame-nx/log-m003-compilacion.txt
 !/docs/fangame-nx/log-m003-verificacion.txt
+!/docs/fangame-nx/prueba-hardware-fnx-004.md
+!/docs/fangame-nx/log-m004-auditoria-estatica.txt
+!/docs/fangame-nx/fixtures/
+/docs/fangame-nx/fixtures/*
+!/docs/fangame-nx/fixtures/fnx004/
+/docs/fangame-nx/fixtures/fnx004/*
+!/docs/fangame-nx/fixtures/fnx004/mkxp.json
+!/docs/fangame-nx/fixtures/fnx004/probe.rb
+!/docs/fangame-nx/fixtures/fnx004/entrada.txt
+!/docs/fangame-nx/fixtures/fnx004/Game.ini
 !/docs/fangame-nx/log-fnx-003.md
 !/docs/fangame-nx/log-mkxp-intento-p1.txt
 !/docs/fangame-nx/log-reconstruir-sin-patch.txt
