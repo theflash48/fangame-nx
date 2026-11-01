@@ -17,6 +17,12 @@ ROOT=$(cd "$(dirname "$0")" && pwd -P)
 [ ! -L "$ROOT/out" ] || { echo "out/ no puede ser enlace simbolico" >&2; exit 1; }
 AR=aarch64-none-elf-ar
 NM=aarch64-none-elf-nm
+BUILD="$ROOT/build/ruby-switch"
+for obj in "$BUILD/ext/extinit.o" "$BUILD/ext/stringio/stringio.o" \
+           "$BUILD/ext/strscan/strscan.o" "$BUILD/ext/zlib/zlib.o"; do
+  [ -s "$obj" ] || { echo "falta objeto de extension: $obj" >&2; exit 1; }
+done
+[ -s "$BUILD/libruby-static.a" ] || { echo "falta libruby-static.a" >&2; exit 1; }
 
 cp "$ROOT/build/ruby-switch/libruby-static.a" "$ROOT/out/nx/lib/libruby-static.a"
 cd "$ROOT/out/nx/lib"
@@ -27,13 +33,18 @@ $NM libruby-static.a 2>/dev/null | grep -qE " T Init_ext$" && echo "  AVISO: sig
 
 echo ""
 echo "=== Insertando extinit + extensiones ==="
-$AR r libruby-static.a "$ROOT"/out/nx/extobj/*.o
+# extmk.rb deja estos objetos en build/ruby-switch/ext/. Ningun paso heredado
+# creaba out/nx/extobj/; tomamos los cuatro objetos ya compilados y verificados.
+$AR r libruby-static.a "$BUILD/ext/extinit.o" \
+  "$BUILD/ext/stringio/stringio.o" "$BUILD/ext/strscan/strscan.o" \
+  "$BUILD/ext/zlib/zlib.o"
 $AR s libruby-static.a
 
 echo ""
 echo "=== Verificacion ==="
 for s in Init_ext Init_zlib Init_stringio Init_strscan ruby_init_ext ruby_init; do
   printf "  %-16s : " "$s"
-  $NM libruby-static.a 2>/dev/null | grep -qE " T $s$" && echo "OK" || echo "FALTA"
+  $NM libruby-static.a 2>/dev/null | grep -qE " T $s$" && echo "OK" || { echo "FALTA"; exit 1; }
 done
+[ -z "$($AR t libruby-static.a | grep '^dmyext\.o$')" ] || { echo "dmyext.o sigue en el archivo" >&2; exit 1; }
 ls -la libruby-static.a

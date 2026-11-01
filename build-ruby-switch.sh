@@ -34,6 +34,13 @@ BASERUBY=$ROOT/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe
 SHIM=$ROOT/patches/include
 [ ! -L "$ROOT/build" ] && [ ! -L "$ROOT/out" ] || { echo "build/ y out/ no pueden ser enlaces simbolicos" >&2; exit 1; }
 mkdir -p "$ROOT/build" "$ROOT/out/nx/lib"
+LOGDIR="$ROOT/src/build-logs"
+[ ! -L "$LOGDIR" ] || { echo "src/build-logs/ no puede ser enlace simbolico" >&2; exit 1; }
+mkdir -p "$LOGDIR"
+CONFIG_LOG=$(mktemp "$LOGDIR/ruby-configure.XXXXXX")
+MAKE_LOG=$(mktemp "$LOGDIR/ruby-make.XXXXXX")
+echo "configure log: $CONFIG_LOG"
+echo "make log: $MAKE_LOG"
 
 ARCH="-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE"
 
@@ -85,22 +92,26 @@ rm -rf "$BUILD"; mkdir -p "$BUILD"; cd "$BUILD"
   ac_cv_func_getcontext=no ac_cv_func_setcontext=no ac_cv_func_makecontext=no \
   ac_cv_header_ucontext_h=no ac_cv_header_sys_mman_h=no ac_cv_header_dlfcn_h=no \
   rb_cv_binary_elf=yes \
-  > "$ROOT/docs/configure-log.txt" 2>&1
+  > "$CONFIG_LOG" 2>&1
 
 CONFIG_RC=$?
 if [ "$CONFIG_RC" -ne 0 ] || [ ! -f Makefile ]; then
-  echo ">>> CONFIGURE FALLO"; tail -30 "$ROOT/docs/configure-log.txt"; exit 1
+  echo ">>> CONFIGURE FALLO"; tail -30 "$CONFIG_LOG"; exit 1
 fi
 echo ">>> Configure OK"
 
 echo ""
 echo "=================== MAKE ==================="
-make -j6 LD=aarch64-none-elf-ld > "$ROOT/docs/make-log.txt" 2>&1
+# extmk.rb copia flags de LDFLAGS a EXTLDFLAGS. Si el make recursivo
+# conserva ambos, GCC pasa dos veces switch.ld a ld y solapa .tls.align/.text.
+# El Makefile principal ya contiene esos flags. Conservamos la unica opcion
+# adicional generada por extmk.rb: compresion de secciones de depuracion.
+make -j6 LD=aarch64-none-elf-ld EXTLDFLAGS=-Wl,--compress-debug-sections=zlib > "$MAKE_LOG" 2>&1
 RC=$?
 echo "codigo de salida: $RC"
 echo ""
 echo "--- primeros errores ---"
-grep -nE "error:|undefined reference|Error [0-9]" "$ROOT/docs/make-log.txt" | head -20
+grep -nE "error:|undefined reference|Error [0-9]" "$MAKE_LOG" | head -20
 echo ""
 echo "=================== ARTEFACTOS ==================="
 echo "objetos .o : $(ls "$BUILD"/*.o 2>/dev/null | wc -l)"

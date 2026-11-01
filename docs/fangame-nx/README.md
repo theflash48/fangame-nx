@@ -10,6 +10,12 @@
 - [`entorno-fnx-003.md`](entorno-fnx-003.md): guía de entorno, dependencias, procedimiento y bloqueos de compilación.
 - [`log-fnx-003.md`](log-fnx-003.md): comandos, versiones y resultados observados en esta misión.
 
+## Misión 003
+
+- [`diagnostico-cruby-fnx-003.md`](diagnostico-cruby-fnx-003.md): causa del enlace fallido, correcciones del build, comprobación del NRO y límites.
+- [`log-m003-compilacion.txt`](log-m003-compilacion.txt): salidas completas de los intentos y de las compilaciones limpias, con la ruta de usuario sustituida.
+- [`log-m003-verificacion.txt`](log-m003-verificacion.txt): herramientas, formatos, símbolos, contenido del NRO y hashes.
+
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 
 ## Documentos de referencia

@@ -1,0 +1,72 @@
+Mision 003 - verificacion final local, 2026-11-01. No se ha probado en hardware.
+Comandos ejecutados desde la raiz del repositorio.
+
+$ git branch --show-current; git rev-parse HEAD (base antes del commit documental)
+fix/fnx-003-cruby-link
+4e0d7d04e622894d2fb5432aec8f675a9e56a2eb
+
+$ aarch64-none-elf-gcc --version; make --version; py -3 --version; pacman -Q devkitA64 libnx switch-tools
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+GNU Make 4.4.1
+Python 3.13.14
+devkitA64 r30-1
+libnx 4.12.0-1
+switch-tools 1.13.1-1
+
+$ Get-FileHash -Algorithm SHA256 [artefactos]
+build/ruby-switch/ruby.exe bytes=14495648 sha256=B89A90640741F35C681CEE92ABB2D6B63FA519FACBF9DA41F06FA172F1E2A9BB
+out/nx/lib/libruby-static.a bytes=45983716 sha256=DCFB9F54DA3C0D1573AE1FAC5A257F5C5334EDC081D3A8588BCB0B3636B940CB
+mkxp-z-nx/rgss-switch.elf bytes=88867944 sha256=430BE0C747F31C909537CF910A1DCDEE334C7C9463894926B35EB13211C19A0C
+mkxp-z-nx/rgss-switch.nro bytes=17750457 sha256=9BEC33460205B3989BF405740C596C1B370311938BD7DF586FB42E2E0AD7B496
+mkxp-z-nx/rgss-switch.nacp bytes=16384 sha256=72BB8ABBDB61D7221A746244C33FCC193FF7D5FBF90233C0E40645BEC562CDD0
+nsp/icono.jpg bytes=12993 sha256=849C5C07167301A40121FB8DDDDC8F809E281EB9A37ED7C52DC20E690B9453EB
+
+$ aarch64-none-elf-readelf -h mkxp-z-nx/rgss-switch.elf (campos clave)
+  Class:                             ELF64
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           AArch64
+$ aarch64-none-elf-objdump -h mkxp-z-nx/rgss-switch.elf (secciones clave)
+  0 .text         00b2bcd8  0000000000000000  0000000000000000  00010000  2**6
+ 10 .tls.align    00000008  0000000000e394e0  0000000000e394e0  00e494e0  2**0
+ 24 .main.tls     000005f8  00000000011cc8a0  00000000011cc8a0  010f5738  2**0
+$ aarch64-none-elf-nm -u mkxp-z-nx/rgss-switch.elf -> 0 simbolos indefinidos
+
+$ aarch64-none-elf-ar t out/nx/lib/libruby-static.a (extensiones y dmyext)
+extinit.o, stringio.o, strscan.o, zlib.o
+$ aarch64-none-elf-nm out/nx/lib/libruby-static.a (simbolos clave)
+0000000000000000 T ruby_init
+0000000000000000 T ruby_init_ext
+0000000000000000 T Init_ext
+0000000000000000 T Init_stringio
+0000000000000000 T Init_strscan
+0000000000000000 T Init_zlib
+
+$ py -3 comprobar-nro.py mkxp-z-nx/rgss-switch.nro
+NRO      mkxp-z-nx/rgss-switch.nro
+  cuerpo 17719296 bytes, fichero 17750457 bytes
+  ASET v0  icono 12993 bytes (+56)  nacp 16384 bytes (+13049)  romfs 1728 bytes (+29433)
+  romfs 1728 bytes: meta de ficheros en +1684 (44 bytes), datos en +512
+    /LEEME.txt  1121 bytes
+  AmericanEnglish        'rgss-switch' / 'rgss-switch'
+  LatinAmericanSpanish   'rgss-switch' / 'rgss-switch'
+  Spanish                'rgss-switch' / 'rgss-switch'
+  entradas de idioma con nombre: 12 de 16
+  title id            0000000000000000   (0x3038 presence group)
+  save data owner     0000000000000000   (0x3078)
+  local communication 0000000000000000   (0x30B0)
+  add-on content base 0000000000000000   (0x3070, = title id + 0x1000)
+  (los cuatro a cero: es lo que lleva un .nro homebrew; el title id va en el NSP)
+  version             '0.2.4 b6 01/11 '
+ASET icon offset=56 size=12993 dentro_fichero=True
+ASET nacp offset=13049 size=16384 dentro_fichero=True
+ASET romfs offset=29433 size=1728 dentro_fichero=True
+NRO0=NRO0; ASET=ASET; rangos_validos=True; icono_igual_a_nsp/icono.jpg=True
+
+$ Get-ChildItem mkxp-z-nx/romfs -Recurse -File
+\mkxp-z-nx\romfs\LEEME.txt bytes=1121
+$ git check-ignore mkxp-z-nx/rgss-switch.nro mkxp-z-nx/rgss-switch.elf out/nx/lib/libruby-static.a
+mkxp-z-nx/rgss-switch.nro
+mkxp-z-nx/rgss-switch.elf
+out/nx/lib/libruby-static.a
+
+Nota: el Makefile incrementa build-numero.txt; los hashes cambian entre ejecuciones limpias por el sello de version.

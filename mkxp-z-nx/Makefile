@@ -43,6 +43,7 @@ CXX     := $(PREFIX)g++
 AS      := $(PREFIX)as
 AR      := $(PREFIX)ar
 OBJCOPY := $(PREFIX)objcopy
+PYTHON  ?= py -3
 
 TARGET  := rgss-switch
 BUILD   := build
@@ -110,10 +111,12 @@ MKXPZ_INC := . audio crypto display display/gl display/libnsgif \
 INCLUDE := $(addprefix -I$(MKXPZ)/src/,$(MKXPZ_INC)) \
            -I$(MKXPZ)/binding \
            -I$(CURDIR)/generated -I$(CURDIR)/nx \
-           -I$(NXPREFIX)/include -I$(NXPREFIX)/include/SDL2 \
+           -I$(NXPREFIX)/include -I$(NXPREFIX)/include/uchardet -I$(NXPREFIX)/include/SDL2 \
            -I$(MKXPZ)            -I$(NXPREFIX)/include/pixman-1            -I$(PORTLIBS)/include -I$(PORTLIBS)/include/SDL2            -I$(PORTLIBS)/include/AL \
            -I$(PORTLIBS)/include/freetype2 \
            -I$(LIBNX)/include \
+           -I$(RAIZ)/src/ruby-3.1.7/include \
+           -I$(RAIZ)/build/ruby-switch/.ext/include/aarch64-elf \
            -I$(RAIZ)/patches/include
 
 #-------------------------------------------------------------------------------
@@ -202,7 +205,7 @@ $(TARGET).elf: $(OBJS)
 	@echo "LD   $@"
 	@$(CXX) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
 	@echo "ARM  $@"
-	@python $(RAIZ)/fixup-arm64.py $@
+	@$(PYTHON) $(RAIZ)/fixup-arm64.py $@
 
 # El NRO necesita su seccion ASET (icono + NACP). Es la unica diferencia
 # estructural que habia con el hello-ruby-nx de H2, que si carga: alli el

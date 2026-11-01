@@ -1,0 +1,2476 @@
+Mision 003 - salidas completas de compilacion. Rutas de usuario anonimizadas; originales locales en src/build-logs/.
+
+===== fnx004-exts-link.txt =====
+make -C ext/stringio V=1 static
+make -C ext/strscan V=1 static
+make -C ext/zlib V=1 static
+make -f enc.mk V=1 MINIRUBY="" libencs
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'libencs'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make EXTOBJS="ext/extinit.o ext/stringio/stringio.a ext/strscan/strscan.a ext/zlib/zlib.a " EXTLIBS="-lz" EXTLDFLAGS="-specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -Wl,--compress-debug-sections=zlib -L. -fstack-protector-strong" EXTINITS="stringio strscan zlib" UPDATE_LIBRARIES="" SHOWFLAGS= ruby.exe
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+: > revision.tmp
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe --disable=gems /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/file2lastrev.rb -q --revision.h --srcdir="/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7" > revision.tmp
+/bin/sh /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/ifchange "--timestamp=.revision.time" "/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h" revision.tmp
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+aarch64-none-elf-gcc -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong -fstack-protector-strong -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -Wl,--compress-debug-sections=zlib -L. -fstack-protector-strong main.o ext/extinit.o ext/stringio/stringio.a ext/strscan/strscan.a ext/zlib/zlib.a  -Wl,-rpath,/c/Users/<usuario>/Documents/GitHub/FangameNX/out/ruby-switch/lib -lruby-static -lz -lpthread -lm -lnxcompat -lnx -lz -lpthread -lm -lnxcompat -lnx -lm -lnxcompat -lnx -lz -lz -o ruby.exe
+C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/ld.exe: section .tls.align LMA [0000000000000000,0000000000000007] overlaps section .text LMA [0000000000000000,000000000023e337]
+collect2.exe: error: ld returned 1 exit status
+make[1]: *** [Makefile:294: ruby.exe] Error 1
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make: *** [exts.mk:61: ruby.exe] Error 2
+
+
+===== fnx004-gcc-double-specs.txt =====
+Using built-in specs.
+Reading specs from C:/devkitPro/libnx/switch.specs
+Reading specs from C:/devkitPro/libnx/switch.specs
+COLLECT_GCC=C:\devkitPro\devkitA64\bin\aarch64-none-elf-gcc.exe
+COLLECT_LTO_WRAPPER=C:/devkitPro/devkitA64/bin/../libexec/gcc/aarch64-none-elf/16.1.0/lto-wrapper.exe
+Target: aarch64-none-elf
+Configured with: /home/davem/projects/devkitpro/tool-packages/devkita64/gcc/src/gcc-16.1.0/configure --target=aarch64-none-elf --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --prefix=/opt/devkitpro/devkitA64 --enable-languages=c,c++,objc,lto --with-gnu-as --with-gnu-ld --with-gcc --with-march=armv8 --enable-cxx-flags=-ffunction-sections --disable-libstdcxx-verbose --enable-poison-system-directories --enable-multilib --enable-threads --disable-win32-registry --disable-nls --disable-debug --disable-libmudflap --disable-libssp --disable-libgomp --disable-libstdcxx-pch --enable-libstdcxx-time --enable-libstdcxx-filesystem-ts --with-newlib=yes --with-native-system-header-dir=/include --with-sysroot=/opt/devkitpro/devkitA64/aarch64-none-elf --enable-lto --disable-tm-clone-registry --disable-__cxa_atexit --with-bugurl=https://devkitpro.org --with-pkgversion=devkitA64 --with-gmp=/opt/devkitpro/crosstools/x86_64-w64-mingw32 --with-mpfr=/opt/devkitpro/crosstools/x86_64-w64-mingw32 --with-mpc=/opt/devkitpro/crosstools/x86_64-w64-mingw32 --with-isl=/opt/devkitpro/crosstools/x86_64-w64-mingw32 --with-zstd=/opt/devkitpro/crosstools/x86_64-w64-mingw32
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 16.1.0 (devkitA64)
+COMPILER_PATH=C:/devkitPro/devkitA64/bin/../libexec/gcc/aarch64-none-elf/16.1.0/;C:/devkitPro/devkitA64/bin/../libexec/gcc/;C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/bin/
+LIBRARY_PATH=C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/;C:/devkitPro/devkitA64/bin/../lib/gcc/;C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/lib/;C:/devkitPro/devkitA64/bin/../aarch64-none-elf/lib/
+COLLECT_GCC_OPTIONS='-specs=C:/devkitPro/libnx/switch.specs' '-specs=C:/devkitPro/libnx/switch.specs' '-o' 'ruby.exe' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'ruby.'
+ "C:/devkitPro/devkitA64/bin/../libexec/gcc/aarch64-none-elf/16.1.0/collect2.exe" -plugin "C:/devkitPro/devkitA64/bin/../libexec/gcc/aarch64-none-elf/16.1.0/liblto_plugin.dll" "-plugin-opt=C:/devkitPro/devkitA64/bin/../libexec/gcc/aarch64-none-elf/16.1.0/lto-wrapper.exe" "-plugin-opt=-fresolution=C:\\devkitPro\\msys2\\tmp\\cciCSfpT.res" "-plugin-opt=-pass-through=-lgcc" "-plugin-opt=-pass-through=-lc" "-plugin-opt=-pass-through=-lsysbase" "--sysroot=C:/devkitPro/devkitA64/bin/../aarch64-none-elf" -EL -X -maarch64elf -T "C:/devkitPro/libnx/switch.ld" -pie --no-dynamic-linker "--spare-dynamic-tags=0" --gc-sections -z text -z now -z nodynamic-undefined-weak -z pack-relative-relocs "--build-id=sha1" --nx-module-name -T "C:/devkitPro/libnx/switch.ld" -pie --no-dynamic-linker "--spare-dynamic-tags=0" --gc-sections -z text -z now -z nodynamic-undefined-weak -z pack-relative-relocs "--build-id=sha1" --nx-module-name -o ruby.exe "C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/crti.o" "C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/crtbegin.o" "--require-defined=main" "-LC:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0" "-LC:/devkitPro/devkitA64/bin/../lib/gcc" "-LC:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/../../../../aarch64-none-elf/lib" "-LC:/devkitPro/devkitA64/bin/../aarch64-none-elf/lib" main.o --start-group -lgcc -lc -lsysbase --end-group "C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/crtend.o" "C:/devkitPro/devkitA64/bin/../lib/gcc/aarch64-none-elf/16.1.0/crtn.o"
+COLLECT_GCC_OPTIONS='-specs=C:/devkitPro/libnx/switch.specs' '-specs=C:/devkitPro/libnx/switch.specs' '-o' 'ruby.exe' '-mlittle-endian' '-mabi=lp64' '-dumpdir' 'ruby.'
+
+
+===== fnx004-single-specs-link.txt =====
+make -C ext/stringio V=1 static
+make -C ext/strscan V=1 static
+make -C ext/zlib V=1 static
+make -f enc.mk V=1 MINIRUBY="" libencs
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'libencs'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make EXTOBJS="ext/extinit.o ext/stringio/stringio.a ext/strscan/strscan.a ext/zlib/zlib.a " EXTLIBS="-lz" EXTLDFLAGS="" EXTINITS="stringio strscan zlib" UPDATE_LIBRARIES="" SHOWFLAGS= ruby.exe
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+: > revision.tmp
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe --disable=gems /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/file2lastrev.rb -q --revision.h --srcdir="/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7" > revision.tmp
+/bin/sh /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/ifchange "--timestamp=.revision.time" "/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h" revision.tmp
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+aarch64-none-elf-gcc -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include  -L. -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -fstack-protector-strong -fstack-protector-strong  main.o ext/extinit.o ext/stringio/stringio.a ext/strscan/strscan.a ext/zlib/zlib.a  -Wl,-rpath,/c/Users/<usuario>/Documents/GitHub/FangameNX/out/ruby-switch/lib -lruby-static -lz -lpthread -lm -lnxcompat -lnx -lz -lpthread -lm -lnxcompat -lnx -lm -lnxcompat -lnx -lz -lz -o ruby.exe
+:
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+
+
+===== fnx003-ruby-clean-1.txt =====
+configure log: /c/Users/<usuario>/Documents/GitHub/FangameNX/src/build-logs/ruby-configure.QAW8OC
+make log: /c/Users/<usuario>/Documents/GitHub/FangameNX/src/build-logs/ruby-make.2kxMQc
+=================== SANITY ===================
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+BASERUBY: ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) [x64-mingw-ucrt]
+libnxcompat.a: presente
+shim sys/mman.h: presente
+
+=================== CONFIGURE ===================
+>>> Configure OK
+
+=================== MAKE ===================
+codigo de salida: 0
+
+--- primeros errores ---
+
+=================== ARTEFACTOS ===================
+objetos .o : 82
+-rw-r--r-- 1 <usuario> <usuario> 44648078 Nov  1 21:20 /c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/libruby-static.a
+>>> libruby-static.a: make completo OK
+
+
+===== ruby-configure.QAW8OC =====
+configure: loading site script /etc/config.site
+tool/config.guess already exists
+tool/config.sub already exists
+checking build system type... x86_64-pc-cygwin
+checking host system type... aarch64-none-elf
+checking target system type... aarch64-none-elf
+checking for aarch64-none-elf-gcc... aarch64-none-elf-gcc
+checking for aarch64-none-elf-aarch64-none-elf-ld... aarch64-none-elf-ld
+checking for aarch64-none-elf-aarch64-none-elf-gcc-ar... aarch64-none-elf-ar
+checking for aarch64-none-elf-aarch64-none-elf-g++... aarch64-none-elf-g++
+checking for aarch64-none-elf-aarch64-none-elf-gcc-nm... aarch64-none-elf-nm
+checking for aarch64-none-elf-aarch64-none-elf-gcc-ranlib... aarch64-none-elf-ranlib
+checking for aarch64-none-elf-gcc... (cached) aarch64-none-elf-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... .exe
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether aarch64-none-elf-gcc accepts -g... yes
+checking for aarch64-none-elf-gcc option to enable C11 features... none needed
+checking whether the compiler supports GNU C++... yes
+checking whether aarch64-none-elf-g++ accepts -g... yes
+checking for aarch64-none-elf-g++ option to enable C++11 features... -std=gnu++11
+checking how to run the C preprocessor... aarch64-none-elf-gcc -E
+checking for aarch64-none-elf-ranlib... (cached) aarch64-none-elf-ranlib
+checking for aarch64-none-elf-gar... (cached) aarch64-none-elf-ar
+checking for aarch64-none-elf-gas... no
+checking for aarch64-none-elf-as... aarch64-none-elf-as
+checking for aarch64-none-elf-gld... (cached) aarch64-none-elf-ld
+checking for aarch64-none-elf-gnm... (cached) aarch64-none-elf-nm
+checking for aarch64-none-elf-gobjcopy... aarch64-none-elf-objcopy
+checking for aarch64-none-elf-gobjdump... no
+checking for aarch64-none-elf-objdump... aarch64-none-elf-objdump
+checking for aarch64-none-elf-gstrip... aarch64-none-elf-strip
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for wchar.h... yes
+checking for minix/config.h... no
+checking for vfork.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+checking whether the linker is GNU ld... yes
+checking whether aarch64-none-elf-gcc -E accepts -o... yes
+checking for aarch64-none-elf-ar flags... rcD
+checking whether ln -s works... no, using cp -pR
+checking whether make sets $(MAKE)... yes
+checking for a BSD-compatible install... /usr/bin/install -c
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for aarch64-none-elf-dtrace... no
+checking for dot... no
+checking for doxygen... no
+checking for aarch64-none-elf-pkg-config... aarch64-none-elf-pkg-config
+checking whether it is Android... no
+checking for cd using physical directory... cd
+checking whether CFLAGS is valid... yes
+checking whether LDFLAGS is valid... yes
+checking whether ELF binaries are produced... (cached) yes
+checking whether -Wl,-rpath,. is accepted as LDFLAGS... yes
+checking whether -fdeclspec is accepted as LDFLAGS... no
+checking whether -fdeclspec is accepted as CXXFLAGS... no
+checking whether -Wdeprecated-declarations is accepted as CFLAGS... yes
+checking whether -Wdivision-by-zero is accepted as CFLAGS... no
+checking whether -Wduplicated-cond is accepted as CFLAGS... yes
+checking whether -Wimplicit-function-declaration is accepted as CFLAGS... yes
+checking whether -Wimplicit-int is accepted as CFLAGS... yes
+checking whether -Wmisleading-indentation is accepted as CFLAGS... yes
+checking whether -Wpointer-arith is accepted as CFLAGS... yes
+checking whether -Wshorten-64-to-32 is accepted as CFLAGS... no
+checking whether -Wwrite-strings is accepted as CFLAGS... yes
+checking whether -Wold-style-definition is accepted as CFLAGS... yes
+checking whether -Wimplicit-fallthrough=0 is accepted as CFLAGS... yes
+checking whether -Wmissing-noreturn is accepted as CFLAGS... yes
+checking whether -Wno-cast-function-type is accepted as CFLAGS... yes
+checking whether -Wno-constant-logical-operand is accepted as CFLAGS... yes
+checking whether -Wno-long-long is accepted as CFLAGS... yes
+checking whether -Wno-missing-field-initializers is accepted as CFLAGS... yes
+checking whether -Wno-overlength-strings is accepted as CFLAGS... yes
+checking whether -Wno-packed-bitfield-compat is accepted as CFLAGS... yes
+checking whether -Wno-parentheses-equality is accepted as CFLAGS... yes
+checking whether -Wno-self-assign is accepted as CFLAGS... yes
+checking whether -Wno-tautological-compare is accepted as CFLAGS... yes
+checking whether -Wno-unused-parameter is accepted as CFLAGS... yes
+checking whether -Wno-unused-value is accepted as CFLAGS... yes
+checking whether -Wsuggest-attribute=format is accepted as CFLAGS... yes
+checking whether -Wsuggest-attribute=noreturn is accepted as CFLAGS... yes
+checking whether -Wunused-variable is accepted as CFLAGS... yes
+checking whether -diag-disable=175,188,1684,2259,2312 is accepted as CFLAGS... no
+checking whether -Wextra-tokens is accepted as CFLAGS... no
+checking whether -Wundef is accepted as CFLAGS... yes
+checking whether -Wall -Wextra is accepted as CFLAGS... yes
+checking whether -Qunused-arguments is accepted as CFLAGS... no
+checking whether -O3 -D_FORTIFY_SOURCE=2 is accepted as CFLAGS... yes
+checking whether -fstack-protector-strong is accepted as CFLAGS... yes
+checking whether -fstack-protector-strong is accepted as LDFLAGS... yes
+checking whether -Wl,--compress-debug-sections=zlib is accepted as LDFLAGS... yes
+checking whether -fno-strict-overflow is accepted as CFLAGS... yes
+checking whether -ggdb3 is accepted as CFLAGS... yes
+checking whether -fvisibility=hidden is accepted as CFLAGS... yes
+checking whether -fno-fast-math is accepted as CFLAGS... yes
+checking whether -fexcess-precision=standard is accepted as CFLAGS... yes
+checking whether -fp-model precise is accepted as CFLAGS... no
+checking whether compiler has statement and declarations in expressions... yes
+checking whether CXXFLAGS is valid... yes
+checking for crypt in -lcrypt... no
+checking for dlopen in -ldl... (cached) no
+checking for shl_load in -ldld... no
+checking for shutdown in -lsocket... no
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking for _Bool... yes
+checking for stdbool.h that conforms to C99... yes
+checking for sys/wait.h that is POSIX.1 compatible... yes
+checking for atomic.h... no
+checking for copyfile.h... no
+checking for direct.h... no
+checking for grp.h... yes
+checking for fcntl.h... yes
+checking for float.h... yes
+checking for ieeefp.h... yes
+checking for intrinsics.h... no
+checking for langinfo.h... yes
+checking for limits.h... yes
+checking for locale.h... yes
+checking for malloc.h... yes
+checking for malloc/malloc.h... no
+checking for malloc_np.h... no
+checking for net/socket.h... no
+checking for process.h... no
+checking for pwd.h... yes
+checking for sanitizer/asan_interface.h... no
+checking for sanitizer/msan_interface.h... no
+checking for setjmpex.h... no
+checking for stdalign.h... yes
+checking for sys/attr.h... no
+checking for sys/eventfd.h... no
+checking for sys/fcntl.h... yes
+checking for sys/file.h... yes
+checking for sys/id.h... no
+checking for sys/ioctl.h... yes
+checking for sys/mkdev.h... yes
+checking for sys/param.h... yes
+checking for sys/prctl.h... no
+checking for sys/random.h... no
+checking for sys/resource.h... yes
+checking for sys/select.h... yes
+checking for sys/sendfile.h... no
+checking for sys/socket.h... yes
+checking for sys/syscall.h... no
+checking for sys/sysmacros.h... no
+checking for sys/time.h... yes
+checking for sys/times.h... yes
+checking for sys/uio.h... no
+checking for sys/utime.h... yes
+checking for syscall.h... no
+checking for time.h... yes
+checking for ucontext.h... (cached) no
+checking for utime.h... yes
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking whether byte ordering is bigendian... no
+checking for an ANSI C-conforming const... yes
+checking whether char is unsigned... yes
+checking for inline... inline
+checking for working volatile... yes
+checking for typeof syntax and keyword spelling... typeof
+checking for C/C++ restrict keyword... __restrict__
+checking for long long... yes
+checking for off_t... yes
+checking char bit... 8
+checking size of int... 4
+checking size of short... 2
+checking size of long... 8
+checking size of long long... 8
+checking size of __int64... 0
+checking size of __int128... 16
+checking size of off_t... 8
+checking size of void*... 8
+checking size of float... 4
+checking size of double... 8
+checking size of time_t... 8
+checking size of clock_t... 8
+checking packed struct attribute... x __attribute__((packed))
+checking whether -Wno-address-of-packed-member is accepted as CFLAGS... yes
+checking for printf prefix for long long... ll
+checking for pid_t... yes
+checking for convertible type of pid_t... INT
+checking for uid_t... yes
+checking for convertible type of uid_t... USHORT
+checking for gid_t... yes
+checking for convertible type of gid_t... USHORT
+checking for time_t... yes
+checking for convertible type of time_t... LONG
+checking for dev_t... yes
+checking for convertible type of dev_t... SHORT
+checking for mode_t... yes
+checking for convertible type of mode_t... UINT
+checking for rlim_t... no
+checking for convertible type of rlim_t... LONG
+checking for off_t... (cached) yes
+checking for convertible type of off_t... LONG
+checking for clockid_t... yes
+checking for convertible type of clockid_t... ULONG
+checking for variable length macro... yes
+checking if _Alignof() works... yes
+checking for CONSTFUNC function attribute... __attribute__ ((__const__)) x
+checking for PUREFUNC function attribute... __attribute__ ((__pure__)) x
+checking for NORETURN function attribute... __attribute__ ((__noreturn__)) x
+checking for DEPRECATED function attribute... __attribute__ ((__deprecated__)) x
+checking for DEPRECATED_BY function attribute... __attribute__ ((__deprecated__("by "#n))) x
+checking for NOINLINE function attribute... __attribute__ ((__noinline__)) x
+checking for ALWAYS_INLINE function attribute... __attribute__ ((__always_inline__)) x
+checking for NO_SANITIZE function attribute... __attribute__ ((__no_sanitize__(san))) x
+checking for NO_SANITIZE_ADDRESS function attribute... __attribute__ ((__no_sanitize_address__)) x
+checking for NO_ADDRESS_SAFETY_ANALYSIS function attribute... __attribute__ ((__no_address_safety_analysis__)) x
+checking for WARN_UNUSED_RESULT function attribute... __attribute__ ((__warn_unused_result__)) x
+checking for MAYBE_UNUSED function attribute... __attribute__ ((__unused__)) x
+checking for ERRORFUNC function attribute... __attribute__ ((__error__ mesg)) x
+checking for WARNINGFUNC function attribute... __attribute__ ((__warning__ mesg)) x
+checking for WEAK function attribute... __attribute__ ((__weak__)) x
+checking for __attribute__((__depreacted__(msg))) in C++... yes
+checking for std::nullptr_t... yes
+checking for FUNC_STDCALL function attribute... x
+checking for FUNC_CDECL function attribute... x
+checking for FUNC_FASTCALL function attribute... x
+checking for FUNC_UNOPTIMIZED function attribute... __attribute__ ((__optimize__("O0"))) x
+checking for FUNC_MINIMIZED function attribute... __attribute__ ((__optimize__("-Os","-fomit-frame-pointer"))) x
+checking for function alias... alias
+checking for __atomic builtins... yes
+checking for __sync builtins... yes
+checking for __builtin_unreachable... yes
+checking for exported function attribute... __attribute__ ((__visibility__("default")))
+checking for RUBY_FUNC_NONNULL function attribute... __attribute__ ((__nonnull__(n))) x
+checking for function name string predefined identifier... __func__
+checking if enum over int is allowed... yes
+checking for aarch64-none-elf-gcc options needed to detect all undeclared functions... none needed
+checking whether sys_nerr is declared... no
+checking whether getenv is declared... yes
+checking for size_t... yes
+checking size of size_t... 8
+checking size of ptrdiff_t... 8
+checking size of dev_t... 2
+checking for printf prefix for size_t... z
+checking for printf prefix for ptrdiff_t... t
+checking for struct stat.st_blksize... yes
+checking for struct stat.st_blocks... yes
+checking for struct stat.st_rdev... yes
+checking size of struct stat.st_size... SIZEOF_OFF_T
+checking size of struct stat.st_blocks... SIZEOF_OFF_T
+checking size of struct stat.st_ino... 2
+checking size of struct stat.st_dev... SIZEOF_DEV_T
+checking size of struct stat.st_rdev... SIZEOF_DEV_T
+checking for struct stat.st_atim... yes
+checking for struct stat.st_atimespec... no
+checking for struct stat.st_atimensec... no
+checking for struct stat.st_mtim... yes
+checking for struct stat.st_mtimespec... no
+checking for struct stat.st_mtimensec... no
+checking for struct stat.st_ctim... yes
+checking for struct stat.st_ctimespec... no
+checking for struct stat.st_ctimensec... no
+checking for struct stat.st_birthtimespec... no
+checking for struct statx.stx_btime... no
+checking for struct timeval... yes
+checking size of struct timeval.tv_sec... SIZEOF_TIME_T
+checking for struct timespec... yes
+checking for struct timezone... yes
+checking for fd_mask... yes
+checking for int8_t... yes
+checking size of int8_t... 1
+checking for uint8_t... yes
+checking size of uint8_t... 1
+checking for int16_t... yes
+checking size of int16_t... 2
+checking for uint16_t... yes
+checking size of uint16_t... 2
+checking for int32_t... yes
+checking size of int32_t... 4
+checking for uint32_t... yes
+checking size of uint32_t... 4
+checking for int64_t... yes
+checking size of int64_t... 8
+checking for uint64_t... yes
+checking size of uint64_t... 8
+checking for int128_t... __int128
+checking for uint128_t... unsigned __int128
+checking for intptr_t... yes
+checking size of intptr_t... 8
+checking for uintptr_t... yes
+checking size of uintptr_t... 8
+checking for printf prefix for intptr_t... l
+checking for ssize_t... yes
+checking size of ssize_t... 8
+checking for printf prefix for int64_t... l
+checking for stack end address... no
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for uid_t in sys/types.h... (cached) yes
+checking type of array argument to getgroups... gid_t
+checking for working alloca.h... yes
+checking for alloca... yes
+checking for dynamic size alloca... ok
+checking for working memcmp... no
+checking for dup... yes
+checking for dup2... yes
+checking for acosh... yes
+checking for cbrt... yes
+checking for crypt... no
+checking for erf... yes
+checking for explicit_bzero... yes
+checking for ffs... yes
+checking for flock... no
+checking for hypot... yes
+checking for lgamma_r... yes
+checking for memmove... yes
+checking for nan... yes
+checking for nextafter... yes
+checking for setproctitle... no
+checking for strchr... yes
+checking for strerror... yes
+checking for strlcat... yes
+checking for strlcpy... yes
+checking for strstr... yes
+checking for tgamma... yes
+checking for sys/pstat.h... no
+checking for pid_t... (cached) yes
+checking for fork... (cached) no
+checking for vfork... (cached) no
+checking for __syscall... no
+checking for _longjmp... no
+checking for arc4random_buf... no
+checking for atan2l... yes
+checking for atan2f... yes
+checking for chroot... no
+checking for chsize... no
+checking for clock_gettime... yes
+checking for copy_file_range... no
+checking for cosh... yes
+checking for crypt_r... no
+checking for daemon... (cached) no
+checking for dirfd... no
+checking for dl_iterate_phdr... no
+checking for dlopen... (cached) no
+checking for dladdr... no
+checking for dup3... no
+checking for eaccess... no
+checking for endgrent... no
+checking for eventfd... no
+checking for explicit_memset... no
+checking for fcopyfile... no
+checking for fchmod... yes
+checking for fchown... no
+checking for fcntl... yes
+checking for fdatasync... no
+checking for fdopendir... no
+checking for fgetattrlist... no
+checking for fmod... yes
+checking for fstatat... no
+checking for fsync... yes
+checking for ftruncate... yes
+checking for ftruncate64... no
+checking for getattrlist... no
+checking for getcwd... yes
+checking for getentropy... no
+checking for getgidx... no
+checking for getgrnam... no
+checking for getgrnam_r... no
+checking for getgroups... no
+checking for getlogin... no
+checking for getlogin_r... no
+checking for getpgid... no
+checking for getpgrp... no
+checking for getpriority... no
+checking for getpwnam... yes
+checking for getpwnam_r... no
+checking for getpwuid... no
+checking for getpwuid_r... no
+checking for getrandom... no
+checking for getresgid... no
+checking for getresuid... no
+checking for getrlimit... no
+checking for getsid... no
+checking for gettimeofday... yes
+checking for getuidx... no
+checking for gmtime_r... yes
+checking for grantpt... no
+checking for initgroups... no
+checking for ioctl... yes
+checking for isfinite... no
+checking for issetugid... no
+checking for killpg... no
+checking for lchmod... no
+checking for lchown... no
+checking for link... yes
+checking for llabs... yes
+checking for lockf... no
+checking for log2... yes
+checking for lstat... yes
+checking for lutimes... no
+checking for malloc_usable_size... yes
+checking for malloc_size... no
+checking for mblen... yes
+checking for memalign... yes
+checking for memset_s... no
+checking for writev... no
+checking for memrchr... yes
+checking for memmem... yes
+checking for mkfifo... no
+checking for mknod... no
+checking for mktime... yes
+checking for mmap... no
+checking for openat... no
+checking for pipe2... no
+checking for poll... yes
+checking for posix_fadvise... no
+checking for posix_memalign... no
+checking for ppoll... no
+checking for pread... no
+checking for pwrite... no
+checking for qsort_r... yes
+checking for qsort_s... no
+checking for readlink... yes
+checking for realpath... yes
+checking for round... yes
+checking for sched_getaffinity... no
+checking for seekdir... yes
+checking for select_large_fdset... no
+checking for sendfile... no
+checking for setegid... no
+checking for setenv... yes
+checking for seteuid... no
+checking for setgid... no
+checking for setgroups... no
+checking for setpgid... no
+checking for setpgrp... no
+checking for setregid... no
+checking for setresgid... no
+checking for setresuid... no
+checking for setreuid... no
+checking for setrgid... no
+checking for setrlimit... no
+checking for setruid... no
+checking for setsid... no
+checking for setuid... no
+checking for shutdown... yes
+checking for sigaction... no
+checking for sigaltstack... no
+checking for sigprocmask... no
+checking for sinh... yes
+checking for spawnv... no
+checking for symlink... yes
+checking for syscall... no
+checking for sysconf... yes
+checking for tanh... yes
+checking for telldir... yes
+checking for timegm... no
+checking for times... yes
+checking for truncate... yes
+checking for truncate64... no
+checking for unsetenv... yes
+checking for utimensat... no
+checking for utimes... yes
+checking for wait4... no
+checking for waitpid... (cached) yes
+checking for __cospi... no
+checking for __sinpi... no
+checking if getcwd allocates buffer if NULL is given... no
+checking for __builtin_alloca_with_align... yes
+checking for __builtin_assume_aligned... yes
+checking for __builtin_bswap16... yes
+checking for __builtin_bswap32... yes
+checking for __builtin_bswap64... yes
+checking for __builtin_popcount... yes
+checking for __builtin_popcountll... yes
+checking for __builtin_clz... yes
+checking for __builtin_clzl... yes
+checking for __builtin_clzll... yes
+checking for __builtin_ctz... yes
+checking for __builtin_ctzll... yes
+checking for __builtin_add_overflow... yes
+checking for __builtin_sub_overflow... yes
+checking for __builtin_mul_overflow... yes
+checking for __builtin_mul_overflow_p... yes
+checking for __builtin_constant_p... yes
+checking for __builtin_choose_expr... yes
+checking for __builtin_choose_expr_constant_p... yes
+checking for __builtin_types_compatible_p... yes
+checking for __builtin_trap... yes
+checking for __builtin_expect... yes
+checking whether qsort_r is GNU version... yes
+checking whether qsort_r is BSD version... no
+checking whether atan2 handles Inf as C99... yes
+checking for clock_getres... yes
+checking for timer_create in -lrt... no
+checking for timer_settime in -lrt... no
+checking for unsetenv returns a value... yes
+checking whether struct tm is in sys/time.h or time.h... time.h
+checking for struct tm.tm_zone... no
+checking whether tzname is declared... yes
+checking for tzname... yes
+checking for struct tm.tm_gmtoff... no
+checking for external int daylight... no
+checking for negative time_t for gmtime(3)... yes
+checking for localtime(3) overflow correctly... no
+checking for sigsetmask... no
+checking for BSD signal semantics... no
+checking for sig_t... yes
+checking whether getpgrp requires zero arguments... yes
+checking whether right shift preserve sign bit... yes
+checking for copy_file_range... no
+checking whether _SC_CLK_TCK is supported... yes
+checking stack growing direction on aarch64... 0
+checking for getcontext... (cached) no
+checking native coroutine implementation for aarch64-elf... pthread
+checking for pthread_create in -lthr... no
+checking for pthread_create in -lpthread... yes
+checking for pthread_np.h... no
+checking whether pthread_t is scalar type... yes
+checking for sched_yield... yes
+checking for pthread_attr_setinheritsched... no
+checking for pthread_attr_get_np... no
+checking for pthread_attr_getstack... yes
+checking for pthread_attr_getguardsize... yes
+checking for pthread_get_stackaddr_np... no
+checking for pthread_get_stacksize_np... no
+checking for thr_stksegment... no
+checking for pthread_stackseg_np... no
+checking for pthread_getthrds_np... no
+checking for pthread_condattr_setclock... yes
+checking for pthread_setname_np... no
+checking for pthread_set_name_np... no
+checking for pthread_sigmask... no
+checking for pthread_getattr_np... no
+checking if signal.h defines ucontext_t... no
+checking for sys/user.h... no
+checking ioctl request type... unsigned long
+checking for elf.h... yes
+checking for elf_abi.h... no
+checking for uncompress in -lz... yes
+checking for mach-o/loader.h... no
+checking whether OS depend dynamic link works... unknown
+checking for backtrace... no
+checking for valgrind/memcheck.h... no
+checking for aarch64-none-elf-strip flags... -S -x
+checking for __builtin_setjmp... yes with cast ()
+checking for _setjmpex as a macro or function... no
+checking for _setjmp as a macro or function... (cached) no
+checking for sigsetjmp as a macro or function... no
+checking for setjmp type... __builtin_setjmp
+checking for prefix of external symbols... NONE
+checking for pthread.h... yes
+checking if make is GNU make... yes
+.ext/include/aarch64-elf/ruby/config.h updated
+configure: ruby library version = 3.1.0
+configure: creating ./config.status
+config.status: creating GNUmakefile
+config.status: creating Makefile
+---
+Configuration summary for ruby version 3.1.7
+
+   * Installation prefix: /c/Users/<usuario>/Documents/GitHub/FangameNX/out/ruby\
+                          -switch
+   * exec prefix:         ${prefix}
+   * arch:                aarch64-elf
+   * site arch:           ${arch}
+   * RUBY_BASE_NAME:      ruby
+   * enable shared:       no
+   * ruby lib prefix:     ${libdir}/${RUBY_BASE_NAME}
+   * site libraries path: ${rubylibprefix}/${sitearch}
+   * vendor path:         ${rubylibprefix}/vendor_ruby
+   * target OS:           elf
+   * compiler:            aarch64-none-elf-gcc
+   * with pthread:        yes
+   * with coroutine:      pthread
+   * enable shared libs:  no
+   * dynamic library ext: so
+   * CFLAGS:              ${optflags} ${debugflags} ${warnflags}
+   * LDFLAGS:             -L. -specs=C:/devkitPro/libnx/switch.specs \
+                          -march=armv8-a+crc+crypto -mtune=cortex-a57 \
+                          -mtp=soft -fPIE \
+                          -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/li\
+                          b -LC:/devkitPro/libnx/lib \
+                          -LC:/devkitPro/portlibs/switch/lib \
+                          -fstack-protector-strong
+   * DLDFLAGS:            -specs=C:/devkitPro/libnx/switch.specs \
+                          -march=armv8-a+crc+crypto -mtune=cortex-a57 \
+                          -mtp=soft -fPIE \
+                          -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/li\
+                          b -LC:/devkitPro/libnx/lib \
+                          -LC:/devkitPro/portlibs/switch/lib \
+                          -Wl,--compress-debug-sections=zlib
+   * optflags:            -O3 -fno-fast-math
+   * debugflags:          -ggdb3
+   * warnflags:           -Wall -Wextra -Wdeprecated-declarations \
+                          -Wduplicated-cond -Wimplicit-function-declaration \
+                          -Wimplicit-int -Wmisleading-indentation \
+                          -Wpointer-arith -Wwrite-strings \
+                          -Wold-style-definition -Wimplicit-fallthrough=0 \
+                          -Wmissing-noreturn -Wno-cast-function-type \
+                          -Wno-constant-logical-operand -Wno-long-long \
+                          -Wno-missing-field-initializers \
+                          -Wno-overlength-strings \
+                          -Wno-packed-bitfield-compat \
+                          -Wno-parentheses-equality -Wno-self-assign \
+                          -Wno-tautological-compare -Wno-unused-parameter \
+                          -Wno-unused-value -Wsuggest-attribute=format \
+                          -Wsuggest-attribute=noreturn -Wunused-variable \
+                          -Wundef
+   * strip command:       aarch64-none-elf-strip -S -x
+   * install doc:         no
+   * JIT support:         no
+   * man page type:       man
+   * static-linked-ext:   yes
+   * BASERUBY -v:         ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) \
+                          [x64-mingw-ucrt]
+
+---
+
+
+===== ruby-make.2kxMQc =====
+	BASERUBY = /c/Users/<usuario>/Documents/GitHub/FangameNX/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe --disable=gems
+	CC = aarch64-none-elf-gcc
+	LD = aarch64-none-elf-ld
+	LDSHARED = aarch64-none-elf-ld
+	CFLAGS = -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include
+	XCFLAGS = -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fno-strict-overflow -fvisibility=hidden -fexcess-precision=standard -DRUBY_EXPORT -I. -I.ext/include/aarch64-elf -I/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -I/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7 -I/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/unicode/13.0.0
+	CPPFLAGS = -D__SWITCH__ -include C:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include
+	DLDFLAGS = -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -Wl,--compress-debug-sections=zlib -fstack-protector-strong
+	SOLIBS = -lz -lpthread -lm -lnxcompat -lnx
+	LANG = C.UTF-8
+	LC_ALL = C.UTF-8
+	LC_CTYPE = C.UTF-8
+	MFLAGS = -j6 --jobserver-auth=4,5
+generating id.h
+making dummy probes.h
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+generating opt_sc.inc
+generating optinsn.inc
+generating insns.inc
+generating optunifs.inc
+generating insns_info.inc
+id.h updated
+generating vmtc.inc
+generating vm.inc
+generating mjit_compile.inc
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dln.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/localeinit.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/array.c
+/bin/sh /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/ifchange "--timestamp=.rbconfig.time" rbconfig.rb rbconfig.tmp
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ast.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/bignum.c
+rbconfig.rb updated
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/class.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/compar.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/compile.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/complex.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/cont.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/debug_counter.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/debug.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dir.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dln_find.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/encoding.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enum.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enumerator.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/error.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/eval.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/file.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/gc.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/hash.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/inits.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/io.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/io_buffer.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/iseq.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/load.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/marshal.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/math.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/memory_view.c
+making mjit_config.h
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/mjit_compile.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/node.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/numeric.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/object.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/pack.c
+generating parse.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/proc.c
+parse.tmp.y:1317.33-39: warning: symbol "( arg" used more than once as a literal string [-Wother]
+ 1317 | %token tMKXP_LEGACY_LPAREN_ARG	"( arg"
+      |                                 ^~~~~~~
+parse.tmp.y:1318.33-35: warning: symbol "*" used more than once as a literal string [-Wother]
+ 1318 | %token tMKXP_LEGACY_STAR	"*"
+      |                                 ^~~
+parse.tmp.y:1319.33-35: warning: symbol "{" used more than once as a literal string [-Wother]
+ 1319 | %token tMKXP_LEGACY_LBRACE	"{"
+      |                                 ^~~
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/process.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ractor.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/random.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/range.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/rational.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/re.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regcomp.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regenc.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regerror.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regexec.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regparse.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regsyntax.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ruby.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/scheduler.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/signal.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/sprintf.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/st.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/strftime.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/string.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/struct.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/thread.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/symbol.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/time.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/transcode.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/transient_heap.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/util.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/variable.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_backtrace.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_dump.c
+In file included from C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm.c:384:
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:33: warning: 'mkxp_syntax_transform_target_ruby_version_major' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:87: warning: 'mkxp_syntax_transform_target_ruby_version_minor' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:141: warning: 'mkxp_syntax_transform_target_ruby_version_teeny' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                                                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_sync.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_trace.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/yjit.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/memcmp.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/crypt.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/flock.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/setproctitle.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/addr2line.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/main.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dmyext.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dmyenc.c
+generating encdb.h
+creating verconf.h
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/mjit.c
+compiling parse.c
+verconf.h updated
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/coroutine/pthread/Context.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/ascii.c
+encdb.h updated
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/us_ascii.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/unicode.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_8.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/newline.c
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/version.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/loadpath.c
+generating aarch64-elf-fake.rb
+aarch64-elf-fake.rb updated
+generating enc.mk
+builtin_binary.inc updated
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/builtin.c
+making srcs under enc
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'srcs'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+generating transdb.h
+transdb.h updated
+linking static-library libruby-static.a
+generating makefiles ext/configure-ext.mk
+making libtrans
+making libenc
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/transdb.c
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/encdb.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/big5.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/big5.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/cesu_8.c
+ext/configure-ext.mk updated
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/cesu_8.c
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/chinese.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/ebcdic.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/cp949.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/emacs_mule.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_jp.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_iso2022_kddi.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_kr.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_tw.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_docomo.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gb2312.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_kddi.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_softbank.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gb18030.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gbk.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_1.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_2.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/escape.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_3.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/gb18030.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/gbk.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/iso2022.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_4.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_5.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_6.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese_euc.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_7.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese_sjis.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_8.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_9.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/korean.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_10.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/single_byte.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_11.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/utf8_mac.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_13.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/utf_16_32.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_14.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_15.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_16.c
+configuring stringio
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/koi8_r.c
+configuring strscan
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/koi8_u.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/shift_jis.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_16be.c
+linking statically-linked transcoder library enc/libtrans.a
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_16le.c
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+configuring zlib
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_32be.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_32le.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_31j.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1250.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1251.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1252.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1253.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1254.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1257.c
+linking statically-linked encoding library enc/libenc.a
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+making libencs
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'libencs'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+generating makefile exts.mk
+exts.mk updated
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/stringio'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/strscan'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/zlib'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/strscan/strscan.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/stringio/stringio.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib/zlib.c
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Nothing to be done for 'libencs'.
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+/usr/bin/mkdir -p ext
+linking static-library strscan.a
+ext/extinit.c updated
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/strscan'
+compiling ext/extinit.o
+linking static-library stringio.a
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/stringio'
+linking static-library zlib.a
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/zlib'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+generating enc.mk
+compiling enc/encinit.c
+linking ruby.exe
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'note'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+
+
+===== fnx003-finalize-1.txt =====
+=== Retirando dmyext.o (Init_ext vacio) ===
+  Init_ext eliminado
+
+=== Insertando extinit + extensiones ===
+
+=== Verificacion ===
+  Init_ext         : OK
+  Init_zlib        : OK
+  Init_stringio    : OK
+  Init_strscan     : OK
+  ruby_init_ext    : OK
+  ruby_init        : OK
+-rw-r--r-- 1 <usuario> <usuario> 45983716 Nov  1 21:21 libruby-static.a
+
+
+===== fnx003-gen-xxd-1.txt =====
+generados 29 ficheros .xxd en /c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/generated
+
+
+===== fnx003-mkxp-make-1.txt =====
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CXX  main.cpp
+CXX  config.cpp
+CXX  eventthread.cpp
+CXX  settingsmenu.cpp
+CXX  sharedstate.cpp
+CXX  alstream.cpp
+In file included from C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/config.cpp:24:
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/util/encoding.h:16:10: fatal error: uchardet.h: No such file or directory
+   16 | #include <uchardet.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+make: *** [Makefile:173: build/config.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+
+
+===== fnx003-mkxp-make-2.txt =====
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CXX  config.cpp
+CXX  audio.cpp
+CXX  audiostream.cpp
+CXX  fluid-fun.cpp
+CXX  midisource.cpp
+CXX  sdlsoundsource.cpp
+CXX  soundemitter.cpp
+CXX  vorbissource.cpp
+CXX  rgssad.cpp
+CXX  autotiles.cpp
+CXX  autotilesvx.cpp
+CXX  bitmap.cpp
+CXX  font.cpp
+CXX  graphics.cpp
+CXX  plane.cpp
+CXX  sprite.cpp
+CXX  tilemap.cpp
+CXX  tilemapvx.cpp
+CXX  viewport.cpp
+CXX  window.cpp
+CXX  windowvx.cpp
+CXX  gl-debug.cpp
+CXX  gl-fun.cpp
+CXX  gl-meta.cpp
+CXX  glstate.cpp
+CXX  scene.cpp
+CXX  shader.cpp
+CXX  texpool.cpp
+CXX  tileatlas.cpp
+CXX  tileatlasvx.cpp
+CXX  tilequad.cpp
+CXX  vertex.cpp
+CXX  iniconfig.cpp
+CXX  win-consoleutils.cpp
+CXX  etc.cpp
+CXX  table.cpp
+CXX  filesystem.cpp
+CXX  filesystemImpl.cpp
+CXX  input.cpp
+CXX  keybindings.cpp
+CXX  LUrlParser.cpp
+CXX  net.cpp
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp: In member function 'void InputPrivate::clearBuffer()':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:901:15: warning: 'void* memset(void*, int, size_t)' clearing an object of non-trivial type 'struct ButtonState'; use assignment or value-initialization instead [-Wclass-memaccess]
+  901 |         memset(states, 0, size);
+      |         ~~~~~~^~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:471:8: note: 'struct ButtonState' declared here
+  471 | struct ButtonState
+      |        ^~~~~~~~~~~
+CXX  systemImpl.cpp
+CXX  binding-mri.cpp
+In file included from C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/binding/binding-mri.cpp:37:
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/binding/binding-util.h:25:10: fatal error: ruby.h: No such file or directory
+   25 | #include <ruby.h>
+      |          ^~~~~~~~
+compilation terminated.
+make: *** [Makefile:174: build/binding-mri.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+
+
+===== fnx003-mkxp-make-3.txt =====
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CXX  binding-mri.cpp
+CXX  binding-util.cpp
+CXX  table-binding.cpp
+CXX  etc-binding.cpp
+CXX  bitmap-binding.cpp
+CXX  font-binding.cpp
+CXX  graphics-binding.cpp
+CXX  input-binding.cpp
+CXX  sprite-binding.cpp
+CXX  viewport-binding.cpp
+CXX  plane-binding.cpp
+CXX  window-binding.cpp
+CXX  tilemap-binding.cpp
+CXX  audio-binding.cpp
+CXX  module_rpg.cpp
+CXX  filesystem-binding.cpp
+CXX  windowvx-binding.cpp
+CXX  tilemapvx-binding.cpp
+CXX  http-binding.cpp
+CXX  nx_donde.cpp
+XXD  nx/espera.png
+CXX  nx_ficheros.cpp
+CC   theoraplay.c
+CC   libnsgif.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   lzw.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_audio.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_aviso.c
+CC   nx_boot.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_excepcion.c
+CC   nx_fcntl.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_fsprobe.c
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c: In function 'nx_revision_arranque':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:471:33: warning: ' (hace que el juego lea del ...' directive output may be truncated writing 39 bytes into a region of size between 25 and 88 [-Wformat-truncation=]
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:470:13: note: 'snprintf' output between 48 and 111 bytes into a destination of size 96
+  470 |             snprintf(linea, sizeof(linea),
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_juego.c
+CC   nx_medir.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_memoria.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_nucleos.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_pantalla.c
+CC   nx_pipe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_pthread_np.c
+CC   nx_realpath.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_red.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_reloj.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_texturas.c
+CC   nx_thread_probe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_tirones.c
+NACP rgss-switch.nacp (0.2.4 b3 01/11 21:22)
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CXX  nx_espera.cpp
+LD   rgss-switch.elf
+ARM  rgss-switch.elf
+make: python: No such file or directory
+make: *** [Makefile:207: rgss-switch.elf] Error 127
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+
+
+===== fnx003-mkxp-make-4.txt =====
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CC   nx_boot.c
+NACP rgss-switch.nacp (0.2.4 b4 01/11 21:24)
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+LD   rgss-switch.elf
+ARM  rgss-switch.elf
+ARMv9: 15 instrucciones neutralizadas (chkfeat x16 x5, gcspopm x3, mrs gcspr_el0 x2, mrs tpidr2_el0 x2, msr tpidr2_el0 x1, smstart/smstop x2)
+NRO  rgss-switch.nro
+Visiting directories...
+Calculating metadata...
+Writing C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/romfs/LEEME.txt to RomFS image...
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+
+
+===== fnx003-mkxp-make-clean-2.txt =====
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CXX  main.cpp
+CXX  config.cpp
+CXX  settingsmenu.cpp
+CXX  eventthread.cpp
+CXX  sharedstate.cpp
+CXX  alstream.cpp
+CXX  audio.cpp
+CXX  audiostream.cpp
+CXX  fluid-fun.cpp
+CXX  midisource.cpp
+CXX  sdlsoundsource.cpp
+CXX  soundemitter.cpp
+CXX  vorbissource.cpp
+CXX  rgssad.cpp
+CXX  autotiles.cpp
+CXX  autotilesvx.cpp
+CXX  bitmap.cpp
+CXX  font.cpp
+CXX  graphics.cpp
+CXX  plane.cpp
+CXX  sprite.cpp
+CXX  tilemap.cpp
+CXX  tilemapvx.cpp
+CXX  viewport.cpp
+CXX  window.cpp
+CXX  windowvx.cpp
+CXX  gl-debug.cpp
+CXX  gl-fun.cpp
+CXX  gl-meta.cpp
+CXX  glstate.cpp
+CXX  scene.cpp
+CXX  shader.cpp
+CXX  texpool.cpp
+CXX  tileatlas.cpp
+CXX  tileatlasvx.cpp
+CXX  tilequad.cpp
+CXX  vertex.cpp
+CXX  iniconfig.cpp
+CXX  win-consoleutils.cpp
+CXX  etc.cpp
+CXX  table.cpp
+CXX  filesystem.cpp
+CXX  filesystemImpl.cpp
+CXX  input.cpp
+CXX  keybindings.cpp
+CXX  LUrlParser.cpp
+CXX  net.cpp
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp: In member function 'void InputPrivate::clearBuffer()':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:901:15: warning: 'void* memset(void*, int, size_t)' clearing an object of non-trivial type 'struct ButtonState'; use assignment or value-initialization instead [-Wclass-memaccess]
+  901 |         memset(states, 0, size);
+      |         ~~~~~~^~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:471:8: note: 'struct ButtonState' declared here
+  471 | struct ButtonState
+      |        ^~~~~~~~~~~
+CXX  systemImpl.cpp
+CXX  binding-mri.cpp
+CXX  binding-util.cpp
+CXX  table-binding.cpp
+CXX  etc-binding.cpp
+CXX  bitmap-binding.cpp
+CXX  font-binding.cpp
+CXX  graphics-binding.cpp
+CXX  input-binding.cpp
+CXX  sprite-binding.cpp
+CXX  viewport-binding.cpp
+CXX  plane-binding.cpp
+CXX  window-binding.cpp
+CXX  tilemap-binding.cpp
+CXX  audio-binding.cpp
+CXX  module_rpg.cpp
+CXX  filesystem-binding.cpp
+CXX  windowvx-binding.cpp
+CXX  tilemapvx-binding.cpp
+CXX  http-binding.cpp
+CXX  nx_donde.cpp
+CXX  nx_espera.cpp
+CXX  nx_ficheros.cpp
+CC   theoraplay.c
+CC   libnsgif.c
+CC   lzw.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_audio.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_aviso.c
+CC   nx_boot.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_excepcion.c
+CC   nx_fcntl.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_fsprobe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c: In function 'nx_revision_arranque':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:471:33: warning: ' (hace que el juego lea del ...' directive output may be truncated writing 39 bytes into a region of size between 25 and 88 [-Wformat-truncation=]
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:470:13: note: 'snprintf' output between 48 and 111 bytes into a destination of size 96
+  470 |             snprintf(linea, sizeof(linea),
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CC   nx_juego.c
+CC   nx_medir.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_memoria.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_nucleos.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_pantalla.c
+CC   nx_pipe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_pthread_np.c
+CC   nx_realpath.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_red.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_reloj.c
+CC   nx_texturas.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_thread_probe.c
+CC   nx_tirones.c
+NACP rgss-switch.nacp (0.2.4 b5 01/11 21:25)
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+LD   rgss-switch.elf
+ARM  rgss-switch.elf
+ARMv9: 15 instrucciones neutralizadas (chkfeat x16 x5, gcspopm x3, mrs gcspr_el0 x2, mrs tpidr2_el0 x2, msr tpidr2_el0 x1, smstart/smstop x2)
+NRO  rgss-switch.nro
+Visiting directories...
+Calculating metadata...
+Writing C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/romfs/LEEME.txt to RomFS image...
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+
+
+===== fnx003-ruby-clean-final.txt =====
+configure log: /c/Users/<usuario>/Documents/GitHub/FangameNX/src/build-logs/ruby-configure.2XNVcK
+make log: /c/Users/<usuario>/Documents/GitHub/FangameNX/src/build-logs/ruby-make.6Esuu6
+=================== SANITY ===================
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+BASERUBY: ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) [x64-mingw-ucrt]
+libnxcompat.a: presente
+shim sys/mman.h: presente
+
+=================== CONFIGURE ===================
+>>> Configure OK
+
+=================== MAKE ===================
+codigo de salida: 0
+
+--- primeros errores ---
+
+=================== ARTEFACTOS ===================
+objetos .o : 82
+-rw-r--r-- 1 <usuario> <usuario> 44648078 Nov  1 21:36 /c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/libruby-static.a
+>>> libruby-static.a: make completo OK
+
+
+===== ruby-configure.2XNVcK =====
+configure: loading site script /etc/config.site
+tool/config.guess already exists
+tool/config.sub already exists
+checking build system type... x86_64-pc-cygwin
+checking host system type... aarch64-none-elf
+checking target system type... aarch64-none-elf
+checking for aarch64-none-elf-gcc... aarch64-none-elf-gcc
+checking for aarch64-none-elf-aarch64-none-elf-ld... aarch64-none-elf-ld
+checking for aarch64-none-elf-aarch64-none-elf-gcc-ar... aarch64-none-elf-ar
+checking for aarch64-none-elf-aarch64-none-elf-g++... aarch64-none-elf-g++
+checking for aarch64-none-elf-aarch64-none-elf-gcc-nm... aarch64-none-elf-nm
+checking for aarch64-none-elf-aarch64-none-elf-gcc-ranlib... aarch64-none-elf-ranlib
+checking for aarch64-none-elf-gcc... (cached) aarch64-none-elf-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... .exe
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether aarch64-none-elf-gcc accepts -g... yes
+checking for aarch64-none-elf-gcc option to enable C11 features... none needed
+checking whether the compiler supports GNU C++... yes
+checking whether aarch64-none-elf-g++ accepts -g... yes
+checking for aarch64-none-elf-g++ option to enable C++11 features... -std=gnu++11
+checking how to run the C preprocessor... aarch64-none-elf-gcc -E
+checking for aarch64-none-elf-ranlib... (cached) aarch64-none-elf-ranlib
+checking for aarch64-none-elf-gar... (cached) aarch64-none-elf-ar
+checking for aarch64-none-elf-gas... no
+checking for aarch64-none-elf-as... aarch64-none-elf-as
+checking for aarch64-none-elf-gld... (cached) aarch64-none-elf-ld
+checking for aarch64-none-elf-gnm... (cached) aarch64-none-elf-nm
+checking for aarch64-none-elf-gobjcopy... aarch64-none-elf-objcopy
+checking for aarch64-none-elf-gobjdump... no
+checking for aarch64-none-elf-objdump... aarch64-none-elf-objdump
+checking for aarch64-none-elf-gstrip... aarch64-none-elf-strip
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for wchar.h... yes
+checking for minix/config.h... no
+checking for vfork.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+checking whether the linker is GNU ld... yes
+checking whether aarch64-none-elf-gcc -E accepts -o... yes
+checking for aarch64-none-elf-ar flags... rcD
+checking whether ln -s works... no, using cp -pR
+checking whether make sets $(MAKE)... yes
+checking for a BSD-compatible install... /usr/bin/install -c
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for aarch64-none-elf-dtrace... no
+checking for dot... no
+checking for doxygen... no
+checking for aarch64-none-elf-pkg-config... aarch64-none-elf-pkg-config
+checking whether it is Android... no
+checking for cd using physical directory... cd
+checking whether CFLAGS is valid... yes
+checking whether LDFLAGS is valid... yes
+checking whether ELF binaries are produced... (cached) yes
+checking whether -Wl,-rpath,. is accepted as LDFLAGS... yes
+checking whether -fdeclspec is accepted as LDFLAGS... no
+checking whether -fdeclspec is accepted as CXXFLAGS... no
+checking whether -Wdeprecated-declarations is accepted as CFLAGS... yes
+checking whether -Wdivision-by-zero is accepted as CFLAGS... no
+checking whether -Wduplicated-cond is accepted as CFLAGS... yes
+checking whether -Wimplicit-function-declaration is accepted as CFLAGS... yes
+checking whether -Wimplicit-int is accepted as CFLAGS... yes
+checking whether -Wmisleading-indentation is accepted as CFLAGS... yes
+checking whether -Wpointer-arith is accepted as CFLAGS... yes
+checking whether -Wshorten-64-to-32 is accepted as CFLAGS... no
+checking whether -Wwrite-strings is accepted as CFLAGS... yes
+checking whether -Wold-style-definition is accepted as CFLAGS... yes
+checking whether -Wimplicit-fallthrough=0 is accepted as CFLAGS... yes
+checking whether -Wmissing-noreturn is accepted as CFLAGS... yes
+checking whether -Wno-cast-function-type is accepted as CFLAGS... yes
+checking whether -Wno-constant-logical-operand is accepted as CFLAGS... yes
+checking whether -Wno-long-long is accepted as CFLAGS... yes
+checking whether -Wno-missing-field-initializers is accepted as CFLAGS... yes
+checking whether -Wno-overlength-strings is accepted as CFLAGS... yes
+checking whether -Wno-packed-bitfield-compat is accepted as CFLAGS... yes
+checking whether -Wno-parentheses-equality is accepted as CFLAGS... yes
+checking whether -Wno-self-assign is accepted as CFLAGS... yes
+checking whether -Wno-tautological-compare is accepted as CFLAGS... yes
+checking whether -Wno-unused-parameter is accepted as CFLAGS... yes
+checking whether -Wno-unused-value is accepted as CFLAGS... yes
+checking whether -Wsuggest-attribute=format is accepted as CFLAGS... yes
+checking whether -Wsuggest-attribute=noreturn is accepted as CFLAGS... yes
+checking whether -Wunused-variable is accepted as CFLAGS... yes
+checking whether -diag-disable=175,188,1684,2259,2312 is accepted as CFLAGS... no
+checking whether -Wextra-tokens is accepted as CFLAGS... no
+checking whether -Wundef is accepted as CFLAGS... yes
+checking whether -Wall -Wextra is accepted as CFLAGS... yes
+checking whether -Qunused-arguments is accepted as CFLAGS... no
+checking whether -O3 -D_FORTIFY_SOURCE=2 is accepted as CFLAGS... yes
+checking whether -fstack-protector-strong is accepted as CFLAGS... yes
+checking whether -fstack-protector-strong is accepted as LDFLAGS... yes
+checking whether -Wl,--compress-debug-sections=zlib is accepted as LDFLAGS... yes
+checking whether -fno-strict-overflow is accepted as CFLAGS... yes
+checking whether -ggdb3 is accepted as CFLAGS... yes
+checking whether -fvisibility=hidden is accepted as CFLAGS... yes
+checking whether -fno-fast-math is accepted as CFLAGS... yes
+checking whether -fexcess-precision=standard is accepted as CFLAGS... yes
+checking whether -fp-model precise is accepted as CFLAGS... no
+checking whether compiler has statement and declarations in expressions... yes
+checking whether CXXFLAGS is valid... yes
+checking for crypt in -lcrypt... no
+checking for dlopen in -ldl... (cached) no
+checking for shl_load in -ldld... no
+checking for shutdown in -lsocket... no
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking for _Bool... yes
+checking for stdbool.h that conforms to C99... yes
+checking for sys/wait.h that is POSIX.1 compatible... yes
+checking for atomic.h... no
+checking for copyfile.h... no
+checking for direct.h... no
+checking for grp.h... yes
+checking for fcntl.h... yes
+checking for float.h... yes
+checking for ieeefp.h... yes
+checking for intrinsics.h... no
+checking for langinfo.h... yes
+checking for limits.h... yes
+checking for locale.h... yes
+checking for malloc.h... yes
+checking for malloc/malloc.h... no
+checking for malloc_np.h... no
+checking for net/socket.h... no
+checking for process.h... no
+checking for pwd.h... yes
+checking for sanitizer/asan_interface.h... no
+checking for sanitizer/msan_interface.h... no
+checking for setjmpex.h... no
+checking for stdalign.h... yes
+checking for sys/attr.h... no
+checking for sys/eventfd.h... no
+checking for sys/fcntl.h... yes
+checking for sys/file.h... yes
+checking for sys/id.h... no
+checking for sys/ioctl.h... yes
+checking for sys/mkdev.h... yes
+checking for sys/param.h... yes
+checking for sys/prctl.h... no
+checking for sys/random.h... no
+checking for sys/resource.h... yes
+checking for sys/select.h... yes
+checking for sys/sendfile.h... no
+checking for sys/socket.h... yes
+checking for sys/syscall.h... no
+checking for sys/sysmacros.h... no
+checking for sys/time.h... yes
+checking for sys/times.h... yes
+checking for sys/uio.h... no
+checking for sys/utime.h... yes
+checking for syscall.h... no
+checking for time.h... yes
+checking for ucontext.h... (cached) no
+checking for utime.h... yes
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking whether byte ordering is bigendian... no
+checking for an ANSI C-conforming const... yes
+checking whether char is unsigned... yes
+checking for inline... inline
+checking for working volatile... yes
+checking for typeof syntax and keyword spelling... typeof
+checking for C/C++ restrict keyword... __restrict__
+checking for long long... yes
+checking for off_t... yes
+checking char bit... 8
+checking size of int... 4
+checking size of short... 2
+checking size of long... 8
+checking size of long long... 8
+checking size of __int64... 0
+checking size of __int128... 16
+checking size of off_t... 8
+checking size of void*... 8
+checking size of float... 4
+checking size of double... 8
+checking size of time_t... 8
+checking size of clock_t... 8
+checking packed struct attribute... x __attribute__((packed))
+checking whether -Wno-address-of-packed-member is accepted as CFLAGS... yes
+checking for printf prefix for long long... ll
+checking for pid_t... yes
+checking for convertible type of pid_t... INT
+checking for uid_t... yes
+checking for convertible type of uid_t... USHORT
+checking for gid_t... yes
+checking for convertible type of gid_t... USHORT
+checking for time_t... yes
+checking for convertible type of time_t... LONG
+checking for dev_t... yes
+checking for convertible type of dev_t... SHORT
+checking for mode_t... yes
+checking for convertible type of mode_t... UINT
+checking for rlim_t... no
+checking for convertible type of rlim_t... LONG
+checking for off_t... (cached) yes
+checking for convertible type of off_t... LONG
+checking for clockid_t... yes
+checking for convertible type of clockid_t... ULONG
+checking for variable length macro... yes
+checking if _Alignof() works... yes
+checking for CONSTFUNC function attribute... __attribute__ ((__const__)) x
+checking for PUREFUNC function attribute... __attribute__ ((__pure__)) x
+checking for NORETURN function attribute... __attribute__ ((__noreturn__)) x
+checking for DEPRECATED function attribute... __attribute__ ((__deprecated__)) x
+checking for DEPRECATED_BY function attribute... __attribute__ ((__deprecated__("by "#n))) x
+checking for NOINLINE function attribute... __attribute__ ((__noinline__)) x
+checking for ALWAYS_INLINE function attribute... __attribute__ ((__always_inline__)) x
+checking for NO_SANITIZE function attribute... __attribute__ ((__no_sanitize__(san))) x
+checking for NO_SANITIZE_ADDRESS function attribute... __attribute__ ((__no_sanitize_address__)) x
+checking for NO_ADDRESS_SAFETY_ANALYSIS function attribute... __attribute__ ((__no_address_safety_analysis__)) x
+checking for WARN_UNUSED_RESULT function attribute... __attribute__ ((__warn_unused_result__)) x
+checking for MAYBE_UNUSED function attribute... __attribute__ ((__unused__)) x
+checking for ERRORFUNC function attribute... __attribute__ ((__error__ mesg)) x
+checking for WARNINGFUNC function attribute... __attribute__ ((__warning__ mesg)) x
+checking for WEAK function attribute... __attribute__ ((__weak__)) x
+checking for __attribute__((__depreacted__(msg))) in C++... yes
+checking for std::nullptr_t... yes
+checking for FUNC_STDCALL function attribute... x
+checking for FUNC_CDECL function attribute... x
+checking for FUNC_FASTCALL function attribute... x
+checking for FUNC_UNOPTIMIZED function attribute... __attribute__ ((__optimize__("O0"))) x
+checking for FUNC_MINIMIZED function attribute... __attribute__ ((__optimize__("-Os","-fomit-frame-pointer"))) x
+checking for function alias... alias
+checking for __atomic builtins... yes
+checking for __sync builtins... yes
+checking for __builtin_unreachable... yes
+checking for exported function attribute... __attribute__ ((__visibility__("default")))
+checking for RUBY_FUNC_NONNULL function attribute... __attribute__ ((__nonnull__(n))) x
+checking for function name string predefined identifier... __func__
+checking if enum over int is allowed... yes
+checking for aarch64-none-elf-gcc options needed to detect all undeclared functions... none needed
+checking whether sys_nerr is declared... no
+checking whether getenv is declared... yes
+checking for size_t... yes
+checking size of size_t... 8
+checking size of ptrdiff_t... 8
+checking size of dev_t... 2
+checking for printf prefix for size_t... z
+checking for printf prefix for ptrdiff_t... t
+checking for struct stat.st_blksize... yes
+checking for struct stat.st_blocks... yes
+checking for struct stat.st_rdev... yes
+checking size of struct stat.st_size... SIZEOF_OFF_T
+checking size of struct stat.st_blocks... SIZEOF_OFF_T
+checking size of struct stat.st_ino... 2
+checking size of struct stat.st_dev... SIZEOF_DEV_T
+checking size of struct stat.st_rdev... SIZEOF_DEV_T
+checking for struct stat.st_atim... yes
+checking for struct stat.st_atimespec... no
+checking for struct stat.st_atimensec... no
+checking for struct stat.st_mtim... yes
+checking for struct stat.st_mtimespec... no
+checking for struct stat.st_mtimensec... no
+checking for struct stat.st_ctim... yes
+checking for struct stat.st_ctimespec... no
+checking for struct stat.st_ctimensec... no
+checking for struct stat.st_birthtimespec... no
+checking for struct statx.stx_btime... no
+checking for struct timeval... yes
+checking size of struct timeval.tv_sec... SIZEOF_TIME_T
+checking for struct timespec... yes
+checking for struct timezone... yes
+checking for fd_mask... yes
+checking for int8_t... yes
+checking size of int8_t... 1
+checking for uint8_t... yes
+checking size of uint8_t... 1
+checking for int16_t... yes
+checking size of int16_t... 2
+checking for uint16_t... yes
+checking size of uint16_t... 2
+checking for int32_t... yes
+checking size of int32_t... 4
+checking for uint32_t... yes
+checking size of uint32_t... 4
+checking for int64_t... yes
+checking size of int64_t... 8
+checking for uint64_t... yes
+checking size of uint64_t... 8
+checking for int128_t... __int128
+checking for uint128_t... unsigned __int128
+checking for intptr_t... yes
+checking size of intptr_t... 8
+checking for uintptr_t... yes
+checking size of uintptr_t... 8
+checking for printf prefix for intptr_t... l
+checking for ssize_t... yes
+checking size of ssize_t... 8
+checking for printf prefix for int64_t... l
+checking for stack end address... no
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for uid_t in sys/types.h... (cached) yes
+checking type of array argument to getgroups... gid_t
+checking for working alloca.h... yes
+checking for alloca... yes
+checking for dynamic size alloca... ok
+checking for working memcmp... no
+checking for dup... yes
+checking for dup2... yes
+checking for acosh... yes
+checking for cbrt... yes
+checking for crypt... no
+checking for erf... yes
+checking for explicit_bzero... yes
+checking for ffs... yes
+checking for flock... no
+checking for hypot... yes
+checking for lgamma_r... yes
+checking for memmove... yes
+checking for nan... yes
+checking for nextafter... yes
+checking for setproctitle... no
+checking for strchr... yes
+checking for strerror... yes
+checking for strlcat... yes
+checking for strlcpy... yes
+checking for strstr... yes
+checking for tgamma... yes
+checking for sys/pstat.h... no
+checking for pid_t... (cached) yes
+checking for fork... (cached) no
+checking for vfork... (cached) no
+checking for __syscall... no
+checking for _longjmp... no
+checking for arc4random_buf... no
+checking for atan2l... yes
+checking for atan2f... yes
+checking for chroot... no
+checking for chsize... no
+checking for clock_gettime... yes
+checking for copy_file_range... no
+checking for cosh... yes
+checking for crypt_r... no
+checking for daemon... (cached) no
+checking for dirfd... no
+checking for dl_iterate_phdr... no
+checking for dlopen... (cached) no
+checking for dladdr... no
+checking for dup3... no
+checking for eaccess... no
+checking for endgrent... no
+checking for eventfd... no
+checking for explicit_memset... no
+checking for fcopyfile... no
+checking for fchmod... yes
+checking for fchown... no
+checking for fcntl... yes
+checking for fdatasync... no
+checking for fdopendir... no
+checking for fgetattrlist... no
+checking for fmod... yes
+checking for fstatat... no
+checking for fsync... yes
+checking for ftruncate... yes
+checking for ftruncate64... no
+checking for getattrlist... no
+checking for getcwd... yes
+checking for getentropy... no
+checking for getgidx... no
+checking for getgrnam... no
+checking for getgrnam_r... no
+checking for getgroups... no
+checking for getlogin... no
+checking for getlogin_r... no
+checking for getpgid... no
+checking for getpgrp... no
+checking for getpriority... no
+checking for getpwnam... yes
+checking for getpwnam_r... no
+checking for getpwuid... no
+checking for getpwuid_r... no
+checking for getrandom... no
+checking for getresgid... no
+checking for getresuid... no
+checking for getrlimit... no
+checking for getsid... no
+checking for gettimeofday... yes
+checking for getuidx... no
+checking for gmtime_r... yes
+checking for grantpt... no
+checking for initgroups... no
+checking for ioctl... yes
+checking for isfinite... no
+checking for issetugid... no
+checking for killpg... no
+checking for lchmod... no
+checking for lchown... no
+checking for link... yes
+checking for llabs... yes
+checking for lockf... no
+checking for log2... yes
+checking for lstat... yes
+checking for lutimes... no
+checking for malloc_usable_size... yes
+checking for malloc_size... no
+checking for mblen... yes
+checking for memalign... yes
+checking for memset_s... no
+checking for writev... no
+checking for memrchr... yes
+checking for memmem... yes
+checking for mkfifo... no
+checking for mknod... no
+checking for mktime... yes
+checking for mmap... no
+checking for openat... no
+checking for pipe2... no
+checking for poll... yes
+checking for posix_fadvise... no
+checking for posix_memalign... no
+checking for ppoll... no
+checking for pread... no
+checking for pwrite... no
+checking for qsort_r... yes
+checking for qsort_s... no
+checking for readlink... yes
+checking for realpath... yes
+checking for round... yes
+checking for sched_getaffinity... no
+checking for seekdir... yes
+checking for select_large_fdset... no
+checking for sendfile... no
+checking for setegid... no
+checking for setenv... yes
+checking for seteuid... no
+checking for setgid... no
+checking for setgroups... no
+checking for setpgid... no
+checking for setpgrp... no
+checking for setregid... no
+checking for setresgid... no
+checking for setresuid... no
+checking for setreuid... no
+checking for setrgid... no
+checking for setrlimit... no
+checking for setruid... no
+checking for setsid... no
+checking for setuid... no
+checking for shutdown... yes
+checking for sigaction... no
+checking for sigaltstack... no
+checking for sigprocmask... no
+checking for sinh... yes
+checking for spawnv... no
+checking for symlink... yes
+checking for syscall... no
+checking for sysconf... yes
+checking for tanh... yes
+checking for telldir... yes
+checking for timegm... no
+checking for times... yes
+checking for truncate... yes
+checking for truncate64... no
+checking for unsetenv... yes
+checking for utimensat... no
+checking for utimes... yes
+checking for wait4... no
+checking for waitpid... (cached) yes
+checking for __cospi... no
+checking for __sinpi... no
+checking if getcwd allocates buffer if NULL is given... no
+checking for __builtin_alloca_with_align... yes
+checking for __builtin_assume_aligned... yes
+checking for __builtin_bswap16... yes
+checking for __builtin_bswap32... yes
+checking for __builtin_bswap64... yes
+checking for __builtin_popcount... yes
+checking for __builtin_popcountll... yes
+checking for __builtin_clz... yes
+checking for __builtin_clzl... yes
+checking for __builtin_clzll... yes
+checking for __builtin_ctz... yes
+checking for __builtin_ctzll... yes
+checking for __builtin_add_overflow... yes
+checking for __builtin_sub_overflow... yes
+checking for __builtin_mul_overflow... yes
+checking for __builtin_mul_overflow_p... yes
+checking for __builtin_constant_p... yes
+checking for __builtin_choose_expr... yes
+checking for __builtin_choose_expr_constant_p... yes
+checking for __builtin_types_compatible_p... yes
+checking for __builtin_trap... yes
+checking for __builtin_expect... yes
+checking whether qsort_r is GNU version... yes
+checking whether qsort_r is BSD version... no
+checking whether atan2 handles Inf as C99... yes
+checking for clock_getres... yes
+checking for timer_create in -lrt... no
+checking for timer_settime in -lrt... no
+checking for unsetenv returns a value... yes
+checking whether struct tm is in sys/time.h or time.h... time.h
+checking for struct tm.tm_zone... no
+checking whether tzname is declared... yes
+checking for tzname... yes
+checking for struct tm.tm_gmtoff... no
+checking for external int daylight... no
+checking for negative time_t for gmtime(3)... yes
+checking for localtime(3) overflow correctly... no
+checking for sigsetmask... no
+checking for BSD signal semantics... no
+checking for sig_t... yes
+checking whether getpgrp requires zero arguments... yes
+checking whether right shift preserve sign bit... yes
+checking for copy_file_range... no
+checking whether _SC_CLK_TCK is supported... yes
+checking stack growing direction on aarch64... 0
+checking for getcontext... (cached) no
+checking native coroutine implementation for aarch64-elf... pthread
+checking for pthread_create in -lthr... no
+checking for pthread_create in -lpthread... yes
+checking for pthread_np.h... no
+checking whether pthread_t is scalar type... yes
+checking for sched_yield... yes
+checking for pthread_attr_setinheritsched... no
+checking for pthread_attr_get_np... no
+checking for pthread_attr_getstack... yes
+checking for pthread_attr_getguardsize... yes
+checking for pthread_get_stackaddr_np... no
+checking for pthread_get_stacksize_np... no
+checking for thr_stksegment... no
+checking for pthread_stackseg_np... no
+checking for pthread_getthrds_np... no
+checking for pthread_condattr_setclock... yes
+checking for pthread_setname_np... no
+checking for pthread_set_name_np... no
+checking for pthread_sigmask... no
+checking for pthread_getattr_np... no
+checking if signal.h defines ucontext_t... no
+checking for sys/user.h... no
+checking ioctl request type... unsigned long
+checking for elf.h... yes
+checking for elf_abi.h... no
+checking for uncompress in -lz... yes
+checking for mach-o/loader.h... no
+checking whether OS depend dynamic link works... unknown
+checking for backtrace... no
+checking for valgrind/memcheck.h... no
+checking for aarch64-none-elf-strip flags... -S -x
+checking for __builtin_setjmp... yes with cast ()
+checking for _setjmpex as a macro or function... no
+checking for _setjmp as a macro or function... (cached) no
+checking for sigsetjmp as a macro or function... no
+checking for setjmp type... __builtin_setjmp
+checking for prefix of external symbols... NONE
+checking for pthread.h... yes
+checking if make is GNU make... yes
+.ext/include/aarch64-elf/ruby/config.h updated
+configure: ruby library version = 3.1.0
+configure: creating ./config.status
+config.status: creating GNUmakefile
+config.status: creating Makefile
+---
+Configuration summary for ruby version 3.1.7
+
+   * Installation prefix: /c/Users/<usuario>/Documents/GitHub/FangameNX/out/ruby\
+                          -switch
+   * exec prefix:         ${prefix}
+   * arch:                aarch64-elf
+   * site arch:           ${arch}
+   * RUBY_BASE_NAME:      ruby
+   * enable shared:       no
+   * ruby lib prefix:     ${libdir}/${RUBY_BASE_NAME}
+   * site libraries path: ${rubylibprefix}/${sitearch}
+   * vendor path:         ${rubylibprefix}/vendor_ruby
+   * target OS:           elf
+   * compiler:            aarch64-none-elf-gcc
+   * with pthread:        yes
+   * with coroutine:      pthread
+   * enable shared libs:  no
+   * dynamic library ext: so
+   * CFLAGS:              ${optflags} ${debugflags} ${warnflags}
+   * LDFLAGS:             -L. -specs=C:/devkitPro/libnx/switch.specs \
+                          -march=armv8-a+crc+crypto -mtune=cortex-a57 \
+                          -mtp=soft -fPIE \
+                          -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/li\
+                          b -LC:/devkitPro/libnx/lib \
+                          -LC:/devkitPro/portlibs/switch/lib \
+                          -fstack-protector-strong
+   * DLDFLAGS:            -specs=C:/devkitPro/libnx/switch.specs \
+                          -march=armv8-a+crc+crypto -mtune=cortex-a57 \
+                          -mtp=soft -fPIE \
+                          -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/li\
+                          b -LC:/devkitPro/libnx/lib \
+                          -LC:/devkitPro/portlibs/switch/lib \
+                          -Wl,--compress-debug-sections=zlib
+   * optflags:            -O3 -fno-fast-math
+   * debugflags:          -ggdb3
+   * warnflags:           -Wall -Wextra -Wdeprecated-declarations \
+                          -Wduplicated-cond -Wimplicit-function-declaration \
+                          -Wimplicit-int -Wmisleading-indentation \
+                          -Wpointer-arith -Wwrite-strings \
+                          -Wold-style-definition -Wimplicit-fallthrough=0 \
+                          -Wmissing-noreturn -Wno-cast-function-type \
+                          -Wno-constant-logical-operand -Wno-long-long \
+                          -Wno-missing-field-initializers \
+                          -Wno-overlength-strings \
+                          -Wno-packed-bitfield-compat \
+                          -Wno-parentheses-equality -Wno-self-assign \
+                          -Wno-tautological-compare -Wno-unused-parameter \
+                          -Wno-unused-value -Wsuggest-attribute=format \
+                          -Wsuggest-attribute=noreturn -Wunused-variable \
+                          -Wundef
+   * strip command:       aarch64-none-elf-strip -S -x
+   * install doc:         no
+   * JIT support:         no
+   * man page type:       man
+   * static-linked-ext:   yes
+   * BASERUBY -v:         ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) \
+                          [x64-mingw-ucrt]
+
+---
+
+
+===== ruby-make.6Esuu6 =====
+	BASERUBY = /c/Users/<usuario>/Documents/GitHub/FangameNX/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe --disable=gems
+	CC = aarch64-none-elf-gcc
+	LD = aarch64-none-elf-ld
+	LDSHARED = aarch64-none-elf-ld
+	CFLAGS = -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include C:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include/nxshim.h -ffunction-sections -fdata-sections -IC:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include
+	XCFLAGS = -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fno-strict-overflow -fvisibility=hidden -fexcess-precision=standard -DRUBY_EXPORT -I. -I.ext/include/aarch64-elf -I/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/include -I/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7 -I/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/unicode/13.0.0
+	CPPFLAGS = -D__SWITCH__ -include C:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include/nxshim.h -IC:/Users/<usuario>/Documents/GitHub/FangameNX/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include
+	DLDFLAGS = -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -LC:/Users/<usuario>/Documents/GitHub/FangameNX/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -Wl,--compress-debug-sections=zlib -fstack-protector-strong -Wl,--compress-debug-sections=zlib
+	SOLIBS = -lz -lpthread -lm -lnxcompat -lnx
+	LANG = C.UTF-8
+	LC_ALL = C.UTF-8
+	LC_CTYPE = C.UTF-8
+	MFLAGS = -j6 --jobserver-auth=4,5
+generating id.h
+making dummy probes.h
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+generating opt_sc.inc
+generating optinsn.inc
+generating optunifs.inc
+generating insns.inc
+id.h updated
+generating insns_info.inc
+generating vmtc.inc
+generating vm.inc
+generating mjit_compile.inc
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dln.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/localeinit.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/array.c
+/bin/sh /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/tool/ifchange "--timestamp=.rbconfig.time" rbconfig.rb rbconfig.tmp
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ast.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/bignum.c
+rbconfig.rb updated
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/class.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/compar.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/compile.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/complex.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/cont.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/debug.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/debug_counter.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dir.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dln_find.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/encoding.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enum.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enumerator.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/error.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/eval.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/file.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/gc.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/hash.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/inits.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/io.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/io_buffer.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/iseq.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/load.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/marshal.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/math.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/memory_view.c
+making mjit_config.h
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/mjit_compile.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/node.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/numeric.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/object.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/pack.c
+generating parse.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/proc.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/process.c
+parse.tmp.y:1317.33-39: warning: symbol "( arg" used more than once as a literal string [-Wother]
+ 1317 | %token tMKXP_LEGACY_LPAREN_ARG	"( arg"
+      |                                 ^~~~~~~
+parse.tmp.y:1318.33-35: warning: symbol "*" used more than once as a literal string [-Wother]
+ 1318 | %token tMKXP_LEGACY_STAR	"*"
+      |                                 ^~~
+parse.tmp.y:1319.33-35: warning: symbol "{" used more than once as a literal string [-Wother]
+ 1319 | %token tMKXP_LEGACY_LBRACE	"{"
+      |                                 ^~~
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ractor.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/random.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/range.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/rational.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/re.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regcomp.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regenc.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regerror.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regexec.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regsyntax.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/regparse.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ruby.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/scheduler.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/signal.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/sprintf.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/st.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/strftime.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/string.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/struct.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/symbol.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/thread.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/time.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/transcode.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/transient_heap.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/util.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/variable.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_backtrace.c
+In file included from C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm.c:384:
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:33: warning: 'mkxp_syntax_transform_target_ruby_version_major' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:87: warning: 'mkxp_syntax_transform_target_ruby_version_minor' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_eval.c:1:141: warning: 'mkxp_syntax_transform_target_ruby_version_teeny' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                                                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_dump.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_sync.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/vm_trace.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/yjit.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/memcmp.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/crypt.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/flock.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/missing/setproctitle.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/addr2line.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/main.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dmyext.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/dmyenc.c
+generating encdb.h
+creating verconf.h
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/mjit.c
+compiling parse.c
+verconf.h updated
+encdb.h updated
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/coroutine/pthread/Context.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/us_ascii.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/ascii.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/unicode.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_8.c
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/newline.c
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/loadpath.c
+generating aarch64-elf-fake.rb
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/version.c
+aarch64-elf-fake.rb updated
+generating enc.mk
+builtin_binary.inc updated
+compiling /c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/builtin.c
+making srcs under enc
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'srcs'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+generating transdb.h
+transdb.h updated
+linking static-library libruby-static.a
+generating makefiles ext/configure-ext.mk
+making libenc
+making libtrans
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/transdb.c
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/encdb.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/big5.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/cesu_8.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/cp949.c
+ext/configure-ext.mk updated
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/emacs_mule.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/big5.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/cesu_8.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_jp.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_kr.c
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/euc_tw.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gb2312.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gb18030.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/chinese.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/gbk.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_1.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/ebcdic.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_2.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_3.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_iso2022_kddi.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_docomo.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_4.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_kddi.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_5.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_6.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_7.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/emoji_sjis_softbank.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_8.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_9.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/escape.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/gb18030.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/gbk.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_10.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_11.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_13.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/iso2022.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_14.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese_euc.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_15.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/iso_8859_16.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/koi8_r.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/japanese_sjis.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/koi8_u.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/korean.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/shift_jis.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/single_byte.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_16be.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_16le.c
+configuring stringio
+configuring strscan
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_32be.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/utf8_mac.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/utf_32le.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/trans/utf_16_32.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_31j.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1250.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1251.c
+configuring zlib
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1252.c
+linking statically-linked transcoder library enc/libtrans.a
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1253.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1254.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/enc/windows_1257.c
+linking statically-linked encoding library enc/libenc.a
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+making libencs
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'libencs'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+generating makefile exts.mk
+exts.mk updated
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/strscan'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/stringio'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/zlib'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/zlib/zlib.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/stringio/stringio.c
+compiling C:/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/ext/strscan/strscan.c
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Nothing to be done for 'libencs'.
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+/usr/bin/mkdir -p ext
+linking static-library strscan.a
+ext/extinit.c updated
+compiling ext/extinit.o
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/strscan'
+linking static-library stringio.a
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/stringio'
+linking static-library zlib.a
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch/ext/zlib'
+make[2]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+/c/Users/<usuario>/Documents/GitHub/FangameNX/src/ruby-3.1.7/revision.h unchanged
+generating enc.mk
+compiling enc/encinit.c
+linking ruby.exe
+make[2]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+make[1]: Nothing to be done for 'note'.
+make[1]: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/build/ruby-switch'
+
+
+===== fnx003-finalize-final.txt =====
+=== Retirando dmyext.o (Init_ext vacio) ===
+  Init_ext eliminado
+
+=== Insertando extinit + extensiones ===
+
+=== Verificacion ===
+  Init_ext         : OK
+  Init_zlib        : OK
+  Init_stringio    : OK
+  Init_strscan     : OK
+  ruby_init_ext    : OK
+  ruby_init        : OK
+-rw-r--r-- 1 <usuario> <usuario> 45983716 Nov  1 21:37 libruby-static.a
+
+
+===== fnx003-mkxp-make-clean-final.txt =====
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CXX  main.cpp
+CXX  config.cpp
+CXX  eventthread.cpp
+CXX  settingsmenu.cpp
+CXX  sharedstate.cpp
+CXX  alstream.cpp
+CXX  audio.cpp
+CXX  audiostream.cpp
+CXX  fluid-fun.cpp
+CXX  midisource.cpp
+CXX  sdlsoundsource.cpp
+CXX  soundemitter.cpp
+CXX  vorbissource.cpp
+CXX  rgssad.cpp
+CXX  autotiles.cpp
+CXX  autotilesvx.cpp
+CXX  bitmap.cpp
+CXX  font.cpp
+CXX  graphics.cpp
+CXX  plane.cpp
+CXX  sprite.cpp
+CXX  tilemap.cpp
+CXX  tilemapvx.cpp
+CXX  viewport.cpp
+CXX  window.cpp
+CXX  windowvx.cpp
+CXX  gl-debug.cpp
+CXX  gl-fun.cpp
+CXX  gl-meta.cpp
+CXX  glstate.cpp
+CXX  scene.cpp
+CXX  shader.cpp
+CXX  texpool.cpp
+CXX  tileatlas.cpp
+CXX  tileatlasvx.cpp
+CXX  tilequad.cpp
+CXX  vertex.cpp
+CXX  iniconfig.cpp
+CXX  win-consoleutils.cpp
+CXX  etc.cpp
+CXX  table.cpp
+CXX  filesystem.cpp
+CXX  filesystemImpl.cpp
+CXX  input.cpp
+CXX  keybindings.cpp
+CXX  LUrlParser.cpp
+CXX  net.cpp
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp: In member function 'void InputPrivate::clearBuffer()':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:901:15: warning: 'void* memset(void*, int, size_t)' clearing an object of non-trivial type 'struct ButtonState'; use assignment or value-initialization instead [-Wclass-memaccess]
+  901 |         memset(states, 0, size);
+      |         ~~~~~~^~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:471:8: note: 'struct ButtonState' declared here
+  471 | struct ButtonState
+      |        ^~~~~~~~~~~
+CXX  systemImpl.cpp
+CXX  binding-mri.cpp
+CXX  binding-util.cpp
+CXX  table-binding.cpp
+CXX  etc-binding.cpp
+CXX  bitmap-binding.cpp
+CXX  font-binding.cpp
+CXX  graphics-binding.cpp
+CXX  input-binding.cpp
+CXX  sprite-binding.cpp
+CXX  viewport-binding.cpp
+CXX  plane-binding.cpp
+CXX  window-binding.cpp
+CXX  tilemap-binding.cpp
+CXX  audio-binding.cpp
+CXX  module_rpg.cpp
+CXX  filesystem-binding.cpp
+CXX  windowvx-binding.cpp
+CXX  tilemapvx-binding.cpp
+CXX  http-binding.cpp
+CXX  nx_donde.cpp
+CXX  nx_espera.cpp
+CXX  nx_ficheros.cpp
+CC   theoraplay.c
+CC   libnsgif.c
+CC   lzw.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_audio.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_aviso.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_boot.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_excepcion.c
+CC   nx_fcntl.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_fsprobe.c
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c: In function 'nx_revision_arranque':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:471:33: warning: ' (hace que el juego lea del ...' directive output may be truncated writing 39 bytes into a region of size between 25 and 88 [-Wformat-truncation=]
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:470:13: note: 'snprintf' output between 48 and 111 bytes into a destination of size 96
+  470 |             snprintf(linea, sizeof(linea),
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_juego.c
+CC   nx_medir.c
+CC   nx_memoria.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_nucleos.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_pantalla.c
+CC   nx_pipe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_pthread_np.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_realpath.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_red.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_reloj.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_texturas.c
+CC   nx_thread_probe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_tirones.c
+NACP rgss-switch.nacp (0.2.4 b6 01/11 21:37)
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+LD   rgss-switch.elf
+ARM  rgss-switch.elf
+ARMv9: 15 instrucciones neutralizadas (chkfeat x16 x5, gcspopm x3, mrs gcspr_el0 x2, mrs tpidr2_el0 x2, msr tpidr2_el0 x1, smstart/smstop x2)
+NRO  rgss-switch.nro
+Visiting directories...
+Calculating metadata...
+Writing C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/romfs/LEEME.txt to RomFS image...
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
