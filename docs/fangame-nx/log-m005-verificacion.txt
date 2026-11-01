@@ -1,0 +1,125 @@
+Misión 005 — comprobaciones locales del 2-11-2026
+Rama: fix/fnx-015-armv8-compat desde b99bcf3
+Sin ejecución en Switch, sin escritura en microSD y sin SDK modificado.
+Rutas de usuario abreviadas a C:/Users/<usuario>.
+
+1. Compilador y selección de libgcc
+
+Comandos (MSYS2 de devkitPro, devkitA64 r30-1 / GCC 16.1.0):
+  aarch64-none-elf-gcc -print-multi-lib
+  aarch64-none-elf-gcc -march=armv8-a+crc+crypto -mtune=cortex-a57 -fPIE -print-libgcc-file-name
+Salida:
+  .;
+  large;@mcmodel=large
+  pic;@fPIC
+  C:/devkitPro/devkitA64/lib/gcc/aarch64-none-elf/16.1.0/pic/libgcc.a
+ARCH de mkxp-z-nx/Makefile: -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
+El enlace invoca aarch64-none-elf-g++ con switch.specs y libgcc automático.
+
+2. Miembros de las tres variantes precompiladas
+
+Comandos: aarch64-none-elf-ar x [variante]/libgcc.a unwind-dw2.o __arm_tpidr2_save.o;
+          aarch64-none-elf-objdump -d [objeto];
+          aarch64-none-elf-nm -A --defined-only pic/libgcc.a;
+          aarch64-none-elf-readelf -SW [objeto].
+Se extrajo únicamente a src/build-logs/ (ignorado por Git), sin alterar los archivos SDK.
+  libgcc.a       unwind-dw2.o: cntd x6; __arm_tpidr2_save.o: SVE/SME x18
+  large/libgcc.a unwind-dw2.o: cntd x6; __arm_tpidr2_save.o: SVE/SME x18
+  pic/libgcc.a   unwind-dw2.o: cntd x6; __arm_tpidr2_save.o: SVE/SME x18
+Secciones de entrada de unwind-dw2.o: .text.execute_stack_op, .text.uw_update_context_1,
+.text.uw_update_context; sección de __arm_tpidr2_save.o: .text (AX).
+El ELF final conserva cinco cntd del primer objeto y las 18 del segundo.
+
+3. Desensamblado completo del ELF nuevo y clasificación
+
+Comando: aarch64-none-elf-objdump -d mkxp-z-nx/rgss-switch.elf > src/build-logs/fnx015-disassembly-b8.txt
+Se filtraron líneas de instrucción de .text por mnemonicos SVE/SME, LSE, MTE, GCS,
+PAC/BTI y accesos a tpidr2. Los 23 opcodes incompatibles son:
+  af3994: 04e0e3e0 cntd x0     execute_stack_op, unwind-dw2.o
+  af39a8: 04e0e3e0 cntd x0     execute_stack_op, unwind-dw2.o
+  af3e38: 04e0e3e0 cntd x0     uw_update_context_1, unwind-dw2.o
+  af3e9c: 04e0e3e0 cntd x0     uw_update_context_1, unwind-dw2.o
+  af3fc0: 04e0e3e0 cntd x0     uw_update_context, unwind-dw2.o
+  af7b04: e1206200 str za[w15, 0]  __arm_tpidr2_save.o
+  af7b08: e1206201 str za[w15, 1]  __arm_tpidr2_save.o
+  af7b0c: e1206202 str za[w15, 2]  __arm_tpidr2_save.o
+  af7b10: e1206203 str za[w15, 3]  __arm_tpidr2_save.o
+  af7b14: e1206204 str za[w15, 4]  __arm_tpidr2_save.o
+  af7b18: e1206205 str za[w15, 5]  __arm_tpidr2_save.o
+  af7b1c: e1206206 str za[w15, 6]  __arm_tpidr2_save.o
+  af7b20: e1206207 str za[w15, 7]  __arm_tpidr2_save.o
+  af7b24: e1206208 str za[w15, 8]  __arm_tpidr2_save.o
+  af7b28: e1206209 str za[w15, 9]  __arm_tpidr2_save.o
+  af7b2c: e120620a str za[w15, 10] __arm_tpidr2_save.o
+  af7b30: e120620b str za[w15, 11] __arm_tpidr2_save.o
+  af7b34: e120620c str za[w15, 12] __arm_tpidr2_save.o
+  af7b38: e120620d str za[w15, 13] __arm_tpidr2_save.o
+  af7b3c: e120620e str za[w15, 14] __arm_tpidr2_save.o
+  af7b40: e120620f str za[w15, 15] __arm_tpidr2_save.o
+  af7b48: 04305a10 addsvl x16,x16,#16 __arm_tpidr2_save.o
+  af7b60: 04e0e3f0 cntd x16    __arm_tpidr2_save.o
+Total=23 (cntd=6, str za=16, addsvl=1), todos en .text, PT_LOAD R E.
+Otros HINT compatibles: bti c=14, xpaclri=6, autia1716=1, autib1716=1.
+Búsqueda dirigida LSE/MTE/GCS/SMSTART/SMSTOP/TPIDR2 tras postproceso: 0.
+Esto es una búsqueda por mnemónicos, no una prueba formal de cada opcode AArch64.
+
+4. Alcanzabilidad de SME y VG
+
+Comandos:
+  aarch64-none-elf-nm -n mkxp-z-nx/rgss-switch.elf | [símbolos relevantes]
+  aarch64-none-elf-objdump -s --start-address=0xe34a10 --stop-address=0xe34a11 mkxp-z-nx/rgss-switch.elf
+  aarch64-none-elf-readelf -wf mkxp-z-nx/rgss-switch.elf > src/build-logs/fnx015-eh-frame-b8.txt
+Resultado:
+  af33c0 t execute_stack_op
+  af3ba0 t uw_update_context_1
+  af3ee0 t uw_update_context
+  af7ad0 T __arm_tpidr2_save
+  e34a10 R __aarch64_have_sme = 00 (ELF y NRO)
+  pc=af7ad0..af7b70: único FDE con r46 (vg)
+  DW_CFA_offset: r46 (vg) at cfa-16; activo desde af7b68
+  DW_CFA_expression / DW_CFA_val_expression: 0 encontrados
+  frame_dummy en d900 registra __EH_FRAME_BEGIN__ mediante __register_frame_info en af77e0.
+  __arm_za_disable en af7a30: ldrb flag; cbz a retorno en af7a5c; bl a save en af7a4c.
+  __arm_tpidr2_save en af7ad0: ldrb flag; cbz a retorno en af7b54; str za desde af7b04.
+  cntd del helper en af7b60 pertenece a la ruta de abort posterior al mismo guardia.
+  Las cinco cntd de unwind-dw2.o están en ramas de registro 0x2e (=46, VG).
+  execute_stack_op tiene además un br indirecto por tabla; no se infirió seguridad
+  exclusivamente de llamadas directas.
+No se encontraron otros FDE que introduzcan VG en la imagen actual. Ruby se configuró
+sin JIT/YJIT y sin dlopen (build-ruby-switch.sh).
+
+5. ELF, NRO y postproceso
+
+Comandos:
+  aarch64-none-elf-readelf -h -l -W mkxp-z-nx/rgss-switch.elf
+  aarch64-none-elf-nm -u mkxp-z-nx/rgss-switch.elf
+  py -3 comprobar-nro.py mkxp-z-nx/rgss-switch.nro
+  comparación Python de PT_LOAD R E del ELF con el segmento text del NRO.
+Resultado:
+  ELF64, DYN/PIE, AArch64; entry=0; LOAD ejecutable offset ELF=0x10000,
+  VMA=0, filesz=0xb2bd48. NRO text offset=0, size=0xb2c000.
+  38 bytes diferentes dentro de los primeros 0x80 bytes de cabecera NRO;
+  contenido ejecutable desde offset 0x80 idéntico entre ELF y NRO.
+  Las 23 palabras SVE/SME aparecen con los mismos bytes en ambos.
+  Símbolos indefinidos por nm -u: 0.
+  NRO0; ASET v0; icono=12993, NACP=16384, RomFS=1728;
+  rangos válidos; RomFS solo /LEEME.txt (1121 bytes).
+  fixup-arm64.py informó 15 sustituciones con los mismos seis tipos de M004.
+  Véase log-m004-auditoria-estatica.txt para las 15 VMA y la comparación
+  de cabeceras, segmentos y secciones ELF pre/post.
+
+Hashes SHA-256 (nuevo build b8, ignora Git):
+  ELF 88867944 bytes: 4FB1A54A2906D17966821401C63174756A5EF12F74900926D8A2F1ECFAB25172
+  NRO 17750457 bytes: C97902C7D89F8FE94AEFB255008EA99BEC127F06D25278D5C7DDFA5D1AC878B5
+  NACP 16384 bytes: 80BF8703CA7A305B8D5AAAA33CA212094B8B0C0BFDA29349A2EF28F492EB095E
+
+6. Fixture M004 y control del repositorio
+
+Comandos: py -3 -c 'import json; json.load(open("docs/fangame-nx/fixtures/fnx004/mkxp.json"))';
+          Get-FileHash -Algorithm SHA256 [cuatro fuentes y copias del paquete];
+          Test-Path local/fnx004-hardware-probe; git status --short --branch.
+Resultado: JSON válido; mkxp.json, probe.rb, entrada.txt y Game.ini coinciden con
+las copias del paquete; existen Graphics/, Audio/, Data/, lib/ y Scripts.rxdata
+de cero bytes. El paquete local aún contiene el NRO de M004, SHA-256
+9BEC33460205B3989BF405740C596C1B370311938BD7DF586FB42E2E0AD7B496.
+El código del contrato de arranque no se modificó. No se ha ejecutado Ruby en Switch.

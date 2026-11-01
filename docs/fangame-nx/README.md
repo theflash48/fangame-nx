@@ -21,6 +21,12 @@
 - [`prueba-hardware-fnx-004.md`](prueba-hardware-fnx-004.md): revisión ARMv8-A, fixture sintético, paquete local y puerta de seguridad para la primera prueba en Switch.
 - [`log-m004-auditoria-estatica.txt`](log-m004-auditoria-estatica.txt): comparación exacta del postproceso, instrucciones restantes, formato y comprobaciones del paquete.
 
+## Misión 005
+
+- [`compatibilidad-armv8-fnx-015.md`](compatibilidad-armv8-fnx-015.md): procedencia y alcanzabilidad de las 23 instrucciones SVE/SME, diagnóstico de `libgcc`, resultado y alternativas.
+- [`log-m005-compilacion.txt`](log-m005-compilacion.txt): salida completa de la recompilación limpia del motor.
+- [`log-m005-verificacion.txt`](log-m005-verificacion.txt): comandos, inventario de instrucciones, comprobaciones estáticas y hashes.
+
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 
 ## Documentos de referencia

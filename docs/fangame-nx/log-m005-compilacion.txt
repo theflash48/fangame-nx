@@ -1,0 +1,167 @@
+Mision 005, 2026-11-02. Rama fix/fnx-015-armv8-compat. Build limpio del motor con dependencias locales existentes.
+Comando (MSYS2 devkitPro): export PATH=/opt/devkitpro/devkitA64/bin:$PATH; make -C mkxp-z-nx -j6
+Salida: exit 0. Antes se movieron build/, ELF, NRO y NACP anteriores a nombres .m005-base dentro de mkxp-z-nx.
+Primer lanzamiento de shell con -c (sin login): make: command not found; se corrigio invocando bash -lc, sin instalar herramientas.
+
+make: Entering directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
+CXX  main.cpp
+CXX  config.cpp
+CXX  settingsmenu.cpp
+CXX  eventthread.cpp
+CXX  sharedstate.cpp
+CXX  alstream.cpp
+CXX  audio.cpp
+CXX  audiostream.cpp
+CXX  fluid-fun.cpp
+CXX  midisource.cpp
+CXX  sdlsoundsource.cpp
+CXX  soundemitter.cpp
+CXX  vorbissource.cpp
+CXX  rgssad.cpp
+CXX  autotiles.cpp
+CXX  autotilesvx.cpp
+CXX  bitmap.cpp
+CXX  font.cpp
+CXX  graphics.cpp
+CXX  plane.cpp
+CXX  sprite.cpp
+CXX  tilemap.cpp
+CXX  tilemapvx.cpp
+CXX  viewport.cpp
+CXX  window.cpp
+CXX  windowvx.cpp
+CXX  gl-debug.cpp
+CXX  gl-fun.cpp
+CXX  gl-meta.cpp
+CXX  glstate.cpp
+CXX  scene.cpp
+CXX  shader.cpp
+CXX  texpool.cpp
+CXX  tileatlas.cpp
+CXX  tileatlasvx.cpp
+CXX  tilequad.cpp
+CXX  vertex.cpp
+CXX  iniconfig.cpp
+CXX  win-consoleutils.cpp
+CXX  etc.cpp
+CXX  table.cpp
+CXX  filesystem.cpp
+CXX  filesystemImpl.cpp
+CXX  input.cpp
+CXX  keybindings.cpp
+CXX  LUrlParser.cpp
+CXX  net.cpp
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp: In member function 'void InputPrivate::clearBuffer()':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:901:15: warning: 'void* memset(void*, int, size_t)' clearing an object of non-trivial type 'struct ButtonState'; use assignment or value-initialization instead [-Wclass-memaccess]
+  901 |         memset(states, 0, size);
+      |         ~~~~~~^~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/src/mkxp-z/src/input/input.cpp:471:8: note: 'struct ButtonState' declared here
+  471 | struct ButtonState
+      |        ^~~~~~~~~~~
+CXX  systemImpl.cpp
+CXX  binding-mri.cpp
+CXX  binding-util.cpp
+CXX  table-binding.cpp
+CXX  etc-binding.cpp
+CXX  bitmap-binding.cpp
+CXX  font-binding.cpp
+CXX  graphics-binding.cpp
+CXX  input-binding.cpp
+CXX  sprite-binding.cpp
+CXX  viewport-binding.cpp
+CXX  plane-binding.cpp
+CXX  window-binding.cpp
+CXX  tilemap-binding.cpp
+CXX  audio-binding.cpp
+CXX  module_rpg.cpp
+CXX  filesystem-binding.cpp
+CXX  windowvx-binding.cpp
+CXX  tilemapvx-binding.cpp
+CXX  http-binding.cpp
+CXX  nx_donde.cpp
+CXX  nx_espera.cpp
+CXX  nx_ficheros.cpp
+CC   theoraplay.c
+CC   libnsgif.c
+CC   lzw.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_audio.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_aviso.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_boot.c
+CC   nx_excepcion.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_fcntl.c
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c: In function 'nx_revision_arranque':
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:471:33: warning: ' (hace que el juego lea del ...' directive output may be truncated writing 39 bytes into a region of size between 25 and 88 [-Wformat-truncation=]
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/nx/nx_aviso.c:470:13: note: 'snprintf' output between 48 and 111 bytes into a destination of size 96
+  470 |             snprintf(linea, sizeof(linea),
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  471 |                      "[ OK  ] %s (hace que el juego lea del contenedor)", archivo);
+      |                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_fsprobe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_juego.c
+CC   nx_medir.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_memoria.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_nucleos.c
+CC   nx_pantalla.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_pipe.c
+CC   nx_pthread_np.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_realpath.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_red.c
+CC   nx_reloj.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_texturas.c
+CC   nx_thread_probe.c
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+CC   nx_tirones.c
+NACP rgss-switch.nacp (0.2.4 b8 02/11 00:13)
+cc1.exe: warning: command-line option '-Wno-non-virtual-dtor' is valid for C++/ObjC++ but not for C
+cc1.exe: warning: command-line option '-Wno-reorder' is valid for C++/ObjC++ but not for C
+LD   rgss-switch.elf
+ARM  rgss-switch.elf
+ARMv9: 15 instrucciones neutralizadas (chkfeat x16 x5, gcspopm x3, mrs gcspr_el0 x2, mrs tpidr2_el0 x2, msr tpidr2_el0 x1, smstart/smstop x2)
+NRO  rgss-switch.nro
+Visiting directories...
+Calculating metadata...
+Writing C:/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx/romfs/LEEME.txt to RomFS image...
+make: Leaving directory '/c/Users/<usuario>/Documents/GitHub/FangameNX/mkxp-z-nx'
