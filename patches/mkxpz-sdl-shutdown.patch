@@ -1,0 +1,81 @@
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -211,30 +211,37 @@
+      en pedir su primer fotograma, y en ese hueco es mejor dejar el logo puesto
+      que un fundido a negro. */
+   nx_espera_paso(1.0f);
+   nx_espera_cierra();
+ #endif
+   nx_boot_trace("[boot] 11 SharedState OK, arrancando el interprete Ruby");
+   /* Start script execution */
+   scriptBinding->execute();
+ 
+   threadData->rqTermAck.set();
+   threadData->ethread->requestTerminate();
+ 
+   SharedState::finiInstance();
+ 
+   alcDestroyContext(alcCtx);
++
++#ifdef __SWITCH__
++  nx_boot_trace("[exit] RGSS before GL unbind");
++  if (SDL_GL_MakeCurrent(threadData->window, NULL) != 0)
++    Debug() << "RGSS GL unbind failed:" << SDL_GetError();
++  nx_boot_trace("[exit] RGSS after GL unbind");
++#endif
+ 
+   return 0;
+ }
+ 
+ static void printRgssVersion(int ver) {
+   const char *const makers[] = {"", "XP", "VX", "VX Ace"};
+ 
+   char buf[128];
+   snprintf(buf, sizeof(buf), "RGSS version %d (RPG Maker %s)", ver,
+            makers[ver]);
+ 
+   Debug() << buf;
+ }
+ 
+ static void rgssThreadError(RGSSThreadData *rtData, const std::string &msg) {
+@@ -772,32 +779,39 @@
+     else
+       SDL_ShowSimpleMessageBox(
+           SDL_MESSAGEBOX_ERROR, conf.game.title.c_str(),
+           std::string("The RGSS script seems to be stuck. "+conf.game.title+" will now force quit.").c_str(),
+           win);
+ 
+     if (!rtData.rgssErrorMsg.empty()) {
+       Debug() << rtData.rgssErrorMsg;
+ #ifdef __SWITCH__
+       nx_aviso_registra(rtData.rgssErrorMsg.c_str());
+ #endif
+       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, conf.game.title.c_str(),
+                                rtData.rgssErrorMsg.c_str(), win);
+     }
+ 
+-    if (rtData.glContext)
++    if (rtData.glContext) {
++#ifdef __SWITCH__
++      nx_boot_trace("[exit] main before GL delete");
++#endif
+       SDL_GL_DeleteContext(rtData.glContext);
++#ifdef __SWITCH__
++      nx_boot_trace("[exit] main after GL delete");
++#endif
++    }
+ 
+     /* Clean up any remainin events */
+     eventThread.cleanup();
+ 
+     Debug() << "Shutting down.";
+ 
+ #ifdef __SWITCH__
+     nx_boot_trace("[exit] 01 before alcCloseDevice");
+ #endif
+     alcCloseDevice(alcDev);
+ #ifdef __SWITCH__
+     nx_boot_trace("[exit] 02 alcCloseDevice OK");
+ #endif
+     SDL_DestroyWindow(win);
+ #ifdef __SWITCH__
