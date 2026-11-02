@@ -43,6 +43,10 @@
 - [`log-m007-verificacion.txt`](log-m007-verificacion.txt): comandos, hashes y resultados estáticos del NRO de ensayo.
 - [`fixtures/fnx016/icono.svg`](fixtures/fnx016/icono.svg): fuente vectorial original del icono neutro, sin recursos de juegos.
 
+## Misión 008
+
+- [`primera-ejecucion-fnx-016.md`](primera-ejecucion-fnx-016.md): identificación de la microSD, copia autorizada, hashes en destino y estado pendiente de la primera ejecución física.
+
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 
 ## Documentos de referencia
