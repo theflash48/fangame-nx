@@ -45,7 +45,7 @@
 
 ## Misión 008
 
-- [`primera-ejecucion-fnx-016.md`](primera-ejecucion-fnx-016.md): identificación de la microSD, copia autorizada, hashes en destino y estado pendiente de la primera ejecución física.
+- [`primera-ejecucion-fnx-016.md`](primera-ejecucion-fnx-016.md): copia verificada, primera observación física comunicada por el propietario y evidencias aún pendientes.
 
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 

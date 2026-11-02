@@ -1,6 +1,6 @@
 # Misión 008 · primera ejecución en Switch 1
 
-Fecha: 2 de noviembre de 2026. Rama `test/fnx-016-first-boot`, desde M007 (`0bd7393`). Estado actual: **paquete copiado y verificado en microSD; arranque físico pendiente del propietario**. No se ha ejecutado el NRO ni se ha observado todavía Ruby, gráficos, logs o salida al menú.
+Fecha: 2 de noviembre de 2026. Rama `test/fnx-016-first-boot`, desde M007 (`0bd7393`). Estado actual: **copia verificada y primera ejecución en Switch 1 comunicada por el propietario**. Hay observación visual de Ruby y renderizado; faltan los logs, la persistencia de archivos y una salida iniciada por el runtime. Esta actualización se basa en el relato del propietario, sin fotografía ni lectura de la microSD. Desde esta actualización la microSD **no está disponible y su acceso está prohibido hasta una nueva autorización explícita**; no se ha buscado, detectado ni accedido a ninguna unidad extraíble.
 
 ## Identificación y comprobación previa de la microSD
 
@@ -16,25 +16,41 @@ La lectura posterior desde `E:` encontró **8 archivos y 4 directorios**, sin el
 
 No se modificaron archivos de configuración global, Atmosphère, Hekate, sysNAND, emuMMC ni otras aplicaciones. No se generó ni instaló NSP. No se ha publicado el binario.
 
-## Arranque manual pendiente
+## Preparación para el arranque manual (registro anterior)
 
-La instalación está en `E:\switch\fnx004-sintetico\` **en este PC**; al volver a insertar la tarjeta en la consola equivale a `SD:/switch/fnx004-sintetico/`. El propietario debe expulsar `E:` desde Windows, introducir la microSD con la Switch apagada y arrancar su configuración habitual de Atmosphère. Desde HOME, abrir Homebrew Menu mediante *title override* con memoria de aplicación (normalmente mantener **R** al abrir un juego o aplicación ya existente hasta que aparezca hbmenu, según la [configuración oficial de Atmosphère](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/configurations.md); si la configuración propia usa otra tecla, respetarla). En hbmenu, seleccionar `switch/fnx004-sintetico/fnx004-sintetico.nro`, visible como **FangameNX FNX-016**. No usar el modo applet de Álbum para esta prueba.
+En el momento de la copia, Windows identificó la microSD como `E:` y el paquete quedó en `E:\switch\fnx004-sintetico\`, equivalente entonces a `SD:/switch/fnx004-sintetico/`. **No se presupone que esa letra siga asignada a la tarjeta.** La guía anterior indicaba expulsarla de Windows, insertarla con la Switch apagada, arrancar la configuración habitual de Atmosphère y abrir Homebrew Menu mediante *title override* con memoria de aplicación (normalmente mantener **R** al abrir un juego o aplicación ya existente hasta que aparezca hbmenu, según la [configuración oficial de Atmosphère](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/configurations.md)). En hbmenu se debía seleccionar `switch/fnx004-sintetico/fnx004-sintetico.nro`, visible como **FangameNX FNX-016**, sin usar el modo applet de Álbum. Este párrafo registra las instrucciones dadas antes de la prueba; **no solicita conectar la microSD ahora**.
 
-Expectativa del fixture, todavía **no observada**: posible carga «RGSS switch», bandas magenta y verde, texto opcional «FNX-004 RUBY OK», lectura de `entrada.txt`, creación de `fnx004-probe.log` y `fnx004-escritura.txt`, y salida tras 480 llamadas a `Graphics.update`. Si se bloquea, el propietario puede intentar HOME y cerrar el programa; si la consola no responde, apagarla manteniendo POWER al menos 20 segundos, conforme a la [guía de Nintendo](https://en-americas-support.nintendo.com/app/answers/detail/a_id/22523/p/897/c/990). No retirar la microSD con la consola encendida.
+Antes del ensayo se esperaban la carga «RGSS switch», las bandas magenta y verde, el texto opcional «FNX-004 RUBY OK», lectura de `entrada.txt`, creación de `fnx004-probe.log` y `fnx004-escritura.txt`, y salida tras 480 llamadas a `Graphics.update`. El párrafo siguiente distingue lo que el propietario vio de lo que aún requiere logs. La guía anterior también describía HOME y, ante un bloqueo del sistema, mantener POWER al menos 20 segundos conforme a la [guía de Nintendo](https://en-americas-support.nintendo.com/app/answers/detail/a_id/22523/p/897/c/990).
 
-## Evidencias de ejecución por completar
+## Primera ejecución comunicada por el propietario
+
+El propietario informa que FangameNX **arrancó en Nintendo Switch 1 con Atmosphère**. Vio las bandas magenta y verde y el mensaje esperado centrado. Describe un área de renderizado aproximadamente 4:3, fondo azul marino y bandas negras laterales. Los botones que probó no produjeron cambios visibles. HOME respondió; HOME → X → Cerrar terminó inmediatamente sin error visible. No se ha recibido fotografía, duración del ensayo ni contenido de archivos de log.
+
+El `mkxp.json` del fixture fija `customScript: "probe.rb"`, `rgssVersion: 1` y `fixedAspectRatio: true`. El motor selecciona `runCustomScript(customScript)` en `src/mkxp-z/binding/binding-mri.cpp`. Para RGSS 1, `src/mkxp-z/src/config.cpp` usa 640×480 cuando no se fijan otras dimensiones. `probe.rb` crea un `Bitmap` de 640×480, pinta fondo azul marino y dos bandas, las presenta mediante `Sprite` y dibuja `FNX-004 RUBY OK`. Lo observado es coherente con esa ruta, incluido el aspecto 4:3; no se midieron píxeles en la consola.
+
+En el flujo del `probe.rb` **copiado y verificado por hash antes del ensayo**, el texto solo se intenta dibujar después de que `File.open("fnx004-probe.log", "w")` haya devuelto un archivo, `File.binread("entrada.txt")` haya devuelto exactamente `FNX004-LECTURA-OK\n`, y `File.write` seguido de `File.binread("fnx004-escritura.txt")` haya devuelto `FNX004-ESCRITURA-OK\n`. Por ello, si la pantalla procede de ese paquete, verla constituye **evidencia funcional indirecta** de ejecución Ruby, lectura del fixture y ciclo de escritura/relectura dentro del proceso. No prueba por sí sola que los datos persistieran después del cierre ni qué rutas absolutas se usaron. El texto visible también indica que `Bitmap.draw_text` y la fuente funcionaron en ese intento. No demuestra que se completaran las 480 llamadas a `Graphics.update`.
+
+`probe.rb` no invoca `Input.update`, `Input.press?` ni `Input.trigger?`, y no contiene condiciones de botones: solo repite `Graphics.update` 480 veces. Por tanto, **no se esperaba una reacción visual** a los botones probados; este ensayo no evalúa el mapeo del mando. `lib/nx-compat.rb` y `lib/socket.rb` están presentes porque la revisión previa los exige, pero `preloadScript` está vacío y el fixture no hace `require`; su presencia no demuestra que se hayan ejecutado. `rubyLoadpath: ["lib"]` solo hace accesible la ruta de búsqueda. El shim `socket.rb` ofrece clases de sustitución y no participa en la prueba visual.
+
+HOME → X → Cerrar es una acción del sistema que terminó el proceso sin error visible. **No es evidencia de que Ruby terminara el bucle, ejecutara `ensure` o devolviera el control de forma natural al Homebrew Menu.**
+
+### Estado de las evidencias
 
 | Nivel | Resultado real |
 |---|---|
 | Copia y SHA-256 en microSD | **Verificado**: ocho archivos coinciden. |
-| Aparición y selección en Homebrew Menu | Pendiente de observación del propietario. |
-| Llegada a `main()` y revisión previa | Pendiente; buscar `mkxp-boot.log`. |
-| Evaluación de `probe.rb` | Pendiente; buscar `FNX004 RUBY INICIADO` en `fnx004-probe.log`. |
-| Lectura de `entrada.txt` | Pendiente; buscar `lectura=OK`. |
-| Escritura y relectura | Pendiente; buscar `escritura=OK` y `fnx004-escritura.txt`. |
-| Dibujo, salida o recuperación | Pendiente de descripción o foto del usuario. |
-| Errores observados | Ninguno observado aún: no se ha arrancado el NRO. |
+| Arranque en Switch 1 | **Observado por el propietario** bajo Atmosphère; no hay logs o foto todavía. |
+| Llegada a `main()` y revisión previa | Inferida del dibujo del fixture; pendiente de `mkxp-boot.log`. |
+| Evaluación de `probe.rb` | **Evidencia visual fuerte**: bandas y texto exclusivos del script; pendiente de `fnx004-probe.log`. |
+| Lectura de `entrada.txt` | Inferida del orden del script; pendiente de marca `lectura=OK` en log. |
+| Escritura y relectura | Inferidas del orden del script; persistencia tras cierre pendiente de log y archivo. |
+| Renderizado | **Observado**: fondo azul marino, bandas magenta y verde, texto centrado; aspecto aproximadamente 4:3 con barras laterales. |
+| Mando | Botones sin efecto visible; el fixture no los consulta. |
+| Salida o recuperación | HOME respondió y HOME → X cerró sin error visible; salida propia del runtime **no verificada**. |
+| Errores observados | Ninguno visible según el propietario; registros aún no consultados. |
 
-Si el arranque falla, solicitar el mensaje, una foto cuando ayude y los archivos **que existan** en `SD:/switch/fnx004-sintetico/`: `mkxp-boot.log`, `mkxp-debug.log`, `mkxp-ruby.log`, `errorlog.txt`, `fnx004-probe.log` y `fnx004-escritura.txt`. Si no se reconoció la carpeta, revisar `SD:/rgss-switch.log`; si aparece un panel de Atmosphère, conservar los informes disponibles en `atmosphere/crash_reports/` o `fatal_errors/`. No sobrescribir otros registros ni repetir el ensayo sin diagnosticar un fallo.
+**Rutas esperadas, no comprobadas ahora:** el directorio de trabajo elegido por el motor debería situar `fnx004-probe.log` y `fnx004-escritura.txt` en `SD:/switch/fnx004-sintetico/`; allí también podrían estar `mkxp-boot.log`, `mkxp-debug.log` y `errorlog.txt`. Si se hubiera cargado `nx-compat.rb`, `NX.log` intentaría `mkxp-ruby.log` allí y, si fallara, `SD:/rgss-switch-ruby.log`. En este fixture no hay una carga explícita del shim, así que **la ausencia de `mkxp-ruby.log` no sería un fallo por sí misma**. La reserva del log de arranque cuando no se reconoce la carpeta es `SD:/rgss-switch.log`, aunque el dibujo del fixture hace improbable ese caso. Un fallo del sistema podría dejar informes en `SD:/atmosphere/crash_reports/` o `fatal_errors/`. No se ha intentado recuperar, leer ni comprobar ninguno de estos archivos.
 
-**Estado de FNX-016:** instalación y verificación de integridad completas; primera ejecución en Switch 1 **pendiente**. No se declara la prueba superada.
+Cuando vuelva a existir autorización de acceso a la microSD, `fnx004-probe.log` permitiría buscar `lectura=OK`, `escritura=OK`, `texto=OK` y `FNX004 RUBY COMPLETADO`. El archivo `fnx004-escritura.txt` permitiría comprobar la persistencia y su contenido exacto tras cerrar. **No repetir el fixture actual antes de preservar esos dos archivos**: `File.open(..., "w")` y `File.write` los sobrescribirían en una nueva ejecución. Para una prueba futura más directa, un fixture propio podría mostrar **LECTURA OK** en pantalla tras comparar `entrada.txt`, mostrar un contador/color que cambie al detectar `Input::C` con `Input.update` y terminar al detectar `Input::B`, registrando las transiciones. La correspondencia A→`Input::C` y B→`Input::B` está documentada en `GUIA.md`, pero habría que verificarla en este caso. Esta es solo una **propuesta**: no se ha cambiado `probe.rb`, el runtime ni el paquete, y no se ha repetido el ensayo.
+
+**Estado de FNX-016:** instalación verificada; **primer arranque, Ruby y dibujo observados por el propietario**. Persistencia de archivos, contenido de logs, controles y salida natural pendientes. No se declara la prueba integral superada.
