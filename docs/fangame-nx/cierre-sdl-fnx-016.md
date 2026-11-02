@@ -37,6 +37,23 @@ Se accedió solo al dispositivo USB WPD/MTP `Nintendo Switch` (VID `057E`, PID `
 
 Se creó `SD Card/switch/fnx016-sdl-fix/`, se copiaron sus ocho archivos y cuatro carpetas, y se leyeron por MTP los ocho archivos de vuelta a `local/fnx016-sdl-shutdown/readback/`: **8/8 hashes coincidentes** con el manifiesto, incluido el NRO. Después se eliminaron **solo** las tres carpetas antiguas indicadas mediante la API WPD, comprobando la desaparición de cada una. Una invocación inicial al verbo de Shell abrió un diálogo y se canceló sin borrar; se usó la API WPD con identificadores resueltos por nombre y conteo de hijos. La comprobación final de las carpetas de prueba de FangameNX encuentra **únicamente `fnx016-sdl-fix`**. Ninguna otra aplicación ni configuración de la Switch fue modificada.
 
-## Ensayo pendiente
+## Plan del ensayo físico
 
-El usuario deberá salir de USB File Transfer de la forma habitual, abrir Homebrew Menu con memoria de aplicación y ejecutar **FangameNX SDL FIX**. Sigue siendo el fixture visual FNX009: A incrementa por pulsación, X alterna color y B muestra `SALIENDO...`. Pulsar B una sola vez y observar si vuelve al menú por sí mismo. Si se bloquea, cerrar con HOME como en las pruebas anteriores. La prueba permitirá distinguir si se alcanzan los marcadores `[exit] RGSS after GL unbind`, `[exit] main after GL delete` y `[exit] 03 SDL_DestroyWindow OK`; los registros esperados estarán solo en `SD Card/switch/fnx016-sdl-fix/`. **No se declara resuelta la salida ni completado FNX-016 antes de leer esos resultados y observar el retorno real.**
+Se indicó al propietario salir de USB File Transfer de la forma habitual, abrir Homebrew Menu con memoria de aplicación y ejecutar **FangameNX SDL FIX**. Es el fixture visual FNX009: A incrementa por pulsación, X alterna color y B muestra `SALIENDO...`. La prueba debía observar si B devolvía la aplicación al menú por sí misma y, en caso de bloqueo, cerrar con HOME. Los registros se esperaban solo en `SD Card/switch/fnx016-sdl-fix/`. Antes de recibir el resultado físico, la salida y FNX-016 seguían sin validar.
+
+## Resultado físico posterior
+
+El propietario confirmó que, al pulsar **B**, `FangameNX SDL FIX` **volvió por sí solo al Homebrew Menu**, sin usar HOME → X → Cerrar. Es una observación de una ejecución física en Nintendo Switch 1; no equivale a una prueba de estabilidad prolongada ni de compatibilidad con fangames.
+
+La Switch seguía accesible por WPD/MTP. Se copiaron **solo** `mkxp-boot.log`, `mkxp-debug.log`, `fnx009-probe.log` y `fnx009-escritura.txt` desde `SD Card/switch/fnx016-sdl-fix/` a `local/fnx016-sdl-shutdown/postboot-evidence-20261102-114055/` (ignorado por Git), sin modificar los originales. Copias legibles:
+
+| Archivo | Bytes locales | SHA-256 de la copia local |
+|---|---:|---|
+| `mkxp-boot.log` | 4 043 | `42e12661cc0a3f99d15cc9eeccec1dda2bf19e96112238344e22c400dbcd01da` |
+| `mkxp-debug.log` | 888 | `76095ba9983a4b8e8e9338bddc3459093a5dbaaf0eb6afc6a8b650d68e06a8a1` |
+| `fnx009-probe.log` | 332 | `39c7caf1601c176c2e7b1cade8ef551f74689786a63f5b0632ae32204f501ac9` |
+| `fnx009-escritura.txt` | 20 | `f715634853244f18c30bfb378193bf828ab65b41c45c7eeff61b27aa1a7341d3` |
+
+`fnx009-probe.log` registra `lectura=OK`, `escritura=OK`, cinco pulsaciones A, cuatro cambios X, `boton=B salida_solicitada` y `FNX009 RUBY COMPLETADO; salida normal`. `mkxp-debug.log` registra la terminación del hilo RGSS y `Shutting down.`. `mkxp-boot.log` registra, en orden, `RGSS after GL unbind`, `main after GL delete`, `02 alcCloseDevice OK`, `03 SDL_DestroyWindow OK`, `04 Sound_Quit OK`, `05 TTF_Quit OK`, `06 IMG_Quit OK`, `07 SDL_Quit OK` y `08 before return main`. La llamada a `SDL_DestroyWindow` pasó de no devolver el control en EXIT TRACE a completarse en esta ejecución. La explicación de que el vínculo EGL entre hilos causaba el bloqueo sigue siendo una **inferencia fuerte**, no una traza interna de EGL.
+
+**Estado FNX-016:** superados en una prueba sintética física el arranque, render, entradas A/X/B, lectura, escritura, ejecución y finalización de Ruby, y retorno autónomo al Homebrew Menu. Pendientes pruebas repetidas, estabilidad, cambio de juego y compatibilidad con juegos reales. No se ha probado ningún fangame ni se ha implementado el lanzador multijuego.
