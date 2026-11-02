@@ -27,6 +27,16 @@
 - [`log-m005-compilacion.txt`](log-m005-compilacion.txt): salida completa de la recompilación limpia del motor.
 - [`log-m005-verificacion.txt`](log-m005-verificacion.txt): comandos, inventario de instrucciones, comprobaciones estáticas y hashes.
 
+## Misión 006
+
+- [`libgcc-aislada-fnx-015.md`](libgcc-aislada-fnx-015.md): procedencia, decisión, integración y resultados de la biblioteca Cortex-A57.
+- [`log-libgcc-aislada-fnx-015.md`](log-libgcc-aislada-fnx-015.md): comandos, versiones, errores y verificaciones.
+- [`patches/libgcc-cortex-a57.patch`](patches/libgcc-cortex-a57.patch): ajuste local reversible de siete fuentes de GCC 16.1.0.
+- [`auditar-armv8.py`](auditar-armv8.py): detector de los opcodes conocidos de M004/M005 en secciones ejecutables y comparación del código ELF/NRO.
+- [`log-m006-libgcc-build.txt`](log-m006-libgcc-build.txt), [`log-m006-cruby-configure.txt`](log-m006-cruby-configure.txt), [`log-m006-cruby-make.txt`](log-m006-cruby-make.txt), [`log-m006-cruby-summary.txt`](log-m006-cruby-summary.txt), [`log-m006-cruby-finalize.txt`](log-m006-cruby-finalize.txt) y [`log-m006-motor-build.txt`](log-m006-motor-build.txt): logs completos de los pasos finales, con rutas personales sustituidas.
+- [`log-m006-libgcc-repro-configure.txt`](log-m006-libgcc-repro-configure.txt) y [`log-m006-libgcc-repro-make.txt`](log-m006-libgcc-repro-make.txt): segunda construcción de la biblioteca en otro directorio, con rutas personales sustituidas.
+- [`log-m006-verificacion.txt`](log-m006-verificacion.txt): mapa resumido, auditoría de CPU con dos desensambladores, estructura, símbolos, fixture y hashes.
+
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 
 ## Documentos de referencia

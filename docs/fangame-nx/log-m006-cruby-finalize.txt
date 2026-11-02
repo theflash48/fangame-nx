@@ -1,0 +1,13 @@
+=== Retirando dmyext.o (Init_ext vacio) ===
+  Init_ext eliminado
+
+=== Insertando extinit + extensiones ===
+
+=== Verificacion ===
+  Init_ext         : OK
+  Init_zlib        : OK
+  Init_stringio    : OK
+  Init_strscan     : OK
+  ruby_init_ext    : OK
+  ruby_init        : OK
+-rw-r--r-- 1 <USER> <USER> 45983716 Nov  2 01:29 libruby-static.a

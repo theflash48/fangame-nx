@@ -57,6 +57,11 @@ INC="-I$ROOT_W/patches/include -I$DEVKITPRO/libnx/include -I$PORTLIBS/include"
 export CFLAGS="-g -O2 -std=gnu11 $ARCH -D__SWITCH__ -include $ROOT_W/patches/include/nxshim.h -ffunction-sections -fdata-sections $INC"
 export CPPFLAGS="-D__SWITCH__ -include $ROOT_W/patches/include/nxshim.h $INC"
 export LDFLAGS="-specs=$DEVKITPRO/libnx/switch.specs $ARCH -L$ROOT_W/out/lib -L$DEVKITPRO/libnx/lib -L$PORTLIBS/lib"
+if [ -n "${FNX_LIBGCC_PREFIX:-}" ]; then
+  [ -f "$FNX_LIBGCC_PREFIX/pic/libgcc.a" ] || { echo "falta libgcc aislada: $FNX_LIBGCC_PREFIX/pic/libgcc.a" >&2; exit 1; }
+  FNX_LIBGCC_PREFIX_W=$(cygpath -m "$FNX_LIBGCC_PREFIX")
+  export LDFLAGS="$LDFLAGS -B$FNX_LIBGCC_PREFIX_W/"
+fi
 export LIBS="-lnxcompat -lnx"
 
 echo "=================== SANITY ==================="

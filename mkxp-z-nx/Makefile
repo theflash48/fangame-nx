@@ -166,6 +166,18 @@ LDFLAGS  := -specs=$(LIBNX)/switch.specs -g $(ARCH) -Wl,--gc-sections \
             -Wl,--wrap=pipe -Wl,--wrap=poll -Wl,--wrap=select \
             -Wl,--wrap=diagAbortWithResult -Wl,--wrap=fatalThrow $(LIBDIRS)
 
+# Solo para el build aislado de FNX-015. -B cambia la busqueda de libgcc de
+# este enlace; no modifica el SDK ni el comportamiento de otras compilaciones.
+ifneq ($(strip $(FNX_LIBGCC_PREFIX)),)
+ifeq ($(wildcard $(FNX_LIBGCC_PREFIX)/pic/libgcc.a),)
+$(error falta $(FNX_LIBGCC_PREFIX)/pic/libgcc.a)
+endif
+LDFLAGS += -B$(FNX_LIBGCC_PREFIX)/
+endif
+ifneq ($(strip $(FNX_LINK_MAP)),)
+LDFLAGS += -Wl,-Map,$(FNX_LINK_MAP)
+endif
+
 .PHONY: all clean dirs
 all: dirs $(TARGET).nro
 
@@ -205,7 +217,11 @@ $(TARGET).elf: $(OBJS)
 	@echo "LD   $@"
 	@$(CXX) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
 	@echo "ARM  $@"
-	@$(PYTHON) $(RAIZ)/fixup-arm64.py $@
+	@if [ -z "$(FNX_LIBGCC_PREFIX)" ]; then \
+	  $(PYTHON) $(RAIZ)/fixup-arm64.py $@; \
+	else \
+	  echo "fixup-arm64.py omitido: libgcc aislada; auditar el ELF antes de usarlo"; \
+	fi
 
 # El NRO necesita su seccion ASET (icono + NACP). Es la unica diferencia
 # estructural que habia con el hello-ruby-nx de H2, que si carga: alli el

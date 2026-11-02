@@ -1,0 +1,20 @@
+configure log: <FANGAMENX>/src/build-logs/ruby-configure.Xmhdbv
+make log: <FANGAMENX>/src/build-logs/ruby-make.lDBB77
+=================== SANITY ===================
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+BASERUBY: ruby 3.1.4p223 (2023-03-30 revision 957bb7cb81) [x64-mingw-ucrt]
+libnxcompat.a: presente
+shim sys/mman.h: presente
+
+=================== CONFIGURE ===================
+>>> Configure OK
+
+=================== MAKE ===================
+codigo de salida: 0
+
+--- primeros errores ---
+
+=================== ARTEFACTOS ===================
+objetos .o : 82
+-rw-r--r-- 1 <USER> <USER> 44648078 Nov  2 01:28 <FANGAMENX>/build/ruby-switch/libruby-static.a
+>>> libruby-static.a: make completo OK

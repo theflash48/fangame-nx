@@ -1,0 +1,103 @@
+M006 · verificación estática final (2 de noviembre de 2026)
+Raíz: <FANGAMENX>. Los artefactos binarios y logs auxiliares grandes permanecen en carpetas locales ignoradas.
+
+1. Biblioteca aislada
+   aarch64-none-elf-ar t <SDK>/pic/libgcc.a                    -> 409 miembros
+   aarch64-none-elf-ar t src/build-logs/fnx016-isolated-prefix/pic/libgcc.a -> 409 miembros
+   nm -g --defined-only en ambos, nombre y tipo global únicos -> 727 / 727; Compare-Object vacío
+   nueva libgcc.a: 8 029 766 bytes
+   SHA-256: b7bca10ee17cae2295533e793c513ab144095e37b2e21142817c5c9811c837dc
+   gcc -B<prefijo>/ -fPIE -print-libgcc-file-name -> <FANGAMENX>/src/build-logs/fnx016-isolated-prefix/pic/libgcc.a
+   objdump -d -M no-aliases archivo nuevo: 0 coincidencias CNTD/ADDSVL/ZA/SME/GCS.
+   El archivo conserva ayudantes LSE en miembros no incluidos en el enlace final.
+   Repetición en directorio limpio: configure y make libgcc.a -> 0.
+   Segundo archivo: 8 027 550 bytes, SHA-256
+   d9232064dfef2705dd6c8e123ca52ab5a484ad6137d2aeab057bc0c04fbb04dd.
+   ar t: mismos 409 miembros; nm: mismos 727 símbolos globales y tipos.
+   objdump -d de ambos archivos, sin la línea de nombre de archivo:
+   4 579 289 bytes cada uno; SHA-256 común
+   029f2a37066e925286cbffab3c144095fa3b0bfca9fbeaa91597047260c5b675.
+   Extraídos los 409 miembros de cada archivo y aplicando objcopy --strip-debug
+   a cada par, 0 diferencias de SHA-256. El archivo completo no es idéntico:
+   las rutas de build afectan .debug_str/.debug_line_str. No se repitió el NRO.
+
+2. CRuby
+   FNX_LIBGCC_PREFIX=<prefijo> ./build-ruby-switch.sh -> 0
+   El configure y DLDFLAGS de make incluyen -B<prefijo>/.
+   build/ruby-switch/libruby-static.a: 44 648 078 bytes; 82 objetos raíz.
+   ./finalize-ruby.sh -> 0
+   out/nx/lib/libruby-static.a: 45 983 716 bytes; Init_ext, Init_zlib,
+   Init_stringio, Init_strscan, ruby_init_ext y ruby_init presentes; dmyext.o ausente.
+
+3. Motor y mapa de enlace
+   make -C mkxp-z-nx -j6 FNX_LIBGCC_PREFIX=<prefijo> FNX_LINK_MAP=<mapa> -> 0
+   Log: fixup-arm64.py omitido; elf2nro ejecutado. No se posprocesó el ELF.
+   Mapa de enlace local: 16 343 897 bytes, SHA-256
+   77f64254eb2f743cefcfc0fb993cec7e5803c493f910e506d3e47371fdf6d7e5
+   Miembros libgcc incorporados desde prefijo local: _moddi3.o, _muldc3.o,
+   eqtf2.o, extenddftf2.o, sfp-exceptions.o, trunctfdf2.o,
+   unwind-dw2-fde.o, unwind-dw2.o. 115 referencias en el mapa.
+   Referencias del mapa a libgcc.a global del SDK: 0.
+   nm -u rgss-switch.elf: 0 símbolos indefinidos.
+   nm confirma _Unwind_GetGR, _Unwind_RaiseException, _Unwind_Resume,
+   __register_frame_info, Init_stringio, Init_strscan, Init_zlib y ruby_init.
+   readelf -wf: 30 952 entradas FDE; se conserva información de desenrollado.
+
+4. ELF y NRO
+   readelf -h: ELF64, DYN (PIE), AArch64, entrada 0x0.
+   Secciones ejecutables: .text (11 713 672 bytes), .init (56), .fini (56).
+   py -3 docs/fangame-nx/auditar-armv8.py <ELF> <NRO> -> 0
+   Instrucciones incompatibles conocidas: 0; 11 713 656 bytes ejecutables
+   comparados ELF/NRO sin diferencias fuera de los primeros 0x80 bytes de cabecera.
+   La misma herramienta sobre el ELF/NRO de M005 -> 23 coincidencias;
+   11 713 736 bytes ejecutables comparados sin diferencias.
+   GNU objdump -d -M no-aliases del ELF completo: 0 SVE/SME/GCS, 0 LSE,
+   0 FP16 aritmético, 0 dot product, 0 RCpc y 0 MTE con los patrones registrados.
+   MRS encontrados: cntfrq_el0, cntpct_el0, ctr_el0, dczid_el0, fpcr,
+   fpsr, tpidrro_el0. No se encontró MRS SVCR/TPIDR2/GCSPR.
+   6 940 palabras cero se desensamblan como UDF #0, la codificación de
+   instrucción indefinida usada como relleno o trampa. No son una extensión
+   posterior a Armv8.0-A; no se ha probado su alcanzabilidad. No hay UDF #otro valor.
+   LLVM 21.1.8-2 (MSYS2 local): llvm-objdump -d --mcpu=cortex-a57
+     ELF anterior de M005: 23 líneas <unknown>
+     ELF nuevo de M006: 0 líneas <unknown>
+   Control positivo de LSE: el miembro cas_4_1.o no enlazado contiene CAS;
+   con --mcpu=cortex-a57 LLVM muestra ese opcode como <unknown>.
+   LLVM documenta que las instrucciones deshabilitadas para --mcpu se muestran
+   como <unknown>: https://llvm.org/docs/CommandGuide/llvm-objdump.html
+   Desensamblado GNU completo local: 137 247 986 bytes, SHA-256
+   8373cf0b197cf59bbabfd319bbfb1693f359ed98ada1284d2f2527970d291bde.
+   Cabecera NRO: _start conserva la instrucción B 0x80 (0x14000020);
+   los bytes 0x04..0x7f son datos de cabecera, no el camino de entrada.
+   No se ha ejecutado el NRO en Switch.
+
+   rgss-switch.elf: 88 854 736 bytes
+   SHA-256 cf52e3b7bc5747dff78c3d4339886c1d27e3de1cb145ccc25a920c25fdfe30ce
+   rgss-switch.nro: 17 750 457 bytes
+   SHA-256 9416eaaf5ea40351f0bf991ba2b43d09cde1540c8c3a19cb590f27f38f384ea7
+   rgss-switch.nacp: 16 384 bytes
+   SHA-256 b32596cac429f828022b182e18b00703ac193d37a618128d7a0327dfb86b55cd
+   comprobar-nro.py: NRO0, ASET v0, icono 12 993 bytes, NACP 16 384,
+   RomFS 1 728 con /LEEME.txt; rangos estructurales válidos.
+   Icono ASET y nsp/icono.jpg: SHA-256 común
+   849c5c07167301a40121fb8ddddc8f809e281eb9a37ed7c52dc20e690b9453eb.
+   Es un recurso heredado: no publicar el NRO ni el icono sin resolver derechos.
+
+5. Fixture sintético
+   Paquete anterior M004 conservado. Nuevo paquete local ignorado:
+   local/fnx006-hardware-probe/switch/fnx004-sintetico/.
+   Contiene el NRO M006 (hash coincidente), mkxp.json, probe.rb, entrada.txt,
+   Game.ini, Data/Scripts.rxdata vacío, Graphics/, Audio/ y dos scripts lib/.
+   mkxp.json se analizó; customScript=probe.rb, rgssVersion=1.
+   ruby -c docs/fangame-nx/fixtures/fnx004/probe.rb -> Syntax OK.
+   No se escribió en microSD ni se ejecutó el paquete.
+
+Logs completos versionados: log-m006-libgcc-build.txt,
+log-m006-libgcc-repro-configure.txt, log-m006-libgcc-repro-make.txt,
+log-m006-cruby-configure.txt, log-m006-cruby-make.txt,
+log-m006-cruby-summary.txt, log-m006-cruby-finalize.txt,
+log-m006-motor-build.txt. Los logs del GCC anfitrión auxiliar y el mapa
+completo están locales e ignorados. El build auxiliar se interrumpió tras
+generar los encabezados reales, una vez compilada libgcc con GCC objetivo.
+Los originales de configure-repro.log y make-repro-libgcc.log y los objetos
+extraídos para la comparación también permanecen locales.

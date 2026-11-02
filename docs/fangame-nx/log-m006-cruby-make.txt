@@ -1,0 +1,270 @@
+	BASERUBY = <FANGAMENX>/src/rubyinstaller-3.1.4-1-x64/bin/ruby.exe --disable=gems
+	CC = aarch64-none-elf-gcc
+	LD = aarch64-none-elf-ld
+	LDSHARED = aarch64-none-elf-ld
+	CFLAGS = -g -O2 -std=gnu11 -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -D__SWITCH__ -include <FANGAMENX>/patches/include/nxshim.h -ffunction-sections -fdata-sections -I<FANGAMENX>/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include 
+	XCFLAGS = -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fno-strict-overflow -fvisibility=hidden -fexcess-precision=standard -DRUBY_EXPORT -I. -I.ext/include/aarch64-elf -I<FANGAMENX>/src/ruby-3.1.7/include -I<FANGAMENX>/src/ruby-3.1.7 -I<FANGAMENX>/src/ruby-3.1.7/enc/unicode/13.0.0 
+	CPPFLAGS = -D__SWITCH__ -include <FANGAMENX>/patches/include/nxshim.h -I<FANGAMENX>/patches/include -IC:/devkitPro/libnx/include -IC:/devkitPro/portlibs/switch/include   
+	DLDFLAGS = -specs=C:/devkitPro/libnx/switch.specs -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE -L<FANGAMENX>/out/lib -LC:/devkitPro/libnx/lib -LC:/devkitPro/portlibs/switch/lib -B<FANGAMENX>/src/build-logs/fnx016-isolated-prefix/ -Wl,--compress-debug-sections=zlib -fstack-protector-strong -Wl,--compress-debug-sections=zlib 
+	SOLIBS = -lz -lpthread -lm -lnxcompat -lnx
+	LANG = C.UTF-8
+	LC_ALL = C.UTF-8
+	LC_CTYPE = C.UTF-8
+	MFLAGS = -j6 --jobserver-auth=4,5
+aarch64-none-elf-gcc.exe (devkitA64) 16.1.0
+Copyright (C) 2026 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+generating id.h
+making dummy probes.h
+id.h updated
+generating opt_sc.inc
+generating optunifs.inc
+generating insns.inc
+generating optinsn.inc
+generating insns_info.inc
+generating vmtc.inc
+generating vm.inc
+generating mjit_compile.inc
+compiling <FANGAMENX>/src/ruby-3.1.7/dln.c
+/bin/sh <FANGAMENX>/src/ruby-3.1.7/tool/ifchange "--timestamp=.rbconfig.time" rbconfig.rb rbconfig.tmp
+compiling <FANGAMENX>/src/ruby-3.1.7/localeinit.c
+rbconfig.rb updated
+compiling <FANGAMENX>/src/ruby-3.1.7/array.c
+compiling <FANGAMENX>/src/ruby-3.1.7/ast.c
+compiling <FANGAMENX>/src/ruby-3.1.7/bignum.c
+compiling <FANGAMENX>/src/ruby-3.1.7/class.c
+compiling <FANGAMENX>/src/ruby-3.1.7/compar.c
+compiling <FANGAMENX>/src/ruby-3.1.7/compile.c
+compiling <FANGAMENX>/src/ruby-3.1.7/complex.c
+compiling <FANGAMENX>/src/ruby-3.1.7/cont.c
+compiling <FANGAMENX>/src/ruby-3.1.7/debug.c
+compiling <FANGAMENX>/src/ruby-3.1.7/debug_counter.c
+compiling <FANGAMENX>/src/ruby-3.1.7/dir.c
+compiling <FANGAMENX>/src/ruby-3.1.7/dln_find.c
+compiling <FANGAMENX>/src/ruby-3.1.7/encoding.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enum.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enumerator.c
+compiling <FANGAMENX>/src/ruby-3.1.7/error.c
+compiling <FANGAMENX>/src/ruby-3.1.7/eval.c
+compiling <FANGAMENX>/src/ruby-3.1.7/file.c
+compiling <FANGAMENX>/src/ruby-3.1.7/gc.c
+compiling <FANGAMENX>/src/ruby-3.1.7/hash.c
+compiling <FANGAMENX>/src/ruby-3.1.7/inits.c
+compiling <FANGAMENX>/src/ruby-3.1.7/io.c
+compiling <FANGAMENX>/src/ruby-3.1.7/io_buffer.c
+compiling <FANGAMENX>/src/ruby-3.1.7/iseq.c
+compiling <FANGAMENX>/src/ruby-3.1.7/load.c
+compiling <FANGAMENX>/src/ruby-3.1.7/marshal.c
+compiling <FANGAMENX>/src/ruby-3.1.7/math.c
+compiling <FANGAMENX>/src/ruby-3.1.7/memory_view.c
+making mjit_config.h
+compiling <FANGAMENX>/src/ruby-3.1.7/mjit_compile.c
+compiling <FANGAMENX>/src/ruby-3.1.7/node.c
+compiling <FANGAMENX>/src/ruby-3.1.7/numeric.c
+compiling <FANGAMENX>/src/ruby-3.1.7/object.c
+compiling <FANGAMENX>/src/ruby-3.1.7/pack.c
+generating parse.c
+compiling <FANGAMENX>/src/ruby-3.1.7/proc.c
+parse.tmp.y:1317.33-39: warning: symbol "( arg" used more than once as a literal string [-Wother]
+ 1317 | %token tMKXP_LEGACY_LPAREN_ARG	"( arg"
+      |                                 ^~~~~~~
+parse.tmp.y:1318.33-35: warning: symbol "*" used more than once as a literal string [-Wother]
+ 1318 | %token tMKXP_LEGACY_STAR	"*"
+      |                                 ^~~
+parse.tmp.y:1319.33-35: warning: symbol "{" used more than once as a literal string [-Wother]
+ 1319 | %token tMKXP_LEGACY_LBRACE	"{"
+      |                                 ^~~
+compiling <FANGAMENX>/src/ruby-3.1.7/process.c
+compiling <FANGAMENX>/src/ruby-3.1.7/ractor.c
+compiling <FANGAMENX>/src/ruby-3.1.7/random.c
+compiling <FANGAMENX>/src/ruby-3.1.7/range.c
+compiling <FANGAMENX>/src/ruby-3.1.7/re.c
+compiling <FANGAMENX>/src/ruby-3.1.7/rational.c
+compiling <FANGAMENX>/src/ruby-3.1.7/regcomp.c
+compiling <FANGAMENX>/src/ruby-3.1.7/regenc.c
+compiling <FANGAMENX>/src/ruby-3.1.7/regerror.c
+compiling <FANGAMENX>/src/ruby-3.1.7/regparse.c
+compiling <FANGAMENX>/src/ruby-3.1.7/regexec.c
+compiling <FANGAMENX>/src/ruby-3.1.7/regsyntax.c
+compiling <FANGAMENX>/src/ruby-3.1.7/ruby.c
+compiling <FANGAMENX>/src/ruby-3.1.7/scheduler.c
+compiling <FANGAMENX>/src/ruby-3.1.7/signal.c
+compiling <FANGAMENX>/src/ruby-3.1.7/sprintf.c
+compiling <FANGAMENX>/src/ruby-3.1.7/st.c
+compiling <FANGAMENX>/src/ruby-3.1.7/strftime.c
+compiling <FANGAMENX>/src/ruby-3.1.7/string.c
+compiling <FANGAMENX>/src/ruby-3.1.7/struct.c
+compiling <FANGAMENX>/src/ruby-3.1.7/symbol.c
+compiling <FANGAMENX>/src/ruby-3.1.7/thread.c
+compiling <FANGAMENX>/src/ruby-3.1.7/time.c
+compiling <FANGAMENX>/src/ruby-3.1.7/transcode.c
+compiling <FANGAMENX>/src/ruby-3.1.7/transient_heap.c
+compiling <FANGAMENX>/src/ruby-3.1.7/util.c
+compiling <FANGAMENX>/src/ruby-3.1.7/variable.c
+compiling <FANGAMENX>/src/ruby-3.1.7/vm.c
+compiling <FANGAMENX>/src/ruby-3.1.7/vm_backtrace.c
+compiling <FANGAMENX>/src/ruby-3.1.7/vm_dump.c
+In file included from <FANGAMENX>/src/ruby-3.1.7/vm.c:384:
+<FANGAMENX>/src/ruby-3.1.7/vm_eval.c:1:33: warning: 'mkxp_syntax_transform_target_ruby_version_major' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<FANGAMENX>/src/ruby-3.1.7/vm_eval.c:1:87: warning: 'mkxp_syntax_transform_target_ruby_version_minor' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<FANGAMENX>/src/ruby-3.1.7/vm_eval.c:1:141: warning: 'mkxp_syntax_transform_target_ruby_version_teeny' initialized and declared 'extern'
+    1 | RUBY_FUNC_EXPORTED unsigned int mkxp_syntax_transform_target_ruby_version_major = -1, mkxp_syntax_transform_target_ruby_version_minor = -1, mkxp_syntax_transform_target_ruby_version_teeny = -1;
+      |                                                                                                                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compiling <FANGAMENX>/src/ruby-3.1.7/vm_sync.c
+compiling <FANGAMENX>/src/ruby-3.1.7/vm_trace.c
+compiling <FANGAMENX>/src/ruby-3.1.7/yjit.c
+compiling <FANGAMENX>/src/ruby-3.1.7/missing/memcmp.c
+compiling <FANGAMENX>/src/ruby-3.1.7/missing/crypt.c
+compiling <FANGAMENX>/src/ruby-3.1.7/missing/flock.c
+compiling <FANGAMENX>/src/ruby-3.1.7/missing/setproctitle.c
+compiling <FANGAMENX>/src/ruby-3.1.7/addr2line.c
+compiling <FANGAMENX>/src/ruby-3.1.7/main.c
+compiling <FANGAMENX>/src/ruby-3.1.7/dmyext.c
+compiling <FANGAMENX>/src/ruby-3.1.7/dmyenc.c
+generating encdb.h
+creating verconf.h
+compiling <FANGAMENX>/src/ruby-3.1.7/mjit.c
+verconf.h updated
+compiling parse.c
+compiling <FANGAMENX>/src/ruby-3.1.7/coroutine/pthread/Context.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/ascii.c
+encdb.h updated
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/us_ascii.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/unicode.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/utf_8.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/newline.c
+<FANGAMENX>/src/ruby-3.1.7/revision.h unchanged
+compiling <FANGAMENX>/src/ruby-3.1.7/loadpath.c
+generating aarch64-elf-fake.rb
+compiling <FANGAMENX>/src/ruby-3.1.7/version.c
+aarch64-elf-fake.rb updated
+generating enc.mk
+builtin_binary.inc updated
+compiling <FANGAMENX>/src/ruby-3.1.7/builtin.c
+making srcs under enc
+make[1]: Entering directory '<FANGAMENX>/build/ruby-switch'
+make[1]: Nothing to be done for 'srcs'.
+make[1]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+generating transdb.h
+transdb.h updated
+linking static-library libruby-static.a
+generating makefiles ext/configure-ext.mk
+making libenc
+making libtrans
+make[1]: Entering directory '<FANGAMENX>/build/ruby-switch'
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/transdb.c
+make[1]: Entering directory '<FANGAMENX>/build/ruby-switch'
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/encdb.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/cp949.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/big5.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/cesu_8.c
+ext/configure-ext.mk updated
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/emacs_mule.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/euc_jp.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/big5.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/cesu_8.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/chinese.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/ebcdic.c
+make[1]: Entering directory '<FANGAMENX>/build/ruby-switch'
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/euc_kr.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/emoji.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/emoji_iso2022_kddi.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/euc_tw.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/gb2312.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/gb18030.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/emoji_sjis_docomo.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/emoji_sjis_kddi.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/gbk.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/emoji_sjis_softbank.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_1.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_2.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/escape.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_3.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_4.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_5.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/gb18030.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/gbk.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/iso2022.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_6.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_7.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/japanese.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_8.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_9.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_10.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/japanese_euc.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/japanese_sjis.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_11.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_13.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_14.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_15.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/korean.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/iso_8859_16.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/koi8_r.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/single_byte.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/utf8_mac.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/koi8_u.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/shift_jis.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/utf_16be.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/utf_16le.c
+configuring stringio
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/trans/utf_16_32.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/utf_32be.c
+configuring strscan
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/utf_32le.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/windows_31j.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/windows_1250.c
+linking statically-linked transcoder library enc/libtrans.a
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/windows_1251.c
+make[1]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/windows_1252.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/windows_1253.c
+configuring zlib
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/windows_1254.c
+compiling <FANGAMENX>/src/ruby-3.1.7/enc/windows_1257.c
+linking statically-linked encoding library enc/libenc.a
+make[1]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+making libencs
+make[1]: Entering directory '<FANGAMENX>/build/ruby-switch'
+make[1]: Nothing to be done for 'libencs'.
+make[1]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+make[1]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+generating makefile exts.mk
+exts.mk updated
+make[1]: Entering directory '<FANGAMENX>/build/ruby-switch'
+make[2]: Entering directory '<FANGAMENX>/build/ruby-switch/ext/strscan'
+make[2]: Entering directory '<FANGAMENX>/build/ruby-switch/ext/stringio'
+make[2]: Entering directory '<FANGAMENX>/build/ruby-switch/ext/zlib'
+compiling <FANGAMENX>/src/ruby-3.1.7/ext/stringio/stringio.c
+compiling <FANGAMENX>/src/ruby-3.1.7/ext/zlib/zlib.c
+compiling <FANGAMENX>/src/ruby-3.1.7/ext/strscan/strscan.c
+make[2]: Entering directory '<FANGAMENX>/build/ruby-switch'
+make[2]: Entering directory '<FANGAMENX>/build/ruby-switch'
+make[2]: Nothing to be done for 'libencs'.
+make[2]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+<FANGAMENX>/src/ruby-3.1.7/revision.h unchanged
+/usr/bin/mkdir -p ext
+linking static-library strscan.a
+ext/extinit.c updated
+compiling ext/extinit.o
+make[2]: Leaving directory '<FANGAMENX>/build/ruby-switch/ext/strscan'
+linking static-library stringio.a
+make[2]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+make[2]: Leaving directory '<FANGAMENX>/build/ruby-switch/ext/stringio'
+linking static-library zlib.a
+make[2]: Leaving directory '<FANGAMENX>/build/ruby-switch/ext/zlib'
+make[2]: Entering directory '<FANGAMENX>/build/ruby-switch'
+<FANGAMENX>/src/ruby-3.1.7/revision.h unchanged
+generating enc.mk
+compiling enc/encinit.c
+linking ruby.exe
+make[2]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+make[1]: Leaving directory '<FANGAMENX>/build/ruby-switch'
+make[1]: Entering directory '<FANGAMENX>/build/ruby-switch'
+make[1]: Nothing to be done for 'note'.
+make[1]: Leaving directory '<FANGAMENX>/build/ruby-switch'

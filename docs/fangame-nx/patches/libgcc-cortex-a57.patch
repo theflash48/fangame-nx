@@ -1,0 +1,140 @@
+--- a/libgcc/config/aarch64/aarch64-unwind.h
++++ b/libgcc/config/aarch64/aarch64-unwind.h
+@@ -177,6 +177,10 @@
+ 
+   return addr;
+ }
++
++/* Cortex-A57 lacks SME and GCS.  Retain the generic no-extension unwind
++   macros from unwind-generic.h for this target-specific build.  */
++#ifndef FNX_CORTEX_A57_ONLY
+ 
+ /* GCS enable flag for chkfeat instruction.  */
+ #define _CHKFEAT_GCS 1
+@@ -250,4 +254,6 @@
+     }							\
+   while (0)
+ 
++#endif /* FNX_CORTEX_A57_ONLY */
++
+ #endif /* defined AARCH64_UNWIND_H && defined __ILP32__ */
+--- a/libgcc/config/aarch64/value-unwind.h
++++ b/libgcc/config/aarch64/value-unwind.h
+@@ -33,10 +33,15 @@
+ static inline int
+ aarch64_vg (void)
+ {
++#ifdef FNX_CORTEX_A57_ONLY
++  /* Cortex-A57 has no SVE VG register.  Fail if unsupported CFI asks for it.  */
++  __builtin_trap ();
++#else
+   register int vg asm ("x0");
+   /* CNTD X0.  */
+   asm (".inst 0x04e0e3e0" : "=r" (vg));
+   return vg;
++#endif
+ }
+ 
+ /* Lazily provide a value for VG, so that we don't try to execute SVE
+--- a/libgcc/config/aarch64/__arm_get_current_vg.S
++++ b/libgcc/config/aarch64/__arm_get_current_vg.S
+@@ -36,6 +36,11 @@
+ variant_pcs (__arm_get_current_vg)
+ 
+ ENTRY (__arm_get_current_vg)
++#ifdef FNX_CORTEX_A57_ONLY
++	/* Neither SVE nor SME exists on Cortex-A57.  */
++	mov	x0, 0
++	ret
++#else
+ 	/* Check if SVE is available.  */
+ 	adrp	x16, __aarch64_cpu_features
+ 	ldr	x16, [x16, :lo12:__aarch64_cpu_features]
+@@ -53,4 +58,5 @@
+ L(end_zero):
+ 	mov	x0, 0
+ 	ret
++#endif
+ END (__arm_get_current_vg)
+--- a/libgcc/config/aarch64/__arm_sme_state.S
++++ b/libgcc/config/aarch64/__arm_sme_state.S
+@@ -35,6 +35,12 @@
+ variant_pcs (__arm_sme_state)
+ 
+ ENTRY (__arm_sme_state)
++#ifdef FNX_CORTEX_A57_ONLY
++	/* Return the original no-SME result without reading SME registers.  */
++	mov	x0, 0
++	mov	x1, 0
++	ret
++#else
+ 	/* Check if SME is available.  */
+ 	adrp	x1, __aarch64_have_sme
+ 	ldrb	w1, [x1, :lo12:__aarch64_have_sme]
+@@ -52,4 +58,5 @@
+ 	mov	x0, 0
+ 	mov	x1, 0
+ 	ret
++#endif
+ END (__arm_sme_state)
+--- a/libgcc/config/aarch64/__arm_tpidr2_restore.S
++++ b/libgcc/config/aarch64/__arm_tpidr2_restore.S
+@@ -34,6 +34,10 @@
+ variant_pcs (__arm_tpidr2_restore)
+ 
+ ENTRY (__arm_tpidr2_restore)
++#ifdef FNX_CORTEX_A57_ONLY
++	/* The operation requires SME.  Preserve the documented failure path.  */
++	b	abort
++#else
+ 	.inst	0xd53bd0ae  /* mrs	x14, tpidr2_el0  */
+ 	cbnz	x14, L(fail)
+ 
+@@ -86,4 +90,5 @@
+ 	.cfi_rel_offset 46, 16
+ 	.inst	0xd503467f  /* smstop  */
+ 	bl	abort
++#endif
+ END (__arm_tpidr2_restore)
+--- a/libgcc/config/aarch64/__arm_tpidr2_save.S
++++ b/libgcc/config/aarch64/__arm_tpidr2_save.S
+@@ -36,6 +36,10 @@
+ variant_pcs (__arm_tpidr2_save)
+ 
+ ENTRY (__arm_tpidr2_save)
++#ifdef FNX_CORTEX_A57_ONLY
++	/* SME is unavailable on Cortex-A57; the original guard returns here.  */
++	ret
++#else
+ 	/* Check if SME is available.  */
+ 	adrp	x14, __aarch64_have_sme
+ 	ldrb	w14, [x14, :lo12:__aarch64_have_sme]
+@@ -93,6 +97,7 @@
+ 	.cfi_rel_offset 46, 16
+ 	.inst	0xd503467f  /* smstop  */
+ 	bl	abort
++#endif
+ END (__arm_tpidr2_save)
+ 
+ /* Hidden alias used by __arm_za_disable.  */
+--- a/libgcc/config/aarch64/__arm_za_disable.S
++++ b/libgcc/config/aarch64/__arm_za_disable.S
+@@ -38,6 +38,10 @@
+ variant_pcs (__arm_za_disable)
+ 
+ ENTRY (__arm_za_disable)
++#ifdef FNX_CORTEX_A57_ONLY
++	/* SME is unavailable on Cortex-A57; the original guard returns here.  */
++	ret
++#else
+ 	/* Check if SME is available.  */
+ 	adrp	x14, __aarch64_have_sme
+ 	ldrb	w14, [x14, :lo12:__aarch64_have_sme]
+@@ -62,6 +66,7 @@
+ 	AUTIASP
+ L(end):
+ 	ret
++#endif
+ END (__arm_za_disable)
+ 
+ /* Hidden alias used by the unwinder.  */
