@@ -145,6 +145,9 @@
 !/docs/fangame-nx/fixtures/fnx004/probe.rb
 !/docs/fangame-nx/fixtures/fnx004/entrada.txt
 !/docs/fangame-nx/fixtures/fnx004/Game.ini
+!/docs/fangame-nx/fixtures/fnx016/
+/docs/fangame-nx/fixtures/fnx016/*
+!/docs/fangame-nx/fixtures/fnx016/icono.svg
 !/docs/fangame-nx/log-fnx-003.md
 !/docs/fangame-nx/log-mkxp-intento-p1.txt
 !/docs/fangame-nx/log-reconstruir-sin-patch.txt

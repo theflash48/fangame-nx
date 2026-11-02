@@ -1,0 +1,89 @@
+M007 · verificaciones locales, 2 de noviembre de 2026
+Rama: test/fnx-016-first-boot, base f762847. Ningún acceso a microSD o Switch.
+
+1. Procedencia y estado previo
+   git status --short --branch -> solo docs/fangame-nx/__pycache__/ no rastreado.
+   Su único fichero, auditar-armv8.cpython-313.pyc, fue generado por py_compile
+   en M006: 5 559 bytes, SHA-256
+   26c405aa8dec4368ab1a1750887682b988bb4bb50c3c2daa63d2ca9d31941145.
+   git ls-files --error-unmatch confirmó que no forma parte de Git. No se borró
+   ni se añadirá al commit, conforme a la instrucción expresa del usuario.
+   libgcc aislada: 8 029 766 bytes, SHA-256
+   b7bca10ee17cae2295533e793c513ab144095e37b2e21142817c5c9811c837dc.
+   ELF M006: 88 854 736 bytes, SHA-256
+   cf52e3b7bc5747dff78c3d4339886c1d27e3de1cb145ccc25a920c25fdfe30ce.
+   NRO M006: 17 750 457 bytes, SHA-256
+   9416eaaf5ea40351f0bf991ba2b43d09cde1540c8c3a19cb590f27f38f384ea7.
+   Mapa M006: SHA-256
+   77f64254eb2f743cefcfc0fb993cec7e5803c493f910e506d3e47371fdf6d7e5.
+   Selección con gcc -B<prefijo>/ -fPIE -print-libgcc-file-name ->
+   <FANGAMENX>/src/build-logs/fnx016-isolated-prefix/pic/libgcc.a.
+   Mapa: 8 miembros de esta libgcc, incluido unwind-dw2.o;
+   0 referencias a la libgcc global del SDK.
+
+2. Icono nuevo, sin recursos externos
+   Fuente vectorial creada aquí: fixtures/fnx016/icono.svg, solo figuras
+   geométricas y colores planos, sin texto, fuentes ni imágenes de terceros.
+   ImageMagick 7.1.2-30:
+   magick docs/fangame-nx/fixtures/fnx016/icono.svg -background '#102438'
+     -alpha off -resize 256x256! -colorspace sRGB -sampling-factor 4:2:0
+     -interlace none -quality 92 local/fnx016-first-boot/work/icono.jpg
+   JPEG 256x256, 8 bits, sin entrelazado, SOF0 presente, SOF2 ausente.
+   12 038 bytes; SHA-256
+   775a84b79c4f158b6846215a3edccbb96c28c95c6767de5ff3647939055d030d.
+   Segunda conversión con el mismo comando -> JPEG idéntico por SHA-256.
+   SVG SHA-256
+   6863feb5c9a32bf21f6eca114ccd463b1216e4d4341572aabc26c9c289d45f6d.
+
+3. NACP y NRO de ensayo
+   C:/devkitPro/tools/bin/nacptool.exe --create
+     'FangameNX FNX-016' 'FangameNX' '0.0.1'
+     local/fnx016-first-boot/work/control.nacp -> código 0; 16 384 bytes.
+   C:/devkitPro/tools/bin/elf2nro.exe mkxp-z-nx/rgss-switch.elf
+     local/fnx016-first-boot/switch/fnx004-sintetico/fnx004-sintetico.nro
+     --icon=local/fnx016-first-boot/work/icono.jpg
+     --nacp=local/fnx016-first-boot/work/control.nacp
+     --romfsdir=mkxp-z-nx/romfs -> código 0.
+   La invocación real pasó rutas absolutas; aquí se muestran relativas a la
+   raíz del repositorio. No se recompiló ni se posprocesó el código del motor.
+   NRO nuevo: 17 749 502 bytes, SHA-256
+   33bccb3327406509efb13583ac0cc9ad86ee4f874ccc433fdb7df559193e05c7.
+   Repetición en local/fnx016-repeticion/ con el bloque PowerShell de la guía:
+   nacptool y elf2nro -> código 0; segundo NRO con el mismo SHA-256.
+   comparar NRO M006 y M007: primeros 17 719 296 bytes (cuerpo) idénticos.
+   ASET incorpora exactamente el JPEG nuevo; SHA-256 anterior del icono
+   heredado 849c5c07167301a40121fb8ddddc8f809e281eb9a37ed7c52dc20e690b9453eb.
+   comprobar-nro.py -> NRO0, ASET v0, icono 12 038, NACP 16 384,
+   RomFS 1 728 con solo /LEEME.txt; title id y campos relacionados a cero;
+   nombre visible FangameNX FNX-016, autor FangameNX, versión 0.0.1.
+
+4. CPU y símbolos, sobre el ELF que originó este NRO
+   aarch64-none-elf-readelf -h -> ELF64, DYN/PIE, AArch64.
+   py -3 docs/fangame-nx/auditar-armv8.py <ELF> <NRO-M007> -> código 0:
+     .text 11 713 672; .init 56; .fini 56 bytes;
+     0 opcodes incompatibles conocidos; 11 713 656 bytes de código ELF/NRO
+     comparados fuera de cabecera, 0 diferencias.
+   llvm-objdump 21.1.8 -d --mcpu=cortex-a57 <ELF> -> 0 <unknown>.
+   aarch64-none-elf-nm -u <ELF> -> 0 símbolos indefinidos.
+   El barrido GNU completo de M006 y el control positivo LSE siguen
+   documentados en log-m006-verificacion.txt. El cuerpo idéntico y el
+   desensamblado actual vinculan esa auditoría al NRO de M007.
+
+5. Fixture y paquete
+   Cuatro ficheros de fixtures/fnx004/ copiados sin cambios por SHA-256.
+   runtime/lib/nx-compat.rb y socket.rb copiados sin cambios por SHA-256.
+   Data/Scripts.rxdata es un marcador propio de 0 bytes; Audio/ y Graphics/
+   son directorios vacíos. mkxp.json se analizó: customScript=probe.rb,
+   rgssVersion=1, rubyLoadpath=[lib], preloadScript=[].
+   El contenido de probe.rb es idéntico al que pasó ruby -c en M004/M006;
+   Ruby anfitrión no estaba en PATH de esta sesión, por lo que no se repitió
+   esa comprobación aquí. No se ejecutó Ruby de Switch.
+   MANIFEST.sha256.txt: 8 ficheros de payload, 8 ficheros reales, 0 fallos
+   al recalcular tamaños/hashes; Audio/ y Graphics/ presentes. El manifiesto
+   está fuera de switch/ y no se copiaría a la tarjeta. Payload total:
+   17 770 204 bytes. Manifiesto: 1 075 bytes, SHA-256
+   da7eb4e9ea0e29e5fbe62fcc3bf2cd781a212f7cd60d8ebc5c3d8e2fb463b7fa.
+   NACP intermedio: 16 384 bytes, SHA-256
+   be60d9f7b888cbf7439f209370aad844f68e5f0d2b959213b0c20fec330e8a28.
+   No hay NSP, fangame, recurso de Pokémon ni claves en el payload.
+   No se ha escrito en la microSD ni se ha ejecutado el NRO en Switch.

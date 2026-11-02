@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+  <!-- Icono geométrico original para la prueba sintética FNX-016. -->
+  <rect width="256" height="256" fill="#102438"/>
+  <rect x="18" y="18" width="220" height="220" rx="48" fill="#1b3850" stroke="#62ddd2" stroke-width="8"/>
+  <circle cx="128" cy="128" r="77" fill="#102438" stroke="#3baea9" stroke-width="5"/>
+  <path d="M105 82 L105 174 Q105 182 113 178 L183 136 Q191 131 183 126 L113 78 Q105 74 105 82 Z" fill="#ffb35c"/>
+  <path d="M69 104 L85 104 M69 128 L85 128 M69 152 L85 152" fill="none" stroke="#62ddd2" stroke-width="8" stroke-linecap="round"/>
+</svg>

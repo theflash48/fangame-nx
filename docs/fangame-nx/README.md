@@ -37,6 +37,12 @@
 - [`log-m006-libgcc-repro-configure.txt`](log-m006-libgcc-repro-configure.txt) y [`log-m006-libgcc-repro-make.txt`](log-m006-libgcc-repro-make.txt): segunda construcción de la biblioteca en otro directorio, con rutas personales sustituidas.
 - [`log-m006-verificacion.txt`](log-m006-verificacion.txt): mapa resumido, auditoría de CPU con dos desensambladores, estructura, símbolos, fixture y hashes.
 
+## Misión 007
+
+- [`preparacion-primer-arranque-fnx-016.md`](preparacion-primer-arranque-fnx-016.md): paquete sintético local, inventario, verificaciones y guía reservada para instalación manual.
+- [`log-m007-verificacion.txt`](log-m007-verificacion.txt): comandos, hashes y resultados estáticos del NRO de ensayo.
+- [`fixtures/fnx016/icono.svg`](fixtures/fnx016/icono.svg): fuente vectorial original del icono neutro, sin recursos de juegos.
+
 Este directorio reúne las decisiones y comprobaciones propias del fork. El repositorio original ya documenta un motor compartido, un perfil genérico y perfiles específicos. FangameNX parte de esa base; la compatibilidad real y el alcance de los perfiles deben verificarse antes de diseñar cambios.
 
 ## Documentos de referencia
