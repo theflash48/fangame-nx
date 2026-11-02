@@ -1,0 +1,32 @@
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -794,0 +795,3 @@
++#ifdef __SWITCH__
++    nx_boot_trace("[exit] 01 before alcCloseDevice");
++#endif
+@@ -795,0 +799,3 @@
++#ifdef __SWITCH__
++    nx_boot_trace("[exit] 02 alcCloseDevice OK");
++#endif
+@@ -796,0 +803,3 @@
++#ifdef __SWITCH__
++    nx_boot_trace("[exit] 03 SDL_DestroyWindow OK");
++#endif
+@@ -806,0 +816,3 @@
++#ifdef __SWITCH__
++    nx_boot_trace("[exit] 04 Sound_Quit OK");
++#endif
+@@ -807,0 +820,3 @@
++#ifdef __SWITCH__
++    nx_boot_trace("[exit] 05 TTF_Quit OK");
++#endif
+@@ -808,0 +824,3 @@
++#ifdef __SWITCH__
++    nx_boot_trace("[exit] 06 IMG_Quit OK");
++#endif
+@@ -809,0 +828,3 @@
++#ifdef __SWITCH__
++    nx_boot_trace("[exit] 07 SDL_Quit OK");
++#endif
+@@ -816,0 +838 @@
++    nx_boot_trace("[exit] 08 before return main");

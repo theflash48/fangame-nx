@@ -38,3 +38,4 @@ mkxpz-tactil.patch
 mkxpz-textura-sin-memoria.patch
 mkxpz-recolector-texturas.patch
 mkxpz-vorbis-ov-hole.patch
+mkxpz-shutdown-traza.patch
