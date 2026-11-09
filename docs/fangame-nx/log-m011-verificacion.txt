@@ -1,0 +1,92 @@
+M011 / FNX-017. Comprobaciones locales, Windows PowerShell, 2026-11-09.
+Repositorio: C:/Users/pablo/Documents/GitHub/FangameNX
+Rama: test/fnx-017-estabilidad-multijuego, base f2733b6.
+No se accedio a dispositivos extraibles ni a MTP.
+
+Herramientas: Python 3.13.14; Ruby 3.1.4p223 (RubyInstaller local);
+devkitA64 GCC 16.1.0; nacptool.exe y elf2nro.exe de C:/devkitPro/tools/bin.
+ELF de M016: SHA-256 28dea29da5df2884074ec049bdf1dda8f4e5d06f1afa6e421a7cae5aaa79ee57.
+libgcc aislada usada en el mapa de enlace de M016:
+src/build-logs/fnx016-isolated-prefix/pic/libgcc.a
+SHA-256 b7bca10ee17cae2295533e793c513ab144095e37b2e21142817c5c9811c837dc.
+El mapa local/fnx016-sdl-shutdown/motor.map no referencia miembros de otra libgcc.a.
+
+1. ruby.exe -c selector.rb scene_a.rb scene_b.rb host_verify.rb (cada archivo por separado)
+   Los cuatro: Syntax OK.
+   py -3 -c "compile(Path(...).read_text(...), ..., 'exec')" para
+   build_package.py y verificar-ciclos-fnx-017.py: Python syntax OK: 2 files.
+
+2. py -3 docs/fangame-nx/fixtures/fnx017/build_package.py
+   Visiting directories...
+   Calculating metadata...
+   Writing mkxp-z-nx/romfs/LEEME.txt to RomFS image...
+   PACKAGE=C:/Users/pablo/Documents/GitHub/FangameNX/local/fnx017-dual/switch/fnx017-dual
+   ELF=28dea29da5df2884074ec049bdf1dda8f4e5d06f1afa6e421a7cae5aaa79ee57
+   NRO=b0a8459ac2b2319c02804ab17e21a4b09b1ea3794241e2a61e3923796c5a7339
+   FILES=12
+   MANIFEST=2a5092c31fb9de2a436d11e1032f4147990d00e33d1edd77285b325ba726a55f
+   Exit 0. El generador rechaza una ruta local/fnx017-dual ya existente.
+
+   Inventario del paquete (bytes, SHA-256, ruta relativa):
+   0        e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  Data/Scripts.rxdata
+   20       f623707279609b3cf94e1319450b1da0a494ebdeaac15b4fd79ec97e11de8ce7  fixtures/a/entrada.txt
+   2330     29159ae73514703ec1bfc84b4e29acde800d666c0c2409903f3760fd408d0ce5  fixtures/a/scene.rb
+   20       ed9cd19eb84aa8daaedfde1d8a353c35558ad52522c4124c1c7c2002ff334e49  fixtures/b/entrada.txt
+   2337     127516c08ec1104e134c6222f8bf3ff55aae09df607c2c2d7597b672adb6d082  fixtures/b/scene.rb
+   17749502 b0a8459ac2b2319c02804ab17e21a4b09b1ea3794241e2a61e3923796c5a7339  fnx017-dual.nro
+   64       3855baafb77065b103123dde0b6988ac3aac73c828248361fa70d2b9cb9c46cf  Game.ini
+   17068    ed6c8e2cb0b50929de40de5343f73ed2c3f47409afefe2767ceea065a34cdd61  lib/nx-compat.rb
+   1911     0554868f1d1f4211c63492e6436cdac8407ce856a33a3355dc9f326657bc6fc7  lib/socket.rb
+   250      8ed7eee16a4c7c9dedf103f9f97358ff61c1855df38861d847a4615893d7edc1  mkxp.json
+   917      ab602cb3c19f98fd2b3be709ea46d03d1881fcd0ffa225a8c7fa3d53291d01be  selector.rb
+   2        06f961b802bc46ee168555f066d28f4f0e9afdf3f88174c1ee6f9de004fc30a0  siguiente.txt
+   Directorios vacios: Audio/, Graphics/.
+
+3. ruby.exe docs/fangame-nx/fixtures/fnx017/host_verify.rb
+   local/fnx017-dual/switch/fnx017-dual local/fnx017-dual/host-test
+   HOST_A_OK FANGAMENX - FIXTURE A | LECTURA A OK | CONTADOR A: 0 |
+     FANGAMENX - FIXTURE A | LECTURA A OK | CONTADOR A: 1 |
+     FANGAMENX - FIXTURE A | LECTURA A OK | CONTADOR A: 1 |
+     FANGAMENX - FIXTURE A | LECTURA A OK | CONTADOR A: 1 | SALIENDO A...
+   HOST_B_OK FANGAMENX - FIXTURE B | LECTURA B OK | CONTADOR B: 0 |
+     FANGAMENX - FIXTURE B | LECTURA B OK | CONTADOR B: 1 |
+     FANGAMENX - FIXTURE B | LECTURA B OK | CONTADOR B: 1 |
+     FANGAMENX - FIXTURE B | LECTURA B OK | CONTADOR B: 1 | SALIENDO B...
+   HOST_DUAL_OK
+   Exit 0. Cada escena se ejecuto en otro subproceso Ruby con stubs RGSS;
+   no es una prueba del motor en Switch.
+
+4. py -3 docs/fangame-nx/verificar-ciclos-fnx-017.py
+   local/fnx017-dual/work/empty-before
+   local/fnx016-sdl-shutdown/postboot-evidence-20261102-114055 --expected 1
+   OK: 1 ciclo(s) con logs completos y prefijos conservados
+   La vuelta visible al Homebrew Menu requiere observacion del propietario en cada ciclo.
+   Exit 0. La linea base local tiene cuatro archivos vacios. Se comprobo
+   el analizador con la ejecucion M016 ya documentada; NO se hicieron cinco ciclos.
+
+5. py -3 comprobar-nro.py local/fnx017-dual/switch/fnx017-dual/fnx017-dual.nro
+   Cuerpo 17 719 296 bytes; fichero 17 749 502 bytes; ASET v0;
+   icono 12 038 bytes, NACP 16 384, RomFS 1 728; /LEEME.txt.
+   Titulo FangameNX FNX-017; version 0.0.4; title ids cero. Exit 0.
+   Salida local completa: local/fnx017-dual/work/nro-check.log.
+
+6. py -3 docs/fangame-nx/auditar-armv8.py mkxp-z-nx/rgss-switch.elf
+   local/fnx017-dual/switch/fnx017-dual/fnx017-dual.nro
+   Secciones ejecutables: .text, .init, .fini.
+   Instrucciones conocidas incompatibles: 0.
+   Bytes de codigo ELF/NRO comparados: 11 713 592; primeras diferencias: [].
+   Exit 0. Salida local completa: local/fnx017-dual/work/isa-audit.log.
+   La comprobacion LLVM --mcpu=cortex-a57 de M016, que dio cero <unknown>,
+   corresponde a este mismo ELF sin recompilar. No se repitio LLVM en M011.
+
+7. aarch64-none-elf-readelf -h mkxp-z-nx/rgss-switch.elf:
+   ELF64; DYN (Position-Independent Executable file); AArch64.
+   aarch64-none-elf-nm -u mkxp-z-nx/rgss-switch.elf: 0 lineas.
+
+8. Verificacion de MANIFEST.sha256.txt con Get-FileHash SHA256 para cada
+   archivo del paquete: 12 entradas, 12 archivos reales, 0 discrepancias.
+   Comparacion binaria del cuerpo NRO nuevo con el de fnx016-sdl-fix.nro:
+   17 719 296 bytes identicos. Los metadatos ASET son diferentes.
+   NRO nuevo: SHA-256 b0a8459ac2b2319c02804ab17e21a4b09b1ea3794241e2a61e3923796c5a7339.
+
+Pendiente: cinco ciclos fisicos y dos lanzamientos fisicos A/B del mismo NRO.

@@ -1,0 +1,11 @@
+{
+  "windowTitle": "FangameNX FNX-017 dual",
+  "customScript": "selector.rb",
+  "rgssVersion": 1,
+  "fullscreen": true,
+  "fixedAspectRatio": true,
+  "enableReset": false,
+  "enableSettings": false,
+  "rubyLoadpath": ["lib"],
+  "preloadScript": []
+}
