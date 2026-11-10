@@ -89,12 +89,14 @@
 /tests/*
 !/tests/launcher_host.cpp
 !/tests/run-launcher-host.cmd
+!/tests/test_prepare_launcher_game.py
 !/packaging/
 /packaging/*
 !/packaging/build-launcher-package.py
 !/packaging/make-launcher-icon.ps1
 !/packaging/auto_cover.py
 !/packaging/install-launcher-game.py
+!/packaging/prepare-launcher-game.py
 # romfs/ va dentro del .nro del motor y esta vacio a proposito: sin un romfs
 # presente, pedir romfs:/juego.txt mata al emulador. Lo explica su LEEME.txt.
 !/mkxp-z-nx/romfs/

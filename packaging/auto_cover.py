@@ -3,8 +3,10 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 import json
 from pathlib import Path
+import re
 import struct
 import zipfile
+import zlib
 
 MAX_BYTES = 8 * 1024 * 1024
 MAX_SIDE = 2048
@@ -30,12 +32,34 @@ def priority(name: str) -> int | None:
 
 
 def valid_png(data: bytes) -> bool:
-    if len(data) < 24 or len(data) > MAX_BYTES or data[:8] != b"\x89PNG\r\n\x1a\n":
+    if len(data) < 45 or len(data) > MAX_BYTES or data[:8] != b"\x89PNG\r\n\x1a\n":
         return False
-    if data[12:16] != b"IHDR":
-        return False
-    width, height = struct.unpack(">II", data[16:24])
-    return 128 <= width <= MAX_SIDE and 128 <= height <= MAX_SIDE
+    pos = 8
+    first = True
+    image_data = False
+    while pos + 12 <= len(data):
+        size = struct.unpack_from(">I", data, pos)[0]
+        end = pos + 12 + size
+        if end > len(data):
+            return False
+        kind = data[pos + 4:pos + 8]
+        payload = data[pos + 8:pos + 8 + size]
+        crc = struct.unpack_from(">I", data, pos + 8 + size)[0]
+        if zlib.crc32(kind + payload) != crc:
+            return False
+        if first:
+            if kind != b"IHDR" or size != 13:
+                return False
+            width, height = struct.unpack_from(">II", payload)
+            if not (128 <= width <= MAX_SIDE and 128 <= height <= MAX_SIDE):
+                return False
+            first = False
+        if kind == b"IDAT":
+            image_data = True
+        if kind == b"IEND":
+            return image_data and size == 0 and end == len(data)
+        pos = end
+    return False
 
 
 def choose(game: Path) -> tuple[str, bytes] | None:
@@ -70,16 +94,25 @@ def choose(game: Path) -> tuple[str, bytes] | None:
     return best[0][1], best[0][2]
 
 
-def install_cover(game: Path) -> str:
+def install_cover(game: Path, game_id: str | None = None) -> str:
     manifest = game / "fangamenx.json"
     metadata = json.loads(manifest.read_text(encoding="utf-8")) if manifest.is_file() else {}
     if not isinstance(metadata, dict):
         raise ValueError("fangamenx.json debe ser un objeto JSON")
-    if metadata.get("cover"):
+    if "cover" in metadata and metadata["cover"] != "":
+        named = metadata["cover"]
+        if (not isinstance(named, str) or len(named) > 80 or named.startswith(".") or
+                ".." in named or not re.fullmatch(r"[A-Za-z0-9_.-]+\.(?:png|jpg|jpeg)", named)):
+            raise ValueError("campo cover no válido")
+        explicit = game / named
+        if not explicit.is_file() or explicit.stat().st_size > MAX_BYTES:
+            return "portada explícita ausente o demasiado grande; se usará la reserva"
+        if named.endswith(".png") and not valid_png(explicit.read_bytes()):
+            return "portada PNG explícita inválida; se usará la reserva"
         return "portada explícita conservada"
     cover = game / "cover.png"
     if cover.is_file():
-        if not valid_png(cover.read_bytes()):
+        if cover.stat().st_size > MAX_BYTES or not valid_png(cover.read_bytes()):
             return "cover.png no es una imagen PNG válida para el lanzador"
         source = "cover.png existente"
     else:
@@ -88,7 +121,7 @@ def install_cover(game: Path) -> str:
             return "sin imagen de título única y válida; se usará la portada de reserva"
         source, data = selected
         cover.write_bytes(data)
-    metadata.setdefault("id", game.name)
+    metadata.setdefault("id", game_id or game.name)
     metadata["cover"] = "cover.png"
     manifest.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return f"cover.png desde {source}"

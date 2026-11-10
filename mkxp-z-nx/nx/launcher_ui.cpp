@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <cerrno>
 #include <cstdio>
+#include <cstring>
 #include <sys/stat.h>
 
 extern unsigned char ___assets_liberation_ttf[];
@@ -99,12 +100,58 @@ struct Ui {
     std::string cover_path;
     SDL_Texture *cover_texture = nullptr;
 };
+static bool cover_dimensions_ok(const std::string &path) {
+    struct stat info;
+    if (stat(path.c_str(), &info) != 0 || info.st_size < 24 || info.st_size > 8 * 1024 * 1024)
+        return false;
+    FILE *f=fopen(path.c_str(),"rb");
+    if (!f) return false;
+    unsigned char head[24];
+    bool valid=false;
+    if (fread(head,1,sizeof(head),f)==sizeof(head)) {
+        const unsigned char png[] = {137,80,78,71,13,10,26,10};
+        if (memcmp(head,png,8)==0 && memcmp(head+12,"IHDR",4)==0) {
+            unsigned w=(unsigned)head[16]<<24 | (unsigned)head[17]<<16 |
+                       (unsigned)head[18]<<8 | head[19];
+            unsigned h=(unsigned)head[20]<<24 | (unsigned)head[21]<<16 |
+                       (unsigned)head[22]<<8 | head[23];
+            valid=w>0 && h>0 && w<=2048 && h<=2048;
+        } else if (head[0]==0xff && head[1]==0xd8 && fseek(f,2,SEEK_SET)==0) {
+            // En JPEG la resolución vive en un segmento SOF, no en la cabecera.
+            while (ftell(f)>=0 && ftell(f)<info.st_size) {
+                int marker=fgetc(f);
+                if (marker!=0xff) break;
+                do { marker=fgetc(f); } while (marker==0xff);
+                if (marker<0 || marker==0xd9 || marker==0xda) break;
+                if (marker==0x01 || (marker>=0xd0 && marker<=0xd7)) continue;
+                int hi=fgetc(f), lo=fgetc(f);
+                if (hi<0 || lo<0) break;
+                int length=(hi<<8)|lo;
+                if (length<2 || ftell(f)+length-2>info.st_size) break;
+                bool sof=(marker>=0xc0 && marker<=0xc3) ||
+                         (marker>=0xc5 && marker<=0xc7) ||
+                         (marker>=0xc9 && marker<=0xcb) ||
+                         (marker>=0xcd && marker<=0xcf);
+                if (sof && length>=7) {
+                    int precision=fgetc(f), h1=fgetc(f), h2=fgetc(f), w1=fgetc(f), w2=fgetc(f);
+                    if (precision<0 || h1<0 || h2<0 || w1<0 || w2<0) break;
+                    int w=(w1<<8)|w2, h=(h1<<8)|h2;
+                    valid=precision>0 && w>0 && h>0 && w<=2048 && h<=2048;
+                    break;
+                }
+                if (fseek(f,length-2,SEEK_CUR)!=0) break;
+            }
+        }
+    }
+    fclose(f);
+    return valid;
+}
 static void game_cover(SDL_Renderer *r, Ui &u, const Game &g, int x, int y, int w, int h) {
     if (u.cover_path != g.cover) {
         if (u.cover_texture) SDL_DestroyTexture(u.cover_texture);
         u.cover_texture=nullptr;
         u.cover_path=g.cover;
-        if (!g.cover.empty()) {
+        if (!g.cover.empty() && cover_dimensions_ok(g.cover)) {
             SDL_Surface *s=IMG_Load(g.cover.c_str());
             if (s) {
                 if (s->w<=2048 && s->h<=2048) u.cover_texture=SDL_CreateTextureFromSurface(r,s);
