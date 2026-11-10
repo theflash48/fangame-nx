@@ -41,4 +41,5 @@ mkxpz-tactil.patch
 mkxpz-textura-sin-memoria.patch
 mkxpz-recolector-texturas.patch
 mkxpz-m019-tempo-menu.patch
+mkxpz-m020-menu-controles.patch
 mkxpz-vorbis-ov-hole.patch

@@ -292,4 +292,33 @@ bool save_game_speed(const std::string &root, const std::string &id, int mode) {
     return safe_child(id) && mode >= 0 && mode <= 4 &&
            save_config_value(root, ("speed_" + id).c_str(), mode);
 }
+static bool valid_controls(const std::string &mapping) {
+    if (mapping.size() != 4) return false;
+    std::string sorted = mapping;
+    std::sort(sorted.begin(), sorted.end());
+    return sorted == "ABXY";
+}
+bool load_game_controls(const std::string &root, const std::string &id, std::string &mapping) {
+    mapping = "ABXY";
+    if (!safe_child(id)) return false;
+    const std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        const auto v = json5pp::parse(read_limited(path, 4096));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto schema = o.find("schema");
+        if (schema == o.end() || !schema->second.is_number() ||
+            schema->second.as_integer() != 1) return false;
+        auto item = o.find("controls_" + id);
+        if (item == o.end()) return true;
+        if (!item->second.is_string() || !valid_controls(item->second.as_string())) return false;
+        mapping = item->second.as_string();
+        return true;
+    } catch (...) { return false; }
+}
+bool save_game_controls(const std::string &root, const std::string &id, const std::string &mapping) {
+    return safe_child(id) && valid_controls(mapping) &&
+           save_config_value(root, ("controls_" + id).c_str(), mapping);
+}
 }

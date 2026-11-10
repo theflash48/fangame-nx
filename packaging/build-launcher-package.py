@@ -67,6 +67,8 @@ def main() -> None:
         "Durante un juego, mantener L+R+PLUS unos 0,8 s para abrir el menu rapido.\n"
         "Volver a la biblioteca pide confirmacion; B sigue disponible para el juego.\n"
         "La velocidad se guarda por juego en config/launcher.json.\n"
+        "Controles del juego: elegir entrada A/B/X/Y, pulsar el boton fisico; los conflictos intercambian asignaciones.\n"
+        "PLUS cancela la captura; restaurar recupera la distribucion de ese juego.\n"
         "Los ejemplos son sintéticos originales; no se afirma compatibilidad con fangames.\n",
         encoding="utf-8",
     )

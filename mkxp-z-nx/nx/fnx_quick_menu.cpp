@@ -10,6 +10,9 @@ namespace {
 std::string configRoot, gameId;
 SDL_atomic_t active = {}, command = {}, speed = {}, closing = {};
 bool held[SDL_CONTROLLER_BUTTON_MAX] = {};
+std::string controls = "ABXY";
+SDL_atomic_t physicalToLogical[4] = {};
+SDL_atomic_t capture = {};
 bool chordReady = true;
 Uint32 chordSince = 0;
 
@@ -23,6 +26,11 @@ bool chordDown() {
            held[SDL_CONTROLLER_BUTTON_START];
 }
 void post(int value) { SDL_AtomicSet(&command, value); }
+void publishControls() {
+    for (int logical = 0; logical < 4; ++logical)
+        SDL_AtomicSet(&physicalToLogical[controls[logical] == 'A' ? 0 :
+            controls[logical] == 'B' ? 1 : controls[logical] == 'X' ? 2 : 3], logical);
+}
 }
 
 void quick_init(const std::string &root, const std::string &game) {
@@ -30,6 +38,9 @@ void quick_init(const std::string &root, const std::string &game) {
     gameId = game;
     int mode = 0;
     load_game_speed(root, game, mode);
+    if (!load_game_controls(root, game, controls)) controls = "ABXY";
+    publishControls();
+    SDL_AtomicSet(&capture, -1);
     SDL_AtomicSet(&speed, mode);
     SDL_AtomicSet(&active, 0);
     SDL_AtomicSet(&command, 0);
@@ -59,6 +70,16 @@ bool quick_event(const SDL_Event &event) {
     }
     if (SDL_AtomicGet(&active)) {
         if (event.type == SDL_CONTROLLERBUTTONDOWN) {
+            if (SDL_AtomicGet(&capture) >= 0) {
+                if (event.cbutton.button < 4) {
+                    post(QuickCaptureBase + event.cbutton.button);
+                    SDL_AtomicSet(&capture, -1);
+                } else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_START) {
+                    post(QuickBack);
+                    SDL_AtomicSet(&capture, -1);
+                }
+                return true;
+            }
             switch (event.cbutton.button) {
                 case SDL_CONTROLLER_BUTTON_DPAD_UP: post(QuickUp); break;
                 case SDL_CONTROLLER_BUTTON_DPAD_DOWN: post(QuickDown); break;
@@ -67,6 +88,11 @@ bool quick_event(const SDL_Event &event) {
                 default: break;
             }
         } else if (event.type == SDL_KEYDOWN && !event.key.repeat) {
+            if (SDL_AtomicGet(&capture) >= 0 && event.key.keysym.sym == SDLK_ESCAPE) {
+                post(QuickBack);
+                SDL_AtomicSet(&capture, -1);
+                return true;
+            }
             switch (event.key.keysym.sym) {
                 case SDLK_UP: post(QuickUp); break;
                 case SDLK_DOWN: post(QuickDown); break;
@@ -112,6 +138,7 @@ void quick_close() {
     SDL_AtomicSet(&active, 0);
     SDL_AtomicSet(&command, 0);
     SDL_AtomicSet(&closing, 1);
+    SDL_AtomicSet(&capture, -1);
 }
 int quick_speed() { return SDL_AtomicGet(&speed); }
 bool quick_set_speed(int mode) {
@@ -129,5 +156,29 @@ double quick_multiplier(int mode) {
 }
 int quick_rate(int nominal_hz, int mode) {
     return std::max(1, (int)std::lround(nominal_hz * quick_multiplier(mode)));
+}
+int quick_game_button(int physical) {
+    return physical >= 0 && physical < 4 ? SDL_AtomicGet(&physicalToLogical[physical]) : physical;
+}
+const char *quick_controls() { return controls.c_str(); }
+void quick_capture_start(int logical) { SDL_AtomicSet(&capture, logical); }
+void quick_capture_cancel() { SDL_AtomicSet(&capture, -1); }
+bool quick_assign(int logical, int physical) {
+    if (logical < 0 || logical >= 4 || physical < 0 || physical >= 4) return false;
+    const char *names = "ABXY";
+    std::string next = controls;
+    const size_t previous = next.find(names[physical]);
+    if (previous >= 4) return false;
+    std::swap(next[logical], next[previous]);
+    if (!save_game_controls(configRoot, gameId, next)) return false;
+    controls = next;
+    publishControls();
+    return true;
+}
+bool quick_reset_controls() {
+    if (!save_game_controls(configRoot, gameId, "ABXY")) return false;
+    controls = "ABXY";
+    publishControls();
+    return true;
 }
 }

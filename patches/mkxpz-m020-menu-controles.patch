@@ -1,0 +1,110 @@
+--- a/src/eventthread.cpp
++++ b/src/eventthread.cpp
+@@ -525,0 +526,3 @@ void EventThread::process(RGSSThreadData &rtData)
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++                event.cbutton.button = fnx::quick_game_button(event.cbutton.button);
++#endif
+@@ -529,0 +533,3 @@ void EventThread::process(RGSSThreadData &rtData)
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++                event.cbutton.button = fnx::quick_game_button(event.cbutton.button);
++#endif
+--- a/src/display/graphics.cpp
++++ b/src/display/graphics.cpp
+@@ -60,0 +61 @@
++extern "C" void nx_boot_trace(const char *msg);
+@@ -961 +962,4 @@ struct GraphicsPrivate {
+-        quad.setTexPosRect(FloatRect(0, 0, overlay.width(), overlay.height()),
++        /* La textura de Bitmap llega girada 180 grados en el pase directo al
++           framebuffer de pantalla; corregir sus UV, no el juego subyacente. */
++        quad.setTexPosRect(FloatRect(overlay.width(), overlay.height(),
++                                     -overlay.width(), -overlay.height()),
+@@ -983 +987 @@ struct GraphicsPrivate {
+-        bool dirty = true, leaving = false, saveError = false;
++        bool dirty = true, leaving = false, saveError = false, lastSwap = false;
+@@ -999,3 +1003,11 @@ struct GraphicsPrivate {
+-            const int count = view == 0 ? 4 : view == 1 ? 5 : view == 3 ? 2 : 1;
+-            if (cmd == fnx::QuickUp) { selected = (selected + count - 1) % count; dirty = true; }
+-            if (cmd == fnx::QuickDown) { selected = (selected + 1) % count; dirty = true; }
++            const int count = view == 0 ? 5 : view == 1 ? 5 : view == 3 ? 2 :
++                              view == 4 ? 6 : 1;
++            if (cmd >= fnx::QuickCaptureBase && cmd < fnx::QuickCaptureBase + 4 && view == 5) {
++                const int physical = cmd - fnx::QuickCaptureBase;
++                lastSwap = fnx::quick_controls()[selected] != "ABXY"[physical];
++                saveError = !fnx::quick_assign(selected, physical);
++                view = 4;
++                dirty = true;
++            }
++            if (cmd == fnx::QuickUp && view != 5) { selected = (selected + count - 1) % count; dirty = true; }
++            if (cmd == fnx::QuickDown && view != 5) { selected = (selected + 1) % count; dirty = true; }
+@@ -1003,0 +1016 @@ struct GraphicsPrivate {
++                else if (view == 5) { fnx::quick_capture_cancel(); view = 4; dirty = true; }
+@@ -1009 +1022,2 @@ struct GraphicsPrivate {
+-                    else { view = selected == 1 ? 1 : selected == 2 ? 2 : 3;
++                    else { view = selected == 1 ? 1 : selected == 2 ? 4 :
++                                  selected == 3 ? 2 : 3;
+@@ -1015,2 +1029,11 @@ struct GraphicsPrivate {
+-                } else if (view == 2) { view = 0; selected = 2; dirty = true; }
+-                else if (selected == 0) { view = 0; selected = 3; dirty = true; }
++                } else if (view == 2) { view = 0; selected = 3; dirty = true; }
++                else if (view == 4) {
++                    if (selected < 4) { fnx::quick_capture_start(selected); view = 5; }
++                    else if (selected == 4) {
++                        saveError = !fnx::quick_reset_controls();
++                        lastSwap = false;
++                    }
++                    else { view = 0; selected = 2; }
++                    dirty = true;
++                } else if (view == 5) { /* Esperando un boton fisico. */ }
++                else if (selected == 0) { view = 0; selected = 4; dirty = true; }
+@@ -1030 +1053,2 @@ struct GraphicsPrivate {
+-                const char *items[5] = {};
++                const char *items[6] = {};
++                char controlItems[4][64] = {};
+@@ -1034,2 +1058,3 @@ struct GraphicsPrivate {
+-                    items[2] = "Diagnostico";
+-                    items[3] = "Volver a la biblioteca";
++                    items[2] = "Controles del juego";
++                    items[3] = "Diagnostico";
++                    items[4] = "Volver a la biblioteca";
+@@ -1042,0 +1068,9 @@ struct GraphicsPrivate {
++                } else if (view == 4) {
++                    for (int i = 0; i < 4; ++i) {
++                        snprintf(controlItems[i], sizeof(controlItems[i]),
++                                 "Entrada del juego %c  <-  boton fisico %c",
++                                 "ABXY"[i], fnx::quick_controls()[i]);
++                        items[i] = controlItems[i];
++                    }
++                    items[4] = "Restaurar controles predeterminados";
++                    items[5] = "Volver";
+@@ -1044 +1078,7 @@ struct GraphicsPrivate {
+-                if (view == 2) {
++                if (view == 5) {
++                    char line[130];
++                    snprintf(line, sizeof(line), "Entrada del juego %c", "ABXY"[selected]);
++                    overlay.drawText(287, 230, 700, 50, line);
++                    overlay.drawText(287, 310, 700, 50, "Pulsa A, B, X o Y fisico.");
++                    overlay.drawText(287, 390, 700, 50, "PLUS: cancelar");
++                } else if (view == 2) {
+@@ -1068 +1108 @@ struct GraphicsPrivate {
+-                        const int y = 205 + i * 73;
++                        const int y = (view == 0 || view == 4 ? 185 + i * 62 : 205 + i * 73);
+@@ -1075 +1115,3 @@ struct GraphicsPrivate {
+-                    if (saveError) overlay.drawText(287, 550, 700, 36, "No se pudo guardar la velocidad.");
++                    if (saveError) overlay.drawText(287, 550, 700, 36, "No se pudo guardar el cambio.");
++                    else if (view == 4 && lastSwap)
++                        overlay.drawText(287, 550, 700, 36, "Conflicto: se intercambiaron las entradas.");
+@@ -1077 +1119 @@ struct GraphicsPrivate {
+-                overlay.drawText(288, 573, 690, 36, "A: elegir    B: volver    L+R+PLUS: abrir");
++                overlay.drawText(288, 573, 690, 36, "B: elegir    A: volver    L+R+PLUS: abrir");
+@@ -1087 +1129,4 @@ struct GraphicsPrivate {
+-        if (leaving) threadData->ethread->requestTerminate();
++        if (leaving) {
++            nx_boot_trace("[quick] salida solicitada al hilo de eventos");
++            threadData->ethread->requestTerminate();
++        }
+@@ -1090,0 +1136 @@ struct GraphicsPrivate {
++        if (leaving) nx_boot_trace("[quick] rqTerm recibido; vuelve a Ruby");
+@@ -1261 +1307,2 @@ struct GraphicsPrivate {
+-        if (threadData->rqTerm || threadData->rqReset) checkShutDownReset();
++        /* La terminacion de Ruby se atiende al entrar de nuevo en
++           Graphics.update, fuera del intercambio GL y del overlay. */
