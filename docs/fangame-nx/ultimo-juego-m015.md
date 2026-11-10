@@ -177,5 +177,40 @@ leyeron de vuelta y coincidieron con el hash b25. El temporal remoto se
 eliminó; `local/m015/mtp-update-b25.log` termina en
 `UPDATE_VERIFIED FangameNX.nro`. No se tocaron juegos ni configuración.
 
-El informe de traspaso para ChatGPT se aplaza mientras queden pruebas del
-encargo original.
+## Prueba física b25 con memoria de aplicación
+
+El propietario confirmó que, al salir de Órbita doble con B, el foco quedó
+sobre Órbita doble y que siguió allí después de cerrar FangameNX con + y
+volver a abrirlo. El snapshot MTP de solo lectura
+`local/m015/posttest-20261110-114332/` contiene 15 archivos con hashes
+verificados. `config/launcher.json` conserva `last_game: fnx017`, sin respaldo
+ni temporal pendiente. Los logs compartidos mantienen el snapshot anterior
+como prefijo exacto. `fnx017-selector.log` añade `RUN 7 SELECT B` y
+`COMPLETADO; siguiente=A`; el evento de la escena B registra lectura y
+escritura OK y `boton=B salida_solicitada`. El nuevo bloque de
+`mkxp-boot.log` identifica b25 con 3262 MB de montón, llega a `SDL_Quit OK`
+y `[launcher] retorno al menu programado`. `launcher.log` añade la selección
+de `fnx017`, un nuevo inicio tras el retorno y otro inicio tras reabrir la
+aplicación. La observación del foco procede del propietario; los logs prueban
+la ejecución, el retorno y la persistencia del ID. La protección de applet
+quedaba pendiente en ese momento.
+
+## Prueba física b25 con memoria de applet
+
+El propietario confirmó que, desde Homebrew Menu abierto por el Álbum, el
+intento de iniciar Órbita doble mostró el aviso de memoria y permitió volver
+con B y salir con +, sin pánico. El snapshot MTP posterior
+`local/m015/posttest-20261110-114828/` contiene 15 archivos con hashes
+recalculados y coincidentes. `launcher.log` añade `inicio: launcher`,
+`scan: terminado`, `arranque bloqueado: memoria de applet` y `salida: hbmenu`.
+Los logs de `fnx017` conservan exactamente el contenido del snapshot anterior:
+ni el selector ni el motor se ejecutaron en este intento. La configuración
+continúa con `last_game: fnx017`, sin `.bak` ni `.tmp`.
+
+Con esto se comprueban en hardware el retorno con B, la salida con +, el foco
+del último juego tras ambos tipos de retorno, la entrada táctil de la
+biblioteca comunicada por el propietario y el bloqueo recuperable en modo
+applet. La compatibilidad con juegos completos sigue sin probar en este
+launcher. El pánico anterior **dentro** de Órbita doble con memoria de
+aplicación y la pérdida intermitente de X de M012 siguen abiertos; el segundo
+pánico se explicó por la memoria reducida, sin extrapolar esa causa al primero.
