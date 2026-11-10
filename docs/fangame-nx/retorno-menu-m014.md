@@ -69,10 +69,9 @@ solicitada: abrir `fnx009`, salir con B y comprobar el retorno directo a la
 biblioteca; después pulsar + y comprobar la salida a Homebrew Menu. Respondió
 **«Sí, funcionan B y +»** a la pregunta que describía ambos pasos. Esta es
 evidencia visual comunicada por el propietario para **un ciclo**. MTP no estaba
-activo al recibirla, por lo que no se recuperaron aún los logs posteriores.
-Quedan pendientes la repetición con `fnx017`, ciclos adicionales y el caso en
-que `envHasNextLoad` sea falso. El fallo intermitente X y el pánico de M012
-siguen abiertos; esta prueba no los resuelve.
+activo al recibirla; el propietario lo habilitó después y se recuperaron los
+logs posteriores. El análisis, la retirada de la versión antigua y los
+pendientes están en [el informe de cierre M014](informe-chatgpt-m014.md).
 
 ## Instalación MTP de la nueva build
 
