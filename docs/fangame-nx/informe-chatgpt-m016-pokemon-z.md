@@ -145,3 +145,40 @@ Propuesta futura **FNX-022**: asociar cada juego a una fuente autorizada,
 comprobar versiones y verificar descargas, con actualización que conserve
 partidas; también valorar actualización de FangameNX al inicio con copia de
 seguridad, recuperación y reinicio seguro. No se implementó ni activó.
+
+## Anexo posterior: portada del propio juego
+
+Después del cierre de M016, el propietario comunicó que el juego «funciona»
+en la Switch. No especificó hitos de mapa, audio, controles o guardado; esa
+comunicación no verifica por separado esas funciones. Al volver a inspeccionar
+la carpeta por MTP había cuatro archivos adicionales generados por la
+ejecución: `mkxp-boot.log`, `mkxp-debug.log`, `mkxp-ruby.log` y `LastSave.dat`.
+Se conservaron intactos. La presencia de `LastSave.dat` por sí sola no
+demuestra una partida guardada y cargada correctamente.
+
+Para dar portada a la ficha, `local/m016/add-cover.py` extrae directamente
+`Graphics/Pictures/titulo.png` del `datos.zip` preparado, valida su cabecera
+PNG y dimensiones (512×384, bajo el límite de 2048×2048 del launcher) y
+copia sus bytes sin transformarlos a `cover.png` en la raíz de la instalación.
+El script añade `"cover": "cover.png"` a `fangamenx.json` y conserva el
+manifiesto anterior en local. El recurso del juego no entra en Git. Esta
+selección es específica de Pokémon Z 2.18: otros juegos pueden componer la
+pantalla de título a partir de varias capas y requerir otra elección.
+
+Antes de escribir, se recuperó nuevamente el NRO activo y su SHA-256 siguió
+siendo `bbf9d4fee998703903f10694c04b91a1e5dd01c0769e09cba79c119bd3b5e299`.
+Se verificó por lectura MTP el manifiesto anterior; después se copió
+`cover.png` y se verificó su SHA-256
+`d9dcf8c08ad8d19014cc49dd6f633fb8d3ac79c168f06299cb862f9f07d20459`,
+idéntico al recurso dentro de `datos.zip`. Solo entonces se sustituyó el
+`fangamenx.json` propio de esta instalación; la lectura MTP del nuevo
+manifiesto coincide con SHA-256
+`4bf41063ebaed053b81b3ecd1a26ea1013be7f06269f078a4afc0a902b02f33f`.
+El escáner host del launcher devuelve `ready=1` y una ruta local de portada
+válida. El manifiesto privado actualizado está en
+`local/m016/stage-manifest-cover.sha256.txt` (SHA-256
+`be2102d02501237dd1c8e935089ed1ce7c6c9033619a0733387592b263524f23`).
+La enumeración MTP posterior encontró los 115 archivos de ese manifiesto,
+más los cuatro archivos de ejecución anteriores, sin nombres ausentes ni
+inesperados. La visualización de la portada en la Switch todavía requiere
+reabrir FangameNX o reescanear su biblioteca.
