@@ -41,10 +41,10 @@ Para cada ciclo de la **serie controlada**, el propietario abre la aplicación *
 | 1 | `LECTURA OK`; pantalla sin anomalías comunicadas | A +1; X azul→verde | B volvió por sí solo al Homebrew Menu | `ciclo-01/`, cuatro copias locales; verificador `--expected 1` OK | Ningún error visible comunicado |
 | 2 | `LECTURA OK`, según confirmación general del propietario | A +1; X azul→verde, según confirmación | B volvió solo al Homebrew Menu, según confirmación | `ciclo-02/`, cuatro copias locales; verificador `--expected 1` OK | Ningún error visible comunicado |
 | 3 | `LECTURA OK`, según la pauta realizada y el log | A +1; **X no cambió el color** | B volvió solo al Homebrew Menu | `ciclo-03/`, cuatro copias locales; verificador rechazó la ausencia de X | Fallo de entrada X observado y confirmado por log |
-| 4 (diagnóstico adicional) | No comunicado | No comunicado | No comunicado | **Sin copia MTP posterior** | El propietario comunicó un crash de la consola; momento y causa sin determinar |
+| 4 (diagnóstico adicional) | No comunicado | No comunicado | No comunicado | **Sin copia MTP posterior** | Pánico de Atmosphère; reinicio forzado; causa sin determinar |
 | 5 | No ejecutado | — | — | — | No se continúa tras el crash del intento 4 |
 
-La serie de cinco ciclos se **detuvo tras el ciclo 3** por el fallo de X. A petición posterior del propietario se intentó **un solo ciclo diagnóstico adicional**; el propietario comunicó un crash de la consola y decidió reiniciarla. No se accedió a MTP tras ese aviso ni se recuperaron logs del cuarto intento. No se acredita estabilidad de controles a cinco ciclos. En los tres ciclos con logs, Ruby terminó, se registró `SDL_DestroyWindow OK` y el propietario observó regreso autónomo al menú; este resultado de cierre no convierte el ciclo 3 en correcto. El paquete dual M011 no se instala ni se prueba en esta misión.
+La serie de cinco ciclos se **detuvo tras el ciclo 3** por el fallo de X. A petición posterior del propietario se intentó **un solo ciclo diagnóstico adicional**; el propietario comunicó un pánico de Atmosphère y tuvo que forzar el reinicio, ya realizado. No se accedió a MTP tras ese aviso ni se recuperaron logs del cuarto intento. No se acredita estabilidad de controles a cinco ciclos. En los tres ciclos con logs, Ruby terminó, se registró `SDL_DestroyWindow OK` y el propietario observó regreso autónomo al menú; este resultado de cierre no convierte el ciclo 3 en correcto. El paquete dual M011 no se instala ni se prueba en esta misión.
 
 ### Evidencia del ciclo 1 controlado
 
@@ -85,6 +85,15 @@ Anomalía secundaria: el sufijo de `mkxp-debug.log` del ciclo 3 tiene 752 bytes 
 
 ### Cuarto intento y parada por crash
 
-Tras conocer el fallo de X, el propietario pidió un último ciclo diagnóstico con una pulsación de X mantenida aproximadamente un segundo. Comunicó: «me ha crasheado la consola, voy a reiniciar y luego lo vemos». **No indicó en qué momento ocurrió ni si A, X o B llegaron a responder.** No se recibió una nueva captura MTP ni se consultaron registros de la consola después del crash. El origen del fallo es desconocido; no se atribuye al problema de X ni al cierre SDL sin evidencia. Se detiene toda interacción con la Switch hasta que el propietario termine el reinicio y retome expresamente la investigación. El quinto ciclo no se realiza.
+Tras conocer el fallo de X, el propietario pidió un último ciclo diagnóstico con una pulsación de X mantenida aproximadamente un segundo. Comunicó un crash y después precisó que tuvo que **forzar el reinicio**, ya realizado. La pantalla mostró literalmente:
 
-**Siguiente tarea recomendada:** después del reinicio y solo cuando el propietario lo indique, conservar en modo lectura los cuatro logs del fixture si están disponibles y comparar su sufijo con `ciclo-03/` para determinar hasta dónde llegó el cuarto intento. Cualquier informe de crash del sistema queda fuera de la autorización MTP actual, limitada al fixture, y requerirá una autorización específica. Después, diseñar una prueba diagnóstica de entrada X que registre por separado eventos SDL y estados/filos de RGSS `Input`, con tiempos, sin alterar las evidencias. No se propone parchear el mapeo a partir de una única omisión ni repetir ahora los ciclos.
+```text
+Atmosphere panic occurred!
+Tittle ID: 0100000000000034
+Error: std::abort (0xFFE)
+Report Saved to atmosphere/fatal_errors/report_9b251d017c.bin
+```
+
+Estas cadenas proceden de la observación del propietario. **No se ha leído ni verificado el archivo `.bin`**, ni se conoce el momento del pánico respecto a A, X o B. El Title ID mostrado no identifica por sí solo la causa de la interrupción. No se recibió una nueva captura MTP ni se consultaron registros de la consola después del crash. No se atribuye el pánico al problema de X ni al cierre SDL sin evidencia. Se detiene toda interacción con la Switch hasta que el propietario retome expresamente la investigación. El quinto ciclo no se realiza.
+
+**Siguiente tarea recomendada:** cuando el propietario lo indique, conservar en modo lectura los cuatro logs del fixture si están disponibles y comparar su sufijo con `ciclo-03/` para determinar hasta dónde llegó el cuarto intento. El informe `atmosphere/fatal_errors/report_9b251d017c.bin` está fuera de la autorización MTP actual, limitada al fixture, y requerirá autorización específica antes de recuperarlo. Después, diseñar una prueba diagnóstica de entrada X que registre por separado eventos SDL y estados/filos de RGSS `Input`, con tiempos, sin alterar las evidencias. No se propone parchear el mapeo a partir de una única omisión ni repetir ahora los ciclos.

@@ -4,7 +4,7 @@ Fecha: 10 de noviembre de 2026. Rama `test/fnx-017-five-cycles`, creada desde M0
 
 ## Resultado ejecutivo
 
-**La prueba de cinco ciclos no se completó ni se superó.** Dos ciclos controlados consecutivos cumplieron la pauta de pantalla, lectura, A, X, B y retorno autónomo al Homebrew Menu; los cuatro logs de cada uno confirman lectura/escritura, eventos, terminación Ruby y cierre SDL. En el ciclo 3, el propietario vio que X no cambió el color y el log Ruby confirma que no se registró el evento X; A, B, lectura, escritura y cierre funcionaron. La serie se detuvo. A petición posterior del propietario se intentó un cuarto ciclo **diagnóstico**, durante el cual comunicó un crash de la consola. No se conoce el punto del crash y **no se recuperaron logs posteriores**. El propietario va a reiniciar y retomará la investigación después. El ciclo 5 no se ejecutó.
+**La prueba de cinco ciclos no se completó ni se superó.** Dos ciclos controlados consecutivos cumplieron la pauta de pantalla, lectura, A, X, B y retorno autónomo al Homebrew Menu; los cuatro logs de cada uno confirman lectura/escritura, eventos, terminación Ruby y cierre SDL. En el ciclo 3, el propietario vio que X no cambió el color y el log Ruby confirma que no se registró el evento X; A, B, lectura, escritura y cierre funcionaron. La serie se detuvo. A petición posterior del propietario se intentó un cuarto ciclo **diagnóstico**: la consola mostró `Atmosphere panic occurred!`, `Tittle ID: 0100000000000034` y `Error: std::abort (0xFFE)`. El propietario tuvo que forzar el reinicio, ya realizado. La pantalla indicó `Report Saved to atmosphere/fatal_errors/report_9b251d017c.bin`. **No se ha leído ese informe ni se recuperaron logs posteriores al pánico.** Se desconoce el momento y la causa. El ciclo 5 no se ejecutó.
 
 ## Evidencia conservada
 
@@ -14,7 +14,7 @@ Se identificó un único dispositivo WPD/MTP `Nintendo Switch` (VID `057E`, PID 
 - `ciclo-01/`, `ciclo-02/`, `ciclo-03/`: cuatro logs y `manifest.json` en cada carpeta.
 - El primer intento de línea base registró además dos ejecuciones Ruby y un arranque *applet* que abortó antes de Ruby. El propietario confirmó varios lanzamientos y pulsaciones; esta captura **no** cuenta como ciclo controlado.
 
-El detalle por ciclo, los doce hashes y resultados del verificador están en [`estabilidad-cinco-ciclos-fnx-017.md`](estabilidad-cinco-ciclos-fnx-017.md). Para los ciclos 1 y 2, `verificar-ciclos-fnx-017.py --expected 1` devolvió 0 y confirmó un solo bloque nuevo de cada registro. Para el ciclo 3 devolvió 1 por ausencia de `boton=X color=verde`; los demás hitos, incluidos `SDL_DestroyWindow OK` y `[exit] 08 before return main`, están presentes. El cuarto intento carece de evidencia recuperada: el crash es solo observación comunicada por el propietario.
+El detalle por ciclo, los doce hashes y resultados del verificador están en [`estabilidad-cinco-ciclos-fnx-017.md`](estabilidad-cinco-ciclos-fnx-017.md). Para los ciclos 1 y 2, `verificar-ciclos-fnx-017.py --expected 1` devolvió 0 y confirmó un solo bloque nuevo de cada registro. Para el ciclo 3 devolvió 1 por ausencia de `boton=X color=verde`; los demás hitos, incluidos `SDL_DestroyWindow OK` y `[exit] 08 before return main`, están presentes. Del cuarto intento solo consta la pantalla fatal comunicada por el propietario; el archivo `.bin` indicado y los logs del fixture siguen sin recuperar.
 
 ## Interpretación y límites
 
@@ -24,6 +24,6 @@ FNX-016 conserva la evidencia de su primera ejecución satisfactoria. FNX-017 **
 
 ## Continuación recomendada
 
-1. Esperar a que el propietario termine el reinicio y confirme que quiere retomar la investigación. No iniciar nuevos ciclos ni modificar la consola.
-2. Con su indicación, leer por MTP **solo** los cuatro logs del fixture y compararlos con `ciclo-03/` para determinar si el cuarto intento añadió Ruby, entrada o cierre. Preservar copias y hashes; no sobrescribir las existentes. Un informe de crash de Atmosphère o del sistema está **fuera** de la autorización MTP de M012 y necesita autorización separada.
+1. El reinicio forzado ya se hizo. Esperar a que el propietario confirme que quiere retomar la investigación. No iniciar nuevos ciclos ni modificar la consola.
+2. Con su indicación, leer por MTP **solo** los cuatro logs del fixture y compararlos con `ciclo-03/` para determinar si el cuarto intento añadió Ruby, entrada o cierre. Preservar copias y hashes; no sobrescribir las existentes. El informe `atmosphere/fatal_errors/report_9b251d017c.bin` está **fuera** de la autorización MTP de M012 y necesita autorización separada antes de recuperarlo.
 3. Diseñar después una prueba de entrada mínima que registre evento SDL y estado/flanco RGSS de X con tiempos. Mantener las evidencias actuales intactas y no atribuir la causa del crash antes de ver datos.
