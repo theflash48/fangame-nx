@@ -1,7 +1,8 @@
 # FangameNX M013 — desarrollo del launcher
 
 Fecha: 10 de noviembre de 2026. Rama: `feature/fangamenx-launcher-mvp`.
-Código: `277be0d`. Esta nota fija el contrato nuevo que continúa ADR-004.
+Código: `277be0d` y ajuste de escaneo `aa4c8f2`. Esta nota fija el contrato
+nuevo que continúa ADR-004.
 
 ## Decisión integrada
 
@@ -70,9 +71,11 @@ la carpeta de cada juego. El código no migra partidas existentes.
 ## Interfaz y controles
 
 Paleta azul noche, turquesa y violeta, icono original, tarjetas con foco
-turquesa, detalles, ajustes, biblioteca vacía, avisos y portadas diferidas.
+turquesa, detalles, ajustes, biblioteca vacía, pantalla de escaneo, avisos y portadas diferidas.
 El renderer usa el tipo Liberation Sans ya empotrado en mkxp-z. Redibuja por
 eventos, sin bucle continuo de creación de texturas cuando está inactivo.
+El escaneo es síncrono: la pantalla informa de la operación, pero la entrada
+queda suspendida mientras recorre las carpetas.
 
 | Botón Switch | Evento SDL | Acción |
 |---|---|---|
@@ -93,13 +96,15 @@ La incidencia de X en M012 sigue abierta; este mapeo no demuestra su corrección
   parche M013 depende del cierre SDL y se aplica después de él.
 - `make -C mkxp-z-nx -j6 FNX_LAUNCHER=1 FNX_LIBGCC_PREFIX=<prefijo aislado>`
   desde MSYS2 de devkitPro: código 0; ELF y NRO generados. El log está en
-  `local/m013/build-delivery.log`. No se modificó el SDK global.
+  `local/m013/build-delivery-v2.log`. No se modificó el SDK global.
+- La compilación de regresión sin `FNX_LAUNCHER` también terminó con código 0
+  y produjo `rgss-switch.nro` (`local/m013/build-generic-regression.log`).
 - `tests/run-launcher-host.cmd <paquete>` con Visual Studio C++: código 0;
   biblioteca vacía, dos instalaciones externas, JSON inválido, nombre largo,
   portada con ruta prohibida, ID discordante, configuración persistente y
   conservación de claves desconocidas. La prueba lee el paquete M013 real.
 - `python docs/fangame-nx/auditar-armv8.py <elf> <nro>`: cero patrones conocidos
-  incompatibles y 11 767 608 bytes de código ELF/NRO idénticos. `nm -u` no
+  incompatibles y 11 767 736 bytes de código ELF/NRO idénticos. `nm -u` no
   lista símbolos indefinidos. El manifiesto del paquete pasa sus 25 hashes.
 
 ## Pendiente y límites
