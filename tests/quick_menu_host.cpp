@@ -81,6 +81,11 @@ int main(int argc,char **argv) {
         fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,code));
     fnx::quick_init(root,"pokemon-opalo");
     assert(!fnx::quick_set_speed(9));
+    assert(!fnx::quick_exit_requested());
+    fnx::quick_request_exit();
+    assert(fnx::quick_exit_requested());
+    assert(fnx::quick_take_exit_request());
+    assert(!fnx::quick_take_exit_request());
     fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_LEFTSHOULDER));
     fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_RIGHTSHOULDER));
     fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_START));

@@ -167,10 +167,10 @@ static void nx_boot_rota(void)
  * "desbloqueado": vale desde el primer constructor estatico, que es antes de
  * que exista nada a lo que llamar para inicializarlo. */
 static Mutex nx_log_mtx;
+static int nx_log_fd_abierto = -1;
 
 static void nx_boot_mark(const char *msg)
 {
-    static int fd_abierto = -1;
     static int rotado;
     char linea[512];
     unsigned ms, i, n = 0;
@@ -210,8 +210,8 @@ static void nx_boot_mark(const char *msg)
      * vez y se queda; la ultima linea puede perderse si el proceso muere, pero
      * para eso esta el informe de fallo de Atmosphere. Con diagnostico.txt se
      * vuelve al modo lento y seguro, que es el que quiere quien depura. */
-    if (fd_abierto >= 0 && !nx_diagnostico()) {
-        write(fd_abierto, linea, n);
+    if (nx_log_fd_abierto >= 0 && !nx_diagnostico()) {
+        write(nx_log_fd_abierto, linea, n);
         mutexUnlock(&nx_log_mtx);
         return;
     }
@@ -247,7 +247,7 @@ static void nx_boot_mark(const char *msg)
         if (nx_diagnostico())
             close(fd);
         else
-            fd_abierto = fd;
+            nx_log_fd_abierto = fd;
         break;                  /* con que llegue a uno, basta */
     }
 
@@ -275,6 +275,17 @@ void nx_boot_rendirse(void)
 
 void nx_boot_trace(const char *msg);
 void nx_boot_trace(const char *msg) { nx_boot_mark(msg); }
+/* Solo para transiciones críticas: una caída no debe perder la última marca
+ * por la caché de escritura de la SD. */
+void nx_boot_trace_sync(const char *msg);
+void nx_boot_trace_sync(const char *msg)
+{
+    nx_boot_mark(msg);
+    mutexLock(&nx_log_mtx);
+    if (nx_log_fd_abierto >= 0)
+        fsync(nx_log_fd_abierto);
+    mutexUnlock(&nx_log_mtx);
+}
 
 /* NX_BUILD lo genera el Makefile en cada compilacion. Existe porque el 1 de
  * septiembre de 2026, despues de tres despliegues por FTP seguidos, no habia

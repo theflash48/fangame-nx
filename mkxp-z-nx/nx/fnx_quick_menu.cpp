@@ -13,6 +13,7 @@ bool held[SDL_CONTROLLER_BUTTON_MAX] = {};
 std::string controls = "ABXY";
 SDL_atomic_t physicalToLogical[4] = {};
 SDL_atomic_t capture = {};
+SDL_atomic_t exitRequest = {};
 bool chordReady = true;
 Uint32 chordSince = 0;
 
@@ -41,6 +42,7 @@ void quick_init(const std::string &root, const std::string &game) {
     if (!load_game_controls(root, game, controls)) controls = "ABXY";
     publishControls();
     SDL_AtomicSet(&capture, -1);
+    SDL_AtomicSet(&exitRequest, 0);
     SDL_AtomicSet(&speed, mode);
     SDL_AtomicSet(&active, 0);
     SDL_AtomicSet(&command, 0);
@@ -181,4 +183,7 @@ bool quick_reset_controls() {
     publishControls();
     return true;
 }
+void quick_request_exit() { SDL_AtomicSet(&exitRequest, 1); }
+bool quick_take_exit_request() { return SDL_AtomicSet(&exitRequest, 0) != 0; }
+bool quick_exit_requested() { return SDL_AtomicGet(&exitRequest) != 0; }
 }

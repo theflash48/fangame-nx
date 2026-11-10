@@ -1,0 +1,67 @@
+--- a/binding/graphics-binding.cpp
++++ b/binding/graphics-binding.cpp
+@@ -26,0 +27,13 @@
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++#include "binding.h"
++#include "fnx_quick_menu.h"
++extern "C" void nx_boot_trace_sync(const char *msg);
++static void quickExitOnRubyThread()
++{
++    if (!fnx::quick_take_exit_request()) return;
++    nx_boot_trace_sync("[quick] binding con GVL; SystemExit cooperativo");
++    scriptBinding->terminate();
++}
++#else
++static void quickExitOnRubyThread() {}
++#endif
+@@ -52,0 +66 @@ RB_METHOD(graphicsUpdate)
++    quickExitOnRubyThread();
+@@ -86,0 +101 @@ RB_METHOD(graphicsTransition)
++    quickExitOnRubyThread();
+@@ -196,0 +212 @@ RB_METHOD(graphicsWait)
++    quickExitOnRubyThread();
+@@ -209,0 +226 @@ RB_METHOD(graphicsFadeout)
++    quickExitOnRubyThread();
+@@ -223,0 +241 @@ RB_METHOD(graphicsFadein)
++    quickExitOnRubyThread();
+@@ -332,0 +351 @@ RB_METHOD(graphicsPlayMovie)
++    quickExitOnRubyThread();
+--- a/src/display/graphics.cpp
++++ b/src/display/graphics.cpp
+@@ -61 +61 @@
+-extern "C" void nx_boot_trace(const char *msg);
++extern "C" void nx_boot_trace_sync(const char *msg);
+@@ -962,4 +962,4 @@ struct GraphicsPrivate {
+-        /* La textura de Bitmap llega girada 180 grados en el pase directo al
+-           framebuffer de pantalla; corregir sus UV, no el juego subyacente. */
+-        quad.setTexPosRect(FloatRect(overlay.width(), overlay.height(),
+-                                     -overlay.width(), -overlay.height()),
++        /* Y ya está correctamente orientado; el U de b34 reflejaba el texto.
++           El pase modifica solo la textura del panel, no el juego. */
++        quad.setTexPosRect(FloatRect(0, overlay.height(),
++                                     overlay.width(), -overlay.height()),
+@@ -1040 +1040,6 @@ struct GraphicsPrivate {
+-                else { leaving = true; fnx::quick_close(); }
++                else {
++                    nx_boot_trace_sync("[quick] salida confirmada en overlay");
++                    leaving = true;
++                    fnx::quick_request_exit();
++                    fnx::quick_close();
++                }
+@@ -1129,8 +1134,4 @@ struct GraphicsPrivate {
+-        if (leaving) {
+-            nx_boot_trace("[quick] salida solicitada al hilo de eventos");
+-            threadData->ethread->requestTerminate();
+-        }
+-        /* El hilo principal decide la salida y rqTerm; Ruby se limpia por
+-           checkShutdown, sin destruir GL ni SDL desde el hilo de eventos. */
+-        while (leaving && !threadData->rqTerm) SDL_Delay(1);
+-        if (leaving) nx_boot_trace("[quick] rqTerm recibido; vuelve a Ruby");
++        /* El binding de Graphics recibe el control tras salir del tramo sin
++           GVL. Alli se emite SystemExit; Ruby termina y avisa al hilo de
++           eventos por la misma ruta que una salida normal del fixture. */
++        if (leaving) nx_boot_trace_sync("[quick] overlay cerrado; vuelve al binding");
+@@ -1658,0 +1660,3 @@ void Graphics::wait(int duration) {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++        if (fnx::quick_exit_requested()) break;
++#endif

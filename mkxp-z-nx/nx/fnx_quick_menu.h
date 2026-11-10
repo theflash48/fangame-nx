@@ -26,5 +26,9 @@ void quick_capture_start(int logical);
 void quick_capture_cancel();
 bool quick_assign(int logical, int physical);
 bool quick_reset_controls();
+/* Solicitud de salida que solo el binding Ruby atiende con el GVL adquirido. */
+void quick_request_exit();
+bool quick_take_exit_request();
+bool quick_exit_requested();
 }
 #endif
