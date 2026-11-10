@@ -1,0 +1,56 @@
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -229,6 +229,7 @@
+   if (SDL_GL_MakeCurrent(threadData->window, NULL) != 0)
+     Debug() << "RGSS GL unbind failed:" << SDL_GetError();
+   nx_boot_trace("[exit] RGSS after GL unbind");
++  /* M013 conserva esta liberacion en el hilo RGSS despues de usar el launcher. */
+ #endif
+ 
+   return 0;
+@@ -284,6 +285,9 @@
+ #include <switch.h>
+ #include <unistd.h>
+ #include <libgen.h>
++#ifdef FNX_LAUNCHER
++#include "launcher_ui.h"
++#endif
+ 
+ /* Arranque de Horizon: donde esta el juego.
+ 
+@@ -452,7 +456,35 @@
+         nx_boot_trace(linea);
+     }
+ 
++#ifdef FNX_LAUNCHER
++    /* El selector vive antes de RGSS. SDL se cierra por completo antes de que
++       el motor cree su ventana GL; un juego nunca devuelve a este selector. */
++    {
++        char root[512] = "sdmc:/switch/FangameNX";
++        if (argc > 0 && argv[0] && strchr(argv[0], '/')) {
++            snprintf(root, sizeof(root), "%s", argv[0]);
++            char *slash = strrchr(root, '/');
++            if (slash) *slash = 0;
++        }
++        std::string selected = fnx::launcher(root);
++        if (selected.empty()) {
++            nx_boot_trace("[launcher] salida sin juego");
++            nx_carpeta_juego_rendirse();
++            return 0;
++        }
++        nx_boot_trace("[launcher] ruta elegida; cambio de directorio");
++        if (chdir(selected.c_str()) != 0) {
++            nx_boot_trace("[launcher] fallo al entrar en la carpeta elegida");
++            nx_carpeta_juego_rendirse();
++            nx_aviso_registra("No se pudo abrir la carpeta del juego seleccionado.");
++            nx_aviso_mostrar();
++            return 1;
++        }
++        nx_carpeta_juego_fija(selected.c_str());
++    }
++#else
+     nxSetupWorkdir(argc, argv);
++#endif
+     {
+         char cwd[512] = {0};
+         if (getcwd(cwd, sizeof(cwd))) Debug() << "[nx] getcwd ->" << cwd;

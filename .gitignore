@@ -85,6 +85,14 @@
 /mkxp-z-nx/*
 !/mkxp-z-nx/Makefile
 !/mkxp-z-nx/nx/
+!/tests/
+/tests/*
+!/tests/launcher_host.cpp
+!/tests/run-launcher-host.cmd
+!/packaging/
+/packaging/*
+!/packaging/build-launcher-package.py
+!/packaging/make-launcher-icon.ps1
 # romfs/ va dentro del .nro del motor y esta vacio a proposito: sin un romfs
 # presente, pedir romfs:/juego.txt mata al emulador. Lo explica su LEEME.txt.
 !/mkxp-z-nx/romfs/
@@ -172,6 +180,8 @@
 !/docs/fangame-nx/estabilidad-multifixture-fnx-017.md
 !/docs/fangame-nx/estabilidad-cinco-ciclos-fnx-017.md
 !/docs/fangame-nx/informe-chatgpt-fnx-017-estabilidad.md
+!/docs/fangame-nx/desarrollo-launcher-m013.md
+!/docs/fangame-nx/informe-chatgpt-m013-launcher.md
 !/docs/fangame-nx/log-m011-verificacion.txt
 !/docs/fangame-nx/verificar-ciclos-fnx-017.py
 !/docs/fangame-nx/log-fnx-003.md

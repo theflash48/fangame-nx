@@ -47,6 +47,10 @@ PYTHON  ?= py -3
 
 TARGET  := rgss-switch
 BUILD   := build
+ifeq ($(FNX_LAUNCHER),1)
+TARGET  := FangameNX
+BUILD   := build-launcher
+endif
 
 #-------------------------------------------------------------------------------
 # Fuentes. Listadas a mano a partir de src/meson.build y binding/meson.build:
@@ -129,6 +133,9 @@ DEFINES := -D__SWITCH__ -DMKXPZ_BUILD_MESON -DMKXPZ_VERSION=\"2.4.2\" -DNX_BUILD
            -DAL_LIBTYPE_STATIC \
            -DWORKDIR_CURRENT \
            -DCURL_STATICLIB
+ifeq ($(FNX_LAUNCHER),1)
+DEFINES += -DFNX_LAUNCHER
+endif
 # GLES2_HEADER    -> backend GLES en vez de GL de escritorio (gfx_backend=gles)
 # MKXPZ_ALCDEVICE -> openal-soft 1.21.1 de portlibs usa `ALCdevice` (>=1.20.1)
 # AL_LIBTYPE_STATIC -> enlace estatico de OpenAL
@@ -233,10 +240,17 @@ $(TARGET).elf: $(OBJS)
 # cual sale de compilar, que es lo que se prueba en el emulador.
 APP_TITLE   := rgss-switch
 APP_AUTHOR  := rgss-switch
+ifeq ($(FNX_LAUNCHER),1)
+APP_TITLE   := FangameNX
+APP_AUTHOR  := FangameNX
+endif
 # La version del MOTOR (fichero VERSION en la raiz), que es lo unico que este
 # binario puede saber: el juego lo pone quien lo empaquete.
 APP_VERSION := $(SELLO)
 APP_ICON    := $(RAIZ)/nsp/icono.jpg
+ifeq ($(FNX_LAUNCHER),1)
+APP_ICON    := $(CURDIR)/nx/launcher-icon.jpg
+endif
 
 # El .nacp se rehace siempre: lleva el sello dentro y un sello viejo es peor
 # que ninguno.
