@@ -2,9 +2,14 @@
 #include "launcher_ui.h"
 #include "launcher_library.h"
 #include <SDL.h>
+#include <SDL_touch.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
+#ifdef __SWITCH__
+#include <switch.h>
+#endif
 #include <algorithm>
+#include <cerrno>
 #include <cstdio>
 #include <sys/stat.h>
 
@@ -12,6 +17,16 @@ extern unsigned char ___assets_liberation_ttf[];
 extern unsigned int ___assets_liberation_ttf_len;
 
 namespace fnx {
+#ifdef __SWITCH__
+extern "C" char *fake_heap_start;
+extern "C" char *fake_heap_end;
+static bool applet_memory() {
+    return !envIsNso() &&
+        (size_t)(fake_heap_end - fake_heap_start) < 1024ULL * 1024 * 1024;
+}
+#else
+static bool applet_memory() { return false; }
+#endif
 static const SDL_Color bg = {12, 20, 35, 255};
 static const SDL_Color panel = {23, 35, 54, 255};
 static const SDL_Color inset = {31, 47, 68, 255};
@@ -70,7 +85,7 @@ static void paragraph(SDL_Renderer *r, TTF_Font *font, int x, int y,
 }
 enum View { LIBRARY, DETAILS, SETTINGS, MESSAGE, SCANNING };
 struct Ui {
-    std::string root, message;
+    std::string root, message, last_game;
     Scan scan;
     View view = SCANNING;
     View message_back = LIBRARY;
@@ -108,17 +123,27 @@ static void game_cover(SDL_Renderer *r, Ui &u, const Game &g, int x, int y, int 
     SDL_RenderCopy(r,u.cover_texture,nullptr,&dest);
 }
 static void rescan(Ui &u) {
+    const std::string wanted = u.scan.games.empty() ? u.last_game : u.scan.games[u.selected].id;
     u.scan = scan(u.root);
-    if (u.selected >= u.scan.games.size()) u.selected = 0;
+    auto it = std::find_if(u.scan.games.begin(), u.scan.games.end(),
+        [&](const Game &g) { return g.id == wanted; });
+    u.selected = it == u.scan.games.end() ? 0 : (size_t)(it - u.scan.games.begin());
     log_line(u.root, u.scan.error.empty() ? "scan: terminado" : "scan: error de lectura");
     u.scan_pending=false;
     u.view=u.scan_back;
 }
+static size_t first_visible(const Ui &u) {
+    size_t shown = u.compact ? 8 : 5;
+    return u.selected >= shown ? u.selected - shown + 1 : 0;
+}
 static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font *small, Ui &u) {
+    const bool limited = applet_memory();
     box(r,0,0,1280,720,bg);
     box(r,0,0,1280,8,accent);
     label(r,title,52,35,"FangameNX",white);
-    label(r,small,1000,48,"LAUNCHER  0.1",muted,250);
+    label(r,small,limited ? 912 : 1000,48,limited ? "MEMORIA LIMITADA" : "LAUNCHER  0.1",limited ? warning : muted,205);
+    box(r,1115,25,113,58,inset);
+    label(r,small,1144,43,"Salir",white);
     box(r,50,104,1180,1,inset);
     if (u.view == SCANNING) {
         box(r,52,200,1176,405,panel);
@@ -136,7 +161,7 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         } else {
             int shown = u.compact ? 8 : 5;
             int step = u.compact ? 55 : 76;
-            size_t start = u.selected >= (size_t)shown ? u.selected - shown + 1 : 0;
+            size_t start = first_visible(u);
             for (int i=0; i<shown && start+(size_t)i<u.scan.games.size(); ++i) {
                 size_t index = start+i;
                 const Game &g = u.scan.games[index];
@@ -153,7 +178,12 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
             label(r,small,920,300,g.author.empty()?"Autor no indicado":g.author,muted,275);
             paragraph(r,small,920,348,g.description,muted,29,5);
             label(r,small,710,482,g.ready?"LISTO PARA ARRANCAR":"INSTALACIÓN INCOMPLETA",g.ready?accent:warning);
-            label(r,small,710,545,"X  Reescanear    Y  Ajustes    +  Salir",muted,490);
+            box(r,710,535,145,57,inset);
+            box(r,865,535,145,57,inset);
+            box(r,1020,535,178,57,inset);
+            label(r,small,720,552,"Reescanear",white);
+            label(r,small,891,552,"Ajustes",white);
+            label(r,small,1058,552,"Salir",white);
         }
     } else if (u.view == DETAILS && !u.scan.games.empty()) {
         const Game &g=u.scan.games[u.selected];
@@ -166,7 +196,12 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         paragraph(r,normal,370,390,g.description,white,47,3);
         paragraph(r,small,370,510,g.ready?"Estructura preparada. Compatibilidad del juego sin verificar.":g.note,
                   g.ready?accent:warning,73,2);
-        label(r,small,370,567,g.ready?"A  Iniciar juego    B  Volver    +  Salir":"B  Volver    +  Salir",muted);
+        if (g.ready) {
+            box(r,370,548,205,58,inset);
+            label(r,small,390,565,limited?"Sin memoria":"Iniciar juego",white);
+        }
+        box(r,590,548,170,58,inset);
+        label(r,small,635,565,"Volver",white);
     } else if (u.view == SETTINGS) {
         label(r,normal,52,126,"Ajustes",white);
         box(r,52,200,1176,405,panel);
@@ -174,16 +209,19 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         label(r,normal,90,238,std::string("Lista compacta: ")+(u.compact?"Sí":"No"),white);
         label(r,normal,90,316,"Reescanear biblioteca",white);
         label(r,normal,90,394,"Acerca de FangameNX",white);
-        label(r,small,90,520,"Motor mkxp-z 2.4.2 + CRuby 3.1.7. B vuelve; + sale de la app.",muted);
+        box(r,90,515,170,58,inset);
+        label(r,small,135,532,"Volver",white);
+        label(r,small,290,532,"Motor mkxp-z 2.4.2 + CRuby 3.1.7",muted);
     } else {
         box(r,52,200,1176,405,panel);
         label(r,title,90,250,"Aviso",warning);
         paragraph(r,normal,90,330,u.message,white,73,5);
-        label(r,small,90,548,"B  Volver",muted);
+        box(r,90,530,170,58,inset);
+        label(r,small,135,547,"Volver",white);
     }
     box(r,50,651,1180,1,inset);
     label(r,small,52,667,"Cruceta  Mover     A  Confirmar     B  Volver     +  Salir",muted);
-    label(r,small,1100,667,"M013",accent);
+    label(r,small,1100,667,"M015",accent);
     SDL_RenderPresent(r);
 }
 static void move(Ui &u, int delta) {
@@ -211,6 +249,18 @@ static void action(Ui &u, int kind) {
             Scan fresh=scan(u.root);
             auto it=std::find_if(fresh.games.begin(),fresh.games.end(),[&](const Game &g){return g.id==id;});
             if (it!=fresh.games.end() && it->ready) {
+                if (applet_memory()) {
+                    u.message="Memoria insuficiente: FangameNX se abrió como applet. Abre Homebrew Menu manteniendo R al iniciar un juego instalado y vuelve a abrir FangameNX. El motor necesita memoria de aplicación.";
+                    u.message_back=DETAILS;
+                    u.view=MESSAGE;
+                    log_line(u.root,"arranque bloqueado: memoria de applet");
+                    return;
+                }
+                if (!save_last_game(u.root,id)) {
+                    char issue[100];
+                    snprintf(issue,sizeof(issue),"config: no se pudo recordar el ultimo juego; errno=%d",errno);
+                    log_line(u.root,issue);
+                }
                 u.launch=it->path;
                 log_line(u.root,("seleccion: " + id).c_str());
                 u.running=false;
@@ -228,14 +278,53 @@ static void action(Ui &u, int kind) {
                     u.view=MESSAGE;
                 }
             } else if (u.settings==1) { u.scan_back=SETTINGS; u.view=SCANNING; u.scan_pending=true; }
-            else { u.message="FangameNX M013. Juegos externos preparados en games/. El juego vuelve a Homebrew Menu al salir. FNX-017 sigue abierto."; u.message_back=SETTINGS; u.view=MESSAGE; }
+            else { u.message="FangameNX M015. Juegos externos preparados en games/. Al cerrar un juego, vuelve a la biblioteca; + sale a Homebrew Menu. La incidencia de estabilidad FNX-017 sigue abierta."; u.message_back=SETTINGS; u.view=MESSAGE; }
         }
+    }
+}
+static bool hit(float x, float y, int left, int top, int width, int height) {
+    return x >= left && x < left + width && y >= top && y < top + height;
+}
+static void touch(Ui &u, float x, float y) {
+    if (hit(x,y,1115,25,113,58)) { action(u,4); return; }
+    if (u.view == LIBRARY && !u.scan.games.empty()) {
+        const int shown = u.compact ? 8 : 5;
+        const int step = u.compact ? 55 : 76;
+        const size_t start = first_visible(u);
+        for (int i=0; i<shown && start+(size_t)i<u.scan.games.size(); ++i) {
+            if (hit(x,y,52,205+i*step,600,step-7)) {
+                const size_t index = start+(size_t)i;
+                if (u.selected == index) action(u,0);
+                else u.selected = index;
+                return;
+            }
+        }
+        if (hit(x,y,710,535,145,57)) { action(u,2); return; }
+        if (hit(x,y,865,535,145,57)) { action(u,3); return; }
+        if (hit(x,y,1020,535,178,57)) { action(u,4); return; }
+        if (hit(x,y,680,205,548,315)) { action(u,0); return; }
+    } else if (u.view == DETAILS) {
+        if (hit(x,y,590,548,170,58)) { action(u,1); return; }
+        if (!u.scan.games.empty() && u.scan.games[u.selected].ready &&
+            hit(x,y,370,548,205,58)) { action(u,0); return; }
+    } else if (u.view == SETTINGS) {
+        if (hit(x,y,90,515,170,58)) { action(u,1); return; }
+        for (int i=0; i<3; ++i) {
+            if (hit(x,y,72,225+i*78,1136,64)) {
+                u.settings=i;
+                action(u,0);
+                return;
+            }
+        }
+    } else if (u.view == MESSAGE && hit(x,y,90,530,170,58)) {
+        action(u,1);
     }
 }
 std::string launcher(const std::string &root) {
     Ui u; u.root=root;
     log_line(root,"inicio: launcher");
     if (!load_preference(root,u.compact)) log_line(root,"config: invalida; valores predeterminados");
+    if (!load_last_game(root,u.last_game)) log_line(root,"config: ultimo juego invalido; foco inicial predeterminado");
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) != 0) return "";
     if (TTF_Init() != 0) { SDL_Quit(); return ""; }
     SDL_Window *window=SDL_CreateWindow("FangameNX",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1280,720,0);
@@ -259,6 +348,22 @@ std::string launcher(const std::string &root) {
         if (!SDL_WaitEventTimeout(&e,33)) continue;
         if (e.type==SDL_QUIT) u.running=false;
         if (e.type==SDL_CONTROLLERDEVICEADDED && !pad) pad=SDL_GameControllerOpen(e.cdevice.which);
+        if (e.type==SDL_FINGERUP ||
+            (e.type==SDL_MOUSEBUTTONUP && e.button.which!=SDL_TOUCH_MOUSEID)) {
+            Uint32 now=SDL_GetTicks();
+            if (now-last>=140) {
+                last=now;
+                float x=0,y=0;
+                if (e.type==SDL_FINGERUP) {
+                    int w=0,h=0;
+                    SDL_GetWindowSize(window,&w,&h);
+                    SDL_RenderWindowToLogical(r,e.tfinger.x*w,e.tfinger.y*h,&x,&y);
+                } else {
+                    SDL_RenderWindowToLogical(r,(float)e.button.x,(float)e.button.y,&x,&y);
+                }
+                touch(u,x,y);
+            }
+        }
         if (e.type==SDL_CONTROLLERBUTTONDOWN || e.type==SDL_KEYDOWN) {
             if (e.type==SDL_KEYDOWN && e.key.repeat) continue;
             Uint32 now=SDL_GetTicks();

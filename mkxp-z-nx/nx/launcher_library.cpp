@@ -161,8 +161,14 @@ Scan scan(const std::string &root) {
     });
     return result;
 }
-bool load_preference(const std::string &root, bool &compact) {
+static std::string config_read_path(const std::string &root) {
     std::string path = root + "/config/launcher.json";
+    if (regular(path)) return path;
+    std::string backup = path + ".bak";
+    return regular(backup) ? backup : path;
+}
+bool load_preference(const std::string &root, bool &compact) {
+    std::string path = config_read_path(root);
     if (!regular(path)) return true;
     try {
         auto v = json5pp::parse(read_limited(path, 4096));
@@ -177,7 +183,25 @@ bool load_preference(const std::string &root, bool &compact) {
         return true;
     } catch (...) { return false; }
 }
-bool save_preference(const std::string &root, bool compact) {
+bool load_last_game(const std::string &root, std::string &id) {
+    id.clear();
+    std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        auto v = json5pp::parse(read_limited(path, 4096));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto schema = o.find("schema");
+        if (schema == o.end() || !schema->second.is_number() ||
+            schema->second.as_integer() != 1) return false;
+        auto last = o.find("last_game");
+        if (last == o.end()) return true;
+        if (!last->second.is_string() || !safe_child(last->second.as_string())) return false;
+        id = last->second.as_string();
+        return true;
+    } catch (...) { return false; }
+}
+static bool save_config_value(const std::string &root, const char *key, const json5pp::value &value) {
     std::string folder = root + "/config";
 #ifdef _WIN32
     if (_mkdir(folder.c_str()) != 0 && errno != EEXIST) return false;
@@ -186,16 +210,18 @@ bool save_preference(const std::string &root, bool compact) {
 #endif
     std::string tmp = folder + "/launcher.json.tmp";
     std::string dst = folder + "/launcher.json";
+    std::string backup = dst + ".bak";
     json5pp::value v;
     try {
-        v = regular(dst) ? json5pp::parse(read_limited(dst, 4096)) :
-            json5pp::parse("{\"schema\":1}");
+        const std::string source = config_read_path(root);
+        v = regular(source) ? json5pp::parse(read_limited(source, 4096)) :
+            json5pp::parse("{\"schema\":1,\"compact\":false}");
         if (!v.is_object()) return false;
         auto &o = v.as_object();
         auto schema = o.find("schema");
         if (schema == o.end() || !schema->second.is_number() ||
             schema->second.as_integer() != 1) return false;
-        o["compact"] = compact;
+        o[key] = value;
     } catch (...) { return false; }
     FILE *f = fopen(tmp.c_str(), "wb");
     if (!f) return false;
@@ -208,12 +234,29 @@ bool save_preference(const std::string &root, bool compact) {
     if (ok) ok = fsync(fileno(f)) == 0;
 #endif
     ok = (fclose(f) == 0) && ok;
-#ifdef _WIN32
-    if (ok) ok = MoveFileExA(tmp.c_str(), dst.c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH) != 0;
-#else
+    /* Horizon no sustituye un destino existente con rename. Se conserva el
+       JSON anterior como respaldo hasta que el temporal pasa a ser el activo.
+       Tras una interrupcion entre ambos renombres, las lecturas usan .bak. */
+    bool moved_old = false;
+    if (ok && regular(dst)) {
+        if (regular(backup) && remove(backup.c_str()) != 0) ok = false;
+        if (ok) {
+            moved_old = rename(dst.c_str(), backup.c_str()) == 0;
+            ok = moved_old;
+        }
+    }
     if (ok) ok = rename(tmp.c_str(), dst.c_str()) == 0;
-#endif
+    const int error_code = ok ? 0 : errno;
+    if (!ok && moved_old) rename(backup.c_str(), dst.c_str());
+    if (ok && regular(backup)) remove(backup.c_str());
     if (!ok) remove(tmp.c_str());
+    if (!ok) errno = error_code;
     return ok;
+}
+bool save_preference(const std::string &root, bool compact) {
+    return save_config_value(root, "compact", compact);
+}
+bool save_last_game(const std::string &root, const std::string &id) {
+    return safe_child(id) && save_config_value(root, "last_game", id);
 }
 }

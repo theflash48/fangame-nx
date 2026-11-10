@@ -21,5 +21,7 @@ Scan scan(const std::string &root);
 bool safe_child(const std::string &name);
 bool load_preference(const std::string &root, bool &compact);
 bool save_preference(const std::string &root, bool compact);
+bool load_last_game(const std::string &root, std::string &id);
+bool save_last_game(const std::string &root, const std::string &id);
 }
 #endif

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepara una entrega local M013. Nunca escribe en una microSD ni en MTP."""
+"""Prepara una entrega local del launcher. Nunca escribe en una microSD ni en MTP."""
 # SPDX-License-Identifier: GPL-2.0-or-later
 from hashlib import sha256
 from pathlib import Path
@@ -59,10 +59,12 @@ def main() -> None:
     copy(ROOT / "LICENSE", OUT / "LICENSE")
     copy(ROOT / "LICENCIAS.md", OUT / "LICENCIAS.md")
     (OUT / "INSTALAR-DESPUES.txt").write_text(
-        "Paquete local de desarrollo M013. No instalado.\n"
+        "Paquete local de desarrollo FangameNX. No instalado.\n"
         "Tras la revisión del propietario, copiar switch/FangameNX/ a la raíz de una microSD propia.\n"
         "Abrir FangameNX.nro desde Homebrew Menu con memoria de aplicación.\n"
-        "A confirma, B vuelve, X reescanea, + abre ajustes.\n"
+        "A confirma, B vuelve, X reescanea, Y abre ajustes y + sale.\n"
+        "La biblioteca, los detalles y los ajustes admiten controles tactiles.\n"
+        "Tras cerrar un juego con B, el launcher recuerda el ultimo juego iniciado.\n"
         "Los ejemplos son sintéticos originales; no se afirma compatibilidad con fangames.\n",
         encoding="utf-8",
     )
