@@ -3,7 +3,8 @@
 Fecha: 10 de noviembre de 2026. Rama local:
 `feature/fangamenx-launcher-mvp`. Commits de implementación: `277be0d`,
 `aa4c8f2`; primer commit de documentación: `1b4f3bc`.
-No se hizo `push`, release, instalación, MTP ni acceso a ninguna microSD.
+No se hizo `push` ni release. Tras la entrega inicial, el propietario autorizó
+expresamente la instalación por MTP; el resultado está documentado abajo.
 
 ## Resultado general
 
@@ -54,7 +55,22 @@ existente. El juego sale a Homebrew Menu. El contrato y esquema están en
 - Paquete local: `local/m013/package-b4b93af91e/`, 25 archivos, SHA-256 del
   manifiesto `8eb80569390e8fb5dafb1e0ca572cf665bf8d5f4b94df10dc90e2cc325fd027f`.
   Incluye dos fixtures propios (`fnx009`, `fnx017`), configuración y licencias.
-  No contiene fangames ajenos ni claves. No se copió a dispositivo alguno.
+  No contiene fangames ajenos ni claves.
+
+## Instalación MTP posterior, autorizada por el propietario
+
+Se comprobó un único dispositivo WPD `Nintendo Switch` operativo y que
+`SD Card/switch/FangameNX` no existía. Se creó esa carpeta y se copiaron
+únicamente los 22 archivos de `switch/FangameNX/` del paquete, con sus 16
+directorios. Cada archivo se leyó de vuelta por MTP a
+`local/m013/mtp-readback-20261110-074114/`: **22 de 22 SHA-256 coinciden** con
+el manifiesto local, incluido el NRO. `local/m013/mtp-install-launcher.log`
+registra cada verificación y termina en `INSTALL_VERIFIED 22/22`. Una lectura
+final muestra `config/`, `games/`, `logs/` y `FangameNX.nro` en la raíz de la
+nueva instalación. No se retiraron ni modificaron instalaciones anteriores.
+
+La instalación verificada por lectura de vuelta **no equivale a una prueba de
+arranque**: falta cerrar USB File Transfer y ejecutar el NRO en la consola.
 
 ## Estabilidad
 
@@ -67,15 +83,14 @@ sin prometer que sea seguro tras todos los ciclos del launcher.
 
 ## Próxima prueba del propietario
 
-1. Revisar el paquete local y su manifiesto. Copiarlo solo a una microSD
-   propia cuando decida realizar la prueba; el paquete no se ha instalado.
-2. Abrir el NRO desde Homebrew Menu con memoria de aplicación. Confirmar
+1. Salir de USB File Transfer y abrir `switch/FangameNX/FangameNX.nro` desde
+   Homebrew Menu con memoria de aplicación. Confirmar
    biblioteca de dos juegos, foco, detalles, ajustes, reescaneo y salida con B.
-3. Lanzar `fnx009`, probar A/X/B y verificar retorno al Homebrew Menu.
-4. Abrir el mismo NRO de nuevo y lanzar `fnx017`; verificar la otra carpeta
+2. Lanzar `fnx009`, probar A/X/B y verificar retorno al Homebrew Menu.
+3. Abrir el mismo NRO de nuevo y lanzar `fnx017`; verificar la otra carpeta
    y su log. Conservar `logs/launcher.log`, `mkxp-boot.log`, `mkxp-debug.log` y
    los logs de fixtures sin modificar los datos originales.
-5. Comunicar cualquier bloqueo, fallo de X o pánico con el paso exacto y
+4. Comunicar cualquier bloqueo, fallo de X o pánico con el paso exacto y
    los logs. No inferir estabilidad de un solo ciclo.
 
 ## Próxima fase
