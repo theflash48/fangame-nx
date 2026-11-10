@@ -41,10 +41,10 @@ Para cada ciclo de la **serie controlada**, el propietario abre la aplicación *
 | 1 | `LECTURA OK`; pantalla sin anomalías comunicadas | A +1; X azul→verde | B volvió por sí solo al Homebrew Menu | `ciclo-01/`, cuatro copias locales; verificador `--expected 1` OK | Ningún error visible comunicado |
 | 2 | `LECTURA OK`, según confirmación general del propietario | A +1; X azul→verde, según confirmación | B volvió solo al Homebrew Menu, según confirmación | `ciclo-02/`, cuatro copias locales; verificador `--expected 1` OK | Ningún error visible comunicado |
 | 3 | `LECTURA OK`, según la pauta realizada y el log | A +1; **X no cambió el color** | B volvió solo al Homebrew Menu | `ciclo-03/`, cuatro copias locales; verificador rechazó la ausencia de X | Fallo de entrada X observado y confirmado por log |
-| 4 (diagnóstico adicional) | No comunicado | No comunicado | No comunicado | **Sin copia MTP posterior** | Pánico de Atmosphère; reinicio forzado; causa sin determinar |
-| 5 | No ejecutado | — | — | — | No se continúa tras el crash del intento 4 |
+| 4 (diagnóstico adicional) | Ruby registró `pantalla=inicial`; resultado visual no comunicado | Sin eventos A/X en el log | Sin evento B ni marcas de salida | Cuatro logs y AFE2 recuperados por MTP | Pánico de Atmosphère; reinicio forzado; causa sin determinar |
+| 5 (prueba final tras reinicio) | `LECTURA OK` y espera inicial sin fallo | A +1; X azul→verde tras pulsación mantenida ~1 s | B volvió solo al Homebrew Menu | `ciclo-05/`, cuatro copias locales; verificador `--expected 1` OK | Ningún error visible comunicado |
 
-La serie de cinco ciclos se **detuvo tras el ciclo 3** por el fallo de X. A petición posterior del propietario se intentó **un solo ciclo diagnóstico adicional**; el propietario comunicó un pánico de Atmosphère y tuvo que forzar el reinicio, ya realizado. No se accedió a MTP tras ese aviso ni se recuperaron logs del cuarto intento. No se acredita estabilidad de controles a cinco ciclos. En los tres ciclos con logs, Ruby terminó, se registró `SDL_DestroyWindow OK` y el propietario observó regreso autónomo al menú; este resultado de cierre no convierte el ciclo 3 en correcto. El paquete dual M011 no se instala ni se prueba en esta misión.
+La serie de cinco ciclos **consecutivos correctos** se detuvo tras el ciclo 3 por el fallo de X. A petición posterior del propietario se intentó un cuarto ciclo diagnóstico, que acabó en un pánico de Atmosphère y reinicio forzado. Tras volver a conectar la Switch, se recuperaron los cuatro logs del cuarto intento y el informe fatal por MTP, sin modificar los originales. El propietario pidió **una sola prueba final tras reiniciar**, que funcionó y cuyos logs se conservaron como `ciclo-05/`. El balance es **tres pruebas satisfactorias (1, 2 y 5), una con fallo de X (3) y una interrumpida por pánico (4)**. No se acredita estabilidad de cinco ciclos seguidos. El paquete dual M011 no se instaló ni probó.
 
 ### Evidencia del ciclo 1 controlado
 
@@ -94,6 +94,31 @@ Error: std::abort (0xFFE)
 Report Saved to atmosphere/fatal_errors/report_9b251d017c.bin
 ```
 
-Estas cadenas proceden de la observación del propietario. **No se ha leído ni verificado el archivo `.bin`**, ni se conoce el momento del pánico respecto a A, X o B. El Title ID mostrado no identifica por sí solo la causa de la interrupción. No se recibió una nueva captura MTP ni se consultaron registros de la consola después del crash. No se atribuye el pánico al problema de X ni al cierre SDL sin evidencia. Se detiene toda interacción con la Switch hasta que el propietario retome expresamente la investigación. El quinto ciclo no se realiza.
+Estas cadenas proceden de la observación del propietario. En la sesión siguiente indicó que ya había reconectado la Switch y pidió investigar. Una copia local del `.bin` y de los cuatro logs quedó en `local/fnx017-stability-20261110-serie/`, sin escribir en MTP. **No recuerda en qué momento apareció el pánico respecto a A, X o B.** El Title ID mostrado no identifica por sí solo la causa de la interrupción. No se atribuye el pánico al problema de X ni al cierre SDL sin evidencia.
 
-**Siguiente tarea recomendada:** cuando el propietario lo indique, conservar en modo lectura los cuatro logs del fixture si están disponibles y comparar su sufijo con `ciclo-03/` para determinar hasta dónde llegó el cuarto intento. El informe `atmosphere/fatal_errors/report_9b251d017c.bin` está fuera de la autorización MTP actual, limitada al fixture, y requerirá autorización específica antes de recuperarlo. Después, diseñar una prueba diagnóstica de entrada X que registre por separado eventos SDL y estados/filos de RGSS `Input`, con tiempos, sin alterar las evidencias. No se propone parchear el mapeo a partir de una única omisión ni repetir ahora los ciclos.
+Los cuatro logs de `ciclo-04/` conservan los de `ciclo-03/` como prefijo. El sufijo nuevo de `fnx009-probe.log` contiene `FNX009 INICIO`, `lectura=OK`, `escritura=OK` y `pantalla=inicial`, pero **ningún evento A/X/B ni `FNX009 RUBY COMPLETADO`**. `fnx009-escritura.txt` creció 20 bytes. `mkxp-boot.log` marca inicio con memoria de aplicación, `SharedState OK` y Ruby, y termina en `[mem] pico del monton 199 MB`, sin ninguna marca `[exit]`; `mkxp-debug.log` termina tras iniciar el motor y tampoco registra `Shutting down.`. `verificar-ciclos-fnx-017.py ciclo-03 ciclo-04 --expected 1` devuelve código 1: falta `boton=A contador=1`. Los logs sitúan la interrupción **después de dibujar la pantalla inicial en Ruby y antes de cualquier entrada registrada**, sin demostrar cuándo pulsó el propietario.
+
+| Archivo recuperado después del pánico | Bytes | SHA-256 de la copia local |
+|---|---:|---|
+| `ciclo-04/fnx009-probe.log` | 1 606 | `8521fa4eebc1bd51700903cc290b94a230e4e54e0b57362d5d60f0b1d3d93d30` |
+| `ciclo-04/fnx009-escritura.txt` | 140 | `a7010fd06bbf463db32862c9669cc7de7a5c9f974e2e662879f9cb36838e17ce` |
+| `ciclo-04/mkxp-boot.log` | 29 776 | `8efc62774321fb8569d6661ce1d833c88974fc53ac4e5cf85945f4a58047cf3e` |
+| `ciclo-04/mkxp-debug.log` | 6 556 | `f21099b0ecf73acea94edc3acab27593df05712f12b1b0c407aba4c3d3cf34be` |
+| `fatal-report/report_9b251d017c.bin` | 1 104 | `806ee5b429f57174d42d48f202946c175dbca73b3a9219b70571bdb12ea1bf06` |
+
+La copia AFE2 empieza con `AFE2`, código `0xFFE` y Title ID `0100000000000034`; el identificador interno coincide con `9b251d017c` del nombre. Hay PC `0x580b020598`, base de módulo `0x580b000000` y cuatro entradas de traza declaradas, pero no se dispone de símbolos del módulo para interpretarlas. El formato se contrastó con la [estructura de Hekate](https://github.com/CTCaer/hekate/blob/master/bootloader/hos/secmon_exo.c). El [árbol oficial de Atmosphère](https://github.com/Atmosphere-NX/Atmosphere/blob/master/atmosphere.mk) asigna `0100000000000034` a su módulo `fatal`; un [comentario de un colaborador de Atmosphère](https://github.com/Atmosphere-NX/Atmosphere/issues/816) describe ese ID en otro caso como un fallo durante la presentación de un error fatal. **Inferencia:** este reporte puede ser secundario y no revelar el error inicial de FangameNX o del sistema. No prueba que FangameNX haya llamado a `std::abort` ni señala una corrección del runtime.
+
+### Prueba final después del reinicio
+
+El propietario realizó un último lanzamiento del **mismo NRO sin cambios**: esperó cinco segundos en `LECTURA OK`, pulsó A una vez, mantuvo X aproximadamente un segundo, pulsó B y comunicó que todo funcionó y volvió al Homebrew Menu. Los cuatro logs de `ciclo-05/` conservan los de `ciclo-04/` como prefijo. El sufijo registra exactamente una ejecución con `lectura=OK`, `escritura=OK`, `boton=A contador=1`, `boton=X color=verde`, `boton=B salida_solicitada`, finalización Ruby, `SDL_DestroyWindow OK` y `[exit] 08 before return main`. `verificar-ciclos-fnx-017.py ciclo-04 ciclo-05 --expected 1` terminó con código 0.
+
+| Archivo en `ciclo-05/` | Bytes | SHA-256 de la copia local |
+|---|---:|---|
+| `fnx009-probe.log` | 1 804 | `28ab6cdfcceec10199039e2ffb458da0805b17b698f200f72dde92df4814a62e` |
+| `fnx009-escritura.txt` | 160 | `0bfa66e7b8ba3ad9ad2b8e050b7aa42f89b5237cfb8a3a270b997f2bdfceb34d` |
+| `mkxp-boot.log` | 34 001 | `487da8849ba5e3710342914e8f5e20ee995bd5978aeb180956d03e0cdc5079e5` |
+| `mkxp-debug.log` | 7 499 | `b7f5081e6c65dedb0277f354189d0146514ec32f7c99300ad18089918725ff1f` |
+
+`mkxp-boot.log` informa un pico de montón de **199 MB en cada uno de los cinco lanzamientos** de esta serie, incluidos el tercero y el interrumpido. No se observa una tendencia creciente en esa métrica de cada proceso. No mide toda la memoria del sistema ni permite descartar otras fugas o fallos de Atmosphère. El origen del evento X omitido y del pánico sigue sin confirmar.
+
+**Siguiente tarea recomendada:** avanzar hacia un primer lanzador genérico de juegos externos según [`ADR-004-lanzador.md`](ADR-004-lanzador.md), usando estos resultados como límite de confianza. El propietario pidió dejar de repetir mini pruebas; una nueva implementación deberá definir criterios de verificación relevantes para su arquitectura y conservar el diagnóstico pendiente de X/pánico como riesgo, sin atribuirles una corrección improvisada.
