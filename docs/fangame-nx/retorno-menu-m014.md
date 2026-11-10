@@ -62,15 +62,17 @@ acciones de botones: en el fixture `fnx009`, B termina el script Ruby.
 - Paquete local `local/m013/package-bfa63f21d4/`: 25 archivos, manifiesto
   SHA-256 `5af0bdb02aad717b25aec6de7957321f970be3af9aef177a4472831b6ca1c9eb`.
 
-## Prueba física pendiente
+## Prueba física y pendientes
 
-La compilación y el contrato del cargador hacen viable la técnica, pero no
-demuestran aún que el retorno funcione en esta Switch. Tras instalar el NRO
-nuevo: probar + desde la biblioteca, abrir de nuevo, ejecutar `fnx009`, salir
-con B y observar si reaparece la biblioteca sin pasar por Homebrew Menu. Luego
-probar + para salir de verdad. Si funciona, repetir una vez con `fnx017` y
-recoger los logs. Un fallo de X o un pánico se registra aparte: M012 sigue
-abierto.
+Después de instalar el NRO nuevo, el propietario probó en Switch la secuencia
+solicitada: abrir `fnx009`, salir con B y comprobar el retorno directo a la
+biblioteca; después pulsar + y comprobar la salida a Homebrew Menu. Respondió
+**«Sí, funcionan B y +»** a la pregunta que describía ambos pasos. Esta es
+evidencia visual comunicada por el propietario para **un ciclo**. MTP no estaba
+activo al recibirla, por lo que no se recuperaron aún los logs posteriores.
+Quedan pendientes la repetición con `fnx017`, ciclos adicionales y el caso en
+que `envHasNextLoad` sea falso. El fallo intermitente X y el pánico de M012
+siguen abiertos; esta prueba no los resuelve.
 
 ## Instalación MTP de la nueva build
 
@@ -81,9 +83,8 @@ anterior a `local/m014/old-nro/`, SHA-256
 Se subió el NRO nuevo bajo un nombre temporal y se verificó por lectura MTP;
 después se sustituyó el archivo principal y se verificó de nuevo el SHA-256
 `bfa63f21d44637984866b19180553c81fc6d76d40e4a59cdd281db1c9e64c049`.
-El temporal remoto se retiró. La lectura final muestra únicamente
+El temporal remoto se retiró. La lectura final mostró únicamente
 `FangameNX.nro`, `config/`, `games/` y `logs/` en la instalación. Los readbacks
 están en `local/m014/stage-readback/` y `local/m014/final-readback/`; el registro
 termina en `UPDATE_VERIFIED FangameNX.nro`. No se modificaron los juegos, los
-ajustes ni los logs existentes. El comportamiento de retorno sigue pendiente
-de observar en pantalla.
+ajustes ni los logs existentes durante la instalación.
