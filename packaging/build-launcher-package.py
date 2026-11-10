@@ -64,7 +64,9 @@ def main() -> None:
         "Abrir FangameNX.nro desde Homebrew Menu con memoria de aplicación.\n"
         "A confirma, B vuelve, X reescanea, Y abre ajustes y + sale.\n"
         "La biblioteca, los detalles y los ajustes admiten controles tactiles.\n"
-        "Tras cerrar un juego con B, el launcher recuerda el ultimo juego iniciado.\n"
+        "Durante un juego, mantener L+R+PLUS unos 0,8 s para abrir el menu rapido.\n"
+        "Volver a la biblioteca pide confirmacion; B sigue disponible para el juego.\n"
+        "La velocidad se guarda por juego en config/launcher.json.\n"
         "Los ejemplos son sintéticos originales; no se afirma compatibilidad con fangames.\n",
         encoding="utf-8",
     )

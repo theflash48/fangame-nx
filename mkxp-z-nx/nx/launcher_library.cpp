@@ -267,4 +267,29 @@ bool save_preference(const std::string &root, bool compact) {
 bool save_last_game(const std::string &root, const std::string &id) {
     return safe_child(id) && save_config_value(root, "last_game", id);
 }
+bool load_game_speed(const std::string &root, const std::string &id, int &mode) {
+    mode = 0;
+    if (!safe_child(id)) return false;
+    const std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        const auto v = json5pp::parse(read_limited(path, 4096));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto schema = o.find("schema");
+        if (schema == o.end() || !schema->second.is_number() ||
+            schema->second.as_integer() != 1) return false;
+        auto speed = o.find("speed_" + id);
+        if (speed == o.end()) return true;
+        if (!speed->second.is_number()) return false;
+        const int value = speed->second.as_integer();
+        if (value < 0 || value > 4) return false;
+        mode = value;
+        return true;
+    } catch (...) { return false; }
+}
+bool save_game_speed(const std::string &root, const std::string &id, int mode) {
+    return safe_child(id) && mode >= 0 && mode <= 4 &&
+           save_config_value(root, ("speed_" + id).c_str(), mode);
+}
 }

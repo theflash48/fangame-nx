@@ -226,3 +226,23 @@ lanza y conduce con el teclado (A=Z, B=X, X=C, Y=V, cruceta=flechas).
 - Rutas fijas de compilación: `C:/devkitPro` se queda; `C:/anilswitch` se
   sustituye por la raíz de este repo (`$(CURDIR)/..` en el Makefile,
   `$RAIZ` en los guiones).
+
+## 10. Cadencia y menú rápido de FangameNX
+
+En el launcher FangameNX, `vsync` controla la presentación en pantalla y
+`Graphics.frame_rate` controla los ticks nominales de simulación. El motor
+desactiva `syncToRefreshrate` al iniciar un juego desde la biblioteca, incluso
+si un `mkxp.json` ya instalado todavía declara el valor antiguo `true`.
+`runtime/mkxp.base.json` también declara `false` para los paquetes futuros.
+El valor inicial de RGSS1 es 40 Hz; un script puede cambiarlo mediante
+`Graphics.frame_rate`. La preferencia de velocidad se guarda por ID en
+`switch/FangameNX/config/launcher.json` como `speed_<id>`: 0 automático, 1
+0,5×, 2 1×, 3 1,5×, 4 2×. Automático y 1× usan la cadencia nominal actual;
+la distinción reserva el valor automático como opción predeterminada.
+
+En el juego, mantener L+R+PLUS 0,8 s abre el menú nativo en el hilo que posee
+GL. El bucle Ruby espera mientras el menú procesa entrada; al reanudar se
+descuenta del reloj compartido el tiempo pausado y se reinicia el plazo del
+siguiente fotograma. La salida a la biblioteca se pide
+desde ese menú con confirmación y usa la terminación cooperativa existente.
+El botón B queda para el juego. La biblioteca conserva sus propios controles.

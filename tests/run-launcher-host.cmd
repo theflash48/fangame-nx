@@ -12,3 +12,7 @@ cl /nologo /std:c++17 /EHsc /utf-8 /I"%ROOT%\mkxp-z-nx\nx" /I"%ROOT%\src\mkxp-z\
 if errorlevel 1 exit /b 1
 if "%~1"=="" exit /b 2
 "%ROOT%\local\m013\launcher_host.exe" "%ROOT%\local\m013" "%~1\switch\FangameNX"
+if errorlevel 1 exit /b 1
+cl /nologo /std:c++17 /EHsc /utf-8 /I"%ROOT%\tests\fakes" /I"%ROOT%\mkxp-z-nx\nx" /I"%ROOT%\src\mkxp-z\src" "%ROOT%\tests\quick_menu_host.cpp" "%ROOT%\mkxp-z-nx\nx\fnx_quick_menu.cpp" "%ROOT%\mkxp-z-nx\nx\launcher_library.cpp" /Fe:"%ROOT%\local\m013\quick_menu_host.exe"
+if errorlevel 1 exit /b 1
+"%ROOT%\local\m013\quick_menu_host.exe" "%ROOT%\local\m013\quick-menu-fixture"

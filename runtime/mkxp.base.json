@@ -37,7 +37,9 @@
     "subImageFix": true,
 
     "vsync": true,
-    "syncToRefreshrate": true,
+    // VSync regula la presentación; no sustituye el reloj de Graphics.update.
+    // En RGSS1 el ritmo nominal inicial es 40 Hz, aunque el panel sea de 60 Hz.
+    "syncToRefreshrate": false,
 
     // Indexa las rutas en minúsculas. En la Switch NO es opcional: los recursos
     // viven sobre FAT32/exFAT y son decenas de miles de PNG y WAV. Sin la caché,

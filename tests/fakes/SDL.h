@@ -1,0 +1,26 @@
+/* SDL mínimo para probar la lógica del atajo en el host, sin dibujar. */
+#ifndef FNX_TEST_FAKE_SDL_H
+#define FNX_TEST_FAKE_SDL_H
+using Uint32 = unsigned int;
+struct SDL_atomic_t { int value; };
+inline int SDL_AtomicSet(SDL_atomic_t *a, int value) { int old=a->value; a->value=value; return old; }
+inline int SDL_AtomicGet(SDL_atomic_t *a) { return a->value; }
+extern Uint32 fake_ticks;
+inline Uint32 SDL_GetTicks() { return fake_ticks; }
+enum {
+    SDL_CONTROLLERBUTTONDOWN=1, SDL_CONTROLLERBUTTONUP, SDL_KEYDOWN, SDL_KEYUP,
+    SDL_CONTROLLERAXISMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP,
+    SDL_FINGERDOWN, SDL_FINGERUP, SDL_FINGERMOTION, SDL_MOUSEMOTION,
+    SDL_MOUSEWHEEL, SDL_TEXTINPUT, SDL_CONTROLLERDEVICEREMOVED,
+    SDL_CONTROLLER_BUTTON_A=0, SDL_CONTROLLER_BUTTON_B=1,
+    SDL_CONTROLLER_BUTTON_START=6, SDL_CONTROLLER_BUTTON_LEFTSHOULDER=9,
+    SDL_CONTROLLER_BUTTON_RIGHTSHOULDER=10, SDL_CONTROLLER_BUTTON_DPAD_UP=11,
+    SDL_CONTROLLER_BUTTON_DPAD_DOWN=12, SDL_CONTROLLER_BUTTON_MAX=15,
+    SDLK_UP=100, SDLK_DOWN, SDLK_RETURN, SDLK_ESCAPE
+};
+union SDL_Event {
+    Uint32 type;
+    struct { Uint32 type; unsigned char button; } cbutton;
+    struct { Uint32 type; unsigned char repeat; struct { int sym; } keysym; } key;
+};
+#endif

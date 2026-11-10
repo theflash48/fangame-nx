@@ -325,7 +325,7 @@ static void action(Ui &u, int kind) {
                     u.view=MESSAGE;
                 }
             } else if (u.settings==1) { u.scan_back=SETTINGS; u.view=SCANNING; u.scan_pending=true; }
-            else { u.message="FangameNX M015. Juegos externos preparados en games/. Al cerrar un juego, vuelve a la biblioteca; + sale a Homebrew Menu. La incidencia de estabilidad FNX-017 sigue abierta."; u.message_back=SETTINGS; u.view=MESSAGE; }
+            else { u.message="FangameNX. Juegos preparados en games/. Durante un juego, mantén L+R+PLUS 0,8 s para abrir el menú rápido y elegir Volver a la biblioteca. B sigue disponible para el juego. La incidencia FNX-017 sigue abierta."; u.message_back=SETTINGS; u.view=MESSAGE; }
         }
     }
 }

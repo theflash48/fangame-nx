@@ -1,0 +1,321 @@
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -289,0 +290 @@ static void setupWindowIcon(const Config &conf, SDL_Window *win) {
++#include "fnx_quick_menu.h"
+@@ -480,0 +482 @@ int main(int argc, char *argv[]) {
++        fnx::quick_init(root, selected.substr(selected.find_last_of('/') + 1));
+@@ -571,0 +574,5 @@ int main(int argc, char *argv[]) {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    /* syncToRefreshrate desactiva FPSLimiter y convierte los 40 Hz de RGSS1
++       en los 60 Hz del panel. VSync sigue siendo una decisión independiente. */
++    conf.syncToRefreshrate = false;
++#endif
+--- a/src/eventthread.cpp
++++ b/src/eventthread.cpp
+@@ -37,0 +38,3 @@
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++#include "fnx_quick_menu.h"
++#endif
+@@ -300 +303,7 @@ void EventThread::process(RGSSThreadData &rtData)
+-        if (!SDL_WaitEvent(&event))
++        if (!SDL_WaitEventTimeout(&event,
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++                                  16
++#else
++                                  -1
++#endif
++                                  ))
+@@ -301,0 +311,4 @@ void EventThread::process(RGSSThreadData &rtData)
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++            if (fnx::quick_tick()) resetInputStates();
++            continue;
++#else
+@@ -303,0 +317,9 @@ void EventThread::process(RGSSThreadData &rtData)
++#endif
++        }
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++        const bool quickConsumed = fnx::quick_event(event);
++        if (fnx::quick_tick()) resetInputStates();
++        if (fnx::quick_chord_candidate()) {
++            controllerState.buttons[SDL_CONTROLLER_BUTTON_LEFTSHOULDER] = false;
++            controllerState.buttons[SDL_CONTROLLER_BUTTON_RIGHTSHOULDER] = false;
++            controllerState.buttons[SDL_CONTROLLER_BUTTON_START] = false;
+@@ -304,0 +327,2 @@ void EventThread::process(RGSSThreadData &rtData)
++        if (quickConsumed) continue;
++#endif
+--- a/src/display/graphics.cpp
++++ b/src/display/graphics.cpp
+@@ -46,0 +47,5 @@
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++#include "fnx_quick_menu.h"
++#include "fnx_frame_pacer.h"
++#include "font.h"
++#endif
+@@ -53,0 +59,3 @@
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++#include <alext.h>
++#endif
+@@ -671,0 +680,3 @@ struct FPSLimiter {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    fnx::FrameDeadline deadline;
++#else
+@@ -672,0 +684 @@ struct FPSLimiter {
++#endif
+@@ -688,0 +701 @@ struct FPSLimiter {
++#if !defined(__SWITCH__) || !defined(FNX_LAUNCHER)
+@@ -697,0 +711 @@ struct FPSLimiter {
++#endif
+@@ -699,0 +714,3 @@ struct FPSLimiter {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    : deadline(),
++#else
+@@ -700,0 +718 @@ struct FPSLimiter {
++#endif
+@@ -704,0 +723 @@ struct FPSLimiter {
++#if !defined(__SWITCH__) || !defined(FNX_LAUNCHER)
+@@ -707,0 +727 @@ struct FPSLimiter {
++#endif
+@@ -710 +730,6 @@ struct FPSLimiter {
+-    void setDesiredFPS(uint16_t value) { tpf = tickFreq / value; }
++    void setDesiredFPS(uint16_t value) {
++        tpf = tickFreq / value;
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++        deadline.reset();
++#endif
++    }
+@@ -714,0 +740,8 @@ struct FPSLimiter {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++        const uint64_t now = SDL_GetPerformanceCounter();
++        /* Plazos absolutos: VSync puede alternar intervalos de 1 y 2 barridos
++           al pedir 40 Hz en un panel de 60 Hz. Nunca recuperar más de un
++           marco de retraso: al pausar o saturarse se reinicia la fase. */
++        const uint64_t next = deadline.advance(now, (uint64_t)tpf);
++        if (next > now) delayTicks(next - now);
++#else
+@@ -739,0 +773 @@ struct FPSLimiter {
++#endif
+@@ -742 +776,7 @@ struct FPSLimiter {
+-    void resetFrameAdjust() { adj.resetFlag = true; }
++    void resetFrameAdjust() {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++        deadline.reset();
++#else
++        adj.resetFlag = true;
++#endif
++    }
+@@ -748,0 +789,3 @@ struct FPSLimiter {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++        return false; /* No adelantar lógica Ruby para perseguir el render. */
++#else
+@@ -752,0 +796 @@ struct FPSLimiter {
++#endif
+@@ -892,0 +937,156 @@ struct GraphicsPrivate {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    void applySpeed() {
++        const int base = threadData->config.fixedFramerate > 0 ?
++                         threadData->config.fixedFramerate : frameRate;
++        const int hz = fnx::quick_rate(base, fnx::quick_speed());
++        fpsLimiter.disabled = false;
++        fpsLimiter.setDesiredFPS((uint16_t)hz);
++    }
++
++    void drawQuickFrame(Bitmap &overlay) {
++        GLMeta::blitBeginScreen(winSize);
++        GLMeta::blitSource(screen.getPP().frontBuffer());
++        FBO::clear();
++        metaBlitBufferFlippedScaled();
++        GLMeta::blitEnd();
++
++        glState.viewport.pushSet(IntRect(0, 0, winSize.x, winSize.y));
++        SimpleShader &shader = shState->shaders().simple;
++        shader.bind();
++        shader.applyViewportProj();
++        shader.setTranslation(Vec2i());
++        shader.setTexSize(Vec2i(overlay.width(), overlay.height()));
++        TEX::bind(overlay.getGLTypes().tex);
++        Quad &quad = shState->gpQuad();
++        quad.setTexPosRect(FloatRect(0, 0, overlay.width(), overlay.height()),
++                           FloatRect(0, 0, winSize.x, winSize.y));
++        quad.setColor(Vec4(1, 1, 1, 1));
++        glState.blend.pushSet(true);
++        glState.blendMode.pushSet(BlendNormal);
++        quad.draw();
++        glState.blendMode.pop();
++        glState.blend.pop();
++        glState.viewport.pop();
++        SDL_GL_SwapWindow(threadData->window);
++    }
++
++    void runQuickMenu() {
++        if (!fnx::quick_active()) return;
++        /* Todo el dibujo ocurre en el hilo RGSS, dueño del contexto GL. */
++        shState->pauseGameTime();
++        Font menuFont(0, 30);
++        Color white(230, 244, 250), cyan(69, 220, 224);
++        menuFont.setColor(white);
++        Bitmap overlay(1280, 720);
++        overlay.setInitFont(&menuFont);
++        int view = 0, selected = 0;
++        bool dirty = true, leaving = false, saveError = false;
++        const double measured = avgFPSData.empty() ? 0.0 : averageFPS();
++        LPALCDEVICEPAUSESOFT pauseAudio = nullptr;
++        LPALCDEVICERESUMESOFT resumeAudio = nullptr;
++        if (alcIsExtensionPresent(threadData->alcDev, "ALC_SOFT_pause_device")) {
++            pauseAudio = (LPALCDEVICEPAUSESOFT)alcGetProcAddress(threadData->alcDev, "alcDevicePauseSOFT");
++            resumeAudio = (LPALCDEVICERESUMESOFT)alcGetProcAddress(threadData->alcDev, "alcDeviceResumeSOFT");
++        }
++        if (pauseAudio && resumeAudio) pauseAudio(threadData->alcDev);
++        while (fnx::quick_active() && !leaving) {
++            if (threadData->rqTerm || threadData->rqReset) {
++                fnx::quick_close();
++                break;
++            }
++            checkSyncLock();
++            const int cmd = fnx::quick_take_command();
++            const int count = view == 0 ? 4 : view == 1 ? 5 : view == 3 ? 2 : 1;
++            if (cmd == fnx::QuickUp) { selected = (selected + count - 1) % count; dirty = true; }
++            if (cmd == fnx::QuickDown) { selected = (selected + 1) % count; dirty = true; }
++            if (cmd == fnx::QuickBack) {
++                if (view == 0) fnx::quick_close();
++                else { view = 0; selected = 0; dirty = true; }
++            }
++            if (cmd == fnx::QuickSelect) {
++                if (view == 0) {
++                    if (selected == 0) fnx::quick_close();
++                    else { view = selected == 1 ? 1 : selected == 2 ? 2 : 3;
++                           selected = view == 1 ? fnx::quick_speed() : 0; dirty = true; }
++                } else if (view == 1) {
++                    saveError = !fnx::quick_set_speed(selected);
++                    if (!saveError) { applySpeed(); view = 0; selected = 1; }
++                    dirty = true;
++                } else if (view == 2) { view = 0; selected = 2; dirty = true; }
++                else if (selected == 0) { view = 0; selected = 3; dirty = true; }
++                else { leaving = true; fnx::quick_close(); }
++            }
++            if (!fnx::quick_active() || leaving) break;
++            if (dirty) {
++                overlay.clear();
++                overlay.fillRect(0, 0, 1280, 720, Vec4(0, 0, 0, 0.58));
++                overlay.fillRect(249, 91, 782, 538, Vec4(0.02, 0.10, 0.15, 0.96));
++                overlay.fillRect(257, 91, 766, 538, Vec4(0.04, 0.13, 0.19, 0.96));
++                overlay.fillRect(249, 108, 782, 504, Vec4(0.04, 0.13, 0.19, 0.96));
++                overlay.fillRect(271, 164, 738, 3, Vec4(0.12, 0.72, 0.78, 1));
++                menuFont.setColor(cyan);
++                overlay.drawText(280, 106, 700, 48, "FangameNX  |  Menu rapido");
++                menuFont.setColor(white);
++                const char *items[5] = {};
++                if (view == 0) {
++                    items[0] = "Reanudar juego";
++                    items[1] = "Velocidad";
++                    items[2] = "Diagnostico";
++                    items[3] = "Volver a la biblioteca";
++                } else if (view == 1) {
++                    items[0] = "Automatico / nominal";
++                    items[1] = "0,5x"; items[2] = "1x";
++                    items[3] = "1,5x"; items[4] = "2x";
++                } else if (view == 3) {
++                    items[0] = "Cancelar";
++                    items[1] = "Salir sin guardar el progreso reciente";
++                }
++                if (view == 2) {
++                    char line[250];
++                    overlay.drawText(287, 205, 700, 42, threadData->config.windowTitle.c_str());
++                    snprintf(line, sizeof(line), "Motor: %s", NX_BUILD);
++                    overlay.drawText(287, 258, 700, 42, line);
++                    const int nominal = threadData->config.fixedFramerate > 0 ?
++                                        threadData->config.fixedFramerate : frameRate;
++                    snprintf(line, sizeof(line), "Simulacion: %d Hz nominal  |  %d Hz  |  %s",
++                             nominal, fnx::quick_rate(nominal, fnx::quick_speed()),
++                             fnx::quick_speed_label(fnx::quick_speed()));
++                    overlay.drawText(287, 311, 700, 42, line);
++                    snprintf(line, sizeof(line), "Render: %.1f FPS medidos  |  VSync: %s",
++                             measured, SDL_GL_GetSwapInterval() ? "activo" : "inactivo");
++                    overlay.drawText(287, 364, 700, 42, line);
++                    overlay.drawText(287, 477, 700, 40, "A o B: volver");
++                } else {
++                    if (view == 3)
++                        overlay.drawText(287, 184, 700, 43, "Puede haber progreso sin guardar.");
++                    if (view == 0) {
++                        char line[90];
++                        snprintf(line, sizeof(line), "Actual: %s", fnx::quick_speed_label(fnx::quick_speed()));
++                        overlay.drawText(730, 276, 250, 40, line);
++                    }
++                    for (int i = 0; i < count; ++i) {
++                        const int y = 205 + i * 73;
++                        if (i == selected) {
++                            overlay.fillRect(278, y - 4, 720, 56, Vec4(0.07, 0.38, 0.46, 0.92));
++                            overlay.fillRect(278, y - 4, 7, 56, Vec4(0.19, 0.84, 0.88, 1));
++                        }
++                        overlay.drawText(300, y, 674, 44, items[i]);
++                    }
++                    if (saveError) overlay.drawText(287, 550, 700, 36, "No se pudo guardar la velocidad.");
++                }
++                overlay.drawText(288, 573, 690, 36, "A: elegir    B: volver    L+R+PLUS: abrir");
++                dirty = false;
++            }
++            drawQuickFrame(overlay);
++            SDL_Delay(16);
++        }
++        if (pauseAudio && resumeAudio) resumeAudio(threadData->alcDev);
++        shState->resumeGameTime();
++        fpsLimiter.resetFrameAdjust();
++        last_update = shState->runTime();
++        if (leaving) threadData->ethread->requestTerminate();
++        /* El hilo principal decide la salida y rqTerm; Ruby se limpia por
++           checkShutdown, sin destruir GL ni SDL desde el hilo de eventos. */
++        while (leaving && !threadData->rqTerm) SDL_Delay(1);
++    }
++#endif
+@@ -1058,0 +1259,4 @@ struct GraphicsPrivate {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++        runQuickMenu();
++        if (threadData->rqTerm || threadData->rqReset) checkShutDownReset();
++#endif
+@@ -1209,0 +1414,3 @@ Graphics::Graphics(RGSSThreadData *data) {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    p->applySpeed();
++#endif
+@@ -1380,0 +1588,5 @@ void Graphics::setFrameRate(int value) {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    p->applySpeed();
++    shState->input().recalcRepeat((unsigned int)p->frameRate);
++    return;
++#endif
+--- a/src/sharedstate.cpp
++++ b/src/sharedstate.cpp
+@@ -111,0 +112,5 @@ struct SharedStatePrivate
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    std::chrono::steady_clock::duration pausedTotal{};
++    std::chrono::steady_clock::time_point pauseStart{};
++    bool timePaused = false;
++#endif
+@@ -540,0 +546,5 @@ double SharedState::runTime() {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    const auto now = p->timePaused ? p->pauseStart : std::chrono::steady_clock::now();
++    return std::chrono::duration_cast<std::chrono::microseconds>(
++        now - p->startupTime - p->pausedTotal).count() / 1000.0 / 1000.0;
++#else
+@@ -542,0 +553,8 @@ double SharedState::runTime() {
++#endif
++}
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++void SharedState::pauseGameTime() {
++    if (!p->timePaused) {
++        p->pauseStart = std::chrono::steady_clock::now();
++        p->timePaused = true;
++    }
+@@ -543,0 +562,7 @@ double SharedState::runTime() {
++void SharedState::resumeGameTime() {
++    if (p->timePaused) {
++        p->pausedTotal += std::chrono::steady_clock::now() - p->pauseStart;
++        p->timePaused = false;
++    }
++}
++#endif
+--- a/src/sharedstate.h
++++ b/src/sharedstate.h
+@@ -89,0 +90,4 @@ struct SharedState
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    void pauseGameTime();
++    void resumeGameTime();
++#endif

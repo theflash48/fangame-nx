@@ -88,6 +88,10 @@
 !/tests/
 /tests/*
 !/tests/launcher_host.cpp
+!/tests/quick_menu_host.cpp
+!/tests/fakes/
+/tests/fakes/*
+!/tests/fakes/SDL.h
 !/tests/run-launcher-host.cmd
 !/tests/test_prepare_launcher_game.py
 !/packaging/
