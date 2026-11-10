@@ -8,15 +8,10 @@ otro NRO. No se hizo `push` ni publicación.
 
 Se preparó Pokémon Z 2.18 en `local/m016/stage-pokemon-z-2.18/`, excluido de
 Git, y se copió por MTP a `Nintendo Switch → SD Card → switch → FangameNX →
-games → pokemon-z`. La lectura de vuelta muestra **113 de 114 archivos**
-idénticos al staging final en SHA-256. Falta
-`lib/benchmark/version.rb` (71 bytes): varios intentos de copia mediante Shell
-MTP y Explorador no lo añadieron. Por tanto, **la instalación no está
-verificada íntegramente**. No se ha iniciado el juego en la Switch y no se
-afirma compatibilidad de 2.18. El único elemento ausente pertenece a la
-biblioteca estándar opcional; una búsqueda en las 255 secciones de juego no
-encontró `require 'benchmark'`. Esto solo permite inferir que el primer arranque
-podría no necesitarlo; no demuestra que el juego funcione.
+games → pokemon-z`. El inventario final tiene **114 de 114 archivos** y las
+lecturas de vuelta coinciden con el staging final en SHA-256. La instalación
+de archivos queda verificada; **no se ha iniciado el juego en la Switch y no
+se afirma compatibilidad de 2.18**.
 
 Antes de la primera escritura se identificó un único dispositivo portátil MTP
 `Nintendo Switch`, se accedió a `SD Card`, se observaron `fnx009` y `fnx017`
@@ -34,9 +29,13 @@ parte de los archivos antes de terminar el proceso de PowerShell. Su
 local. Se completaron los archivos restantes sin volver a copiar el
 contenedor. Dos elementos se resistieron inicialmente; el fichero de créditos
 se copió con nombre ASCII `Creditos.txt`, conservando su contenido. El archivo
-`benchmark/version.rb` continuó ausente tras la copia individual, la copia
-de la carpeta `benchmark` y un pegado en el Explorador. No se borró nada de
-la SD para intentar repararlo.
+`benchmark/version.rb` no apareció tras la copia individual, la copia de la
+carpeta `benchmark` y un pegado en el Explorador. Se comprobó mediante WPD
+que `lib/benchmark`, creada en esta misión, contenía exactamente un archivo
+propio (`benchmark.gemspec`); se eliminó **solo esa subcarpeta** y se recreó.
+La copia secuencial de sus dos archivos con lectura MTP inmediata verificó
+ambos hashes. El inventario final remoto enumera 114 archivos, sin diferencias
+de nombres con el staging. No se borró ningún contenido preexistente.
 
 ## Fuente, inventario y preparación privada
 
@@ -117,27 +116,23 @@ de lectura residen en `local/m016/` y están ignorados por Git.
 | `ruby local/m016/check-syntax.rb` | 255 secciones, 3 transformadas por `NXFuente`, 0 fallos de compilación |
 | `tests/run-launcher-host.cmd local/m013/package-bbf9d4fee9` | `launcher_host: OK` con Pulso y Órbita |
 | `local/m016/check-stage.cmd` | Escáner real: `pokemon-z`, versión 2.18, `ready=1` |
-| SHA-256 de 113 archivos leídos de vuelta por MTP | 113 coincidencias, 0 hashes erróneos, 1 ausencia |
+| SHA-256 de archivos leídos de vuelta por MTP | 113 coincidencias en lectura completa; los 2 de `lib/benchmark` se leyeron de nuevo tras recrear esa subcarpeta: 114/114 hashes finales verificados |
 
 El preflight `ready=1` solo valida estructura. No ejecuta Ruby ni el juego.
-No se compilaron fuentes de Switch y no se hicieron pruebas en Ryujinx ni en
+No se compilaron fuentes de Switch ni se ejecutó el juego en Ryujinx o en
 hardware durante M016. El test sintáctico no prueba comportamiento. La SD
-real muestra nueve archivos en la raíz de `pokemon-z`, 104 en `lib/` y 20
-subdirectorios; el manifiesto de 114 espera 105 en `lib/`.
+real muestra nueve archivos en la raíz de `pokemon-z`, 105 en `lib/` y 20
+subdirectorios, como el manifiesto.
 
 ## Recuperación y siguiente prueba
 
-1. Con USB File Transfer activo, comprobar de nuevo el hash del NRO b25 y que
-   `pokemon-z` es la carpeta creada por M016. Recuperar por MTP
-   `lib/benchmark/version.rb` si se logra una nueva sesión MTP; comparar su
-   SHA-256 con la línea privada del manifiesto y repetir el recuento/hash de
-   los 114 archivos. No fusionar otra versión del juego ni borrar guardados.
-2. Si el MTP sigue rechazando ese archivo, conservar el informe y la carpeta
-   tal como están. No etiquetar la instalación como íntegra. El propietario
-   puede ensayar el primer arranque en modo memoria de aplicación sabiendo
-   que falta un archivo de stdlib sin referencia localizada en los scripts.
-3. Cerrar USB File Transfer y abrir FangameNX con memoria de aplicación.
-   Medir por separado: aparece en biblioteca, ficha, lanzamiento, primera
+1. La copia está lista para la primera prueba. Cerrar USB File Transfer y
+   abrir FangameNX con memoria de aplicación.
+2. Si se sospecha corrupción de la copia, volver a MTP, verificar el NRO b25
+   y comparar la carpeta `pokemon-z` con el manifiesto privado de 114 hashes.
+   No fusionar otra versión ni borrar guardados.
+3. En el primer arranque, medir por separado: aparición en biblioteca, ficha,
+   lanzamiento, primera
    pantalla, mando, gráficos/audio, mapa, guardado y carga de **partida nueva**
    y salida. No usar partidas previas para esta prueba.
 4. Ante un fallo, no repetir a ciegas. Volver a USB File Transfer y recuperar
