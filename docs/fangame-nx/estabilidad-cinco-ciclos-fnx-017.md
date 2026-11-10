@@ -38,10 +38,53 @@ Para cada ciclo de la **serie controlada**, el propietario abre la aplicación *
 
 | Ciclo | Pantalla y lectura observadas | A / X observados | B y regreso propio | Logs, hashes y validación | Anomalías |
 |---:|---|---|---|---|---|
-| 1 | Pendiente | Pendiente | Pendiente | Pendiente | — |
-| 2 | Pendiente | Pendiente | Pendiente | Pendiente | — |
-| 3 | Pendiente | Pendiente | Pendiente | Pendiente | — |
-| 4 | Pendiente | Pendiente | Pendiente | Pendiente | — |
-| 5 | Pendiente | Pendiente | Pendiente | Pendiente | — |
+| 1 | `LECTURA OK`; pantalla sin anomalías comunicadas | A +1; X azul→verde | B volvió por sí solo al Homebrew Menu | `ciclo-01/`, cuatro copias locales; verificador `--expected 1` OK | Ningún error visible comunicado |
+| 2 | `LECTURA OK`, según confirmación general del propietario | A +1; X azul→verde, según confirmación | B volvió solo al Homebrew Menu, según confirmación | `ciclo-02/`, cuatro copias locales; verificador `--expected 1` OK | Ningún error visible comunicado |
+| 3 | `LECTURA OK`, según la pauta realizada y el log | A +1; **X no cambió el color** | B volvió solo al Homebrew Menu | `ciclo-03/`, cuatro copias locales; verificador rechazó la ausencia de X | Fallo de entrada X observado y confirmado por log |
+| 4 (diagnóstico adicional) | No comunicado | No comunicado | No comunicado | **Sin copia MTP posterior** | El propietario comunicó un crash de la consola; momento y causa sin determinar |
+| 5 | No ejecutado | — | — | — | No se continúa tras el crash del intento 4 |
 
-La evaluación de estabilidad queda pendiente de completar los cinco ciclos. El paquete dual M011 no se instala ni se prueba en esta misión.
+La serie de cinco ciclos se **detuvo tras el ciclo 3** por el fallo de X. A petición posterior del propietario se intentó **un solo ciclo diagnóstico adicional**; el propietario comunicó un crash de la consola y decidió reiniciarla. No se accedió a MTP tras ese aviso ni se recuperaron logs del cuarto intento. No se acredita estabilidad de controles a cinco ciclos. En los tres ciclos con logs, Ruby terminó, se registró `SDL_DestroyWindow OK` y el propietario observó regreso autónomo al menú; este resultado de cierre no convierte el ciclo 3 en correcto. El paquete dual M011 no se instala ni se prueba en esta misión.
+
+### Evidencia del ciclo 1 controlado
+
+El propietario confirmó exactamente **un** lanzamiento con memoria de aplicación, A/X/B una vez cada uno, retorno autónomo y cero errores visibles. Las cuatro copias MTP en `local/fnx017-stability-20261110-serie/ciclo-01/` son prefijos extendidos de la nueva línea base. El sufijo contiene una marca de inicio Ruby, `lectura=OK`, `escritura=OK`, `boton=A contador=1`, `boton=X color=verde`, `boton=B salida_solicitada`, `FNX009 RUBY COMPLETADO; salida normal`, un bloque de arranque y cierre con `SDL_DestroyWindow OK` y `[exit] 08 before return main`, y un bloque debug terminado en `Shutting down.`. El marcador de escritura creció 20 bytes. `verificar-ciclos-fnx-017.py baseline ciclo-01 --expected 1` terminó con código 0.
+
+| Archivo en `ciclo-01/` | Bytes | SHA-256 local |
+|---|---:|---|
+| `fnx009-probe.log` | 1 135 | `30a4ee1fc9b11614bfc17120f01ad2666d119397d201b5b1423f7dc29ea9e57c` |
+| `fnx009-escritura.txt` | 80 | `029bc3081246af581c2d5fcaa08d4fd1bfbf77334a3ca28a33ff0fc9ccedf149` |
+| `mkxp-boot.log` | 17 429 | `875009f85754222bad350392731ce8e4dd0f9b48073e8ec29a5f3f71da334ace` |
+| `mkxp-debug.log` | 4 007 | `89f4cee6e060a908d5920b3f6cf1d785d98ec29e24b0378091babd95f8d43fd0` |
+
+### Evidencia del ciclo 2 controlado
+
+El propietario respondió «todo perfe» a la pauta completa de un lanzamiento, lectura, A/X/B y regreso autónomo. El sufijo de `ciclo-02/` respecto a `ciclo-01/` contiene exactamente una ejecución Ruby con `lectura=OK`, `escritura=OK`, `boton=A contador=1`, `boton=X color=verde`, B y finalización normal; el boot contiene `SDL_DestroyWindow OK` y `[exit] 08 before return main`, y debug termina en `Shutting down.`. Los cuatro prefijos se conservaron y el marcador de escritura creció 20 bytes. El verificador terminó con código 0.
+
+| Archivo en `ciclo-02/` | Bytes | SHA-256 local |
+|---|---:|---|
+| `fnx009-probe.log` | 1 333 | `ccd923a7aa3f9cd3afb46b232811e95765e5ce7a1e76ec735cd0fc102b35efe8` |
+| `fnx009-escritura.txt` | 100 | `9b611712e0a5b046abea810b7920d1df26dd92d36bf277fff1c737ad29aaff82` |
+| `mkxp-boot.log` | 21 472 | `fcf0fa87e05814d2ca63e62697b35226961068dd22ac72ecac41a214d8306772` |
+| `mkxp-debug.log` | 4 950 | `9fcd362e1d5ba7bb1a3e7a1eadcfa155c1d549fdcca8f641e7d3d9728a7ee219` |
+
+### Evidencia del ciclo 3 y parada
+
+El propietario indicó que X **no cambió el color**; A, B y el resto funcionaron, con regreso al Homebrew Menu. Se copiaron los cuatro registros a `local/fnx017-stability-20261110-serie/ciclo-03/`. Frente a `ciclo-02/` hay exactamente un nuevo inicio Ruby, un nuevo arranque con memoria de aplicación y un bloque debug. `fnx009-probe.log` registra `lectura=OK`, `escritura=OK`, `boton=A contador=1`, `boton=B salida_solicitada` y `FNX009 RUBY COMPLETADO; salida normal`; **no registra `boton=X`**. `fnx009-escritura.txt` creció 20 bytes. El boot llega a `SDL_DestroyWindow OK` y `[exit] 08 before return main`; debug llega a `Shutting down.`. Los cuatro registros posteriores conservan íntegros los anteriores como prefijo.
+
+`verificar-ciclos-fnx-017.py ciclo-02 ciclo-03 --expected 1` devolvió código 1: `Ruby ciclo 1: falta 'boton=X color=verde'`. Esa es una **detección correcta** de un criterio incumplido, no un fallo del analizador. La traza Ruby solo demuestra que el flanco de X no llegó a la rama `Input.trigger?(Input::A)`; no registra eventos SDL crudos y no permite atribuir la causa a mando, duración de la pulsación, sondeo de `Input` o mapeo. El código local mapea X físico de Switch a `SDL_CONTROLLER_BUTTON_Y` y `Input::A`; el mismo mapeo funcionó en los ciclos 1 y 2. `Input.trigger?` requiere una transición de no pulsado a pulsado. No se cambia el runtime durante esta misión.
+
+Anomalía secundaria: el sufijo de `mkxp-debug.log` del ciclo 3 tiene 752 bytes frente a 943 en cada uno de los ciclos 1 y 2; faltan las líneas informativas `Backend`, datos GL y viewport, aunque `mkxp-boot.log` sí marca `initGL OK` y el propietario vio la pantalla. No hay evidencia para relacionar esta omisión con la entrada X. El aviso de FluidSynth ausente figura también en los ciclos 1 y 2 y no impidió su ejecución.
+
+| Archivo en `ciclo-03/` | Bytes | SHA-256 local |
+|---|---:|---|
+| `fnx009-probe.log` | 1 511 | `b2e619854174714c7404763b99adfba34abaac636447fe8594a18dfbe9e0a907` |
+| `fnx009-escritura.txt` | 120 | `4ead19fa1649a91adc4b8b2a60fa10c0f1540690ac3fc1e8b6023637160be6f8` |
+| `mkxp-boot.log` | 26 283 | `677d0f3df0c5f838421f5dc783b52a1f1e2a99d3c7f6201a4220fdc6b77c8df8` |
+| `mkxp-debug.log` | 5 702 | `3ca15d7a9dccb3449ccd7783833ee7cab01574cf27f56f5731bfc3f3e9558830` |
+
+### Cuarto intento y parada por crash
+
+Tras conocer el fallo de X, el propietario pidió un último ciclo diagnóstico con una pulsación de X mantenida aproximadamente un segundo. Comunicó: «me ha crasheado la consola, voy a reiniciar y luego lo vemos». **No indicó en qué momento ocurrió ni si A, X o B llegaron a responder.** No se recibió una nueva captura MTP ni se consultaron registros de la consola después del crash. El origen del fallo es desconocido; no se atribuye al problema de X ni al cierre SDL sin evidencia. Se detiene toda interacción con la Switch hasta que el propietario termine el reinicio y retome expresamente la investigación. El quinto ciclo no se realiza.
+
+**Siguiente tarea recomendada:** después del reinicio y solo cuando el propietario lo indique, conservar en modo lectura los cuatro logs del fixture si están disponibles y comparar su sufijo con `ciclo-03/` para determinar hasta dónde llegó el cuarto intento. Cualquier informe de crash del sistema queda fuera de la autorización MTP actual, limitada al fixture, y requerirá una autorización específica. Después, diseñar una prueba diagnóstica de entrada X que registre por separado eventos SDL y estados/filos de RGSS `Input`, con tiempos, sin alterar las evidencias. No se propone parchear el mapeo a partir de una única omisión ni repetir ahora los ciclos.
