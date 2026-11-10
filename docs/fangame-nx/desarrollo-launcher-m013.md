@@ -48,7 +48,10 @@ UTF-8 de hasta 32 KiB:
 
 `id`, si aparece, debe coincidir con la carpeta. `cover` acepta solo un nombre
 local `.png`, `.jpg` o `.jpeg`, sin rutas ni `..`; la portada se carga solo al
-mostrar el juego. Si no existe, se dibuja una imagen geométrica original. Si
+mostrar el juego. Si falta el campo `cover`, el escáner busca, en este orden,
+`cover.png`, `cover.jpg` y `cover.jpeg` en la raíz del juego. La ruta explícita
+del manifiesto tiene prioridad. Si no existe una imagen utilizable, se dibuja
+una imagen geométrica original. Si
 falta el manifiesto, se usa `Title=` de `Game.ini` y luego el ID. Metadatos
 ilegibles o inválidos se muestran como instalación no ejecutable. La portada
 ausente no bloquea. Este esquema no declara compatibilidad con XP o Essentials.
@@ -67,6 +70,17 @@ conservan las claves desconocidas y se escribe un temporal, `fflush`, `fsync`
 y `rename`. El launcher escribe trazas breves de inicio, escaneo, selección y
 salida en `logs/launcher.log`; los logs y guardados del motor siguen dentro de
 la carpeta de cada juego. El código no migra partidas existentes.
+
+Para añadir una instalación **ya preparada** a una biblioteca local se puede
+usar `python packaging/install-launcher-game.py <carpeta-preparada>
+<carpeta-switch/FangameNX/games>`. El destino debe ser nuevo. Durante la copia,
+`packaging/auto_cover.py` conserva una portada explícita o busca un único PNG
+válido de título/logo en `Graphics/Pictures` o `Graphics/Titles*`, tanto suelto
+como dentro de `datos.zip`. Copia los bytes a `cover.png` y declara el campo en
+`fangamenx.json`. Si no encuentra una elección única, conserva la portada
+geométrica de reserva. Esta herramienta prepara la biblioteca en el PC: no
+convierte una carpeta cruda de RPG Maker XP en una instalación ejecutable y no
+escribe por sí sola en la SD ni en MTP.
 
 ## Interfaz y controles
 

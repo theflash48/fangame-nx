@@ -115,6 +115,14 @@ static Game inspect(const std::string &root, const std::string &id) {
             std::string t = ini_title(g.path + "/Game.ini");
             if (!t.empty()) g.title = t;
         }
+        if (g.cover.empty()) {
+            for (const char *name : {"cover.png", "cover.jpg", "cover.jpeg"}) {
+                if (regular(g.path + "/" + name)) {
+                    g.cover = g.path + "/" + name;
+                    break;
+                }
+            }
+        }
     } catch (const std::exception &e) {
         g.note = std::string("Metadatos no válidos: ") + e.what();
     }

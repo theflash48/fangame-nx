@@ -33,9 +33,17 @@ int main(int argc,char **argv) {
     auto all=fnx::scan(root.string());
     assert(all.games.size()==2 && all.games[0].id=="alpha" &&
            all.games[0].ready && all.games[1].id=="broken" && !all.games[1].ready);
+    put(alpha/"cover.png","imagen de prueba");
+    all=fnx::scan(root.string());
+    assert(fs::equivalent(all.games[0].cover,alpha/"cover.png"));
     put(alpha/"fangamenx.json","{\"id\":\"alpha\",\"name\":\"Título alternativo\",\"author\":\"Equipo\"}");
     all=fnx::scan(root.string());
-    assert(all.games[0].title=="Título alternativo" && all.games[0].ready);
+    assert(all.games[0].title=="Título alternativo" && all.games[0].ready &&
+           fs::equivalent(all.games[0].cover,alpha/"cover.png"));
+    put(alpha/"other.png","imagen explícita de prueba");
+    put(alpha/"fangamenx.json","{\"cover\":\"other.png\"}");
+    all=fnx::scan(root.string());
+    assert(fs::equivalent(all.games[0].cover,alpha/"other.png"));
     put(alpha/"fangamenx.json",std::string("{\"name\":\"")+std::string(95,'N')+"\"}");
     all=fnx::scan(root.string());
     assert(all.games[0].title.size()==95 && all.games[0].ready);
