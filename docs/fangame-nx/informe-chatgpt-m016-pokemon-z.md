@@ -4,6 +4,13 @@ Fecha: 10 de noviembre de 2026. Rama local: `feature/fangamenx-launcher-mvp`.
 HEAD al iniciar: `ba10711`. No se modificó el motor ni se construyó o instaló
 otro NRO. No se hizo `push` ni publicación.
 
+**Estado posterior comunicado por el propietario:** Pokémon Z 2.18 arranca y
+funciona en su Nintendo Switch con esta instalación. El propietario lo confirmó
+primero con «funciona» y después con «va de puta madre». Es una validación real
+del uso general, aunque no sustituye pruebas registradas por separado de
+guardado/carga, audio, controles, salida o sesiones prolongadas. Los apartados
+de la misión original conservan el estado observado antes de esa prueba.
+
 ## Resultado observado
 
 Se preparó Pokémon Z 2.18 en `local/m016/stage-pokemon-z-2.18/`, excluido de
@@ -182,3 +189,11 @@ La enumeración MTP posterior encontró los 115 archivos de ese manifiesto,
 más los cuatro archivos de ejecución anteriores, sin nombres ausentes ni
 inesperados. La visualización de la portada en la Switch todavía requiere
 reabrir FangameNX o reescanear su biblioteca.
+
+El lanzador no descubre `cover.png` solo por su nombre. Lee el campo `cover`
+de `fangamenx.json`, valida que sea un nombre local PNG/JPEG, comprueba que el
+archivo exista y lo carga al mostrar la ficha; si no puede cargarlo, usa la
+imagen geométrica de reserva. Esta instalación ya declara
+`"cover": "cover.png"` y tiene ese archivo en la raíz de `pokemon-z`. La
+prueba host confirma que el escáner asocia la ruta, pero el propietario aún
+no ha confirmado expresamente que la imagen se vea en la interfaz de Switch.
