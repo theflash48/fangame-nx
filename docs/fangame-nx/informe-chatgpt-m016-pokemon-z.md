@@ -1,0 +1,152 @@
+# Informe para ChatGPT · M016 · Pokémon Z 2.18
+
+Fecha: 10 de noviembre de 2026. Rama local: `feature/fangamenx-launcher-mvp`.
+HEAD al iniciar: `ba10711`. No se modificó el motor ni se construyó o instaló
+otro NRO. No se hizo `push` ni publicación.
+
+## Resultado observado
+
+Se preparó Pokémon Z 2.18 en `local/m016/stage-pokemon-z-2.18/`, excluido de
+Git, y se copió por MTP a `Nintendo Switch → SD Card → switch → FangameNX →
+games → pokemon-z`. La lectura de vuelta muestra **113 de 114 archivos**
+idénticos al staging final en SHA-256. Falta
+`lib/benchmark/version.rb` (71 bytes): varios intentos de copia mediante Shell
+MTP y Explorador no lo añadieron. Por tanto, **la instalación no está
+verificada íntegramente**. No se ha iniciado el juego en la Switch y no se
+afirma compatibilidad de 2.18. El único elemento ausente pertenece a la
+biblioteca estándar opcional; una búsqueda en las 255 secciones de juego no
+encontró `require 'benchmark'`. Esto solo permite inferir que el primer arranque
+podría no necesitarlo; no demuestra que el juego funcione.
+
+Antes de la primera escritura se identificó un único dispositivo portátil MTP
+`Nintendo Switch`, se accedió a `SD Card`, se observaron `fnx009` y `fnx017`
+en la biblioteca y se recuperó el NRO activo. Su SHA-256 fue
+`bbf9d4fee998703903f10694c04b91a1e5dd01c0769e09cba79c119bd3b5e299`,
+igual al exigido. La carpeta `pokemon-z` no existía. El código b25 confirma
+`switch/FangameNX/games/<id>/` como ruta de descubrimiento. MTP informó
+7,42 GB libres antes de copiar; el staging mide 889 208 850 bytes. No se
+tocaron `FangameNX.nro`, los ejemplos, `config/launcher.json`, otros juegos o
+guardados.
+
+La primera orden `Shell.Application.CopyHere` creó la carpeta y copió solo
+parte de los archivos antes de terminar el proceso de PowerShell. Su
+`datos.zip` se leyó de vuelta: tamaño 888 144 816 bytes y SHA-256 idéntico al
+local. Se completaron los archivos restantes sin volver a copiar el
+contenedor. Dos elementos se resistieron inicialmente; el fichero de créditos
+se copió con nombre ASCII `Creditos.txt`, conservando su contenido. El archivo
+`benchmark/version.rb` continuó ausente tras la copia individual, la copia
+de la carpeta `benchmark` y un pegado en el Explorador. No se borró nada de
+la SD para intentar repararlo.
+
+## Fuente, inventario y preparación privada
+
+Fuente autorizada: `D:\Descargas\POKEMON Z V2.18.zip`, 826 877 555 bytes,
+SHA-256 `f642df4dcdaf5e4e9746a82297dd8d9bd32ffc5f48f1ea5756a16d8f0f55f133`.
+`zipfile.testzip()` pasó las 19 118 entradas: un solo directorio raíz, sin
+cifrado, duplicados, colisiones sin distinción de mayúsculas, rutas de escape
+ni enlaces simbólicos. Total descomprimido: 915 879 001 bytes. No se ejecutó
+ningún EXE. El original descargado permanece intacto.
+
+| Componente del ZIP | Observado |
+|---|---|
+| `Game.ini` | `Title=Pokemon Z`, `Scripts=Data\\Scripts.rxdata`, `Library=RGSS104E.dll` |
+| `Data/` | 558 entradas, 50 061 306 bytes; `Scripts.rxdata` 1 017 941 bytes y mapas `.rxdata` |
+| `Graphics/` | 15 828 entradas, 287 820 001 bytes |
+| `Audio/` | 2 674 entradas, 559 226 353 bytes |
+| `Fonts/` | 9 entradas, 222 668 bytes |
+| Raíz | `preload.rb`, `configuration.json`, textos; también EXE, DLL, PDF y LNK de Windows |
+| Guardados | No hay `Game.rxdata` ni partidas en el ZIP; coincidencias de “save” son recursos gráficos y de audio |
+
+El staging privado contiene 19 022 recursos dentro de `datos.zip` **almacenado
+sin compresión**, `Game.rgssad` de ocho bytes, `Game.ini`, `preload.rb`,
+`configuration.json`, los textos de la raíz, `mkxp.json`, `fangamenx.json` y
+105 ficheros en `lib/`. Se excluyeron `PBS/` (material de desarrollo),
+`Data/Game.exe` duplicado, EXE, DLL, PDF y LNK de la raíz. El manifiesto
+privado final está en `local/m016/stage-manifest-final.sha256.txt` (SHA-256
+`188e3e5858e2a7fefc083fa2559a002d013dcd29eb10864230b868128e8d73aa`).
+El contenedor tiene 19 022 entradas, 885 608 074 bytes de contenido, ZIP
+válido con todas las entradas de método 0, y SHA-256
+`0608df2428808edce149068f043bf2d6f88eeabafabac8ba1d04269adcd07a52`.
+No se incorporaron archivos, recursos ni scripts de Pokémon Z a Git.
+
+El `mkxp.json` compuesto sigue las capas de `CONVENCIONES.md`: base de Switch,
+claves permitidas del archivo del juego, perfil histórico vacío y preloads
+`nx-compat.rb`, `nx-teclado.rb`, `nx-rutas.rb`, `nx-ruby18.rb`, `preload.rb`
+en ese orden. El juego declara `subImageFix=false` y `enableBlitting=true`;
+se conservaron según la lista blanca del empaquetador, sin afirmar que sean
+óptimos en Tegra. `rubyLoadpath=["lib"]`. El manifiesto `fangamenx.json`
+declara ID `pokemon-z`, nombre Pokémon Z, autor EricLostie y versión 2.18.
+Los guardados que cree el juego deben permanecer en su carpeta propia; no se
+trasladó ninguna partida previa ni se mezclaron partidas de prueba.
+
+## Comparación con 2.13 y compatibilidad pendiente
+
+El perfil `juegos/pokemon-z/perfil.json` y `docs/pruebas/pokemon-z.md`
+registran la versión 2.13 con `motor=ruby18`: 235 scripts, título, introducción,
+mapa 66, menú y guardado `Game.rxdata` en Ryujinx con el empaquetado antiguo.
+La 2.18 contiene **255 secciones**, 20 más, y usa `RGSS104E.dll` en
+`Game.ini`. Esta diferencia basta para impedir trasladar el estado `jugable`
+del perfil 2.13 a 2.18 o a la biblioteca b25 en hardware. Se conservó el
+perfil histórico sin editarlo.
+
+La 2.18 conserva llamadas `Win32API`, entrada `Input` redefinida, el lector
+Ogg, `StringInput`, `LargePlane` y la lógica de guardado de la familia Ruby
+1.8. El shim existente cubre los casos documentados en 2.13; no hay prueba
+de que cubra todas las rutas nuevas. La búsqueda de guardado muestra
+`RTP.getSaveFileName` y nombres `Game*.rxdata`. La carga real, gráficos,
+audio, mapas, memoria, mando, tacto, guardado/carga y salida al launcher
+siguen pendientes de ejecución física. La salida con B de Pulso y Órbita no
+demuestra que este juego tenga la misma salida.
+
+No se identificó un defecto genérico del runtime que pudiera corregirse de
+forma comprobable sin ejecutar 2.18. Se dejaron abiertas las incidencias de
+X intermitente y pánico tras tacto. El NRO b25 permanece activo y sin cambios.
+
+## Verificaciones locales reproducibles
+
+Entorno: Windows, PowerShell 7.6.9, Python 3.13.1, Ruby 3.1.4 del árbol y
+Visual Studio C++ para el test host. Los guiones de preparación y las copias
+de lectura residen en `local/m016/` y están ignorados por Git.
+
+| Comando o comprobación | Resultado |
+|---|---|
+| `Get-FileHash -Algorithm SHA256 D:\Descargas\POKEMON Z V2.18.zip` | Hash fuente anterior |
+| `zipfile.testzip()` más controles de rutas, cifrado y colisiones | 19 118 entradas válidas |
+| `python local/m016/prepare.py` | 114 archivos de staging; 19 022 recursos empaquetados |
+| `zipfile.testzip()` y método de cada entrada de `datos.zip` | Pasa; 19 022 entradas almacenadas |
+| `ruby local/m016/check-syntax.rb` | 255 secciones, 3 transformadas por `NXFuente`, 0 fallos de compilación |
+| `tests/run-launcher-host.cmd local/m013/package-bbf9d4fee9` | `launcher_host: OK` con Pulso y Órbita |
+| `local/m016/check-stage.cmd` | Escáner real: `pokemon-z`, versión 2.18, `ready=1` |
+| SHA-256 de 113 archivos leídos de vuelta por MTP | 113 coincidencias, 0 hashes erróneos, 1 ausencia |
+
+El preflight `ready=1` solo valida estructura. No ejecuta Ruby ni el juego.
+No se compilaron fuentes de Switch y no se hicieron pruebas en Ryujinx ni en
+hardware durante M016. El test sintáctico no prueba comportamiento. La SD
+real muestra nueve archivos en la raíz de `pokemon-z`, 104 en `lib/` y 20
+subdirectorios; el manifiesto de 114 espera 105 en `lib/`.
+
+## Recuperación y siguiente prueba
+
+1. Con USB File Transfer activo, comprobar de nuevo el hash del NRO b25 y que
+   `pokemon-z` es la carpeta creada por M016. Recuperar por MTP
+   `lib/benchmark/version.rb` si se logra una nueva sesión MTP; comparar su
+   SHA-256 con la línea privada del manifiesto y repetir el recuento/hash de
+   los 114 archivos. No fusionar otra versión del juego ni borrar guardados.
+2. Si el MTP sigue rechazando ese archivo, conservar el informe y la carpeta
+   tal como están. No etiquetar la instalación como íntegra. El propietario
+   puede ensayar el primer arranque en modo memoria de aplicación sabiendo
+   que falta un archivo de stdlib sin referencia localizada en los scripts.
+3. Cerrar USB File Transfer y abrir FangameNX con memoria de aplicación.
+   Medir por separado: aparece en biblioteca, ficha, lanzamiento, primera
+   pantalla, mando, gráficos/audio, mapa, guardado y carga de **partida nueva**
+   y salida. No usar partidas previas para esta prueba.
+4. Ante un fallo, no repetir a ciegas. Volver a USB File Transfer y recuperar
+   `mkxp-boot.log`, `mkxp-debug.log`, `mkxp-ruby.log`, `errorlog.txt` de
+   `games/pokemon-z/` si existen, más `logs/launcher.log`, antes de cambiar
+   configuración o motor. Conservar el ZIP original, staging y manifiesto
+   para reconstruir. No modificar el NRO activo en esta misión.
+
+Propuesta futura **FNX-022**: asociar cada juego a una fuente autorizada,
+comprobar versiones y verificar descargas, con actualización que conserve
+partidas; también valorar actualización de FangameNX al inicio con copia de
+seguridad, recuperación y reinicio seguro. No se implementó ni activó.
