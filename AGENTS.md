@@ -13,6 +13,14 @@
 - No reescribas el motor ni añadas funciones nuevas sin una tarea explícita. Prefiere cambios pequeños y comprobables.
 - La `.gitignore` es una lista blanca. Al añadir archivos, permite solo rutas concretas y comprueba `git status --short` antes de confirmar cambios.
 
+## Autonomía de desarrollo y MTP
+
+- El propietario autoriza de forma continua el uso de MTP en su Nintendo Switch para leer, instalar y actualizar exclusivamente FangameNX, sus juegos preparados y sus registros. No pidas confirmación por cada operación; esta autorización sigue vigente hasta que el propietario la revoque.
+- Identifica una vez por sesión el dispositivo portátil Nintendo Switch correcto antes de escribir. No confundas su acceso MTP con una microSD conectada a un lector ni toques otra Switch.
+- Antes de sustituir ejecutables o configuraciones, conserva copias locales recuperables, verifica la versión activa y comprueba por lectura de vuelta los archivos nuevos críticos. Conserva partidas, instalaciones ajenas y versiones anteriores.
+- No modifiques sysNAND, Atmosphère, bootloader, datos de otras aplicaciones ni archivos fuera de la instalación FangameNX. La autorización MTP no permite destruir guardados.
+- Prioriza compatibilidad y funciones reales sobre micropruebas o documentación redundante. Si un paso se bloquea, continúa con otra tarea útil autorizada y registra el bloqueo concreto.
+
 ## Verificación
 
 - Distingue lo observado, lo inferido y lo pendiente. No afirmes compatibilidad con un juego, emulador o consola sin pruebas reproducibles.
