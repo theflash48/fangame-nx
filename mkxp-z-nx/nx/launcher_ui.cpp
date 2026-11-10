@@ -68,16 +68,18 @@ static void paragraph(SDL_Renderer *r, TTF_Font *font, int x, int y,
         while (pos < s.size() && s[pos] == ' ') ++pos;
     }
 }
-enum View { LIBRARY, DETAILS, SETTINGS, MESSAGE };
+enum View { LIBRARY, DETAILS, SETTINGS, MESSAGE, SCANNING };
 struct Ui {
     std::string root, message;
     Scan scan;
-    View view = LIBRARY;
+    View view = SCANNING;
     View message_back = LIBRARY;
+    View scan_back = LIBRARY;
     size_t selected = 0;
     int settings = 0;
     bool compact = false;
     bool running = true;
+    bool scan_pending = true;
     std::string launch;
     std::string cover_path;
     SDL_Texture *cover_texture = nullptr;
@@ -109,6 +111,8 @@ static void rescan(Ui &u) {
     u.scan = scan(u.root);
     if (u.selected >= u.scan.games.size()) u.selected = 0;
     log_line(u.root, u.scan.error.empty() ? "scan: terminado" : "scan: error de lectura");
+    u.scan_pending=false;
+    u.view=u.scan_back;
 }
 static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font *small, Ui &u) {
     box(r,0,0,1280,720,bg);
@@ -116,7 +120,11 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
     label(r,title,52,35,"FangameNX",white);
     label(r,small,1000,48,"LAUNCHER  0.1",muted,250);
     box(r,50,104,1180,1,inset);
-    if (u.view == LIBRARY) {
+    if (u.view == SCANNING) {
+        box(r,52,200,1176,405,panel);
+        label(r,title,90,270,"Escaneando biblioteca",white);
+        label(r,normal,90,350,"Buscando juegos preparados en games/...",muted);
+    } else if (u.view == LIBRARY) {
         label(r,normal,52,126,"Biblioteca",white);
         label(r,small,52,164,"Juegos preparados: " + std::to_string(u.scan.games.size()),muted);
         if (u.scan.games.empty()) {
@@ -191,7 +199,7 @@ static void action(Ui &u, int kind) {
         else if (u.view == MESSAGE) u.view=u.message_back;
         else u.view=LIBRARY;
     } else if (kind == 2) {
-        if (u.view == LIBRARY) rescan(u);
+        if (u.view == LIBRARY) { u.scan_back=LIBRARY; u.view=SCANNING; u.scan_pending=true; }
     } else if (kind == 3) {
         if (u.view == LIBRARY) u.view=SETTINGS;
     } else if (kind == 0) {
@@ -217,7 +225,7 @@ static void action(Ui &u, int kind) {
                     u.message_back=SETTINGS;
                     u.view=MESSAGE;
                 }
-            } else if (u.settings==1) rescan(u);
+            } else if (u.settings==1) { u.scan_back=SETTINGS; u.view=SCANNING; u.scan_pending=true; }
             else { u.message="FangameNX M013. Juegos externos preparados en games/. El juego vuelve a Homebrew Menu al salir. FNX-017 sigue abierto."; u.message_back=SETTINGS; u.view=MESSAGE; }
         }
     }
@@ -226,7 +234,6 @@ std::string launcher(const std::string &root) {
     Ui u; u.root=root;
     log_line(root,"inicio: launcher");
     if (!load_preference(root,u.compact)) log_line(root,"config: invalida; valores predeterminados");
-    rescan(u);
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) != 0) return "";
     if (TTF_Init() != 0) { SDL_Quit(); return ""; }
     SDL_Window *window=SDL_CreateWindow("FangameNX",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1280,720,0);
@@ -245,6 +252,7 @@ std::string launcher(const std::string &root) {
     Uint32 last=0;
     if (u.running) render(r,title,normal,small,u);
     while (u.running) {
+        if (u.scan_pending) { rescan(u); render(r,title,normal,small,u); }
         SDL_Event e;
         if (!SDL_WaitEventTimeout(&e,33)) continue;
         if (e.type==SDL_QUIT) u.running=false;
