@@ -71,3 +71,19 @@ con B y observar si reaparece la biblioteca sin pasar por Homebrew Menu. Luego
 probar + para salir de verdad. Si funciona, repetir una vez con `fnx017` y
 recoger los logs. Un fallo de X o un pánico se registra aparte: M012 sigue
 abierto.
+
+## Instalación MTP de la nueva build
+
+Con autorización expresa del propietario se actualizó **solo**
+`SD Card/switch/FangameNX/FangameNX.nro`. Antes de hacerlo se leyó el NRO
+anterior a `local/m014/old-nro/`, SHA-256
+`b4b93af91e3bf6ce49fa6c111e55eb7d2ae49becb6eba77f0beaced56276b6a6`.
+Se subió el NRO nuevo bajo un nombre temporal y se verificó por lectura MTP;
+después se sustituyó el archivo principal y se verificó de nuevo el SHA-256
+`bfa63f21d44637984866b19180553c81fc6d76d40e4a59cdd281db1c9e64c049`.
+El temporal remoto se retiró. La lectura final muestra únicamente
+`FangameNX.nro`, `config/`, `games/` y `logs/` en la instalación. Los readbacks
+están en `local/m014/stage-readback/` y `local/m014/final-readback/`; el registro
+termina en `UPDATE_VERIFIED FangameNX.nro`. No se modificaron los juegos, los
+ajustes ni los logs existentes. El comportamiento de retorno sigue pendiente
+de observar en pantalla.
