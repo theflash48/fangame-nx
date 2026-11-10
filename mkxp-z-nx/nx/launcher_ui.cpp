@@ -153,7 +153,7 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
             label(r,small,920,300,g.author.empty()?"Autor no indicado":g.author,muted,275);
             paragraph(r,small,920,348,g.description,muted,29,5);
             label(r,small,710,482,g.ready?"LISTO PARA ARRANCAR":"INSTALACIÓN INCOMPLETA",g.ready?accent:warning);
-            label(r,small,710,545,"A  Detalles     X  Reescanear     +  Ajustes",muted,490);
+            label(r,small,710,545,"X  Reescanear    Y  Ajustes    +  Salir",muted,490);
         }
     } else if (u.view == DETAILS && !u.scan.games.empty()) {
         const Game &g=u.scan.games[u.selected];
@@ -166,7 +166,7 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         paragraph(r,normal,370,390,g.description,white,47,3);
         paragraph(r,small,370,510,g.ready?"Estructura preparada. Compatibilidad del juego sin verificar.":g.note,
                   g.ready?accent:warning,73,2);
-        label(r,small,370,567,g.ready?"A  Iniciar juego     B  Volver":"B  Volver",muted);
+        label(r,small,370,567,g.ready?"A  Iniciar juego    B  Volver    +  Salir":"B  Volver    +  Salir",muted);
     } else if (u.view == SETTINGS) {
         label(r,normal,52,126,"Ajustes",white);
         box(r,52,200,1176,405,panel);
@@ -174,7 +174,7 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         label(r,normal,90,238,std::string("Lista compacta: ")+(u.compact?"Sí":"No"),white);
         label(r,normal,90,316,"Reescanear biblioteca",white);
         label(r,normal,90,394,"Acerca de FangameNX",white);
-        label(r,small,90,520,"Motor mkxp-z 2.4.2 + CRuby 3.1.7. FNX-017 pendiente de verificar.",muted);
+        label(r,small,90,520,"Motor mkxp-z 2.4.2 + CRuby 3.1.7. B vuelve; + sale de la app.",muted);
     } else {
         box(r,52,200,1176,405,panel);
         label(r,title,90,250,"Aviso",warning);
@@ -182,7 +182,7 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         label(r,small,90,548,"B  Volver",muted);
     }
     box(r,50,651,1180,1,inset);
-    label(r,small,52,667,"Cruceta  Mover     A  Confirmar     B  Volver",muted);
+    label(r,small,52,667,"Cruceta  Mover     A  Confirmar     B  Volver     +  Salir",muted);
     label(r,small,1100,667,"M013",accent);
     SDL_RenderPresent(r);
 }
@@ -195,13 +195,15 @@ static void move(Ui &u, int delta) {
 }
 static void action(Ui &u, int kind) {
     if (kind == 1) {
-        if (u.view == LIBRARY) u.running=false;
-        else if (u.view == MESSAGE) u.view=u.message_back;
+        if (u.view == MESSAGE) u.view=u.message_back;
+        else if (u.view == LIBRARY) return;
         else u.view=LIBRARY;
     } else if (kind == 2) {
         if (u.view == LIBRARY) { u.scan_back=LIBRARY; u.view=SCANNING; u.scan_pending=true; }
     } else if (kind == 3) {
         if (u.view == LIBRARY) u.view=SETTINGS;
+    } else if (kind == 4) {
+        u.running=false;
     } else if (kind == 0) {
         if (u.view == LIBRARY && !u.scan.games.empty()) u.view=DETAILS;
         else if (u.view == DETAILS && !u.scan.games.empty()) {
@@ -269,7 +271,8 @@ std::string launcher(const std::string &root) {
             else if (button==SDL_CONTROLLER_BUTTON_B || key==SDLK_RETURN) action(u,0);
             else if (button==SDL_CONTROLLER_BUTTON_A || key==SDLK_ESCAPE) action(u,1);
             else if (button==SDL_CONTROLLER_BUTTON_Y || key==SDLK_x) action(u,2);
-            else if (button==SDL_CONTROLLER_BUTTON_START || key==SDLK_F1) action(u,3);
+            else if (button==SDL_CONTROLLER_BUTTON_X || key==SDLK_F1) action(u,3);
+            else if (button==SDL_CONTROLLER_BUTTON_START || key==SDLK_F10) action(u,4);
         }
         if (u.running && e.type != SDL_CONTROLLERDEVICEADDED) render(r,title,normal,small,u);
     }

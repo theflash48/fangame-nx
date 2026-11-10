@@ -18,13 +18,24 @@
  
  /* Arranque de Horizon: donde esta el juego.
  
-@@ -452,7 +456,35 @@
+@@ -426,6 +430,9 @@
+ #endif
+ 
+ int main(int argc, char *argv[]) {
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    std::string launcherNro;
++#endif
+ #ifdef __SWITCH__
+     nx_boot_trace("[boot] 3/3 main() alcanzado");
+     Debug() << "[nx] mkxp-z arrancando en Horizon OS; argc =" << argc
+@@ -452,7 +459,37 @@
          nx_boot_trace(linea);
      }
  
 +#ifdef FNX_LAUNCHER
 +    /* El selector vive antes de RGSS. SDL se cierra por completo antes de que
-+       el motor cree su ventana GL; un juego nunca devuelve a este selector. */
++       el motor cree su ventana GL. Tras el juego, hbloader puede cargar un
++       proceso nuevo de este mismo NRO; no se reinicializa Ruby aqui. */
 +    {
 +        char root[512] = "sdmc:/switch/FangameNX";
 +        if (argc > 0 && argv[0] && strchr(argv[0], '/')) {
@@ -32,6 +43,7 @@
 +            char *slash = strrchr(root, '/');
 +            if (slash) *slash = 0;
 +        }
++        launcherNro = std::string(root) + "/FangameNX.nro";
 +        std::string selected = fnx::launcher(root);
 +        if (selected.empty()) {
 +            nx_boot_trace("[launcher] salida sin juego");
@@ -54,3 +66,31 @@
      {
          char cwd[512] = {0};
          if (getcwd(cwd, sizeof(cwd))) Debug() << "[nx] getcwd ->" << cwd;
+@@ -847,9 +884,26 @@
+     /* Ahora, y no antes: la consola de libnx necesita la ventana por defecto,
+        que SDL no suelta hasta SDL_Quit. Si no hubo fallo, no pinta nada y se
+        vuelve al menu homebrew como siempre. */
+-    if (nx_aviso_pendiente())
++    const bool huboAviso = nx_aviso_pendiente();
++    if (huboAviso)
+       nx_aviso_mostrar();
+     nx_boot_trace("[exit] 08 before return main");
++#ifdef FNX_LAUNCHER
++    /* Solo despues del cierre completo del motor, y solo en una salida normal.
++       envSetNextLoad pide al hbloader otro proceso: evita reciclar los estados
++       globales de Ruby, GL, OpenAL, PhysFS y los logs. */
++    if (!huboAviso && rtData.rqTermAck && rtData.rgssErrorMsg.empty()) {
++      if (envHasNextLoad() && launcherNro.size() < 512 &&
++          access(launcherNro.c_str(), R_OK) == 0) {
++        Result rc = envSetNextLoad(launcherNro.c_str(), launcherNro.c_str());
++        nx_boot_trace(R_SUCCEEDED(rc)
++          ? "[launcher] retorno al menu programado"
++          : "[launcher] fallo al programar el retorno; sale a hbmenu");
++      } else {
++        nx_boot_trace("[launcher] hbloader no admite retorno o falta el NRO; sale a hbmenu");
++      }
++    }
++#endif
+ #endif
+ 
+     return 0;
