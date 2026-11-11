@@ -28,6 +28,10 @@ int main(int argc,char **argv) {
     pace.reset(); assert(pace.advance(2000,50)==2050); /* 0,5x */
     std::filesystem::create_directories(std::filesystem::path(root)/"config");
     fnx::quick_init(root,"pokemon-opalo");
+    assert(std::string(fnx::quick_button_name(SDL_CONTROLLER_BUTTON_A))=="B");
+    assert(std::string(fnx::quick_button_name(SDL_CONTROLLER_BUTTON_B))=="A");
+    assert(std::string(fnx::quick_button_name(SDL_CONTROLLER_BUTTON_X))=="Y");
+    assert(std::string(fnx::quick_button_name(SDL_CONTROLLER_BUTTON_Y))=="X");
     assert(fnx::quick_speed()==0 && fnx::quick_multiplier(0)==1.0);
     assert(fnx::quick_rate(40,0)==40 && fnx::quick_rate(40,3)==60 &&
            fnx::quick_rate(40,4)==80 && fnx::quick_rate(60,1)==30);
@@ -44,6 +48,9 @@ int main(int argc,char **argv) {
     assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_DPAD_DOWN)));
     assert(fnx::quick_take_command()==fnx::QuickDown);
     assert(fnx::quick_take_command()==fnx::QuickNone);
+    assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_DPAD_LEFT)));
+    assert(fnx::quick_take_command()==fnx::QuickLeft);
+    fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,SDL_CONTROLLER_BUTTON_DPAD_LEFT));
     assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_B)));
     assert(fnx::quick_take_command()==fnx::QuickSelect);
     assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_A)));
@@ -127,6 +134,8 @@ int main(int argc,char **argv) {
     assert(fnx::quick_game_button(SDL_CONTROLLER_BUTTON_DPAD_UP)==SDL_CONTROLLER_BUTTON_RIGHTSTICK);
     assert(fnx::quick_assign(SDL_CONTROLLER_BUTTON_A,15));
     assert(fnx::quick_game_trigger_button(SDL_CONTROLLER_AXIS_TRIGGERLEFT)==SDL_CONTROLLER_BUTTON_A);
+    assert(fnx::quick_assign(SDL_CONTROLLER_BUTTON_B,16));
+    assert(fnx::quick_game_trigger_button(SDL_CONTROLLER_AXIS_TRIGGERRIGHT)==SDL_CONTROLLER_BUTTON_B);
     assert(fnx::quick_game_button(SDL_CONTROLLER_BUTTON_A)==-1);
     fnx::quick_init(root,"pokemon-opalo");
     assert(fnx::quick_game_trigger_button(SDL_CONTROLLER_AXIS_TRIGGERLEFT)==SDL_CONTROLLER_BUTTON_A);
@@ -186,6 +195,8 @@ int main(int argc,char **argv) {
             assert(fnx::quick_menu_row_label(testView, i) != nullptr);
     assert(fnx::quick_menu_row_label(view, 2) == nullptr);
     assert(fnx::quick_menu_row_count(4) == 8);
+    assert(fnx::quick_controls_row_count(0)==8 && fnx::quick_controls_row_count(2)==8);
+    assert(fnx::quick_controls_row_count(3)==5 && fnx::quick_controls_row_count(4)==0);
     for (int testView : {4, 6})
         for (int i = 0; i < fnx::quick_menu_row_count(testView); ++i)
             assert(fnx::quick_menu_row_label(testView, i) != nullptr);

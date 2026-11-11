@@ -303,7 +303,7 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         label(r,small,135,547,"Volver",white);
     }
     box(r,50,651,1180,1,inset);
-    label(r,small,52,667,"Cruceta  Mover     B  Elegir     A  Volver     X  Reescanear     Y  Ajustes",muted);
+    label(r,small,52,667,"Cruceta  Mover     A  Elegir     B  Volver     X  Reescanear     Y  Ajustes",muted);
     label(r,small,1100,667,"M023",accent);
     SDL_RenderPresent(r);
 }

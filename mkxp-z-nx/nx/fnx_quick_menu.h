@@ -5,7 +5,7 @@
 union SDL_Event;
 namespace fnx {
 enum QuickCommand { QuickNone=0, QuickUp, QuickDown, QuickSelect, QuickBack,
-                    QuickPreviousPage, QuickNextPage,
+                    QuickPreviousPage, QuickNextPage, QuickLeft, QuickRight,
                     QuickCaptureBase=100 };
 void quick_init(const std::string &root, const std::string &game);
 /* Solo el hilo de eventos llama estas dos funciones. */
@@ -43,6 +43,7 @@ void quick_request_exit();
 bool quick_take_exit_request();
 bool quick_exit_requested();
 int quick_menu_row_count(int view);
+int quick_controls_row_count(int page);
 const char *quick_menu_row_label(int view, int index);
 }
 #endif

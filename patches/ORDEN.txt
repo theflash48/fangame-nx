@@ -46,4 +46,5 @@ mkxpz-m021-menu-exit.patch
 mkxpz-m022-confirmacion.patch
 mkxpz-m023-remapeo-ui.patch
 mkxpz-m024-remapeo-hotfix.patch
+mkxpz-m025-remapeo-etiquetas-gatillos.patch
 mkxpz-vorbis-ov-hole.patch

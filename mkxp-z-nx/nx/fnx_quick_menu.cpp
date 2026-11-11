@@ -113,6 +113,8 @@ bool quick_event(const SDL_Event &event) {
             switch (event.cbutton.button) {
                 case SDL_CONTROLLER_BUTTON_DPAD_UP: post(QuickUp); break;
                 case SDL_CONTROLLER_BUTTON_DPAD_DOWN: post(QuickDown); break;
+                case SDL_CONTROLLER_BUTTON_DPAD_LEFT: post(QuickLeft); break;
+                case SDL_CONTROLLER_BUTTON_DPAD_RIGHT: post(QuickRight); break;
                 case SDL_CONTROLLER_BUTTON_B: post(QuickSelect); break;
                 case SDL_CONTROLLER_BUTTON_A: post(QuickBack); break;
                 case SDL_CONTROLLER_BUTTON_LEFTSHOULDER: post(QuickPreviousPage); break;
@@ -128,6 +130,8 @@ bool quick_event(const SDL_Event &event) {
             switch (event.key.keysym.sym) {
                 case SDLK_UP: post(QuickUp); break;
                 case SDLK_DOWN: post(QuickDown); break;
+                case SDLK_LEFT: post(QuickLeft); break;
+                case SDLK_RIGHT: post(QuickRight); break;
                 case SDLK_RETURN: post(QuickSelect); break;
                 case SDLK_ESCAPE: post(QuickBack); break;
                 default: break;
@@ -201,7 +205,8 @@ int quick_game_trigger_button(int axis) {
 int quick_trigger_threshold() { return 16000; }
 const char *quick_controls() { return controls.c_str(); }
 const char *quick_button_name(int button) {
-    static const char *names[] = {"A", "B", "X", "Y", "MINUS", "GUIDE",
+    /* SDL nombra por posición Xbox; los rótulos muestran el botón Switch. */
+    static const char *names[] = {"B", "A", "Y", "X", "MINUS", "GUIDE",
         "PLUS", "L3", "R3", "L", "R", "ARRIBA", "ABAJO", "IZQUIERDA", "DERECHA",
         "ZL", "ZR"};
     return button >= 0 && button < 17 ? names[button] : "?";
@@ -287,6 +292,7 @@ int quick_menu_row_count(int view) {
         default: return 0;
     }
 }
+int quick_controls_row_count(int page) { return page >= 0 && page < 3 ? 8 : page == 3 ? 5 : 0; }
 const char *quick_menu_row_label(int view, int index) {
     static const char *mainRows[] = {"Reanudar juego", "Velocidad",
         "Controles del juego", "Diagnostico", "Volver a la biblioteca"};

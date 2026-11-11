@@ -1,0 +1,169 @@
+--- a/src/display/graphics.cpp
++++ b/src/display/graphics.cpp
+@@ -984,7 +984,7 @@
+         Bitmap overlay(1280, 720);
+         overlay.setInitFont(&menuFont);
+         int view = 0, selected = 0, controlPage = 0, captureLogical = -1;
+-        const int editableButtons[15] = {0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 5};
++        const int editableButtons[15] = {1, 0, 3, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 5};
+         Uint32 captureStarted = 0;
+         bool dirty = true, leaving = false, saveError = false, lastSwap = false;
+         const double measured = avgFPSData.empty() ? 0.0 : averageFPS();
+@@ -1002,12 +1002,17 @@
+             }
+             checkSyncLock();
+             const int cmd = fnx::quick_take_command();
+-            const int navigationCount = fnx::quick_menu_row_count(view);
++            const int navigationCount = view == 4 ? fnx::quick_controls_row_count(controlPage) :
++                                        fnx::quick_menu_row_count(view);
+             if (cmd >= fnx::QuickCaptureBase &&
+                 cmd < fnx::QuickCaptureBase + 17 && view == 5) {
+                 const int physical = cmd - fnx::QuickCaptureBase;
+-                lastSwap = fnx::quick_button_source(captureLogical) != physical;
++                const int previousOwner = physical < 15 ? fnx::quick_game_button(physical) :
++                    fnx::quick_game_trigger_button(physical == 15 ?
++                        SDL_CONTROLLER_AXIS_TRIGGERLEFT : SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
++                lastSwap = previousOwner >= 0 && previousOwner != captureLogical;
+                 saveError = !fnx::quick_assign(captureLogical, physical);
++                nx_boot_trace_sync(saveError ? "[quick] remapeo no guardado" : "[quick] remapeo guardado");
+                 view = 4;
+                 dirty = true;
+             }
+@@ -1015,8 +1020,23 @@
+                 fnx::quick_capture_cancel(); view = 4; dirty = true;
+             }
+             if (view == 4 && (cmd == fnx::QuickPreviousPage || cmd == fnx::QuickNextPage)) {
+-                controlPage = (controlPage + (cmd == fnx::QuickNextPage ? 1 : 2)) % 3;
++                controlPage = (controlPage + (cmd == fnx::QuickNextPage ? 1 : 3)) % 4;
+                 selected = 0; dirty = true;
++            }
++            if (view == 4 && controlPage == 3 && selected < 2 &&
++                (cmd == fnx::QuickLeft || cmd == fnx::QuickRight || cmd == fnx::QuickSelect)) {
++                const int source = 15 + selected;
++                const int current = fnx::quick_game_trigger_button(
++                    selected == 0 ? SDL_CONTROLLER_AXIS_TRIGGERLEFT : SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
++                int index = -1;
++                for (int i = 0; i < 14; ++i)
++                    if (editableButtons[i] == current) { index = i; break; }
++                const int next = index < 0 ? (cmd == fnx::QuickLeft ? 13 : 0) :
++                                 (index + (cmd == fnx::QuickLeft ? 13 : 1)) % 14;
++                lastSwap = current >= 0 && current != editableButtons[next];
++                saveError = !fnx::quick_assign(editableButtons[next], source);
++                nx_boot_trace_sync(saveError ? "[quick] gatillo no guardado" : "[quick] gatillo asignado");
++                dirty = true;
+             }
+             if (cmd == fnx::QuickUp && view != 5 && navigationCount > 0) {
+                 selected = (selected + navigationCount - 1) % navigationCount; dirty = true;
+@@ -1027,7 +1047,7 @@
+             if (cmd == fnx::QuickBack) {
+                 if (view == 0) fnx::quick_close();
+                 else if (view == 5) { fnx::quick_capture_cancel(); view = 4; dirty = true; }
+-                else if (view == 6) { view = 4; selected = 6; dirty = true; }
++                else if (view == 6) { view = 4; selected = controlPage == 3 ? 3 : 6; dirty = true; }
+                 else { view = 0; selected = 0; dirty = true; }
+             }
+             if (cmd == fnx::QuickSelect) {
+@@ -1036,6 +1056,7 @@
+                     else { view = selected == 1 ? 1 : selected == 2 ? 4 :
+                                   selected == 3 ? 2 : 3;
+                            if (view == 3) nx_boot_trace_sync("[quick] confirmacion abierta");
++                           if (view == 4) nx_boot_trace_sync("[quick] controles abiertos");
+                            selected = view == 1 ? fnx::quick_speed() : 0; dirty = true; }
+                 } else if (view == 1) {
+                     saveError = !fnx::quick_set_speed(selected);
+@@ -1043,11 +1064,17 @@
+                     dirty = true;
+                 } else if (view == 2) { view = 0; selected = 3; dirty = true; }
+                 else if (view == 4) {
+-                    if (selected < 5 && editableButtons[controlPage * 5 + selected] != 5) {
++                    if (controlPage == 3 && selected < 2) { /* Gatillo asignado arriba. */ }
++                    else if (controlPage == 3 && selected == 2) {
++                        controlPage = 0; selected = 0;
++                    } else if (controlPage == 3 && selected == 3) { view = 6; selected = 0; }
++                    else if (controlPage == 3) { view = 0; selected = 2; }
++                    else if (selected < 5 && editableButtons[controlPage * 5 + selected] != 5) {
+                         captureLogical = editableButtons[controlPage * 5 + selected];
+                         fnx::quick_capture_start(captureLogical);
++                        nx_boot_trace_sync("[quick] captura iniciada");
+                         captureStarted = SDL_GetTicks(); view = 5;
+-                    } else if (selected == 5) { controlPage = (controlPage + 1) % 3; selected = 0; }
++                    } else if (selected == 5) { controlPage = (controlPage + 1) % 4; selected = 0; }
+                     else if (selected == 6) { view = 6; selected = 0; }
+                     else { view = 0; selected = 2; }
+                     dirty = true;
+@@ -1063,7 +1090,7 @@
+                         saveError = !fnx::quick_set_sticks(flags, deadzone);
+                     } else if (selected == 6) {
+                         saveError = !fnx::quick_reset_controls(); lastSwap = false;
+-                    } else { view = 4; selected = 6; }
++                    } else { view = 4; selected = controlPage == 3 ? 3 : 6; }
+                     dirty = true;
+                 }
+                 else if (selected == 0) { view = 0; selected = 4; dirty = true; }
+@@ -1078,7 +1105,8 @@
+             if (dirty) {
+                 /* La orden anterior puede haber cambiado de vista. Nunca usar
+                    el recuento anterior para dibujar la confirmación. */
+-                const int visibleCount = fnx::quick_menu_row_count(view);
++                const int visibleCount = view == 4 ? fnx::quick_controls_row_count(controlPage) :
++                                         fnx::quick_menu_row_count(view);
+                 overlay.clear();
+                 overlay.fillRect(0, 0, 1280, 720, Vec4(0, 0, 0, 0.58));
+                 overlay.fillRect(249, 91, 782, 538, Vec4(0.02, 0.10, 0.15, 0.96));
+@@ -1093,18 +1121,36 @@
+                 for (int i = 0; i < visibleCount; ++i)
+                     items[i] = fnx::quick_menu_row_label(view, i);
+                 if (view == 4) {
+-                    for (int i = 0; i < 5; ++i) {
+-                        const int logical = editableButtons[controlPage * 5 + i];
+-                        snprintf(controlItems[i], sizeof(controlItems[i]),
+-                                 logical == 5 ? "GUIDE: reservado por el sistema" :
+-                                 "Juego %-10s  <-  Fisico %s",
+-                                 fnx::quick_button_name(logical),
+-                                 fnx::quick_button_name(fnx::quick_button_source(logical)));
+-                        items[i] = controlItems[i];
++                    if (controlPage == 3) {
++                        for (int i = 0; i < 2; ++i) {
++                            const int logical = fnx::quick_game_trigger_button(
++                                i == 0 ? SDL_CONTROLLER_AXIS_TRIGGERLEFT : SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
++                            snprintf(controlItems[i], sizeof(controlItems[i]),
++                                     "%s fisico  ->  Juego %s   (izq/der cambia)",
++                                     i == 0 ? "ZL" : "ZR",
++                                     logical < 0 ? "sin asignar" : fnx::quick_button_name(logical));
++                            items[i] = controlItems[i];
++                        }
++                        items[2] = "Pagina 4 / 4   -   Siguiente (R)";
++                        items[3] = "Opciones de sticks";
++                        items[4] = "Volver";
++                    } else {
++                        for (int i = 0; i < 5; ++i) {
++                            const int logical = editableButtons[controlPage * 5 + i];
++                            if (logical == 5)
++                                snprintf(controlItems[i], sizeof(controlItems[i]),
++                                         "GUIDE: reservado por el sistema");
++                            else
++                                snprintf(controlItems[i], sizeof(controlItems[i]),
++                                         "Juego %-10s  <-  Fisico %s",
++                                         fnx::quick_button_name(logical),
++                                         fnx::quick_button_name(fnx::quick_button_source(logical)));
++                            items[i] = controlItems[i];
++                        }
++                        snprintf(controlItems[5],sizeof(controlItems[5]),
++                                 "Pagina %d / 4   -   Siguiente (R)",controlPage + 1);
++                        items[5] = controlItems[5];
+                     }
+-                    snprintf(controlItems[5],sizeof(controlItems[5]),
+-                             "Pagina %d / 3   -   Siguiente (R)",controlPage + 1);
+-                    items[5] = controlItems[5];
+                 } else if (view == 6) {
+                     for (int i = 0; i < 5; ++i) {
+                         snprintf(controlItems[i],sizeof(controlItems[i]),"%s: %s",
+@@ -1161,7 +1207,7 @@
+                     else if (view == 4 && lastSwap)
+                         overlay.drawText(287, 550, 700, 36, "Conflicto: se intercambiaron las entradas.");
+                 }
+-                overlay.drawText(288, 588, 690, 36, "B: elegir    A: volver    L/R: pagina de controles");
++                overlay.drawText(288, 588, 690, 36, "A: elegir    B: volver    L/R: pagina de controles");
+                 dirty = false;
+             }
+             drawQuickFrame(overlay);
