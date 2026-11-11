@@ -1,0 +1,29 @@
+# Informe para ChatGPT · FangameNX M025
+
+Fecha: 2026-11-11. Rama `feature/fangamenx-launcher-mvp`; base real `8900d7c`, FangameNX `0.2.4 b42`. Commits de la corrección: `e98fbca` y `f898d32`; este informe se confirma en el commit siguiente. Sin push.
+
+## Resultado y evidencia recuperada
+
+El propietario confirmó en Switch seis pruebas correctas de Pokémon Reborn 19.5.0: biblioteca, arranque, imagen y audio, mapa y movimiento, guardado/carga y retorno. Al elegir la configuración de teclado «Configure (F1)» desde el mundo, el juego cerró por un fallo. La opción de mando es distinta y no se ha probado físicamente.
+
+Antes de reproducir el fallo o cambiar el NRO se identificó una única Nintendo Switch MTP presente y se copiaron los logs, sin alterar los originales, a `local/m027/evidence-b42-reborn-20261111-205213/`. `manifest.json` guarda tamaños y SHA-256 de los cinco archivos. El `mkxp-boot.log` de Reborn tiene 44 855 bytes y SHA-256 `26e624cdc0d7657d3f9b679c4967754d9b04fccd69b582b5978a15451696bfc2`. Su secuencia conserva tres ejecuciones b42: la primera termina en el fallo a los 611,880 s; las dos siguientes terminan normalmente con `[launcher] retorno al menu programado`. No se atribuye a este incidente ninguno de los informes de Atmosphère anteriores encontrados.
+
+La última actividad normal registrada antes del fallo son métricas de juego a los 601,031 s. A los 611,880 s aparece `[exc] otra (acceso a datos)`, `esr=0x92000005`, `far=0x8`; el PC relativo `+0x309bc` y LR `+0x30994` corresponden al constructor `SettingsMenu::SettingsMenu` en `src/settingsmenu.cpp`. El desensamblado sitúa el acceso en `p->rgb = p->winSurf->format` (línea 942). `SDL_GetWindowSurface` había devuelto `NULL` para la ventana adicional «Key bindings» creada por `SDL_CreateWindow`; el acceso al campo `format` usa dirección `0x8`. El `fatalThrow res=0xe401` posterior, localizado en `switch_swap_buffers`, es consecuencia del fallo inicial, no evidencia de que el intercambio de imagen lo originase. No consta excepción Ruby asociada.
+
+## Causa y diferencia con el mando
+
+En la copia privada de Reborn, `Scripts/Controls.rb` muestra tres opciones: «Configure (F1)», «Keyboard Defaults» y «Gamepad Defaults». La primera llama a `System.show_settings`; las otras crean escenas informativas propias en Ruby. El binding genérico de `System.show_settings` solicita `REQUEST_SETTINGS` al hilo de eventos. En b42 esa solicitud construía el editor de teclado de mkxp-z como segunda ventana SDL, aunque la configuración base y la de Reborn tienen `enableSettings=false`. Ese ajuste solo bloqueaba el atajo físico F1, no la llamada desde Ruby. El editor requiere una ventana y superficie de escritorio que no están disponibles de esta forma en Horizon. No hay evidencia de que la opción informativa de mando use esa ruta o falle.
+
+## Corrección genérica
+
+En Switch con launcher, `REQUEST_SETTINGS` ya no crea la ventana secundaria. Abre un aviso en el menú rápido existente, dibujado por el hilo dueño del contexto GL, que explica la limitación y señala la edición de mando de FangameNX (`L+R+PLUS` → «Controles del juego»). A o B cierran el aviso y devuelven el control al juego. La misma ruta protege una petición desde F1 físico cuando esa tecla esté habilitada. Fuera de Switch se conserva el editor original; no se modificó ningún script de Reborn ni la lógica de guardado. El evento deja una traza sincronizada `[settings] ventana de teclado no disponible; aviso en overlay` para comprobar la transición en la siguiente prueba física.
+
+Código propio en `mkxp-z-nx/nx/fnx_quick_menu.{h,cpp}`; cambios de mkxp-z en `patches/mkxpz-m027-settings-fallback.patch` y `patches/ORDEN.txt`. El segundo commit ajusta el texto del aviso para que no se solape con «Cerrar aviso». La alternativa de reproducir en Switch el editor completo de teclado queda fuera de esta reparación: requeriría una UI de una sola ventana y una correspondencia segura con entradas físicas.
+
+## Verificación, paquete y MTP
+
+`tests/run-launcher-host.cmd` pasó `launcher_host` y `quick_menu_host`, incluido el nuevo estado de aviso. `python reconstruir-src.py --orden`: 48/48 parches, 41 fuentes idénticas y cero desviaciones. `make -C mkxp-z-nx -j6 FNX_LAUNCHER=1 FNX_LIBGCC_PREFIX=.../src/build-logs/fnx016-isolated-prefix FNX_LINK_MAP=.../local/m027/FangameNX-b44.map` produjo `0.2.4 b44`. `auditar-armv8.py` halló cero instrucciones incompatibles conocidas y comparó 11 814 776 bytes de código ELF/NRO sin diferencias. `comprobar-nro.py` validó NRO, NACP y RomFS. No hay símbolos indefinidos ni patrones desconocidos en el desensamblado. Las pruebas host no reproducen SDL/libnx en la consola.
+
+Se respaldó el NRO b42 en `local/m027/old-nro-b42/FangameNX.nro` (SHA-256 `8c140969ede7af283e15c0c89cfbf55398383b3ce27bf1383adf6315eb93930b`) y `launcher.json` en `local/m027/config-backup-before-b43/` (SHA-256 `72d6fcfcbdf2de6756bac3dd069f4d2e21252394c891a703446e8bc86beceffb`). La b43 provisional también se respaldó en `local/m027/old-nro-b43/` (SHA-256 `ecf93267f61e12c6ce3cc625819c0866c6aa0667cd8ad25eb25ebb03fd8d4894`), y la configuración se volvió a copiar antes de b44. **b44 está instalada** en `SD Card/switch/FangameNX/FangameNX.nro`: 17 857 737 bytes, SHA-256 `ea862ae29d5a5ea0564360cec2e02f9ea29a0d90ad9cebad91a8943a1519a0a9`. Se leyeron de vuelta por MTP tanto el temporal como el NRO final y ambos coincidieron; se retiró el temporal. No se escribieron juegos, guardados ni configuraciones.
+
+**Pendiente de prueba física:** en Reborn, elegir «Configure (F1)», comprobar que aparece el aviso y que A/B regresa al mundo sin cierre; después comprobar retorno a biblioteca. La opción «Gamepad Defaults» se puede probar por separado. Recuperar los nuevos logs antes de otra intervención si hubiese un fallo. El crash original tiene causa localizada y una protección implementada, pero no se declara resuelto en hardware hasta esa comprobación.
