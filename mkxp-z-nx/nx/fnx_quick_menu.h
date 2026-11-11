@@ -25,6 +25,9 @@ int quick_game_button(int physical);
 int quick_game_trigger_button(int axis);
 int quick_trigger_threshold();
 int quick_game_axis(int physical, int value, int &logical);
+/* Recalcula todo el estado RGSS desde las entradas físicas de este frame. */
+void quick_project_controller(const bool *physicalButtons, const int *physicalAxes,
+                              bool *logicalButtons, int *logicalAxes);
 const char *quick_button_name(int button);
 int quick_button_source(int logical);
 int quick_stick_flags();

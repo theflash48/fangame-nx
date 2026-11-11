@@ -1,0 +1,90 @@
+--- a/src/eventthread.cpp
++++ b/src/eventthread.cpp
+@@ -88,6 +88,11 @@
+ 
+ uint8_t EventThread::keyStates[];
+ EventThread::ControllerState EventThread::controllerState;
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++/* El juego recibe una proyección completa, no eventos lógicos mutables. */
++static bool fnxPhysicalButtons[SDL_CONTROLLER_BUTTON_MAX] = {};
++static int fnxPhysicalAxes[SDL_CONTROLLER_AXIS_MAX] = {};
++#endif
+ EventThread::MouseState EventThread::mouseState;
+ EventThread::TouchState EventThread::touchState;
+ SDL_atomic_t EventThread::verticalScrollDistance;
+@@ -322,11 +327,10 @@
+         if (fnx::quick_chord_candidate()) {
+             for (int physical : {SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
+                                  SDL_CONTROLLER_BUTTON_RIGHTSHOULDER,
+-                                 SDL_CONTROLLER_BUTTON_START}) {
+-                const int logical = fnx::quick_game_button(physical);
+-                if (logical >= 0 && logical < SDL_CONTROLLER_BUTTON_MAX)
+-                    controllerState.buttons[logical] = false;
+-            }
++                                 SDL_CONTROLLER_BUTTON_START})
++                fnxPhysicalButtons[physical] = false;
++            fnx::quick_project_controller(fnxPhysicalButtons, fnxPhysicalAxes,
++                                          controllerState.buttons, controllerState.axes);
+         }
+         if (quickConsumed) continue;
+ #endif
+@@ -528,30 +532,34 @@
+                 
+             case SDL_CONTROLLERBUTTONDOWN:
+ #if defined(__SWITCH__) && defined(FNX_LAUNCHER)
+-                event.cbutton.button = fnx::quick_game_button(event.cbutton.button);
+-                if (event.cbutton.button >= SDL_CONTROLLER_BUTTON_MAX) break;
+-#endif
++                if (event.cbutton.button < SDL_CONTROLLER_BUTTON_MAX) {
++                    fnxPhysicalButtons[event.cbutton.button] = true;
++                    fnx::quick_project_controller(fnxPhysicalButtons, fnxPhysicalAxes,
++                                                  controllerState.buttons, controllerState.axes);
++                }
++#else
+                 controllerState.buttons[event.cbutton.button] = true;
++#endif
+                 break;
+                 
+             case SDL_CONTROLLERBUTTONUP:
+ #if defined(__SWITCH__) && defined(FNX_LAUNCHER)
+-                event.cbutton.button = fnx::quick_game_button(event.cbutton.button);
+-                if (event.cbutton.button >= SDL_CONTROLLER_BUTTON_MAX) break;
+-#endif
++                if (event.cbutton.button < SDL_CONTROLLER_BUTTON_MAX) {
++                    fnxPhysicalButtons[event.cbutton.button] = false;
++                    fnx::quick_project_controller(fnxPhysicalButtons, fnxPhysicalAxes,
++                                                  controllerState.buttons, controllerState.axes);
++                }
++#else
+                 controllerState.buttons[event.cbutton.button] = false;
++#endif
+                 break;
+                 
+             case SDL_CONTROLLERAXISMOTION:
+ #if defined(__SWITCH__) && defined(FNX_LAUNCHER)
+-                {
+-                    int logical = event.caxis.axis;
+-                    const int value = fnx::quick_game_axis(event.caxis.axis, event.caxis.value, logical);
+-                    if (logical >= 0 && logical < SDL_CONTROLLER_AXIS_MAX)
+-                        controllerState.axes[logical] = value;
+-                    const int button = fnx::quick_game_trigger_button(event.caxis.axis);
+-                    if (button >= 0 && button < SDL_CONTROLLER_BUTTON_MAX)
+-                        controllerState.buttons[button] = event.caxis.value >= fnx::quick_trigger_threshold();
++                if (event.caxis.axis < SDL_CONTROLLER_AXIS_MAX) {
++                    fnxPhysicalAxes[event.caxis.axis] = event.caxis.value;
++                    fnx::quick_project_controller(fnxPhysicalButtons, fnxPhysicalAxes,
++                                                  controllerState.buttons, controllerState.axes);
+                 }
+ #else
+                 controllerState.axes[event.caxis.axis] = event.caxis.value;
+@@ -842,6 +850,10 @@
+ {
+     memset(&keyStates, 0, sizeof(keyStates));
+     memset(&controllerState, 0, sizeof(controllerState));
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++    memset(fnxPhysicalButtons, 0, sizeof(fnxPhysicalButtons));
++    memset(fnxPhysicalAxes, 0, sizeof(fnxPhysicalAxes));
++#endif
+     memset(&mouseState.buttons, 0, sizeof(mouseState.buttons));
+     memset(&touchState, 0, sizeof(touchState));
+ }

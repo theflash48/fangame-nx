@@ -7,12 +7,20 @@
 
 namespace fnx {
 namespace {
+/* El perfil persiste los 15 botones clásicos. SDL 2 también enumera MISC1,
+   paletas y touchpad: SDL_CONTROLLER_BUTTON_MAX NO es la longitud del perfil. */
+constexpr int mappedButtons = SDL_CONTROLLER_BUTTON_DPAD_RIGHT + 1;
+constexpr int mappedSources = mappedButtons + 2; /* ZL/ZR son ejes, no botones 15/16. */
+static_assert(mappedButtons == 15 && SDL_CONTROLLER_BUTTON_A == 0 &&
+              SDL_CONTROLLER_BUTTON_GUIDE == 5 &&
+              SDL_CONTROLLER_BUTTON_DPAD_RIGHT == 14,
+              "El formato del perfil requiere la numeracion SDL 2 esperada");
 std::string configRoot, gameId;
 SDL_atomic_t active = {}, command = {}, speed = {}, closing = {};
 bool held[SDL_CONTROLLER_BUTTON_MAX] = {};
 bool triggerHeld[2] = {};
 std::string controls = "ABCDEFGHIJKLMNO";
-SDL_atomic_t physicalToLogical[17] = {};
+SDL_atomic_t physicalToLogical[mappedSources] = {};
 SDL_atomic_t stickFlags = {}, stickDeadzone = {};
 SDL_atomic_t capture = {};
 SDL_atomic_t exitRequest = {};
@@ -21,6 +29,7 @@ Uint32 chordSince = 0;
 
 bool allReleased() {
     for (bool down : held) if (down) return false;
+    for (bool down : triggerHeld) if (down) return false;
     return true;
 }
 bool chordDown() {
@@ -31,7 +40,7 @@ bool chordDown() {
 void post(int value) { SDL_AtomicSet(&command, value); }
 void publishControls() {
     for (auto &slot : physicalToLogical) SDL_AtomicSet(&slot, -1);
-    for (int logical = 0; logical < SDL_CONTROLLER_BUTTON_MAX; ++logical)
+    for (int logical = 0; logical < mappedButtons; ++logical)
         SDL_AtomicSet(&physicalToLogical[controls[logical] - 'A'], logical);
 }
 }
@@ -94,7 +103,7 @@ bool quick_event(const SDL_Event &event) {
     if (SDL_AtomicGet(&active)) {
         if (event.type == SDL_CONTROLLERBUTTONDOWN) {
             if (SDL_AtomicGet(&capture) >= 0) {
-                if (event.cbutton.button < SDL_CONTROLLER_BUTTON_MAX &&
+                if (event.cbutton.button < mappedButtons &&
                     event.cbutton.button != SDL_CONTROLLER_BUTTON_GUIDE) {
                     post(QuickCaptureBase + event.cbutton.button);
                     SDL_AtomicSet(&capture, -1);
@@ -181,13 +190,13 @@ int quick_rate(int nominal_hz, int mode) {
     return std::max(1, (int)std::lround(nominal_hz * quick_multiplier(mode)));
 }
 int quick_game_button(int physical) {
-    return physical >= 0 && physical < SDL_CONTROLLER_BUTTON_MAX ?
+    return physical >= 0 && physical < mappedButtons ?
            SDL_AtomicGet(&physicalToLogical[physical]) : physical;
 }
 int quick_game_trigger_button(int axis) {
     if (axis < SDL_CONTROLLER_AXIS_TRIGGERLEFT || axis > SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
         return -1;
-    return SDL_AtomicGet(&physicalToLogical[15 + axis - SDL_CONTROLLER_AXIS_TRIGGERLEFT]);
+    return SDL_AtomicGet(&physicalToLogical[mappedButtons + axis - SDL_CONTROLLER_AXIS_TRIGGERLEFT]);
 }
 int quick_trigger_threshold() { return 16000; }
 const char *quick_controls() { return controls.c_str(); }
@@ -198,7 +207,7 @@ const char *quick_button_name(int button) {
     return button >= 0 && button < 17 ? names[button] : "?";
 }
 int quick_button_source(int logical) {
-    return logical >= 0 && logical < SDL_CONTROLLER_BUTTON_MAX ?
+    return logical >= 0 && logical < mappedButtons ?
            controls[logical] - 'A' : -1;
 }
 int quick_stick_flags() { return SDL_AtomicGet(&stickFlags); }
@@ -220,14 +229,35 @@ int quick_game_axis(int physical, int value, int &logical) {
     if (std::abs(value) < quick_stick_deadzone()) value = 0;
     return value;
 }
+void quick_project_controller(const bool *physicalButtons, const int *physicalAxes,
+                              bool *logicalButtons, int *logicalAxes) {
+    std::fill(logicalButtons, logicalButtons + SDL_CONTROLLER_BUTTON_MAX, false);
+    std::fill(logicalAxes, logicalAxes + SDL_CONTROLLER_AXIS_MAX, 0);
+    for (int source = 0; source < SDL_CONTROLLER_BUTTON_MAX; ++source) {
+        if (!physicalButtons[source]) continue;
+        const int target = quick_game_button(source);
+        if (target >= 0 && target < SDL_CONTROLLER_BUTTON_MAX)
+            logicalButtons[target] = true;
+    }
+    for (int source = 0; source < SDL_CONTROLLER_AXIS_MAX; ++source) {
+        int target = source;
+        const int value = quick_game_axis(source, physicalAxes[source], target);
+        if (target >= 0 && target < SDL_CONTROLLER_AXIS_MAX)
+            logicalAxes[target] = value;
+        const int button = quick_game_trigger_button(source);
+        if (button >= 0 && button < SDL_CONTROLLER_BUTTON_MAX &&
+            physicalAxes[source] >= quick_trigger_threshold())
+            logicalButtons[button] = true;
+    }
+}
 void quick_capture_start(int logical) { SDL_AtomicSet(&capture, logical); }
 void quick_capture_cancel() { SDL_AtomicSet(&capture, -1); }
 bool quick_assign(int logical, int physical) {
-    if (logical < 0 || logical >= SDL_CONTROLLER_BUTTON_MAX || logical == SDL_CONTROLLER_BUTTON_GUIDE ||
-        physical < 0 || physical >= 17 || physical == SDL_CONTROLLER_BUTTON_GUIDE) return false;
+    if (logical < 0 || logical >= mappedButtons || logical == SDL_CONTROLLER_BUTTON_GUIDE ||
+        physical < 0 || physical >= mappedSources || physical == SDL_CONTROLLER_BUTTON_GUIDE) return false;
     std::string next = controls;
     const size_t previous = next.find((char)('A' + physical));
-    if (previous < SDL_CONTROLLER_BUTTON_MAX)
+    if (previous < mappedButtons)
         std::swap(next[logical], next[previous]);
     else next[logical] = (char)('A' + physical);
     if (!save_game_buttonmap(configRoot, gameId, next)) return false;

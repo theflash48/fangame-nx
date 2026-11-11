@@ -3,6 +3,7 @@
 #include "launcher_library.h"
 #include "fnx_frame_pacer.h"
 #include <SDL.h>
+#include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <filesystem>
@@ -55,6 +56,42 @@ int main(int argc,char **argv) {
                     SDL_CONTROLLER_BUTTON_LEFTSHOULDER,SDL_CONTROLLER_BUTTON_RIGHTSHOULDER})
         fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,code));
     fnx::quick_init(root,"pokemon-opalo"); assert(fnx::quick_speed()==3);
+    {
+        fnx::quick_init(root,"projection");
+        bool physical[SDL_CONTROLLER_BUTTON_MAX] = {};
+        int axes[SDL_CONTROLLER_AXIS_MAX] = {};
+        bool logical[SDL_CONTROLLER_BUTTON_MAX] = {};
+        int mappedAxes[SDL_CONTROLLER_AXIS_MAX] = {};
+        auto project = [&] { fnx::quick_project_controller(physical,axes,logical,mappedAxes); };
+        physical[SDL_CONTROLLER_BUTTON_A]=true; project();
+        assert(logical[SDL_CONTROLLER_BUTTON_A] && !logical[SDL_CONTROLLER_BUTTON_Y]);
+        project(); assert(logical[SDL_CONTROLLER_BUTTON_A]); /* mantenimiento */
+        physical[SDL_CONTROLLER_BUTTON_A]=false; project();
+        assert(!logical[SDL_CONTROLLER_BUTTON_A]);
+        assert(fnx::quick_assign(SDL_CONTROLLER_BUTTON_A,SDL_CONTROLLER_BUTTON_Y));
+        physical[SDL_CONTROLLER_BUTTON_A]=physical[SDL_CONTROLLER_BUTTON_Y]=true;
+        project(); assert(logical[SDL_CONTROLLER_BUTTON_A] && logical[SDL_CONTROLLER_BUTTON_Y]);
+        physical[SDL_CONTROLLER_BUTTON_Y]=false; project();
+        assert(!logical[SDL_CONTROLLER_BUTTON_A] && logical[SDL_CONTROLLER_BUTTON_Y]);
+        physical[SDL_CONTROLLER_BUTTON_A]=false; project();
+        assert(!logical[SDL_CONTROLLER_BUTTON_A] && !logical[SDL_CONTROLLER_BUTTON_Y]);
+        assert(fnx::quick_reset_controls());
+        physical[SDL_CONTROLLER_BUTTON_A]=true; project();
+        assert(logical[SDL_CONTROLLER_BUTTON_A]);
+        assert(fnx::quick_assign(SDL_CONTROLLER_BUTTON_A,15));
+        project(); assert(!logical[SDL_CONTROLLER_BUTTON_A]); /* cambio con A mantenido */
+        axes[SDL_CONTROLLER_AXIS_TRIGGERLEFT]=20000; project();
+        assert(logical[SDL_CONTROLLER_BUTTON_A]);
+        project(); assert(logical[SDL_CONTROLLER_BUTTON_A]);
+        axes[SDL_CONTROLLER_AXIS_TRIGGERLEFT]=0; project();
+        assert(!logical[SDL_CONTROLLER_BUTTON_A]);
+        physical[SDL_CONTROLLER_BUTTON_A]=false;
+        std::fill(physical,physical+SDL_CONTROLLER_BUTTON_MAX,false);
+        std::fill(axes,axes+SDL_CONTROLLER_AXIS_MAX,0);
+        project();
+        for (bool pressed : logical) assert(!pressed); /* estado tras overlay */
+        fnx::quick_init(root,"pokemon-opalo");
+    }
     assert(std::string(fnx::quick_controls())=="ABCDEFGHIJKLMNO");
     assert(fnx::quick_assign(0,SDL_CONTROLLER_BUTTON_Y));
     assert(std::string(fnx::quick_controls())=="DBCAEFGHIJKLMNO");
@@ -71,6 +108,8 @@ int main(int argc,char **argv) {
     assert(std::string(fnx::quick_controls())=="ABCDEFGHIJKLMNO");
     assert(!fnx::quick_assign(0,17));
     assert(!fnx::quick_assign(SDL_CONTROLLER_BUTTON_GUIDE,0));
+    assert(fnx::quick_game_button(SDL_CONTROLLER_BUTTON_MISC1)==SDL_CONTROLLER_BUTTON_MISC1);
+    assert(fnx::quick_game_button(SDL_CONTROLLER_BUTTON_PADDLE1)==SDL_CONTROLLER_BUTTON_PADDLE1);
     assert(fnx::quick_assign(SDL_CONTROLLER_BUTTON_DPAD_UP,SDL_CONTROLLER_BUTTON_RIGHTSTICK));
     assert(fnx::quick_game_button(SDL_CONTROLLER_BUTTON_RIGHTSTICK)==SDL_CONTROLLER_BUTTON_DPAD_UP);
     assert(fnx::quick_game_button(SDL_CONTROLLER_BUTTON_DPAD_UP)==SDL_CONTROLLER_BUTTON_RIGHTSTICK);
@@ -98,17 +137,27 @@ int main(int argc,char **argv) {
     fake_ticks=1200; assert(!fnx::quick_tick());
     fake_ticks=2001; assert(fnx::quick_tick());
     fnx::quick_capture_start(0);
+    assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_MISC1)));
+    assert(fnx::quick_take_command()==fnx::QuickNone);
+    assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,SDL_CONTROLLER_BUTTON_MISC1)));
     assert(fnx::quick_event(axis(SDL_CONTROLLER_AXIS_TRIGGERRIGHT,20000)));
     assert(fnx::quick_take_command()==fnx::QuickCaptureBase+16);
+    assert(fnx::quick_event(axis(SDL_CONTROLLER_AXIS_TRIGGERRIGHT,0)));
     fnx::quick_capture_start(0);
     assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_Y)));
     assert(fnx::quick_take_command()==fnx::QuickCaptureBase+SDL_CONTROLLER_BUTTON_Y);
     assert(fnx::quick_assign(0,SDL_CONTROLLER_BUTTON_Y));
     assert(fnx::quick_game_button(SDL_CONTROLLER_BUTTON_Y)==SDL_CONTROLLER_BUTTON_A);
+    fnx::quick_event(axis(SDL_CONTROLLER_AXIS_TRIGGERLEFT,20000));
     fnx::quick_close();
     for(int code : {SDL_CONTROLLER_BUTTON_Y,SDL_CONTROLLER_BUTTON_START,
                     SDL_CONTROLLER_BUTTON_LEFTSHOULDER,SDL_CONTROLLER_BUTTON_RIGHTSHOULDER})
         fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,code));
+    assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_B)));
+    assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,SDL_CONTROLLER_BUTTON_B)));
+    assert(fnx::quick_event(axis(SDL_CONTROLLER_AXIS_TRIGGERLEFT,0)));
+    assert(!fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_B)));
+    fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,SDL_CONTROLLER_BUTTON_B));
     fnx::quick_init(root,"pokemon-opalo");
     /* Reproduce la transición que en b35 dibujaba cinco filas en una vista
        de confirmación con solo dos cadenas definidas. */
