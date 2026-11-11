@@ -84,11 +84,11 @@
                  }
 -                if (view == 5) {
 +                if (view == 7) {
-+                    overlay.drawText(287, 205, 700, 46, "Editor de teclado no disponible en Switch.");
-+                    overlay.drawText(287, 270, 700, 42, "Esta funcion usa una segunda ventana de PC.");
-+                    overlay.drawText(287, 335, 700, 42, "Para cambiar el mando, abre L+R+PLUS");
-+                    overlay.drawText(287, 390, 700, 42, "y elige Controles del juego.");
-+                    overlay.drawText(287, 470, 700, 42, "El juego continua al cerrar este aviso.");
++                    overlay.drawText(287, 265, 700, 42, "Editor de teclado no disponible en Switch.");
++                    overlay.drawText(287, 315, 700, 42, "Esta funcion usa una segunda ventana de PC.");
++                    overlay.drawText(287, 365, 700, 42, "Para cambiar el mando, abre L+R+PLUS");
++                    overlay.drawText(287, 415, 700, 42, "y elige Controles del juego.");
++                    overlay.drawText(287, 485, 700, 42, "El juego continua al cerrar este aviso.");
 +                } else if (view == 5) {
                      char line[130];
                      snprintf(line, sizeof(line), "Entrada del juego: %s", fnx::quick_button_name(captureLogical));
