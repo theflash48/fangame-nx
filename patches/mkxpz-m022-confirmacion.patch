@@ -1,0 +1,49 @@
+--- a/src/display/graphics.cpp
++++ b/src/display/graphics.cpp
+@@ -1003,2 +1003 @@ struct GraphicsPrivate {
+-            const int count = view == 0 ? 5 : view == 1 ? 5 : view == 3 ? 2 :
+-                              view == 4 ? 6 : 1;
++            const int navigationCount = fnx::quick_menu_row_count(view);
+@@ -1012,2 +1011,6 @@ struct GraphicsPrivate {
+-            if (cmd == fnx::QuickUp && view != 5) { selected = (selected + count - 1) % count; dirty = true; }
+-            if (cmd == fnx::QuickDown && view != 5) { selected = (selected + 1) % count; dirty = true; }
++            if (cmd == fnx::QuickUp && view != 5 && navigationCount > 0) {
++                selected = (selected + navigationCount - 1) % navigationCount; dirty = true;
++            }
++            if (cmd == fnx::QuickDown && view != 5 && navigationCount > 0) {
++                selected = (selected + 1) % navigationCount; dirty = true;
++            }
+@@ -1023,0 +1027 @@ struct GraphicsPrivate {
++                           if (view == 3) nx_boot_trace_sync("[quick] confirmacion abierta");
+@@ -1048,0 +1053,3 @@ struct GraphicsPrivate {
++                /* La orden anterior puede haber cambiado de vista. Nunca usar
++                   el recuento anterior para dibujar la confirmación. */
++                const int visibleCount = fnx::quick_menu_row_count(view);
+@@ -1060,14 +1067,3 @@ struct GraphicsPrivate {
+-                if (view == 0) {
+-                    items[0] = "Reanudar juego";
+-                    items[1] = "Velocidad";
+-                    items[2] = "Controles del juego";
+-                    items[3] = "Diagnostico";
+-                    items[4] = "Volver a la biblioteca";
+-                } else if (view == 1) {
+-                    items[0] = "Automatico / nominal";
+-                    items[1] = "0,5x"; items[2] = "1x";
+-                    items[3] = "1,5x"; items[4] = "2x";
+-                } else if (view == 3) {
+-                    items[0] = "Cancelar";
+-                    items[1] = "Salir sin guardar el progreso reciente";
+-                } else if (view == 4) {
++                for (int i = 0; i < visibleCount; ++i)
++                    items[i] = fnx::quick_menu_row_label(view, i);
++                if (view == 4) {
+@@ -1080,2 +1075,0 @@ struct GraphicsPrivate {
+-                    items[4] = "Restaurar controles predeterminados";
+-                    items[5] = "Volver";
+@@ -1112 +1106,5 @@ struct GraphicsPrivate {
+-                    for (int i = 0; i < count; ++i) {
++                    for (int i = 0; i < visibleCount; ++i) {
++                        if (!items[i]) {
++                            nx_boot_trace_sync("[quick] fila sin texto omitida");
++                            continue;
++                        }

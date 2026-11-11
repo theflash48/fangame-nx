@@ -80,6 +80,19 @@ int main(int argc,char **argv) {
                     SDL_CONTROLLER_BUTTON_LEFTSHOULDER,SDL_CONTROLLER_BUTTON_RIGHTSHOULDER})
         fnx::quick_event(button(SDL_CONTROLLERBUTTONUP,code));
     fnx::quick_init(root,"pokemon-opalo");
+    /* Reproduce la transición que en b35 dibujaba cinco filas en una vista
+       de confirmación con solo dos cadenas definidas. */
+    int view = 0;
+    assert(fnx::quick_menu_row_count(view) == 5);
+    view = 3;
+    assert(fnx::quick_menu_row_count(view) == 2);
+    for (int testView : {0, 1, 3})
+        for (int i = 0; i < fnx::quick_menu_row_count(testView); ++i)
+            assert(fnx::quick_menu_row_label(testView, i) != nullptr);
+    assert(fnx::quick_menu_row_label(view, 2) == nullptr);
+    assert(fnx::quick_menu_row_count(4) == 6);
+    assert(fnx::quick_menu_row_label(4, 4) && fnx::quick_menu_row_label(4, 5));
+    assert(fnx::quick_menu_row_count(9) == 0);
     assert(!fnx::quick_set_speed(9));
     assert(!fnx::quick_exit_requested());
     fnx::quick_request_exit();

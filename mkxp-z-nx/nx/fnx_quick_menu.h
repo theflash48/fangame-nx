@@ -30,5 +30,7 @@ bool quick_reset_controls();
 void quick_request_exit();
 bool quick_take_exit_request();
 bool quick_exit_requested();
+int quick_menu_row_count(int view);
+const char *quick_menu_row_label(int view, int index);
 }
 #endif

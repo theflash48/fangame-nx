@@ -186,4 +186,28 @@ bool quick_reset_controls() {
 void quick_request_exit() { SDL_AtomicSet(&exitRequest, 1); }
 bool quick_take_exit_request() { return SDL_AtomicSet(&exitRequest, 0) != 0; }
 bool quick_exit_requested() { return SDL_AtomicGet(&exitRequest) != 0; }
+int quick_menu_row_count(int view) {
+    switch (view) {
+        case 0: case 1: return 5;  /* principal, velocidad */
+        case 3: return 2;          /* confirmación de salida */
+        case 4: return 6;          /* controles */
+        case 2: case 5: return 1;  /* diagnóstico, captura */
+        default: return 0;
+    }
+}
+const char *quick_menu_row_label(int view, int index) {
+    static const char *mainRows[] = {"Reanudar juego", "Velocidad",
+        "Controles del juego", "Diagnostico", "Volver a la biblioteca"};
+    static const char *speedRows[] = {"Automatico / nominal", "0,5x", "1x", "1,5x", "2x"};
+    static const char *confirmRows[] = {"Cancelar", "Salir sin guardar el progreso reciente"};
+    if (index < 0 || index >= quick_menu_row_count(view)) return nullptr;
+    switch (view) {
+        case 0: return mainRows[index];
+        case 1: return speedRows[index];
+        case 3: return confirmRows[index];
+        case 4: return index == 4 ? "Restaurar controles predeterminados" :
+                       index == 5 ? "Volver" : nullptr;
+        default: return nullptr;
+    }
+}
 }

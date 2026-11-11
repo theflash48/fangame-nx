@@ -1,0 +1,28 @@
+# Informe para ChatGPT · FangameNX M022
+
+Fecha: 2026-11-11. Rama: `feature/fangamenx-launcher-mvp`. Base: `bf27626` (M021). La implementación y este informe están en el commit que los contiene (`git log -1`). Sin `push`.
+
+## Evidencia recuperada antes de modificar b35
+
+El propietario confirmó en Switch 1 que b35 muestra el menú con orientación correcta y que «Volver a la biblioteca» sigue causando un crash. No probó el remapeo. Se detectó una sola Nintendo Switch WPD presente y OK y se copiaron por MTP, sin modificarlos, los cinco registros de FangameNX y Ópalo a `local/m022/evidence-20261111-010925/`; `manifest.json` registra tamaños y SHA-256.
+
+La última sesión de `mkxp-boot.log` identifica **0.2.4 b35**, llega a Ruby, carga el juego y termina tras una métrica de fotograma a los 20 244 ms. No aparecen `[quick] confirmacion abierta`, `[quick] salida confirmada en overlay`, `[quick] overlay cerrado`, la llegada al binding con GVL ni ninguna marca `[exit]`. `launcher.log` acaba en la selección de Ópalo; `mkxp-debug.log` no registra `Shutting down.`. El archivo de boot puede perder líneas recientes si el proceso cae antes de sincronizar el descriptor. Por sí solos, los logs solo demuestran que no se completó ningún cierre registrado; **no sitúan el fallo dentro de Ruby, GL, SDL o el launcher**.
+
+## Causa concreta encontrada
+
+El código b35 calcula `count` al comienzo de la iteración del menú. Al seleccionar «Volver a la biblioteca» desde la vista principal, cambia `view` de 0 a 3, pero dibuja en la misma iteración con el `count` anterior: **5 filas**. La vista de confirmación únicamente rellena `items[0]` y `items[1]`; `items[2]`, `items[3]` y `items[4]` siguen nulos. El bucle pasa esos punteros a `Bitmap::drawText`. Este llama `fixupString(str)`, que construye `std::string(str)`: un puntero nulo viola el contrato y puede causar la caída **antes de que el usuario llegue a confirmar**, coherente con la ausencia de trazas sincronizadas. Esta ruta es demostrable por el código; el archivo de crash no está disponible para atribuirle de forma exclusiva la interrupción física.
+
+En b36 se calcula por separado el número de filas para la navegación y, **después de cualquier cambio de vista**, el número visible para dibujar. Un proveedor compartido de filas entrega las etiquetas de la vista principal, velocidad y confirmación; la prueba host comprueba que las filas declaradas tienen texto. El dibujo omite una eventual fila nula y deja una traza en vez de volver a desreferenciarla. Se añadió una marca sincronizada al abrir la confirmación. No se cambió el mecanismo de salida cooperativa de b35: tras confirmar, el binding Ruby recibe la solicitud con el GVL recuperado; la limpieza normal y `envSetNextLoad` siguen como antes. Tampoco se alteraron orientación, frame pacing ni controles por juego.
+
+## Pruebas y paquete
+
+- `tests/run-launcher-host.cmd local/m013/package-8763807865`: pasan `launcher_host` y `quick_menu_host`. La prueba nueva reproduce la transición de 5 filas de la vista principal a 2 de confirmación, comprueba las etiquetas reales y conserva las pruebas de atajo, velocidad y remapeo.
+- `python reconstruir-src.py --orden`: 41 archivos fuente idénticos, cero desvíos y cero archivos sin parche. El cambio del motor queda en `patches/mkxpz-m022-confirmacion.patch`. `git diff --check` pasa.
+- `make -C mkxp-z-nx -j6 FNX_LAUNCHER=1 FNX_LIBGCC_PREFIX=.../src/build-logs/fnx016-isolated-prefix FNX_LINK_MAP=.../local/m022/FangameNX-b36.map`: genera **0.2.4 b36**. `auditar-armv8.py`: cero patrones incompatibles conocidos y 11 788 920 bytes de código ELF/NRO idénticos. GNU objdump: cero `<unknown>` y extensiones buscadas; `nm -u`: cero símbolos indefinidos. `python comprobar-nro.py` valida cabeceras, NACP y RomFS.
+- NRO b36: **17 837 257 bytes**, SHA-256 `297e6fc90a588334070ad3fbd4ea08a6b9da0132b50ecc367fd55423736b2dcc`. Paquete privado `local/m013/package-297e6fc90a/`: 25 archivos cotejados con el manifiesto; SHA-256 del manifiesto `3f96bd161d9a2ad3ae7f8c99952d75dd945190cc34ce2fbc053f6bfa1d75f045`.
+
+## Instalación y estado
+
+El NRO b35 activo se recuperó y verificó en `local/m022/old-nro-b35/` antes de sustituirlo. El temporal b36 y el NRO final `SD Card/switch/FangameNX/FangameNX.nro` se leyeron de vuelta por MTP; ambos coinciden con el hash b36 exacto. Se retiró el temporal remoto. Evidencia privada: `local/m022/mtp-update-b36.ps1`, `mtp-update-b36.log`, `stage-readback-b36/` y `final-readback-b36/`. Solo se sustituyó el NRO del launcher; no se escribieron juegos, partidas, configuración ni otros archivos de la consola.
+
+**La b36 está instalada, pero el retorno a la biblioteca no se declara superado hasta observarlo en hardware.** Prueba necesaria: abrir Ópalo, L+R+PLUS, elegir «Volver a la biblioteca», verificar que aparece la confirmación, confirmarla, comprobar la biblioteca FangameNX y que se puede iniciar otro juego. El contrato actual usa `envSetNextLoad` para una nueva ejecución del mismo NRO tras cerrar el runtime; la continuidad visible de la biblioteca se había probado con el fixture M014, pero no con la salida del overlay de Ópalo. Si falla b36, recuperar el log antes de otro arranque; `[quick] confirmacion abierta` distingue la pantalla de confirmación del cierre posterior.
