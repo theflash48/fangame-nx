@@ -1,0 +1,200 @@
+--- a/src/eventthread.cpp
++++ b/src/eventthread.cpp
+@@ -320,9 +320,13 @@
+         const bool quickConsumed = fnx::quick_event(event);
+         if (fnx::quick_tick()) resetInputStates();
+         if (fnx::quick_chord_candidate()) {
+-            controllerState.buttons[SDL_CONTROLLER_BUTTON_LEFTSHOULDER] = false;
+-            controllerState.buttons[SDL_CONTROLLER_BUTTON_RIGHTSHOULDER] = false;
+-            controllerState.buttons[SDL_CONTROLLER_BUTTON_START] = false;
++            for (int physical : {SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
++                                 SDL_CONTROLLER_BUTTON_RIGHTSHOULDER,
++                                 SDL_CONTROLLER_BUTTON_START}) {
++                const int logical = fnx::quick_game_button(physical);
++                if (logical >= 0 && logical < SDL_CONTROLLER_BUTTON_MAX)
++                    controllerState.buttons[logical] = false;
++            }
+         }
+         if (quickConsumed) continue;
+ #endif
+@@ -525,6 +529,7 @@
+             case SDL_CONTROLLERBUTTONDOWN:
+ #if defined(__SWITCH__) && defined(FNX_LAUNCHER)
+                 event.cbutton.button = fnx::quick_game_button(event.cbutton.button);
++                if (event.cbutton.button >= SDL_CONTROLLER_BUTTON_MAX) break;
+ #endif
+                 controllerState.buttons[event.cbutton.button] = true;
+                 break;
+@@ -532,12 +537,25 @@
+             case SDL_CONTROLLERBUTTONUP:
+ #if defined(__SWITCH__) && defined(FNX_LAUNCHER)
+                 event.cbutton.button = fnx::quick_game_button(event.cbutton.button);
++                if (event.cbutton.button >= SDL_CONTROLLER_BUTTON_MAX) break;
+ #endif
+                 controllerState.buttons[event.cbutton.button] = false;
+                 break;
+                 
+             case SDL_CONTROLLERAXISMOTION:
++#if defined(__SWITCH__) && defined(FNX_LAUNCHER)
++                {
++                    int logical = event.caxis.axis;
++                    const int value = fnx::quick_game_axis(event.caxis.axis, event.caxis.value, logical);
++                    if (logical >= 0 && logical < SDL_CONTROLLER_AXIS_MAX)
++                        controllerState.axes[logical] = value;
++                    const int button = fnx::quick_game_trigger_button(event.caxis.axis);
++                    if (button >= 0 && button < SDL_CONTROLLER_BUTTON_MAX)
++                        controllerState.buttons[button] = event.caxis.value >= fnx::quick_trigger_threshold();
++                }
++#else
+                 controllerState.axes[event.caxis.axis] = event.caxis.value;
++#endif
+                 break;
+                 
+             case SDL_CONTROLLERDEVICEADDED:
+--- a/src/display/graphics.cpp
++++ b/src/display/graphics.cpp
+@@ -983,7 +983,9 @@
+         menuFont.setColor(white);
+         Bitmap overlay(1280, 720);
+         overlay.setInitFont(&menuFont);
+-        int view = 0, selected = 0;
++        int view = 0, selected = 0, controlPage = 0, captureLogical = -1;
++        const int editableButtons[15] = {0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 5};
++        Uint32 captureStarted = 0;
+         bool dirty = true, leaving = false, saveError = false, lastSwap = false;
+         const double measured = avgFPSData.empty() ? 0.0 : averageFPS();
+         LPALCDEVICEPAUSESOFT pauseAudio = nullptr;
+@@ -1001,12 +1003,20 @@
+             checkSyncLock();
+             const int cmd = fnx::quick_take_command();
+             const int navigationCount = fnx::quick_menu_row_count(view);
+-            if (cmd >= fnx::QuickCaptureBase && cmd < fnx::QuickCaptureBase + 4 && view == 5) {
++            if (cmd >= fnx::QuickCaptureBase &&
++                cmd < fnx::QuickCaptureBase + 17 && view == 5) {
+                 const int physical = cmd - fnx::QuickCaptureBase;
+-                lastSwap = fnx::quick_controls()[selected] != "ABXY"[physical];
+-                saveError = !fnx::quick_assign(selected, physical);
++                lastSwap = fnx::quick_button_source(captureLogical) != physical;
++                saveError = !fnx::quick_assign(captureLogical, physical);
+                 view = 4;
+                 dirty = true;
++            }
++            if (view == 5 && SDL_GetTicks() - captureStarted >= 10000) {
++                fnx::quick_capture_cancel(); view = 4; dirty = true;
++            }
++            if (view == 4 && (cmd == fnx::QuickPreviousPage || cmd == fnx::QuickNextPage)) {
++                controlPage = (controlPage + (cmd == fnx::QuickNextPage ? 1 : 2)) % 3;
++                selected = 0; dirty = true;
+             }
+             if (cmd == fnx::QuickUp && view != 5 && navigationCount > 0) {
+                 selected = (selected + navigationCount - 1) % navigationCount; dirty = true;
+@@ -1017,6 +1027,7 @@
+             if (cmd == fnx::QuickBack) {
+                 if (view == 0) fnx::quick_close();
+                 else if (view == 5) { fnx::quick_capture_cancel(); view = 4; dirty = true; }
++                else if (view == 6) { view = 4; selected = 6; dirty = true; }
+                 else { view = 0; selected = 0; dirty = true; }
+             }
+             if (cmd == fnx::QuickSelect) {
+@@ -1032,14 +1043,29 @@
+                     dirty = true;
+                 } else if (view == 2) { view = 0; selected = 3; dirty = true; }
+                 else if (view == 4) {
+-                    if (selected < 4) { fnx::quick_capture_start(selected); view = 5; }
+-                    else if (selected == 4) {
+-                        saveError = !fnx::quick_reset_controls();
+-                        lastSwap = false;
+-                    }
++                    if (selected < 5 && editableButtons[controlPage * 5 + selected] != 5) {
++                        captureLogical = editableButtons[controlPage * 5 + selected];
++                        fnx::quick_capture_start(captureLogical);
++                        captureStarted = SDL_GetTicks(); view = 5;
++                    } else if (selected == 5) { controlPage = (controlPage + 1) % 3; selected = 0; }
++                    else if (selected == 6) { view = 6; selected = 0; }
+                     else { view = 0; selected = 2; }
+                     dirty = true;
+                 } else if (view == 5) { /* Esperando un boton fisico. */ }
++                else if (view == 6) {
++                    if (selected <= 5) {
++                        int flags = fnx::quick_stick_flags();
++                        int deadzone = fnx::quick_stick_deadzone();
++                        if (selected < 5) flags ^= 1 << selected;
++                        else deadzone = deadzone == 0 ? 4000 :
++                                        deadzone == 4000 ? 8000 :
++                                        deadzone == 8000 ? 12000 : 0;
++                        saveError = !fnx::quick_set_sticks(flags, deadzone);
++                    } else if (selected == 6) {
++                        saveError = !fnx::quick_reset_controls(); lastSwap = false;
++                    } else { view = 4; selected = 6; }
++                    dirty = true;
++                }
+                 else if (selected == 0) { view = 0; selected = 4; dirty = true; }
+                 else {
+                     nx_boot_trace_sync("[quick] salida confirmada en overlay");
+@@ -1062,24 +1088,39 @@
+                 menuFont.setColor(cyan);
+                 overlay.drawText(280, 106, 700, 48, "FangameNX  |  Menu rapido");
+                 menuFont.setColor(white);
+-                const char *items[6] = {};
+-                char controlItems[4][64] = {};
++                const char *items[8] = {};
++                char controlItems[8][96] = {};
+                 for (int i = 0; i < visibleCount; ++i)
+                     items[i] = fnx::quick_menu_row_label(view, i);
+                 if (view == 4) {
+-                    for (int i = 0; i < 4; ++i) {
++                    for (int i = 0; i < 5; ++i) {
++                        const int logical = editableButtons[controlPage * 5 + i];
+                         snprintf(controlItems[i], sizeof(controlItems[i]),
+-                                 "Entrada del juego %c  <-  boton fisico %c",
+-                                 "ABXY"[i], fnx::quick_controls()[i]);
++                                 logical == 5 ? "GUIDE: reservado por el sistema" :
++                                 "Juego %-10s  <-  Fisico %s",
++                                 fnx::quick_button_name(logical),
++                                 fnx::quick_button_name(fnx::quick_button_source(logical)));
+                         items[i] = controlItems[i];
+                     }
++                    snprintf(controlItems[5],sizeof(controlItems[5]),
++                             "Pagina %d / 3   -   Siguiente (R)",controlPage + 1);
++                    items[5] = controlItems[5];
++                } else if (view == 6) {
++                    for (int i = 0; i < 5; ++i) {
++                        snprintf(controlItems[i],sizeof(controlItems[i]),"%s: %s",
++                                 items[i],fnx::quick_stick_flags() & (1 << i) ? "SI" : "NO");
++                        items[i] = controlItems[i];
++                    }
++                    snprintf(controlItems[5],sizeof(controlItems[5]),"Zona muerta: %d",
++                             fnx::quick_stick_deadzone());
++                    items[5] = controlItems[5];
+                 }
+                 if (view == 5) {
+                     char line[130];
+-                    snprintf(line, sizeof(line), "Entrada del juego %c", "ABXY"[selected]);
++                    snprintf(line, sizeof(line), "Entrada del juego: %s", fnx::quick_button_name(captureLogical));
+                     overlay.drawText(287, 230, 700, 50, line);
+-                    overlay.drawText(287, 310, 700, 50, "Pulsa A, B, X o Y fisico.");
+-                    overlay.drawText(287, 390, 700, 50, "PLUS: cancelar");
++                    overlay.drawText(287, 310, 700, 50, "Pulsa el boton fisico deseado.");
++                    overlay.drawText(287, 390, 700, 50, "Espera 10 s para cancelar.");
+                 } else if (view == 2) {
+                     char line[250];
+                     overlay.drawText(287, 205, 700, 42, threadData->config.windowTitle.c_str());
+@@ -1108,7 +1149,8 @@
+                             nx_boot_trace_sync("[quick] fila sin texto omitida");
+                             continue;
+                         }
+-                        const int y = (view == 0 || view == 4 ? 185 + i * 62 : 205 + i * 73);
++                        const int y = (view == 4 || view == 6 ? 180 + i * 48 :
++                                       view == 0 ? 185 + i * 62 : 205 + i * 73);
+                         if (i == selected) {
+                             overlay.fillRect(278, y - 4, 720, 56, Vec4(0.07, 0.38, 0.46, 0.92));
+                             overlay.fillRect(278, y - 4, 7, 56, Vec4(0.19, 0.84, 0.88, 1));
+@@ -1119,7 +1161,7 @@
+                     else if (view == 4 && lastSwap)
+                         overlay.drawText(287, 550, 700, 36, "Conflicto: se intercambiaron las entradas.");
+                 }
+-                overlay.drawText(288, 573, 690, 36, "B: elegir    A: volver    L+R+PLUS: abrir");
++                overlay.drawText(288, 588, 690, 36, "B: elegir    A: volver    L/R: pagina de controles");
+                 dirty = false;
+             }
+             drawQuickFrame(overlay);

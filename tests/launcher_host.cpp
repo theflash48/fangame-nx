@@ -75,6 +75,17 @@ int main(int argc,char **argv) {
     assert(fnx::save_last_game(root.string(),"alpha"));
     assert(fnx::load_last_game(root.string(),last) && last=="alpha");
     assert(!fs::exists(root/"config"/"launcher.json.bak"));
+    bool favorite=true;
+    assert(fnx::load_game_favorite(root.string(),"alpha",favorite) && !favorite);
+    assert(fnx::save_game_favorite(root.string(),"alpha",true));
+    assert(fnx::load_game_favorite(root.string(),"alpha",favorite) && favorite);
+    assert(fnx::record_recent_game(root.string(),"alpha"));
+    assert(fnx::record_recent_game(root.string(),"broken"));
+    assert(fnx::record_recent_game(root.string(),"alpha"));
+    std::vector<std::string> recent;
+    assert(fnx::load_recent_games(root.string(),recent));
+    assert(recent.size()==2 && recent[0]=="alpha" && recent[1]=="broken");
+    assert(!fnx::record_recent_game(root.string(),"../escape"));
     put(root/"config"/"launcher.json","{\"schema\":1,\"compact\":false,\"last_game\":\"../escape\"}");
     assert(!fnx::load_last_game(root.string(),last) && last.empty());
     auto packaged=fnx::scan(argv[2]);

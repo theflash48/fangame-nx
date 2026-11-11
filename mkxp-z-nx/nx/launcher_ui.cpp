@@ -12,6 +12,7 @@
 #include <cerrno>
 #include <cstdio>
 #include <cstring>
+#include <map>
 #include <sys/stat.h>
 
 extern unsigned char ___assets_liberation_ttf[];
@@ -92,13 +93,15 @@ struct Ui {
     View message_back = LIBRARY;
     View scan_back = LIBRARY;
     size_t selected = 0;
+    int sort_mode = 0;
+    std::vector<std::string> recent;
+    std::map<std::string, bool> favorites;
     int settings = 0;
     bool compact = false;
     bool running = true;
     bool scan_pending = true;
     std::string launch;
-    std::string cover_path;
-    SDL_Texture *cover_texture = nullptr;
+    std::map<std::string, SDL_Texture *> cover_textures;
 };
 static bool cover_dimensions_ok(const std::string &path) {
     struct stat info;
@@ -147,31 +150,53 @@ static bool cover_dimensions_ok(const std::string &path) {
     return valid;
 }
 static void game_cover(SDL_Renderer *r, Ui &u, const Game &g, int x, int y, int w, int h) {
-    if (u.cover_path != g.cover) {
-        if (u.cover_texture) SDL_DestroyTexture(u.cover_texture);
-        u.cover_texture=nullptr;
-        u.cover_path=g.cover;
+    SDL_Texture *texture = nullptr;
+    auto cached = u.cover_textures.find(g.cover);
+    if (cached == u.cover_textures.end()) {
         if (!g.cover.empty() && cover_dimensions_ok(g.cover)) {
             SDL_Surface *s=IMG_Load(g.cover.c_str());
             if (s) {
-                if (s->w<=2048 && s->h<=2048) u.cover_texture=SDL_CreateTextureFromSurface(r,s);
+                if (s->w<=2048 && s->h<=2048) texture=SDL_CreateTextureFromSurface(r,s);
                 SDL_FreeSurface(s);
             }
         }
+        u.cover_textures[g.cover] = texture;
+    } else {
+        texture = cached->second;
     }
-    if (!u.cover_texture) { cover(r,x,y,w,h,(unsigned)u.selected*17); return; }
+    if (!texture) { cover(r,x,y,w,h,(unsigned)u.selected*17); return; }
     box(r,x,y,w,h,inset);
     int tw=0,th=0;
-    SDL_QueryTexture(u.cover_texture,nullptr,nullptr,&tw,&th);
+    SDL_QueryTexture(texture,nullptr,nullptr,&tw,&th);
     if (tw<=0 || th<=0) return;
     float scale=std::min((float)w/tw,(float)h/th);
     SDL_Rect dest={x+(w-(int)(tw*scale))/2,y+(h-(int)(th*scale))/2,
                    (int)(tw*scale),(int)(th*scale)};
-    SDL_RenderCopy(r,u.cover_texture,nullptr,&dest);
+    SDL_RenderCopy(r,texture,nullptr,&dest);
 }
 static void rescan(Ui &u) {
+    for (auto &entry : u.cover_textures) if (entry.second) SDL_DestroyTexture(entry.second);
+    u.cover_textures.clear();
     const std::string wanted = u.scan.games.empty() ? u.last_game : u.scan.games[u.selected].id;
     u.scan = scan(u.root);
+    u.favorites.clear();
+    load_recent_games(u.root, u.recent);
+    for (const Game &g : u.scan.games) {
+        bool favorite = false;
+        load_game_favorite(u.root, g.id, favorite);
+        u.favorites[g.id] = favorite;
+    }
+    auto recent_rank = [&](const std::string &id) {
+        auto found=std::find(u.recent.begin(),u.recent.end(),id);
+        return found==u.recent.end() ? 100 : (int)(found-u.recent.begin());
+    };
+    std::stable_sort(u.scan.games.begin(),u.scan.games.end(),[&](const Game &a,const Game &b) {
+        if (u.sort_mode==1 && u.favorites[a.id]!=u.favorites[b.id])
+            return u.favorites[a.id];
+        if (u.sort_mode==2 && recent_rank(a.id)!=recent_rank(b.id))
+            return recent_rank(a.id)<recent_rank(b.id);
+        return a.title<b.title;
+    });
     auto it = std::find_if(u.scan.games.begin(), u.scan.games.end(),
         [&](const Game &g) { return g.id == wanted; });
     u.selected = it == u.scan.games.end() ? 0 : (size_t)(it - u.scan.games.begin());
@@ -180,8 +205,8 @@ static void rescan(Ui &u) {
     u.view=u.scan_back;
 }
 static size_t first_visible(const Ui &u) {
-    size_t shown = u.compact ? 8 : 5;
-    return u.selected >= shown ? u.selected - shown + 1 : 0;
+    const size_t shown = u.compact ? 9 : 6;
+    return u.selected / shown * shown;
 }
 static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font *small, Ui &u) {
     const bool limited = applet_memory();
@@ -197,8 +222,10 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         label(r,title,90,270,"Escaneando biblioteca",white);
         label(r,normal,90,350,"Buscando juegos preparados en games/...",muted);
     } else if (u.view == LIBRARY) {
-        label(r,normal,52,126,"Biblioteca",white);
-        label(r,small,52,164,"Juegos preparados: " + std::to_string(u.scan.games.size()),muted);
+        label(r,normal,52,120,"Biblioteca",white);
+        label(r,small,52,158,"Juegos: " + std::to_string(u.scan.games.size()) +
+              "    Orden: " + (u.sort_mode==0 ? "A-Z" : u.sort_mode==1 ? "Favoritos" : "Recientes") +
+              "    L/R: cambiar",muted);
         if (u.scan.games.empty()) {
             box(r,52,215,1176,380,panel);
             label(r,title,90,270,"Tu biblioteca está vacía",white);
@@ -206,31 +233,28 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
                 "Añade carpetas preparadas a games y pulsa X para reescanear." : u.scan.error,
                 muted,70,3);
         } else {
-            int shown = u.compact ? 8 : 5;
-            int step = u.compact ? 55 : 76;
+            const int shown = u.compact ? 9 : 6;
+            const int height = u.compact ? 136 : 207;
+            const int coverWidth = u.compact ? 88 : 125;
             size_t start = first_visible(u);
             for (int i=0; i<shown && start+(size_t)i<u.scan.games.size(); ++i) {
                 size_t index = start+i;
                 const Game &g = u.scan.games[index];
-                int y=205+i*step;
-                box(r,52,y,600,step-7,index==u.selected?accent:panel);
-                box(r,56,y+4,592,step-15,panel);
-                label(r,normal,74,y+10,g.title,white,470);
-                if (!u.compact) label(r,small,74,y+44,g.ready?"Preparado para iniciar":"Revisar instalación",g.ready?accent:warning);
+                const int x=52+(i%3)*398;
+                const int y=189+(i/3)*(height+8);
+                box(r,x,y,382,height,index==u.selected?accent:inset);
+                box(r,x+4,y+4,374,height-8,panel);
+                game_cover(r,u,g,x+13,y+12,coverWidth,height-24);
+                const int tx=x+coverWidth+27;
+                label(r,normal,tx,y+15,g.title,white,346-coverWidth);
+                label(r,small,tx,y+64,g.version.empty()?"Versión sin indicar":"Versión " + g.version,
+                      muted,346-coverWidth);
+                label(r,small,tx,y+105,g.ready?"LISTO PARA JUGAR":"REVISAR INSTALACIÓN",
+                      g.ready?accent:warning,346-coverWidth);
+                if (u.favorites[g.id]) label(r,small,tx,y+height-34,"FAVORITO",accent,346-coverWidth);
             }
-            const Game &g = u.scan.games[u.selected];
-            box(r,680,205,548,410,panel);
-            game_cover(r,u,g,710,235,185,225);
-            label(r,normal,920,248,g.title,white,280);
-            label(r,small,920,300,g.author.empty()?"Autor no indicado":g.author,muted,275);
-            paragraph(r,small,920,348,g.description,muted,29,5);
-            label(r,small,710,482,g.ready?"LISTO PARA ARRANCAR":"INSTALACIÓN INCOMPLETA",g.ready?accent:warning);
-            box(r,710,535,145,57,inset);
-            box(r,865,535,145,57,inset);
-            box(r,1020,535,178,57,inset);
-            label(r,small,720,552,"Reescanear",white);
-            label(r,small,891,552,"Ajustes",white);
-            label(r,small,1058,552,"Salir",white);
+            label(r,small,870,158,"Página " + std::to_string(start/shown+1) + " / " +
+                  std::to_string((u.scan.games.size()+shown-1)/shown),muted,340);
         }
     } else if (u.view == DETAILS && !u.scan.games.empty()) {
         const Game &g=u.scan.games[u.selected];
@@ -240,6 +264,7 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         label(r,title,370,227,g.title,white,815);
         label(r,normal,370,300,g.author.empty()?"Autor no indicado":g.author,muted);
         label(r,small,370,341,g.version.empty()?"Versión no indicada":"Versión " + g.version,muted);
+        label(r,small,760,341,"Motor: mkxp-z / RGSS",muted);
         paragraph(r,normal,370,390,g.description,white,47,3);
         paragraph(r,small,370,510,g.ready?"Estructura preparada. Compatibilidad del juego sin verificar.":g.note,
                   g.ready?accent:warning,73,2);
@@ -249,6 +274,8 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         }
         box(r,590,548,170,58,inset);
         label(r,small,635,565,"Volver",white);
+        box(r,780,548,206,58,inset);
+        label(r,small,794,565,u.favorites[g.id]?"Quitar favorito":"Añadir favorito",white);
     } else if (u.view == SETTINGS) {
         label(r,normal,52,126,"Ajustes",white);
         box(r,52,200,1176,405,panel);
@@ -267,8 +294,8 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
         label(r,small,135,547,"Volver",white);
     }
     box(r,50,651,1180,1,inset);
-    label(r,small,52,667,"Cruceta  Mover     A  Confirmar     B  Volver     +  Salir",muted);
-    label(r,small,1100,667,"M015",accent);
+    label(r,small,52,667,"Cruceta  Mover     B  Elegir     A  Volver     X  Reescanear     Y  Ajustes",muted);
+    label(r,small,1100,667,"M023",accent);
     SDL_RenderPresent(r);
 }
 static void move(Ui &u, int delta) {
@@ -289,6 +316,21 @@ static void action(Ui &u, int kind) {
         if (u.view == LIBRARY) u.view=SETTINGS;
     } else if (kind == 4) {
         u.running=false;
+    } else if (kind == 5) {
+        if (u.view == DETAILS && !u.scan.games.empty()) {
+            const std::string id=u.scan.games[u.selected].id;
+            if (save_game_favorite(u.root,id,!u.favorites[id])) {
+                u.scan_back=DETAILS; u.view=SCANNING; u.scan_pending=true;
+            } else {
+                u.message="No se pudo guardar el favorito.";
+                u.message_back=DETAILS; u.view=MESSAGE;
+            }
+        }
+    } else if (kind == 6) {
+        if (u.view == LIBRARY) {
+            u.sort_mode=(u.sort_mode+1)%3;
+            u.scan_back=LIBRARY; u.view=SCANNING; u.scan_pending=true;
+        }
     } else if (kind == 0) {
         if (u.view == LIBRARY && !u.scan.games.empty()) u.view=DETAILS;
         else if (u.view == DETAILS && !u.scan.games.empty()) {
@@ -308,6 +350,7 @@ static void action(Ui &u, int kind) {
                     snprintf(issue,sizeof(issue),"config: no se pudo recordar el ultimo juego; errno=%d",errno);
                     log_line(u.root,issue);
                 }
+                if (!record_recent_game(u.root,id)) log_line(u.root,"config: no se pudo registrar juego reciente");
                 u.launch=it->path;
                 log_line(u.root,("seleccion: " + id).c_str());
                 u.running=false;
@@ -335,23 +378,20 @@ static bool hit(float x, float y, int left, int top, int width, int height) {
 static void touch(Ui &u, float x, float y) {
     if (hit(x,y,1115,25,113,58)) { action(u,4); return; }
     if (u.view == LIBRARY && !u.scan.games.empty()) {
-        const int shown = u.compact ? 8 : 5;
-        const int step = u.compact ? 55 : 76;
+        const int shown = u.compact ? 9 : 6;
+        const int height = u.compact ? 136 : 207;
         const size_t start = first_visible(u);
         for (int i=0; i<shown && start+(size_t)i<u.scan.games.size(); ++i) {
-            if (hit(x,y,52,205+i*step,600,step-7)) {
+            if (hit(x,y,52+(i%3)*398,189+(i/3)*(height+8),382,height)) {
                 const size_t index = start+(size_t)i;
                 if (u.selected == index) action(u,0);
                 else u.selected = index;
                 return;
             }
         }
-        if (hit(x,y,710,535,145,57)) { action(u,2); return; }
-        if (hit(x,y,865,535,145,57)) { action(u,3); return; }
-        if (hit(x,y,1020,535,178,57)) { action(u,4); return; }
-        if (hit(x,y,680,205,548,315)) { action(u,0); return; }
     } else if (u.view == DETAILS) {
         if (hit(x,y,590,548,170,58)) { action(u,1); return; }
+        if (hit(x,y,780,548,206,58)) { action(u,5); return; }
         if (!u.scan.games.empty() && u.scan.games[u.selected].ready &&
             hit(x,y,370,548,205,58)) { action(u,0); return; }
     } else if (u.view == SETTINGS) {
@@ -418,18 +458,23 @@ std::string launcher(const std::string &root) {
             last=now;
             int button=e.type==SDL_CONTROLLERBUTTONDOWN?e.cbutton.button:-1;
             int key=e.type==SDL_KEYDOWN?e.key.keysym.sym:0;
-            if (button==SDL_CONTROLLER_BUTTON_DPAD_UP || key==SDLK_UP) move(u,-1);
-            else if (button==SDL_CONTROLLER_BUTTON_DPAD_DOWN || key==SDLK_DOWN) move(u,1);
+            if (button==SDL_CONTROLLER_BUTTON_DPAD_UP || key==SDLK_UP) move(u,u.view==LIBRARY?-3:-1);
+            else if (button==SDL_CONTROLLER_BUTTON_DPAD_DOWN || key==SDLK_DOWN) move(u,u.view==LIBRARY?3:1);
+            else if (button==SDL_CONTROLLER_BUTTON_DPAD_LEFT || key==SDLK_LEFT) move(u,-1);
+            else if (button==SDL_CONTROLLER_BUTTON_DPAD_RIGHT || key==SDLK_RIGHT) move(u,1);
             else if (button==SDL_CONTROLLER_BUTTON_B || key==SDLK_RETURN) action(u,0);
             else if (button==SDL_CONTROLLER_BUTTON_A || key==SDLK_ESCAPE) action(u,1);
             else if (button==SDL_CONTROLLER_BUTTON_Y || key==SDLK_x) action(u,2);
-            else if (button==SDL_CONTROLLER_BUTTON_X || key==SDLK_F1) action(u,3);
+            else if (button==SDL_CONTROLLER_BUTTON_X || key==SDLK_F1)
+                action(u,u.view==DETAILS?5:3);
+            else if (button==SDL_CONTROLLER_BUTTON_LEFTSHOULDER ||
+                     button==SDL_CONTROLLER_BUTTON_RIGHTSHOULDER || key==SDLK_TAB) action(u,6);
             else if (button==SDL_CONTROLLER_BUTTON_START || key==SDLK_F10) action(u,4);
         }
         if (u.running && e.type != SDL_CONTROLLERDEVICEADDED) render(r,title,normal,small,u);
     }
     if (pad) SDL_GameControllerClose(pad);
-    if (u.cover_texture) SDL_DestroyTexture(u.cover_texture);
+    for (auto &entry : u.cover_textures) if (entry.second) SDL_DestroyTexture(entry.second);
     if (small) TTF_CloseFont(small);
     if (title) TTF_CloseFont(title);
     if (normal) TTF_CloseFont(normal);

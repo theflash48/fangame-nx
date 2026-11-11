@@ -44,4 +44,5 @@ mkxpz-m019-tempo-menu.patch
 mkxpz-m020-menu-controles.patch
 mkxpz-m021-menu-exit.patch
 mkxpz-m022-confirmacion.patch
+mkxpz-m023-remapeo-ui.patch
 mkxpz-vorbis-ov-hole.patch

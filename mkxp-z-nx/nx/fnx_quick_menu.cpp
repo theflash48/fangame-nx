@@ -10,8 +10,10 @@ namespace {
 std::string configRoot, gameId;
 SDL_atomic_t active = {}, command = {}, speed = {}, closing = {};
 bool held[SDL_CONTROLLER_BUTTON_MAX] = {};
-std::string controls = "ABXY";
-SDL_atomic_t physicalToLogical[4] = {};
+bool triggerHeld[2] = {};
+std::string controls = "ABCDEFGHIJKLMNO";
+SDL_atomic_t physicalToLogical[17] = {};
+SDL_atomic_t stickFlags = {}, stickDeadzone = {};
 SDL_atomic_t capture = {};
 SDL_atomic_t exitRequest = {};
 bool chordReady = true;
@@ -28,9 +30,9 @@ bool chordDown() {
 }
 void post(int value) { SDL_AtomicSet(&command, value); }
 void publishControls() {
-    for (int logical = 0; logical < 4; ++logical)
-        SDL_AtomicSet(&physicalToLogical[controls[logical] == 'A' ? 0 :
-            controls[logical] == 'B' ? 1 : controls[logical] == 'X' ? 2 : 3], logical);
+    for (auto &slot : physicalToLogical) SDL_AtomicSet(&slot, -1);
+    for (int logical = 0; logical < SDL_CONTROLLER_BUTTON_MAX; ++logical)
+        SDL_AtomicSet(&physicalToLogical[controls[logical] - 'A'], logical);
 }
 }
 
@@ -39,8 +41,12 @@ void quick_init(const std::string &root, const std::string &game) {
     gameId = game;
     int mode = 0;
     load_game_speed(root, game, mode);
-    if (!load_game_controls(root, game, controls)) controls = "ABXY";
+    if (!load_game_buttonmap(root, game, controls)) controls = "ABCDEFGHIJKLMNO";
     publishControls();
+    int flags = 0, deadzone = 8000;
+    load_game_sticks(root, game, flags, deadzone);
+    SDL_AtomicSet(&stickFlags, flags);
+    SDL_AtomicSet(&stickDeadzone, deadzone);
     SDL_AtomicSet(&capture, -1);
     SDL_AtomicSet(&exitRequest, 0);
     SDL_AtomicSet(&speed, mode);
@@ -48,6 +54,7 @@ void quick_init(const std::string &root, const std::string &game) {
     SDL_AtomicSet(&command, 0);
     SDL_AtomicSet(&closing, 0);
     std::fill(held, held + SDL_CONTROLLER_BUTTON_MAX, false);
+    std::fill(triggerHeld, triggerHeld + 2, false);
     chordReady = true;
     chordSince = 0;
 }
@@ -55,6 +62,7 @@ void quick_init(const std::string &root, const std::string &game) {
 bool quick_event(const SDL_Event &event) {
     if (event.type == SDL_CONTROLLERDEVICEREMOVED) {
         std::fill(held, held + SDL_CONTROLLER_BUTTON_MAX, false);
+        std::fill(triggerHeld, triggerHeld + 2, false);
         chordSince = 0;
         chordReady = true;
     }
@@ -66,18 +74,29 @@ bool quick_event(const SDL_Event &event) {
         chordSince = 0;
         if (!SDL_AtomicGet(&active)) chordReady = true;
     }
+    if (event.type == SDL_CONTROLLERAXISMOTION &&
+        event.caxis.axis >= SDL_CONTROLLER_AXIS_TRIGGERLEFT &&
+        event.caxis.axis <= SDL_CONTROLLER_AXIS_TRIGGERRIGHT) {
+        const int trigger = event.caxis.axis - SDL_CONTROLLER_AXIS_TRIGGERLEFT;
+        const bool pressed = event.caxis.value >= quick_trigger_threshold();
+        if (SDL_AtomicGet(&active) && SDL_AtomicGet(&capture) >= 0 &&
+            pressed && !triggerHeld[trigger]) {
+            post(QuickCaptureBase + 15 + trigger);
+            SDL_AtomicSet(&capture, -1);
+        }
+        triggerHeld[trigger] = pressed;
+    }
     if (SDL_AtomicGet(&closing)) {
         if (allReleased()) SDL_AtomicSet(&closing, 0);
-        return pad || event.type == SDL_KEYDOWN || event.type == SDL_KEYUP;
+        return pad || event.type == SDL_KEYDOWN || event.type == SDL_KEYUP ||
+               event.type == SDL_CONTROLLERAXISMOTION;
     }
     if (SDL_AtomicGet(&active)) {
         if (event.type == SDL_CONTROLLERBUTTONDOWN) {
             if (SDL_AtomicGet(&capture) >= 0) {
-                if (event.cbutton.button < 4) {
+                if (event.cbutton.button < SDL_CONTROLLER_BUTTON_MAX &&
+                    event.cbutton.button != SDL_CONTROLLER_BUTTON_GUIDE) {
                     post(QuickCaptureBase + event.cbutton.button);
-                    SDL_AtomicSet(&capture, -1);
-                } else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_START) {
-                    post(QuickBack);
                     SDL_AtomicSet(&capture, -1);
                 }
                 return true;
@@ -87,6 +106,8 @@ bool quick_event(const SDL_Event &event) {
                 case SDL_CONTROLLER_BUTTON_DPAD_DOWN: post(QuickDown); break;
                 case SDL_CONTROLLER_BUTTON_B: post(QuickSelect); break;
                 case SDL_CONTROLLER_BUTTON_A: post(QuickBack); break;
+                case SDL_CONTROLLER_BUTTON_LEFTSHOULDER: post(QuickPreviousPage); break;
+                case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER: post(QuickNextPage); break;
                 default: break;
             }
         } else if (event.type == SDL_KEYDOWN && !event.key.repeat) {
@@ -160,27 +181,67 @@ int quick_rate(int nominal_hz, int mode) {
     return std::max(1, (int)std::lround(nominal_hz * quick_multiplier(mode)));
 }
 int quick_game_button(int physical) {
-    return physical >= 0 && physical < 4 ? SDL_AtomicGet(&physicalToLogical[physical]) : physical;
+    return physical >= 0 && physical < SDL_CONTROLLER_BUTTON_MAX ?
+           SDL_AtomicGet(&physicalToLogical[physical]) : physical;
 }
+int quick_game_trigger_button(int axis) {
+    if (axis < SDL_CONTROLLER_AXIS_TRIGGERLEFT || axis > SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+        return -1;
+    return SDL_AtomicGet(&physicalToLogical[15 + axis - SDL_CONTROLLER_AXIS_TRIGGERLEFT]);
+}
+int quick_trigger_threshold() { return 16000; }
 const char *quick_controls() { return controls.c_str(); }
+const char *quick_button_name(int button) {
+    static const char *names[] = {"A", "B", "X", "Y", "MINUS", "GUIDE",
+        "PLUS", "L3", "R3", "L", "R", "ARRIBA", "ABAJO", "IZQUIERDA", "DERECHA",
+        "ZL", "ZR"};
+    return button >= 0 && button < 17 ? names[button] : "?";
+}
+int quick_button_source(int logical) {
+    return logical >= 0 && logical < SDL_CONTROLLER_BUTTON_MAX ?
+           controls[logical] - 'A' : -1;
+}
+int quick_stick_flags() { return SDL_AtomicGet(&stickFlags); }
+int quick_stick_deadzone() { return SDL_AtomicGet(&stickDeadzone); }
+bool quick_set_sticks(int flags, int deadzone) {
+    if (!save_game_sticks(configRoot, gameId, flags, deadzone)) return false;
+    SDL_AtomicSet(&stickFlags, flags);
+    SDL_AtomicSet(&stickDeadzone, deadzone);
+    return true;
+}
+int quick_game_axis(int physical, int value, int &logical) {
+    logical = physical;
+    if (physical < 0 || physical >= SDL_CONTROLLER_AXIS_MAX) return value;
+    if (physical >= SDL_CONTROLLER_AXIS_TRIGGERLEFT) return value;
+    const int flags = quick_stick_flags();
+    if (flags & 1) logical = (physical + 2) % 4;
+    const int invertBit = 1 << (logical + 1);
+    if (flags & invertBit) value = value == -32768 ? 32767 : -value;
+    if (std::abs(value) < quick_stick_deadzone()) value = 0;
+    return value;
+}
 void quick_capture_start(int logical) { SDL_AtomicSet(&capture, logical); }
 void quick_capture_cancel() { SDL_AtomicSet(&capture, -1); }
 bool quick_assign(int logical, int physical) {
-    if (logical < 0 || logical >= 4 || physical < 0 || physical >= 4) return false;
-    const char *names = "ABXY";
+    if (logical < 0 || logical >= SDL_CONTROLLER_BUTTON_MAX || logical == SDL_CONTROLLER_BUTTON_GUIDE ||
+        physical < 0 || physical >= 17 || physical == SDL_CONTROLLER_BUTTON_GUIDE) return false;
     std::string next = controls;
-    const size_t previous = next.find(names[physical]);
-    if (previous >= 4) return false;
-    std::swap(next[logical], next[previous]);
-    if (!save_game_controls(configRoot, gameId, next)) return false;
+    const size_t previous = next.find((char)('A' + physical));
+    if (previous < SDL_CONTROLLER_BUTTON_MAX)
+        std::swap(next[logical], next[previous]);
+    else next[logical] = (char)('A' + physical);
+    if (!save_game_buttonmap(configRoot, gameId, next)) return false;
     controls = next;
     publishControls();
     return true;
 }
 bool quick_reset_controls() {
-    if (!save_game_controls(configRoot, gameId, "ABXY")) return false;
-    controls = "ABXY";
+    if (!save_game_buttonmap(configRoot, gameId, "ABCDEFGHIJKLMNO") ||
+        !save_game_sticks(configRoot, gameId, 0, 8000)) return false;
+    controls = "ABCDEFGHIJKLMNO";
     publishControls();
+    SDL_AtomicSet(&stickFlags, 0);
+    SDL_AtomicSet(&stickDeadzone, 8000);
     return true;
 }
 void quick_request_exit() { SDL_AtomicSet(&exitRequest, 1); }
@@ -190,7 +251,8 @@ int quick_menu_row_count(int view) {
     switch (view) {
         case 0: case 1: return 5;  /* principal, velocidad */
         case 3: return 2;          /* confirmación de salida */
-        case 4: return 6;          /* controles */
+        case 4: return 8;          /* cinco entradas, página, restaurar, volver */
+        case 6: return 8;          /* opciones de sticks y restauración */
         case 2: case 5: return 1;  /* diagnóstico, captura */
         default: return 0;
     }
@@ -205,8 +267,15 @@ const char *quick_menu_row_label(int view, int index) {
         case 0: return mainRows[index];
         case 1: return speedRows[index];
         case 3: return confirmRows[index];
-        case 4: return index == 4 ? "Restaurar controles predeterminados" :
-                       index == 5 ? "Volver" : nullptr;
+        case 4: return index < 5 ? "Entrada del juego" :
+                       index == 5 ? "Pagina siguiente" :
+                       index == 6 ? "Opciones de sticks" : "Volver";
+        case 6: {
+            static const char *sticks[] = {"Intercambiar sticks L / R", "Invertir L X",
+                "Invertir L Y", "Invertir R X", "Invertir R Y", "Zona muerta",
+                "Restaurar controles predeterminados", "Volver"};
+            return sticks[index];
+        }
         default: return nullptr;
     }
 }

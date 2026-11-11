@@ -29,5 +29,16 @@ bool save_game_speed(const std::string &root, const std::string &id, int mode);
 /* Cuatro letras ABXY: indice = boton logico, valor = boton fisico. */
 bool load_game_controls(const std::string &root, const std::string &id, std::string &mapping);
 bool save_game_controls(const std::string &root, const std::string &id, const std::string &mapping);
+/* Perfil SDL: 15 botones lógicos, fuente física A..Q (P/Q = ZL/ZR). GUIDE (5)
+   permanece reservado. Migra controls_<id> de b36 al cargar. */
+bool load_game_buttonmap(const std::string &root, const std::string &id, std::string &mapping);
+bool save_game_buttonmap(const std::string &root, const std::string &id, const std::string &mapping);
+/* Opciones de sticks por juego: swap, invert X/Y por stick y zona muerta. */
+bool load_game_sticks(const std::string &root, const std::string &id, int &flags, int &deadzone);
+bool save_game_sticks(const std::string &root, const std::string &id, int flags, int deadzone);
+bool load_game_favorite(const std::string &root, const std::string &id, bool &favorite);
+bool save_game_favorite(const std::string &root, const std::string &id, bool favorite);
+bool load_recent_games(const std::string &root, std::vector<std::string> &ids);
+bool record_recent_game(const std::string &root, const std::string &id);
 }
 #endif

@@ -179,7 +179,7 @@ bool load_preference(const std::string &root, bool &compact) {
     std::string path = config_read_path(root);
     if (!regular(path)) return true;
     try {
-        auto v = json5pp::parse(read_limited(path, 4096));
+        auto v = json5pp::parse(read_limited(path, 16384));
         if (!v.is_object()) return false;
         const auto &o = v.as_object();
         auto schema = o.find("schema");
@@ -196,7 +196,7 @@ bool load_last_game(const std::string &root, std::string &id) {
     std::string path = config_read_path(root);
     if (!regular(path)) return true;
     try {
-        auto v = json5pp::parse(read_limited(path, 4096));
+        auto v = json5pp::parse(read_limited(path, 16384));
         if (!v.is_object()) return false;
         const auto &o = v.as_object();
         auto schema = o.find("schema");
@@ -222,7 +222,7 @@ static bool save_config_value(const std::string &root, const char *key, const js
     json5pp::value v;
     try {
         const std::string source = config_read_path(root);
-        v = regular(source) ? json5pp::parse(read_limited(source, 4096)) :
+        v = regular(source) ? json5pp::parse(read_limited(source, 16384)) :
             json5pp::parse("{\"schema\":1,\"compact\":false}");
         if (!v.is_object()) return false;
         auto &o = v.as_object();
@@ -273,7 +273,7 @@ bool load_game_speed(const std::string &root, const std::string &id, int &mode) 
     const std::string path = config_read_path(root);
     if (!regular(path)) return true;
     try {
-        const auto v = json5pp::parse(read_limited(path, 4096));
+        const auto v = json5pp::parse(read_limited(path, 16384));
         if (!v.is_object()) return false;
         const auto &o = v.as_object();
         auto schema = o.find("schema");
@@ -304,7 +304,7 @@ bool load_game_controls(const std::string &root, const std::string &id, std::str
     const std::string path = config_read_path(root);
     if (!regular(path)) return true;
     try {
-        const auto v = json5pp::parse(read_limited(path, 4096));
+        const auto v = json5pp::parse(read_limited(path, 16384));
         if (!v.is_object()) return false;
         const auto &o = v.as_object();
         auto schema = o.find("schema");
@@ -320,5 +320,123 @@ bool load_game_controls(const std::string &root, const std::string &id, std::str
 bool save_game_controls(const std::string &root, const std::string &id, const std::string &mapping) {
     return safe_child(id) && valid_controls(mapping) &&
            save_config_value(root, ("controls_" + id).c_str(), mapping);
+}
+static bool valid_buttonmap(const std::string &mapping) {
+    if (mapping.size() != 15 || mapping[5] != 'F') return false;
+    bool used[17] = {};
+    for (char c : mapping) {
+        const int source = c - 'A';
+        if (source < 0 || source >= 17 || used[source]) return false;
+        used[source] = true;
+    }
+    return true;
+}
+bool load_game_buttonmap(const std::string &root, const std::string &id, std::string &mapping) {
+    mapping = "ABCDEFGHIJKLMNO";
+    if (!safe_child(id)) return false;
+    const std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        const auto v = json5pp::parse(read_limited(path, 16384));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto item = o.find("buttonmap_" + id);
+        if (item != o.end()) {
+            if (!item->second.is_string() || !valid_buttonmap(item->second.as_string())) return false;
+            mapping = item->second.as_string();
+            return true;
+        }
+        std::string legacy;
+        if (!load_game_controls(root, id, legacy)) return false;
+        for (int i = 0; i < 4; ++i) {
+            const size_t source = std::string("ABXY").find(legacy[i]);
+            mapping[i] = (char)('A' + source);
+        }
+        return true;
+    } catch (...) { return false; }
+}
+bool save_game_buttonmap(const std::string &root, const std::string &id, const std::string &mapping) {
+    return safe_child(id) && valid_buttonmap(mapping) &&
+           save_config_value(root, ("buttonmap_" + id).c_str(), mapping);
+}
+bool load_game_sticks(const std::string &root, const std::string &id, int &flags, int &deadzone) {
+    flags = 0; deadzone = 8000;
+    if (!safe_child(id)) return false;
+    const std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        const auto v = json5pp::parse(read_limited(path, 16384));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto item = o.find("sticks_" + id);
+        if (item == o.end()) return true;
+        if (!item->second.is_string()) return false;
+        int f = -1, d = -1; char extra = 0;
+        if (sscanf(item->second.as_string().c_str(), "%d,%d%c", &f, &d, &extra) != 2 ||
+            f < 0 || f > 31 || d < 0 || d > 20000) return false;
+        flags = f; deadzone = d;
+        return true;
+    } catch (...) { return false; }
+}
+bool save_game_sticks(const std::string &root, const std::string &id, int flags, int deadzone) {
+    if (!safe_child(id) || flags < 0 || flags > 31 || deadzone < 0 || deadzone > 20000) return false;
+    return save_config_value(root, ("sticks_" + id).c_str(),
+                             std::to_string(flags) + "," + std::to_string(deadzone));
+}
+bool load_game_favorite(const std::string &root, const std::string &id, bool &favorite) {
+    favorite = false;
+    if (!safe_child(id)) return false;
+    const std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        const auto v = json5pp::parse(read_limited(path, 16384));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto item = o.find("favorite_" + id);
+        if (item == o.end()) return true;
+        if (!item->second.is_boolean()) return false;
+        favorite = item->second.as_boolean();
+        return true;
+    } catch (...) { return false; }
+}
+bool save_game_favorite(const std::string &root, const std::string &id, bool favorite) {
+    return safe_child(id) && save_config_value(root, ("favorite_" + id).c_str(), favorite);
+}
+bool load_recent_games(const std::string &root, std::vector<std::string> &ids) {
+    ids.clear();
+    const std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        const auto v = json5pp::parse(read_limited(path, 16384));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto item = o.find("recent_games");
+        if (item == o.end()) return true;
+        if (!item->second.is_string()) return false;
+        const std::string data = item->second.as_string();
+        if (data.size() > 720) return false;
+        std::istringstream stream(data);
+        std::string id;
+        while (std::getline(stream, id, ';')) {
+            if (!safe_child(id) || ids.size() >= 8 ||
+                std::find(ids.begin(), ids.end(), id) != ids.end()) return false;
+            ids.push_back(id);
+        }
+        return true;
+    } catch (...) { ids.clear(); return false; }
+}
+bool record_recent_game(const std::string &root, const std::string &id) {
+    if (!safe_child(id)) return false;
+    std::vector<std::string> ids;
+    if (!load_recent_games(root, ids)) return false;
+    ids.erase(std::remove(ids.begin(), ids.end(), id), ids.end());
+    ids.insert(ids.begin(), id);
+    if (ids.size() > 8) ids.resize(8);
+    std::string data;
+    for (const auto &entry : ids) {
+        if (!data.empty()) data += ';';
+        data += entry;
+    }
+    return save_config_value(root, "recent_games", data);
 }
 }

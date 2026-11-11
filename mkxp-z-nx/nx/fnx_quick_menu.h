@@ -5,6 +5,7 @@
 union SDL_Event;
 namespace fnx {
 enum QuickCommand { QuickNone=0, QuickUp, QuickDown, QuickSelect, QuickBack,
+                    QuickPreviousPage, QuickNextPage,
                     QuickCaptureBase=100 };
 void quick_init(const std::string &root, const std::string &game);
 /* Solo el hilo de eventos llama estas dos funciones. */
@@ -21,6 +22,14 @@ const char *quick_speed_label(int mode);
 double quick_multiplier(int mode);
 int quick_rate(int nominal_hz, int mode);
 int quick_game_button(int physical);
+int quick_game_trigger_button(int axis);
+int quick_trigger_threshold();
+int quick_game_axis(int physical, int value, int &logical);
+const char *quick_button_name(int button);
+int quick_button_source(int logical);
+int quick_stick_flags();
+int quick_stick_deadzone();
+bool quick_set_sticks(int flags, int deadzone);
 const char *quick_controls();
 void quick_capture_start(int logical);
 void quick_capture_cancel();
