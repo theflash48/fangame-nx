@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LOCAL = ROOT / "local"
 RESOURCES = {"Data", "Graphics", "Audio", "Fonts", "Movies"}
 EXCLUDE_DIRS = {"pbs", "databackup", "dataexport", "dist", "credits"}
-SKIP_EXT = {".exe", ".dll", ".pdf", ".lnk", ".rar", ".zip", ".7z"}
+SKIP_EXT = {".exe", ".dll", ".so", ".dylib", ".bundle", ".pdf", ".lnk", ".rar", ".zip", ".7z"}
 SKIP_NAMES = {"thumbs.db", "desktop.ini", ".nomedia"}
 GAME_KEYS = {
     "windowTitle", "defScreenW", "defScreenH", "rgssVersion", "SESourceCount",
@@ -34,6 +34,7 @@ GAME_KEYS = {
 MAX_FILES = 100_000
 MAX_BYTES = 8 * 1024**3
 MAX_CONTAINER_BYTES = 4 * 1024**3 - 64 * 1024**2
+PREPARER_FORMAT = 2
 
 
 def sha(path: Path) -> str:
@@ -121,6 +122,7 @@ class Source:
         self.files: dict[str, object] = {}
         self.folded: dict[str, str] = {}
         self.parents: set[str] = set()
+        self.directories: set[str] = set()
         if self.archive:
             raw = [i for i in self.archive.infolist() if not i.is_dir()]
             if len(raw) > MAX_FILES or sum(i.file_size for i in raw) > MAX_BYTES:
@@ -150,6 +152,9 @@ class Source:
                 if not relative:
                     continue
                 self._add(relative, entry)
+            self.directories = {i.filename[len(prefix):].rstrip("/").casefold()
+                                for i in self.archive.infolist() if i.is_dir() and
+                                i.filename.startswith(prefix) and i.filename[len(prefix):].rstrip("/")}
             if any(name.casefold().rstrip("/") in self.folded for name in
                    (i.filename[len(prefix):] for i in self.archive.infolist() if i.is_dir() and i.filename.startswith(prefix))):
                 raise ValueError("ZIP con archivo y directorio del mismo nombre")
@@ -157,6 +162,8 @@ class Source:
             for file in self.path.rglob("*"):
                 if file.is_symlink():
                     raise ValueError(f"enlace no admitido: {file}")
+                if file.is_dir():
+                    self.directories.add(file.relative_to(self.path).as_posix().casefold())
                 if file.is_file():
                     self._add(file.relative_to(self.path).as_posix(), file)
         else:
@@ -186,7 +193,7 @@ class Source:
 
     def has_path(self, name: str) -> bool:
         folded = name.casefold().rstrip("/")
-        return folded in self.folded or folded in self.parents
+        return folded in self.folded or folded in self.parents or folded in self.directories
 
     def fingerprint(self) -> str:
         if self.archive:
@@ -254,7 +261,10 @@ def profile_for(source: Source, title: str, selected: str) -> tuple[str, dict]:
         paths = detect.get("ficheros") or []
         title_match = bool(pattern and re.search(pattern, title, re.I))
         files_match = bool(paths and all(source.has_path(p.replace("\\", "/")) for p in paths))
-        score = 3 if title_match and files_match else 2 if title_match else 1 if files_match else 0
+        # Un perfil con dos señales exige ambas; un título coincidente por sí
+        # solo no autoriza a inyectar shims de otra edición del juego.
+        score = 3 if title_match and files_match else (
+            2 if title_match and not paths else 1 if files_match and not pattern else 0)
         if selected != "auto" or score:
             profiles.append((score, file.parent.name, profile))
     if selected != "auto" and not profiles:
@@ -265,6 +275,16 @@ def profile_for(source: Source, title: str, selected: str) -> tuple[str, dict]:
     if selected == "auto" and len(profiles) > 1 and profiles[0][0] == profiles[1][0]:
         raise ValueError("varios perfiles coinciden; usa --profile")
     return profiles[0][1], profiles[0][2]
+
+
+def infer_family(source: Source, library: str) -> str | None:
+    names = {name.casefold() for name in source.files}
+    if any(re.fullmatch(r"(?:x64-|x86-)?(?:msvcrt-)?ruby3\d+\.dll", n) for n in names):
+        return "ruby31"
+    game_exe = source.find("Game.exe")
+    if game_exe and source.size(game_exe) <= 1024 * 1024 and re.fullmatch(r"RGSS10\w*\.dll", library, re.I):
+        return "rgss1"
+    return None
 
 
 def diagnose(source: Source, profile_name: str, family: str | None, game_id: str | None,
@@ -279,12 +299,19 @@ def diagnose(source: Source, profile_name: str, family: str | None, game_id: str
     if not title:
         problems.append("Falta Title= en Game.ini")
     selected_name, profile = profile_for(source, title, profile_name)
-    actual_family = family or profile.get("motor")
-    if not actual_family and ini.get("library", "").upper().startswith("RGSS10"):
-        actual_family = "rgss1"
-        warnings.append("Familia rgss1 inferida de Library=; comprobar scripts y compatibilidad Ruby 1.8")
+    library = ini.get("library", "")
+    inferred_family = infer_family(source, library)
+    actual_family = family or profile.get("motor") or inferred_family
+    if not actual_family and re.fullmatch(r"RGSS10\w*\.dll", library, re.I):
+        warnings.append("Library= indica RGSS1, pero no hay Game.exe pequeño; indica --family tras verificar el motor")
+    if family and inferred_family and family != inferred_family:
+        problems.append(f"--family {family} contradice el runtime detectado: {inferred_family}")
+    if profile.get("motor") and inferred_family and profile["motor"] != inferred_family:
+        problems.append(f"Perfil {selected_name} contradice el runtime detectado: {inferred_family}")
+    if re.fullmatch(r"RGSS[23]\w*\.dll", library, re.I):
+        problems.append(f"Library={library} corresponde a RGSS2/3; FangameNX prepara solo RPG Maker XP")
     if actual_family not in {"ruby31", "ruby18", "rgss1"}:
-        problems.append("Familia Ruby desconocida; indica --family")
+        problems.append("Familia Ruby desconocida; indica --family tras comprobar Game.exe, DLL y scripts")
     if actual_family in {"ruby18", "rgss1"}:
         warnings.append("Scripts antiguos: el runtime ejecuta Ruby 3.1; posible transformación NXFuente")
     names = source.files
@@ -296,12 +323,50 @@ def diagnose(source: Source, profile_name: str, family: str | None, game_id: str
     if resource_bytes > MAX_CONTAINER_BYTES:
         problems.append("Recursos demasiado grandes para datos.zip sin ZIP64 verificado")
     script_path = ini.get("scripts", "Data/Scripts.rxdata").replace("\\", "/")
+    script_format = "desconocido"
     if not safe_name(script_path):
         problems.append("Scripts= contiene una ruta insegura")
-    elif not source.find(script_path) and not any(n.casefold().startswith("data/scripts/") for n in names):
+    elif source.find(script_path):
+        if not script_path.casefold().endswith(".rxdata"):
+            problems.append(f"Scripts= usa un formato no verificado para RPG Maker XP: {script_path}")
+        else:
+            with source.open(source.find(script_path)) as script_stream:
+                if script_stream.read(2) != b"\x04\x08":
+                    problems.append(f"{script_path} no comienza con la cabecera Ruby Marshal esperada")
+                else:
+                    script_format = "rxdata-marshal"
+    elif any(n.casefold().startswith("data/scripts/") and n.casefold().endswith(".rb") for n in names):
+        script_format = "ruby-suelto"
+    else:
         problems.append(f"No se encontró el archivo o carpeta de scripts: {script_path}")
+    native_files = sorted(n for n in names if n.casefold().endswith((".dll", ".so", ".dylib", ".bundle")) and
+                          not re.fullmatch(r"(?i)RGSS\d+\w*\.dll", n))
+    if native_files:
+        warnings.append(f"{len(native_files)} bibliotecas nativas del PC no se copian ni ejecutan en Horizon; revisar si los scripts las requieren")
+    own_config = source.find("mkxp.json")
+    if own_config:
+        try:
+            game_config = json5_object(source.read(own_config, 512 * 1024))
+            if game_config.get("rgssVersion", 1) != 1:
+                problems.append("mkxp.json fija rgssVersion distinto de 1; este preparador solo admite RPG Maker XP")
+            for dimension in ("defScreenW", "defScreenH"):
+                value = game_config.get(dimension)
+                if value is not None and (type(value) is not int or not 1 <= value <= 2048):
+                    problems.append(f"mkxp.json contiene {dimension} fuera de 1..2048")
+            width, height = game_config.get("defScreenW", 640), game_config.get("defScreenH", 480)
+            if type(width) is int and type(height) is int and (width > 1280 or height > 720):
+                warnings.append("Resolución interna superior a 1280x720; rendimiento y presentación sin verificar")
+            patches = game_config.get("patches", [])
+            if not isinstance(patches, list) or any(not isinstance(p, str) or
+                    not safe_name(p) or p.casefold() not in source.parents | source.directories
+                    for p in patches):
+                problems.append("mkxp.json declara patches ausentes o inseguros")
+        except (ValueError, UnicodeDecodeError, json.JSONDecodeError) as error:
+            problems.append(f"mkxp.json no se puede interpretar: {error}")
     if source.find("Game.rgssad"):
-        warnings.append("Archivo Game.rgssad existente: se conservará; revisar si está cifrado")
+        archive_name = source.find("Game.rgssad")
+        if source.size(archive_name) != 8 or source.read(archive_name, 8) != b"RGSSAD\0\1":
+            problems.append("Game.rgssad no es la llave vacía de 8 bytes; archivo cifrado no verificado")
     other_archives = [n for n in names if "/" not in n and
                       n.casefold().endswith((".rgssad", ".rgss2a", ".rgss3a")) and
                       n.casefold() != "game.rgssad"]
@@ -310,7 +375,7 @@ def diagnose(source: Source, profile_name: str, family: str | None, game_id: str
                         ", ".join(other_archives[:3]))
     if (profile.get("mkxp") or {}).get("execName") not in (None, "Game"):
         problems.append("El perfil usa execName distinto de Game; revisar alias de INI y archivo RGSS")
-    if source.find("mkxp.json") is None:
+    if own_config is None:
         warnings.append("Sin mkxp.json propio; se usará la base del runtime")
     if any(not n.isascii() for n in names):
         warnings.append("Hay nombres no ASCII; verificar su copia cuando se transfiera por MTP")
@@ -338,8 +403,12 @@ def diagnose(source: Source, profile_name: str, family: str | None, game_id: str
         "author": author or "", "version": version or "", "profile": selected_name,
         "family": actual_family, "source_files": len(names),
         "estimated_source_bytes": estimated, "scripts": script_path,
+        "script_format": script_format, "library": library,
+        "profile_signals": "perfil seleccionado" if selected_name != "generico" else "sin perfil específico",
+        "native_dependencies": native_files,
         "resources": {d: sum(n.casefold().startswith(d.casefold() + "/") for n in names) for d in RESOURCES},
         "problems": problems, "warnings": warnings,
+        "diagnostic_phase": "preparacion", "runtime_verified": False,
         "ready_for_staging": not problems,
     }
 
@@ -390,6 +459,8 @@ def build(source: Source, report: dict, profile: dict, output: Path) -> dict:
         if not manifest_path.is_file():
             raise FileExistsError(f"staging existente sin manifiesto: {output}")
         recorded = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if recorded.get("preparer_format") != PREPARER_FORMAT:
+            raise ValueError("el staging usa otra versión del preparador; usa un destino nuevo")
         if recorded.get("source_sha256") != source_hash:
             raise ValueError("el staging existente procede de otra fuente; se conserva")
         if any(recorded.get(key) != report[key] for key in
@@ -473,6 +544,13 @@ def build(source: Source, report: dict, profile: dict, output: Path) -> dict:
                 source.copy(name, target)
         if not packed:
             raise ValueError("sin recursos para datos.zip")
+        # mkxp permite carpetas de parches vacías; se conservan aunque ZIP no
+        # tenga archivos dentro para que el contrato de mkxp.json siga válido.
+        own_config = source.find("mkxp.json")
+        if own_config:
+            for patch_dir in json5_object(source.read(own_config, 512 * 1024)).get("patches", []):
+                if patch_dir.casefold() in source.directories:
+                    (partial / patch_dir).mkdir(parents=True, exist_ok=True)
         with zipfile.ZipFile(partial / "datos.zip", "w", compression=zipfile.ZIP_STORED, allowZip64=False) as archive:
             for name, target_name in packed:
                 with source.open(name) as src, archive.open(target_name, "w") as dest:
@@ -481,6 +559,7 @@ def build(source: Source, report: dict, profile: dict, output: Path) -> dict:
             (partial / "Game.rgssad").write_bytes(b"RGSSAD\x00\x01")
         runtime_config(source, report, profile, partial)
         manifest = {
+            "preparer_format": PREPARER_FORMAT,
             "id": report["id"], "source_kind": "zip" if source.archive else "folder",
             "source_sha256": source_hash, "profile": report["profile"],
             "family": report["family"], "name": report["name"],

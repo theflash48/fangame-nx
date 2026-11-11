@@ -96,5 +96,26 @@ int main(int argc,char **argv) {
     auto packaged=fnx::scan(argv[2]);
     assert(packaged.error.empty() && packaged.games.size()==2);
     assert(packaged.games[0].ready && packaged.games[1].ready);
+    fs::path catalog=root/"catalog";
+    fs::create_directories(catalog/"games");
+    for (int i=0; i<80; ++i) {
+        const std::string id="game-"+std::to_string(1000+i).substr(1);
+        fs::path entry=catalog/"games"/id;
+        put(entry/"fangamenx.json", "{\"id\":\""+id+"\",\"name\":\""+
+            std::string(i==0?96:12,'N')+"\"}");
+        put(entry/"mkxp.json","{}");
+        put(entry/"lib"/"nx-compat.rb","");
+        put(entry/"lib"/"socket.rb","");
+        put(entry/"Data"/"Scripts.rxdata","");
+        fs::create_directories(entry/"Graphics");
+        fs::create_directories(entry/"Audio");
+    }
+    put(catalog/"games"/"game-001"/"cover.png","PNG corrupto");
+    put(catalog/"games"/"game-002"/"fangamenx.json","{invalid json");
+    auto many=fnx::scan(catalog.string());
+    assert(many.error.empty() && many.games.size()==80);
+    assert(many.games.front().id=="game-000" && many.games.front().title.size()==96);
+    assert(many.games[1].ready && !many.games[1].cover.empty());
+    assert(!many.games[2].ready);
     std::cout<<"launcher_host: OK\n";
 }

@@ -4,6 +4,7 @@
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import struct
 import subprocess
 import sys
@@ -43,7 +44,7 @@ def main() -> None:
         (game / "Graphics/Pictures").mkdir(parents=True)
         (game / "Audio").mkdir()
         (game / "Game.ini").write_text("[Game]\nTitle=Juego de prueba\nLibrary=RGSS104E.dll\nScripts=Data\\Scripts.rxdata\n")
-        (game / "Data/Scripts.rxdata").write_bytes(b"datos sinteticos")
+        (game / "Data/Scripts.rxdata").write_bytes(b"\x04\x08datos sinteticos")
         (game / "Graphics/Pictures/titulo.png").write_bytes(png())
         (game / "Audio/sonido.ogg").write_bytes(b"sonido sintetico")
         source_hash = hashlib.sha256((game / "Graphics/Pictures/titulo.png").read_bytes()).hexdigest()
@@ -72,6 +73,7 @@ def main() -> None:
         assert "lib/nx-ruby18.rb" in config["preloadScript"]
         assert json.loads((stage / "fangamenx.json").read_text(encoding="utf-8"))["cover"] == "cover.png"
         manifest = json.loads((base / "stage.manifest.json").read_text(encoding="utf-8"))
+        assert manifest["preparer_format"] == 2
         for item in manifest["files"]:
             file = stage / item["path"]
             assert file.stat().st_size == item["size"]
@@ -116,7 +118,7 @@ def main() -> None:
         (incomplete / "Data").mkdir(parents=True)
         (incomplete / "Graphics").mkdir()
         (incomplete / "Game.ini").write_text("[Game]\nTitle=Incompleto\n")
-        (incomplete / "Data/Scripts.rxdata").write_bytes(b"script")
+        (incomplete / "Data/Scripts.rxdata").write_bytes(b"\x04\x08script")
         (incomplete / "Graphics/title.png").write_bytes(png())
         missing = run(incomplete, "--diagnose", "--family", "rgss1")
         assert missing.returncode == 2 and "Falta Audio/" in missing.stdout
@@ -134,6 +136,78 @@ def main() -> None:
         assert found.returncode == 0, found.stderr
         assert json.loads(found.stdout)["profile"] == "pokemon-vanguard"
         assert (game / "Graphics/Pictures/titulo.png").is_file()
+        variants = base / "variants"
+        variants.mkdir()
+        modern = variants / "modern"
+        shutil.copytree(game, modern)
+        (modern / "Game.ini").write_text(
+            "[Game]\nTitle=Faro Azul\nLibrary=RGSS104E.dll\nScripts=Data\\Scripts.rxdata\n")
+        (modern / "x64-msvcrt-ruby310.dll").write_bytes(b"DLL PC")
+        (modern / "native.so").write_bytes(b"biblioteca PC")
+        (modern / "Graphics/Pictures/Señal.png").write_bytes(png())
+        (modern / "patch").mkdir()
+        (modern / "mkxp.json").write_text(
+            '{"defScreenW":512,"defScreenH":384,"patches":["patch"]}')
+        before = hashlib.sha256((modern / "Graphics/Pictures/Señal.png").read_bytes()).hexdigest()
+        modern_check = run(modern, "--diagnose")
+        modern_report = json.loads(modern_check.stdout)
+        assert modern_check.returncode == 0 and modern_report["family"] == "ruby31"
+        assert modern_report["profile"] == "generico" and modern_report["script_format"] == "rxdata-marshal"
+        assert "x64-msvcrt-ruby310.dll" in modern_report["native_dependencies"]
+        modern_stage = base / "modern-stage"
+        modern_build = run(modern, "--output", modern_stage)
+        assert modern_build.returncode == 0, modern_build.stderr
+        assert (modern_stage / "patch").is_dir()
+        assert not (modern_stage / "x64-msvcrt-ruby310.dll").exists()
+        assert not (modern_stage / "native.so").exists()
+        assert json.loads((modern_stage / "mkxp.json").read_text())["defScreenW"] == 512
+        with zipfile.ZipFile(modern_stage / "datos.zip") as archive:
+            assert "Graphics/Pictures/Señal.png" in archive.namelist()
+        assert hashlib.sha256((modern / "Graphics/Pictures/Señal.png").read_bytes()).hexdigest() == before
+        wider = variants / "wider"
+        shutil.copytree(modern, wider)
+        (wider / "mkxp.json").write_text('{"defScreenW":640,"defScreenH":480}')
+        wider_build = run(wider, "--output", base / "wider-stage")
+        assert wider_build.returncode == 0, wider_build.stderr
+        wider_config = json.loads((base / "wider-stage/mkxp.json").read_text())
+        assert wider_config["defScreenW"] == 640 and wider_config["defScreenH"] == 480
+        bad_dimensions = variants / "bad-dimensions"
+        shutil.copytree(modern, bad_dimensions)
+        (bad_dimensions / "mkxp.json").write_text('{"defScreenW":-1,"defScreenH":720}')
+        assert "defScreenW fuera de 1..2048" in run(bad_dimensions, "--diagnose").stdout
+
+        old_engine = variants / "rgss2"
+        shutil.copytree(modern, old_engine)
+        (old_engine / "Game.ini").write_text(
+            "[Game]\nTitle=Otro motor\nLibrary=RGSS202E.dll\nScripts=Data\\Scripts.rxdata\n")
+        unsupported = run(old_engine, "--diagnose", "--family", "ruby31")
+        assert unsupported.returncode == 2 and "RGSS2/3" in unsupported.stdout
+        bad_script = variants / "bad-script"
+        shutil.copytree(game, bad_script)
+        (bad_script / "Data/Scripts.rxdata").write_bytes(b"formato desconocido")
+        assert "cabecera Ruby Marshal" in run(bad_script, "--diagnose", "--family", "rgss1").stdout
+        bad_config = variants / "bad-config"
+        shutil.copytree(modern, bad_config)
+        (bad_config / "mkxp.json").write_text('{"rgssVersion":3}')
+        assert "rgssVersion distinto de 1" in run(bad_config, "--diagnose").stdout
+        bad_archive = variants / "bad-archive"
+        shutil.copytree(game, bad_archive)
+        (bad_archive / "Game.rgssad").write_bytes(b"RGSSAD\0\1datos cifrados")
+        assert "archivo cifrado no verificado" in run(bad_archive, "--diagnose", "--family", "rgss1").stdout
+        misleading = variants / "misleading-title"
+        shutil.copytree(modern, misleading)
+        (misleading / "Game.ini").write_text(
+            "[Game]\nTitle=Pokemon Reborn\nLibrary=RGSS104E.dll\nScripts=Data\\Scripts.rxdata\n")
+        misleading_check = run(misleading, "--diagnose")
+        assert misleading_check.returncode == 0
+        assert json.loads(misleading_check.stdout)["profile"] == "generico"
+        no_cover = variants / "no-cover"
+        shutil.copytree(game, no_cover)
+        (no_cover / "Graphics/Pictures/titulo.png").unlink()
+        (no_cover / "Graphics/Pictures/icon.png").write_bytes(png())
+        missing_cover = run(no_cover, "--output", base / "no-cover-stage", "--family", "rgss1")
+        assert missing_cover.returncode == 0 and "portada de reserva" in missing_cover.stdout
+        assert not (base / "no-cover-stage/cover.png").exists()
     print("prepare_launcher_game: OK")
 
 
