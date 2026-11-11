@@ -63,6 +63,12 @@ int main(int argc,char **argv) {
         bool logical[SDL_CONTROLLER_BUTTON_MAX] = {};
         int mappedAxes[SDL_CONTROLLER_AXIS_MAX] = {};
         auto project = [&] { fnx::quick_project_controller(physical,axes,logical,mappedAxes); };
+        for (int face : {SDL_CONTROLLER_BUTTON_A, SDL_CONTROLLER_BUTTON_B,
+                         SDL_CONTROLLER_BUTTON_X, SDL_CONTROLLER_BUTTON_Y}) {
+            physical[face]=true; project(); assert(logical[face]);
+            project(); assert(logical[face]);
+            physical[face]=false; project(); assert(!logical[face]);
+        }
         physical[SDL_CONTROLLER_BUTTON_A]=true; project();
         assert(logical[SDL_CONTROLLER_BUTTON_A] && !logical[SDL_CONTROLLER_BUTTON_Y]);
         project(); assert(logical[SDL_CONTROLLER_BUTTON_A]); /* mantenimiento */
@@ -85,6 +91,12 @@ int main(int argc,char **argv) {
         project(); assert(logical[SDL_CONTROLLER_BUTTON_A]);
         axes[SDL_CONTROLLER_AXIS_TRIGGERLEFT]=0; project();
         assert(!logical[SDL_CONTROLLER_BUTTON_A]);
+        assert(fnx::quick_assign(SDL_CONTROLLER_BUTTON_B,16));
+        axes[SDL_CONTROLLER_AXIS_TRIGGERRIGHT]=20000; project();
+        assert(logical[SDL_CONTROLLER_BUTTON_B]);
+        project(); assert(logical[SDL_CONTROLLER_BUTTON_B]);
+        axes[SDL_CONTROLLER_AXIS_TRIGGERRIGHT]=0; project();
+        assert(!logical[SDL_CONTROLLER_BUTTON_B]);
         physical[SDL_CONTROLLER_BUTTON_A]=false;
         std::fill(physical,physical+SDL_CONTROLLER_BUTTON_MAX,false);
         std::fill(axes,axes+SDL_CONTROLLER_AXIS_MAX,0);
@@ -136,6 +148,10 @@ int main(int argc,char **argv) {
     fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_START));
     fake_ticks=1200; assert(!fnx::quick_tick());
     fake_ticks=2001; assert(fnx::quick_tick());
+    SDL_Event escape{}; escape.type=SDL_KEYDOWN; escape.key.keysym.sym=SDLK_ESCAPE;
+    fnx::quick_capture_start(0);
+    assert(fnx::quick_event(escape));
+    assert(fnx::quick_take_command()==fnx::QuickBack);
     fnx::quick_capture_start(0);
     assert(fnx::quick_event(button(SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLER_BUTTON_MISC1)));
     assert(fnx::quick_take_command()==fnx::QuickNone);
