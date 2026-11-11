@@ -28,6 +28,13 @@ int main(int argc,char **argv) {
     pace.reset(); assert(pace.advance(2000,50)==2050); /* 0,5x */
     std::filesystem::create_directories(std::filesystem::path(root)/"config");
     fnx::quick_init(root,"pokemon-opalo");
+    assert(fnx::quick_menu_row_count(7)==1);
+    assert(std::string(fnx::quick_menu_row_label(7,0))=="Cerrar aviso");
+    fnx::quick_open_settings_notice();
+    assert(fnx::quick_active() && fnx::quick_take_settings_notice());
+    assert(!fnx::quick_take_settings_notice());
+    fnx::quick_close();
+    fnx::quick_init(root,"pokemon-opalo");
     assert(std::string(fnx::quick_button_name(SDL_CONTROLLER_BUTTON_A))=="B");
     assert(std::string(fnx::quick_button_name(SDL_CONTROLLER_BUTTON_B))=="A");
     assert(std::string(fnx::quick_button_name(SDL_CONTROLLER_BUTTON_X))=="Y");

@@ -24,6 +24,7 @@ SDL_atomic_t physicalToLogical[mappedSources] = {};
 SDL_atomic_t stickFlags = {}, stickDeadzone = {};
 SDL_atomic_t capture = {};
 SDL_atomic_t exitRequest = {};
+SDL_atomic_t settingsNotice = {};
 bool chordReady = true;
 Uint32 chordSince = 0;
 
@@ -58,6 +59,7 @@ void quick_init(const std::string &root, const std::string &game) {
     SDL_AtomicSet(&stickDeadzone, deadzone);
     SDL_AtomicSet(&capture, -1);
     SDL_AtomicSet(&exitRequest, 0);
+    SDL_AtomicSet(&settingsNotice, 0);
     SDL_AtomicSet(&speed, mode);
     SDL_AtomicSet(&active, 0);
     SDL_AtomicSet(&command, 0);
@@ -165,6 +167,13 @@ bool quick_tick() {
     return true;
 }
 bool quick_active() { return SDL_AtomicGet(&active) != 0; }
+void quick_open_settings_notice() {
+    if (SDL_AtomicGet(&active)) return;
+    SDL_AtomicSet(&settingsNotice, 1);
+    SDL_AtomicSet(&command, 0);
+    SDL_AtomicSet(&active, 1);
+}
+bool quick_take_settings_notice() { return SDL_AtomicSet(&settingsNotice, 0) != 0; }
 bool quick_chord_candidate() {
     return held[SDL_CONTROLLER_BUTTON_LEFTSHOULDER] &&
            held[SDL_CONTROLLER_BUTTON_RIGHTSHOULDER];
@@ -175,6 +184,7 @@ void quick_close() {
     SDL_AtomicSet(&command, 0);
     SDL_AtomicSet(&closing, 1);
     SDL_AtomicSet(&capture, -1);
+    SDL_AtomicSet(&settingsNotice, 0);
 }
 int quick_speed() { return SDL_AtomicGet(&speed); }
 bool quick_set_speed(int mode) {
@@ -288,7 +298,7 @@ int quick_menu_row_count(int view) {
         case 3: return 2;          /* confirmación de salida */
         case 4: return 8;          /* cinco entradas, página, restaurar, volver */
         case 6: return 8;          /* opciones de sticks y restauración */
-        case 2: case 5: return 1;  /* diagnóstico, captura */
+        case 2: case 5: case 7: return 1;  /* diagnóstico, captura, aviso */
         default: return 0;
     }
 }
@@ -303,6 +313,7 @@ const char *quick_menu_row_label(int view, int index) {
         case 0: return mainRows[index];
         case 1: return speedRows[index];
         case 3: return confirmRows[index];
+        case 7: return "Cerrar aviso";
         case 4: return index < 5 ? "Entrada del juego" :
                        index == 5 ? "Pagina siguiente" :
                        index == 6 ? "Opciones de sticks" : "Volver";

@@ -1,0 +1,106 @@
+--- a/src/eventthread.cpp
++++ b/src/eventthread.cpp
+@@ -37,6 +37,7 @@
+ #include "graphics.h"
+ #if defined(__SWITCH__) && defined(FNX_LAUNCHER)
+ #include "fnx_quick_menu.h"
++extern "C" void nx_boot_trace_sync(const char *msg);
+ #endif
+ 
+ #ifndef MKXPZ_BUILD_XCODE
+@@ -455,6 +456,9 @@
+                 
+                 if (event.key.keysym.scancode == SDL_SCANCODE_F1 && rtData.config.enableSettings)
+                 {
++#ifdef __SWITCH__
++                    requestSettingsMenu();
++#else
+ #ifndef MKXPZ_BUILD_XCODE
+                     if (!sMenu)
+                     {
+@@ -465,6 +469,7 @@
+                     sMenu->raise();
+ #else
+                     openSettingsWindow();
++#endif
+ #endif
+                 }
+                 
+@@ -721,6 +726,14 @@
+                         break;
+                         
+                     case REQUEST_SETTINGS :
++#ifdef __SWITCH__
++#ifdef FNX_LAUNCHER
++                        fnx::quick_open_settings_notice();
++                        nx_boot_trace_sync("[settings] ventana de teclado no disponible; aviso en overlay");
++#else
++                        Debug() << "Keyboard settings window unavailable on Horizon";
++#endif
++#else
+ #ifndef MKXPZ_BUILD_XCODE
+                         if (!sMenu)
+                         {
+@@ -731,6 +744,7 @@
+                         sMenu->raise();
+ #else
+                         openSettingsWindow();
++#endif
+ #endif
+                         break;
+                         
+--- a/src/display/graphics.cpp
++++ b/src/display/graphics.cpp
+@@ -983,7 +983,8 @@
+         menuFont.setColor(white);
+         Bitmap overlay(1280, 720);
+         overlay.setInitFont(&menuFont);
+-        int view = 0, selected = 0, controlPage = 0, captureLogical = -1;
++        int view = fnx::quick_take_settings_notice() ? 7 : 0;
++        int selected = 0, controlPage = 0, captureLogical = -1;
+         const int editableButtons[15] = {1, 0, 3, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 5};
+         Uint32 captureStarted = 0;
+         bool dirty = true, leaving = false, saveError = false, lastSwap = false;
+@@ -1045,13 +1046,14 @@
+                 selected = (selected + 1) % navigationCount; dirty = true;
+             }
+             if (cmd == fnx::QuickBack) {
+-                if (view == 0) fnx::quick_close();
++                if (view == 0 || view == 7) fnx::quick_close();
+                 else if (view == 5) { fnx::quick_capture_cancel(); view = 4; dirty = true; }
+                 else if (view == 6) { view = 4; selected = controlPage == 3 ? 3 : 6; dirty = true; }
+                 else { view = 0; selected = 0; dirty = true; }
+             }
+             if (cmd == fnx::QuickSelect) {
+-                if (view == 0) {
++                if (view == 7) fnx::quick_close();
++                else if (view == 0) {
+                     if (selected == 0) fnx::quick_close();
+                     else { view = selected == 1 ? 1 : selected == 2 ? 4 :
+                                   selected == 3 ? 2 : 3;
+@@ -1161,7 +1163,13 @@
+                              fnx::quick_stick_deadzone());
+                     items[5] = controlItems[5];
+                 }
+-                if (view == 5) {
++                if (view == 7) {
++                    overlay.drawText(287, 205, 700, 46, "Editor de teclado no disponible en Switch.");
++                    overlay.drawText(287, 270, 700, 42, "Esta funcion usa una segunda ventana de PC.");
++                    overlay.drawText(287, 335, 700, 42, "Para cambiar el mando, abre L+R+PLUS");
++                    overlay.drawText(287, 390, 700, 42, "y elige Controles del juego.");
++                    overlay.drawText(287, 470, 700, 42, "El juego continua al cerrar este aviso.");
++                } else if (view == 5) {
+                     char line[130];
+                     snprintf(line, sizeof(line), "Entrada del juego: %s", fnx::quick_button_name(captureLogical));
+                     overlay.drawText(287, 230, 700, 50, line);
+@@ -1207,7 +1215,9 @@
+                     else if (view == 4 && lastSwap)
+                         overlay.drawText(287, 550, 700, 36, "Conflicto: se intercambiaron las entradas.");
+                 }
+-                overlay.drawText(288, 588, 690, 36, "A: elegir    B: volver    L/R: pagina de controles");
++                overlay.drawText(288, 588, 690, 36, view == 7 ?
++                    "A o B: volver al juego" :
++                    "A: elegir    B: volver    L/R: pagina de controles");
+                 dirty = false;
+             }
+             drawQuickFrame(overlay);

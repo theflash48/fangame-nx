@@ -14,6 +14,9 @@ bool quick_tick();
 bool quick_chord_candidate();
 /* Solo el hilo RGSS usa los comandos y dibuja el menú. */
 bool quick_active();
+/* Solicitud de System.show_settings: evita la ventana SDL externa en Horizon. */
+void quick_open_settings_notice();
+bool quick_take_settings_notice();
 int quick_take_command();
 void quick_close();
 int quick_speed();
