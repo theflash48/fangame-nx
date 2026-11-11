@@ -94,9 +94,11 @@
 !/tests/fakes/SDL.h
 !/tests/run-launcher-host.cmd
 !/tests/test_prepare_launcher_game.py
+!/tests/test_release_updater.py
 !/packaging/
 /packaging/*
 !/packaging/build-launcher-package.py
+!/packaging/release_updater.py
 !/packaging/make-launcher-icon.ps1
 !/packaging/auto_cover.py
 !/packaging/install-launcher-game.py
