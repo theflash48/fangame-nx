@@ -439,4 +439,24 @@ bool record_recent_game(const std::string &root, const std::string &id) {
     }
     return save_config_value(root, "recent_games", data);
 }
+bool load_sort_mode(const std::string &root, int &mode) {
+    mode = 0;
+    const std::string path = config_read_path(root);
+    if (!regular(path)) return true;
+    try {
+        const auto v = json5pp::parse(read_limited(path, 16384));
+        if (!v.is_object()) return false;
+        const auto &o = v.as_object();
+        auto item = o.find("sort_mode");
+        if (item == o.end()) return true;
+        if (!item->second.is_number()) return false;
+        const int selected = item->second.as_integer();
+        if (selected < 0 || selected > 2) return false;
+        mode = selected;
+        return true;
+    } catch (...) { return false; }
+}
+bool save_sort_mode(const std::string &root, int mode) {
+    return mode >= 0 && mode <= 2 && save_config_value(root, "sort_mode", mode);
+}
 }

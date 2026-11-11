@@ -102,7 +102,13 @@ struct Ui {
     bool scan_pending = true;
     std::string launch;
     std::map<std::string, SDL_Texture *> cover_textures;
+    size_t cover_page_start = (size_t)-1;
 };
+static void clear_covers(Ui &u) {
+    for (auto &entry : u.cover_textures) if (entry.second) SDL_DestroyTexture(entry.second);
+    u.cover_textures.clear();
+    u.cover_page_start = (size_t)-1;
+}
 static bool cover_dimensions_ok(const std::string &path) {
     struct stat info;
     if (stat(path.c_str(), &info) != 0 || info.st_size < 24 || info.st_size > 8 * 1024 * 1024)
@@ -175,8 +181,7 @@ static void game_cover(SDL_Renderer *r, Ui &u, const Game &g, int x, int y, int 
     SDL_RenderCopy(r,texture,nullptr,&dest);
 }
 static void rescan(Ui &u) {
-    for (auto &entry : u.cover_textures) if (entry.second) SDL_DestroyTexture(entry.second);
-    u.cover_textures.clear();
+    clear_covers(u);
     const std::string wanted = u.scan.games.empty() ? u.last_game : u.scan.games[u.selected].id;
     u.scan = scan(u.root);
     u.favorites.clear();
@@ -237,6 +242,10 @@ static void render(SDL_Renderer *r, TTF_Font *title, TTF_Font *normal, TTF_Font 
             const int height = u.compact ? 136 : 207;
             const int coverWidth = u.compact ? 88 : 125;
             size_t start = first_visible(u);
+            if (u.cover_page_start != start) {
+                clear_covers(u);
+                u.cover_page_start = start;
+            }
             for (int i=0; i<shown && start+(size_t)i<u.scan.games.size(); ++i) {
                 size_t index = start+i;
                 const Game &g = u.scan.games[index];
@@ -328,8 +337,14 @@ static void action(Ui &u, int kind) {
         }
     } else if (kind == 6) {
         if (u.view == LIBRARY) {
-            u.sort_mode=(u.sort_mode+1)%3;
-            u.scan_back=LIBRARY; u.view=SCANNING; u.scan_pending=true;
+            const int next=(u.sort_mode+1)%3;
+            if (save_sort_mode(u.root,next)) {
+                u.sort_mode=next;
+                u.scan_back=LIBRARY; u.view=SCANNING; u.scan_pending=true;
+            } else {
+                u.message="No se pudo guardar el orden de la biblioteca.";
+                u.message_back=LIBRARY; u.view=MESSAGE;
+            }
         }
     } else if (kind == 0) {
         if (u.view == LIBRARY && !u.scan.games.empty()) u.view=DETAILS;
@@ -412,6 +427,7 @@ std::string launcher(const std::string &root) {
     log_line(root,"inicio: launcher");
     if (!load_preference(root,u.compact)) log_line(root,"config: invalida; valores predeterminados");
     if (!load_last_game(root,u.last_game)) log_line(root,"config: ultimo juego invalido; foco inicial predeterminado");
+    if (!load_sort_mode(root,u.sort_mode)) log_line(root,"config: orden invalido; se usa A-Z");
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) != 0) return "";
     if (TTF_Init() != 0) { SDL_Quit(); return ""; }
     SDL_Window *window=SDL_CreateWindow("FangameNX",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1280,720,0);
@@ -474,7 +490,7 @@ std::string launcher(const std::string &root) {
         if (u.running && e.type != SDL_CONTROLLERDEVICEADDED) render(r,title,normal,small,u);
     }
     if (pad) SDL_GameControllerClose(pad);
-    for (auto &entry : u.cover_textures) if (entry.second) SDL_DestroyTexture(entry.second);
+    clear_covers(u);
     if (small) TTF_CloseFont(small);
     if (title) TTF_CloseFont(title);
     if (normal) TTF_CloseFont(normal);

@@ -40,5 +40,7 @@ bool load_game_favorite(const std::string &root, const std::string &id, bool &fa
 bool save_game_favorite(const std::string &root, const std::string &id, bool favorite);
 bool load_recent_games(const std::string &root, std::vector<std::string> &ids);
 bool record_recent_game(const std::string &root, const std::string &id);
+bool load_sort_mode(const std::string &root, int &mode);
+bool save_sort_mode(const std::string &root, int mode);
 }
 #endif

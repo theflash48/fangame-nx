@@ -86,6 +86,11 @@ int main(int argc,char **argv) {
     assert(fnx::load_recent_games(root.string(),recent));
     assert(recent.size()==2 && recent[0]=="alpha" && recent[1]=="broken");
     assert(!fnx::record_recent_game(root.string(),"../escape"));
+    int sort_mode=-1;
+    assert(fnx::load_sort_mode(root.string(),sort_mode) && sort_mode==0);
+    assert(fnx::save_sort_mode(root.string(),2));
+    assert(fnx::load_sort_mode(root.string(),sort_mode) && sort_mode==2);
+    assert(!fnx::save_sort_mode(root.string(),3));
     put(root/"config"/"launcher.json","{\"schema\":1,\"compact\":false,\"last_game\":\"../escape\"}");
     assert(!fnx::load_last_game(root.string(),last) && last.empty());
     auto packaged=fnx::scan(argv[2]);
