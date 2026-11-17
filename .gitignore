@@ -313,3 +313,7 @@
 *.keys
 prod.keys
 title.keys
+
+# Python generated cache in any project folder
+**/__pycache__/
+*.pyc
